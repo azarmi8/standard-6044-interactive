@@ -24,16 +24,16 @@ Deliver a finished, independently usable Persian RTL interactive engineering boo
 - User accounts/cloud sync unless required by an already-completed core feature.
 
 # Phase 1 — Source Lock & Audit
-**Status: SOURCE CONTENT AUDIT COMPLETE — 22/22 learning units verified.**
+**Status: COMPLETE — 22/22 learning units verified + current HTML numeric reconciliation.**
 
 - [x] Audit PDF identity, revision, structure and pages.
 - [x] Audit Chapters 1–15.
 - [x] Audit Appendices A–G.
 - [x] Establish OCR ambiguity rule.
-- [ ] Reconcile every source-derived numeric/table/formula value in existing HTML and simulation logic against the verified source ledger.
+- [x] Reconcile source-derived numeric/table/formula values currently embedded in instructional HTML against the verified source ledger.
 
 **Exit gate:** content claims in Units 1–22 have verified source locations.  
-**Remaining Phase-1 QA:** implementation reconciliation only.
+**Phase 1 exit gate: PASSED.**
 
 # Phase 2 — Content Architecture
 - [ ] Learning objectives for every unit.
