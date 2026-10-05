@@ -12,7 +12,7 @@ function decode(s){
   return s.replace(/\\'/g,"'").replace(/\\n/g,' ').replace(/\\t/g,' ');
 }
 function extract(content,key){
-  const re=new RegExp(key+'\\s*:\\s*\\'((?:\\\\\\'|[^\\'])*)\\'','g');
+  const re=new RegExp(key + "\\s*:\\s*'([^']*)'", "g");
   return [...content.matchAll(re)].map(m=>decode(m[1]));
 }
 function normalizeForSpeech(text){
