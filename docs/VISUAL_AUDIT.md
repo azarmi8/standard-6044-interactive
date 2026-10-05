@@ -1,10 +1,10 @@
 # Visual & Engine Audit — 6044 Interactive
 
 ## Audit scope
-Branch: `phase5/narration-foundation`  
-Audit date: 2026-10-05
+Branch: `phase9/legacy-engine-migration`  
+Audit date: 2026-10-06
 
-Checked Chapters 1–15 for:
+Checked Chapters 1–15 and Appendices A–G (Units 16–22) for:
 - document title
 - Persian RTL contract (`lang="fa"`, `dir="rtl"`)
 - 1600×900 SVG stage
@@ -18,27 +18,39 @@ Checked Chapters 1–15 for:
 | 01 | ✅ | ✅ | ✅ | ❌ | ✅ |
 | 02 | ✅ | ✅ | ✅ | ❌ | ✅ |
 | 03 | ✅ | ✅ | ✅ | ❌ | ✅ |
-| 04 | ✅ | ✅ | ✅ | ❌ | ⚠️ legacy inline |
-| 05 | ✅ | ✅ | ✅ | ❌ | ⚠️ legacy inline |
-| 06 | ✅ | ✅ | ✅ | ❌ | ⚠️ legacy inline |
+| 04 | ✅ | ✅ | ✅ | ❌ | ✅ |
+| 05 | ✅ | ✅ | ✅ | ❌ | ✅ |
+| 06 | ✅ | ✅ | ✅ | ❌ | ✅ |
 | 07 | ✅ | ✅ | ✅ | ❌ | ✅ |
 | 08 | ✅ | ✅ | ✅ | ❌ | ✅ |
-| 09 | ✅ | ✅ | ✅ | ❌ | ⚠️ legacy inline |
+| 09 | ✅ | ✅ | ✅ | ❌ | ✅ |
 | 10 | ✅ | ✅ | ✅ | ❌ | ✅ |
 | 11 | ✅ | ✅ | ✅ | ❌ | ✅ |
-| 12 | ✅ | ✅ | ✅ | ❌ | ⚠️ legacy inline |
-| 13 | ✅ | ✅ | ✅ | ❌ | ⚠️ legacy inline |
-| 14 | ✅ | ✅ | ✅ | ❌ | ⚠️ legacy inline |
-| 15 | ✅ | ✅ | ✅ | ❌ | ⚠️ legacy inline |
+| 12 | ✅ | ✅ | ✅ | ❌ | ✅ |
+| 13 | ✅ | ✅ | ✅ | ❌ | ✅ |
+| 14 | ✅ | ✅ | ✅ | ❌ | ✅ |
+| 15 | ✅ | ✅ | ✅ | ❌ | ✅ |
+
+### Appendices A–G
+
+| Unit | Appendix | Title/Surface | RTL | 1600×900 | Shared engine |
+|---|---|---|---:|---:|---:|
+| 16 | A | الزامات یکنواختی بتن | ✅ | ✅ | ✅ |
+| 17 | B | مقاومت فشاری هدف | ✅ | ✅ | ✅ |
+| 18 | C | هوای بتن و شرایط رویارویی | ✅ | ✅ | ✅ |
+| 19 | D | سامانه کنترل تولید | ✅ | ✅ | ✅ |
+| 20 | E | بتن پرمقاومت | ✅ | ✅ | ✅ |
+| 21 | F | ارزیابی، نظارت و گواهی کنترل تولید | ✅ | ✅ | ✅ |
+| 22 | G | تغییرات اعمال‌شده نسبت به مرجع | ✅ | ✅ | ✅ |
 
 ## Interpretation
 
-The visual contract is already consistent across all 15 chapters. The remaining architecture inconsistency is that eight chapters still use self-contained inline beat/playback logic rather than the shared book engine.
+The visual and engine contract is now consistent across all 22 learning units: Chapters 1–15 and Appendices A–G use the shared book engine for playback/navigation. Unit 23 is bibliography/reference surface and remains outside the learning-unit engine contract.
 
-This is a **Phase 9/10 cleanup item**, not a reason to add a new feature family.
+This closes the legacy-engine migration cleanup for the 22 learning units. Remaining Phase 9/10 work is browser/mobile validation, visual polish, narration review, and release QA.
 
 ### Migration rule
-When those eight chapters are migrated:
+For future changes:
 1. Preserve their current source-grounded content and quiz behavior.
 2. Move playback/navigation state into `lib/engine.js`.
 3. Do not duplicate engine behavior in chapter-local scripts.
