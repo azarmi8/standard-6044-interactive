@@ -42,6 +42,9 @@ test.describe('6044 browser smoke', () => {
         await expect(page.locator('.book-controls')).toHaveCount(1);
         await expect(page.locator('[data-narration-panel]')).toHaveCount(1);
         await expect(page.locator('[data-narration-transcript]')).not.toBeEmpty();
+        await expect(page.locator('[data-reader-hud]')).toBeVisible();
+        await expect(page.locator('.stage')).toHaveAttribute('data-tech-composed', 'v09');
+        await expect(page.locator('[data-narration-status]')).toContainText('فارسی');
       }
 
       expect(consoleErrors, `console errors on ${route}`).toEqual([]);
