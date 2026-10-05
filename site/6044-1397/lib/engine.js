@@ -1,4 +1,4 @@
-/* 6044 Interactive Book Engine — v0.8
+/* 6044 Interactive Book Engine — v0.9
    Shared reader playback, strict Persian narration, chapter HUD.
 */
 (function(){
