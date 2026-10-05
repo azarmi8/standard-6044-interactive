@@ -65,7 +65,7 @@ window.SimulationEngine.ch10 = {
 
 window.SimulationEngine.ch08 = {
   id: 'ch08-sampling-15-85',
-  source: { chapter: 8, clauses: ['8-3'], pages: '21–22' },
+  source: { chapter: 8, clauses: ['8-3','8-4'], pages: '21–22' },
   validate(input) {
     if(!input || !Number.isFinite(input.firstPercent) || !Number.isFinite(input.secondPercent) || !Number.isFinite(input.intervalMinutes))
       return 'درصدهای نمونه‌برداری و فاصله زمانی را کامل وارد کنید.';
@@ -76,19 +76,28 @@ window.SimulationEngine.ch08 = {
   calculate(input) {
     const error=this.validate(input);
     if(error) return {valid:false,error};
-    const firstAt15=input.firstPercent===15;
-    const secondAt85=input.secondPercent===85;
+    // The source says "about 15%" and "about 85%"; it does not define a numeric tolerance.
+    // Therefore the simulator reports the checkpoints without inventing a pass/fail tolerance.
+    const firstCheckpoint=input.firstPercent===15;
+    const secondCheckpoint=input.secondPercent===85;
     const intervalOK=input.intervalMinutes<=15;
-    return {valid:true,firstAt15,secondAt85,intervalOK,pass:firstAt15&&secondAt85&&intervalOK};
+    return {
+      valid:true,
+      firstPercent:input.firstPercent,
+      secondPercent:input.secondPercent,
+      firstCheckpoint,
+      secondCheckpoint,
+      intervalOK,
+      checkpointStatus:firstCheckpoint&&secondCheckpoint?'هر دو نقطه دقیقاً روی مقدار آموزشی ۱۵٪/۸۵٪ قرار دارند.':'موقعیت نمونه‌ها دقیقاً ۱۵٪/۸۵٪ نیست؛ استاندارد برای «حدود» این مقادیر تلورانس عددی تعیین نکرده است.',
+      pass:intervalOK
+    };
   },
   testCases:[
-    {input:{firstPercent:15,secondPercent:85,intervalMinutes:15},pass:true},
-    {input:{firstPercent:15,secondPercent:85,intervalMinutes:16},pass:false},
-    {input:{firstPercent:14,secondPercent:85,intervalMinutes:10},pass:false},
-    {input:{firstPercent:15,secondPercent:84,intervalMinutes:10},pass:false}
+    {input:{firstPercent:15,secondPercent:85,intervalMinutes:15},pass:true,firstCheckpoint:true,secondCheckpoint:true},
+    {input:{firstPercent:14,secondPercent:84,intervalMinutes:10},pass:true,firstCheckpoint:false,secondCheckpoint:false},
+    {input:{firstPercent:15,secondPercent:85,intervalMinutes:16},pass:false,firstCheckpoint:true,secondCheckpoint:true}
   ]
 };
-
 window.SimulationEngine.ch07 = {
   id: 'ch07-delivery-temperature',
   source: { chapter: 7, clauses: ['7-12'], table: '1', pages: '19–20' },
