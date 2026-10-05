@@ -40,7 +40,7 @@
     }
     function go(n){
       const nextIndex=Math.max(0,Math.min(beats.length-1,n));
-      if(nextIndex===index && beats.length)return;
+      if(nextIndex===index && beats.length){ render(); return; }
       const previous=index;
       lifecycle('onBeatEnd',previous,beats[previous]);
       index=nextIndex;
