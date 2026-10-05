@@ -34,8 +34,17 @@ function normalizeForSpeech(text){
     .replace(/\s+/g,' ')
     .trim();
 }
-function run(cmd,args){execFileSync(cmd,args,{stdio:'inherit'});}
+function run(cmd,args,options={}){execFileSync(cmd,args,{stdio:'inherit',...options});}
 const manifest=[];
+const modelDir=path.join(ROOT,'.tts-model');
+fs.mkdirSync(modelDir,{recursive:true});
+const modelPath=path.join(modelDir,'fa_IR-gyro-medium.onnx');
+const configPath=path.join(modelDir,'fa_IR-gyro-medium.onnx.json');
+if(!fs.existsSync(modelPath)){
+  run('curl',['-L','--fail','--retry','3','-o',modelPath,'https://huggingface.co/rhasspy/piper-voices/resolve/main/fa/fa_IR/gyro/medium/fa_IR-gyro-medium.onnx']);
+  run('curl',['-L','--fail','--retry','3','-o',configPath,'https://huggingface.co/rhasspy/piper-voices/resolve/main/fa/fa_IR/gyro/medium/fa_IR-gyro-medium.onnx.json']);
+}
+const jobs=[];
 for(let i=1;i<=23;i++){
   const ch=String(i).padStart(2,'0');
   const file=path.join(site,'ch'+ch,'app.js');
@@ -50,11 +59,17 @@ for(let i=1;i<=23;i++){
     const base='ch'+ch+'-'+String(index+1).padStart(2,'0');
     const wav=path.join(outDir,base+'.wav');
     const mp3=path.join(outDir,base+'.mp3');
-    run('espeak-ng',['-v','fa','-s','142','-p','48','-a','150','-w',wav,spokenText]);
-    run('ffmpeg',['-y','-loglevel','error','-i',wav,'-af','loudnorm=I=-16:LRA=7:TP=-1.5','-ac','1','-ar','24000','-codec:a','libmp3lame','-b:a','64k',mp3]);
-    fs.unlinkSync(wav);
-    manifest.push({chapter:i,beat:index+1,file:'audio/fa/'+base+'.mp3',text:spokenText});
+    jobs.push({chapter:i,beat:index+1,base,spokenText,wav,mp3});
   });
 }
-fs.writeFileSync(manifestPath,JSON.stringify({version:1,voice:'espeak-ng fa',sampleRate:24000,bitrate:'64k',items:manifest},null,2)+'\n');
+const jsonInput=jobs.map(j=>JSON.stringify({text:j.spokenText,output_file:j.wav})).join('\n')+'\n';
+run('.tts-venv/bin/python',['-m','piper','-m',modelPath,'--json-input'],{input:jsonInput});
+for(const j of jobs){
+  run('ffmpeg',['-y','-loglevel','error','-i',j.wav,'-af','loudnorm=I=-16:LRA=7:TP=-1.5','-ac','1','-ar','22050','-codec:a','libmp3lame','-b:a','64k',j.mp3]);
+  fs.unlinkSync(j.wav);
+  manifest.push({chapter:j.chapter,beat:j.beat,file:'audio/fa/'+path.basename(j.mp3),text:j.spokenText});
+}
+  });
+}
+fs.writeFileSync(manifestPath,JSON.stringify({version:1,voice:'rhasspy/piper-voices fa_IR-gyro-medium',sampleRate:24000,bitrate:'64k',items:manifest},null,2)+'\n');
 console.log('Generated',manifest.length,'Persian narration tracks');
