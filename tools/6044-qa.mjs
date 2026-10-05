@@ -125,6 +125,18 @@ function checkAssessmentContract(){
 
 
 
+
+function checkSharedChapterNavigation(){
+  for(const n of expected){
+    const htmlPath=path.join(SITE,'ch'+n,'index.html');
+    if(!exists(htmlPath)) continue;
+    const html=read(htmlPath);
+    if(!html.includes('../lib/engine.js')) continue;
+    if(!html.includes('../lib/engine.css')) fail('ch'+n+': shared engine CSS missing');
+    if(!html.includes('class="book-controls"')) warn('ch'+n+': no .book-controls container for shared navigation');
+  }
+}
+
 function checkBookProgressContract(){
   const enginePath=path.join(SITE,'lib','engine.js');
   const homePath=path.join(SITE,'index.html');
@@ -155,6 +167,7 @@ function checkSearchContract(){
   if(!read(htmlPath).includes('search.js')) fail('search page does not load shared search engine');
 }
 
+checkSharedChapterNavigation();
 checkBookProgressContract();
 
 function checkNarration(dir){
