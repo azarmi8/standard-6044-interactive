@@ -1,17 +1,22 @@
 <!doctype html><html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>فصل 21 — پیوست و — ارزیابی و گواهی کنترل تولید</title><link rel="stylesheet" href="../style.css"><link rel="stylesheet" href="../lib/engine.css"></head><body><main class="shell"><div class="top"><div class="brand">۶۰۴۴ / فصل 21</div><div class="tag">پیوست و — ارزیابی و گواهی کنترل تولید</div></div><section class="card"><div class="stage"><svg viewBox="0 0 1600 900"><rect width="1600" height="900" fill="#f5f1e6"/><text x="1450" y="90" font-size="38" font-weight="700" text-anchor="end">فصل 21 — پیوست و — ارزیابی و گواهی کنترل تولید</text><rect x="130" y="220" width="1340" height="300" rx="34" fill="#dce9df" stroke="#173c2a" stroke-width="4"/><text id="a" x="800" y="330" font-size="34" font-weight="700" text-anchor="middle"></text><text id="c" x="800" y="410" font-size="25" text-anchor="middle"></text><rect x="130" y="580" width="1340" height="150" rx="30" fill="#173c2a"/><text id="q" x="800" y="665" fill="#fff" font-size="25" text-anchor="middle"></text></svg></div><div class="book-controls controls"><button id="prev" class="secondary">قبلی</button><button id="play">پخش</button><button id="next">بعدی</button><div class="progress"><i id="bar"></i></div><span id="count"></span></div><div class="panel"><h2 id="title"></h2><p id="body"></p><p id="sourceRef" class="sim-source" aria-live="polite"></p><div class="quiz"><h3>بررسی سریع</h3><button id="yes" data-ok="1">در زنجیره کنترل کیفیت و سوابق مرتبط بررسی می‌کنم</button><button id="no" data-ok="0">فقط به یک نتیجه منفرد اکتفا می‌کنم</button><p id="result"></p></div></div><section class="panel simulation-panel" aria-labelledby="f-sim-title">
-<h2 id="f-sim-title">مرتب‌سازی چرخه ارزیابی</h2>
-<p>سناریوی آموزشی: مراحل چرخه را به ترتیب درست قرار بده.</p>
+<h2 id="f-sim-title">شبیه‌ساز مسیر ارزیابی</h2>
+<p>سناریوی آموزشی: نوع پیگیری را انتخاب کن. بازرسی فوق‌العاده فقط در شرایط لازم مطرح است و یک مرحله اجباری همیشگی نیست.</p>
 <div class="sim-grid">
-<label>مرحله ۱<select id="f1"><option value="initial">ارزیابی اولیه</option><option value="periodic">نظارت ادواری</option><option value="corrective">اقدام اصلاحی</option><option value="extraordinary">بازرسی فوق‌العاده</option><option value="review">بازبینی</option></select></label>
-<label>مرحله ۲<select id="f2"><option value="initial">ارزیابی اولیه</option><option value="periodic">نظارت ادواری</option><option value="corrective">اقدام اصلاحی</option><option value="extraordinary">بازرسی فوق‌العاده</option><option value="review">بازبینی</option></select></label>
-<label>مرحله ۳<select id="f3"><option value="initial">ارزیابی اولیه</option><option value="periodic">نظارت ادواری</option><option value="corrective">اقدام اصلاحی</option><option value="extraordinary">بازرسی فوق‌العاده</option><option value="review">بازبینی</option></select></label>
-<label>مرحله ۴<select id="f4"><option value="initial">ارزیابی اولیه</option><option value="periodic">نظارت ادواری</option><option value="corrective">اقدام اصلاحی</option><option value="extraordinary">بازرسی فوق‌العاده</option><option value="review">بازبینی</option></select></label>
-<label>مرحله ۵<select id="f5"><option value="initial">ارزیابی اولیه</option><option value="periodic">نظارت ادواری</option><option value="corrective">اقدام اصلاحی</option><option value="extraordinary">بازرسی فوق‌العاده</option><option value="review">بازبینی</option></select></label>
+<label>نوع پیگیری
+<select id="f-audit-type"><option value="periodic">نظارت ادواری</option><option value="extraordinary">بازرسی فوق‌العاده</option></select></label>
+<label>مرحله ۱<select id="f1"><option value="initial">ارزیابی اولیه</option><option value="audit">پیگیری</option><option value="corrective">اقدام اصلاحی</option><option value="review">بازبینی</option></select></label>
+<label>مرحله ۲<select id="f2"><option value="audit">پیگیری</option><option value="initial">ارزیابی اولیه</option><option value="corrective">اقدام اصلاحی</option><option value="review">بازبینی</option></select></label>
+<label>مرحله ۳<select id="f3"><option value="corrective">اقدام اصلاحی</option><option value="initial">ارزیابی اولیه</option><option value="audit">پیگیری</option><option value="review">بازبینی</option></select></label>
+<label>مرحله ۴<select id="f4"><option value="review">بازبینی</option><option value="initial">ارزیابی اولیه</option><option value="audit">پیگیری</option><option value="corrective">اقدام اصلاحی</option></select></label>
 </div>
-<button id="run-f-sim">بررسی ترتیب</button>
+<button id="run-f-sim">بررسی مسیر</button>
 <div id="f-output" class="sim-result" aria-live="polite"></div>
-<p class="sim-source"><strong>SOURCE:</strong> پیوست و، صفحات ۶۷ تا ۷۰. ترتیب تمرین یک مدل آموزشی از چرخه شواهد و بازبینی است.</p>
+<p class="sim-source"><strong>SOURCE:</strong> پیوست و، صفحات ۶۷ تا ۷۰.</p>
 </section>
+<script src="../lib/appendix-d-g.js"></script>
+<script>
+(function(){const b=document.getElementById('run-f-sim'),o=document.getElementById('f-output');if(!b||!o)return;b.addEventListener('click',function(){const order=[1,2,3,4].map(n=>document.getElementById('f'+n).value);const auditType=document.getElementById('f-audit-type').value;const r=AppendixDG.auditLifecycle.check({auditType,order});o.innerHTML='<strong>'+(r.pass?'ترتیب مسیر آموزشی درست است.':'ترتیب مسیر آموزشی درست نیست.')+'</strong><br>مسیر اصلی: ارزیابی اولیه → '+(auditType==='periodic'?'نظارت ادواری':'بازرسی فوق‌العاده')+' → در صورت عدم انطباق، اقدام اصلاحی → بازبینی';o.className='sim-result '+(r.pass?'good':'bad');});})();
+</script>
 <script src="../lib/appendix-d-g.js"></script>
 <script>
 (function(){const b=document.getElementById('run-f-sim'),o=document.getElementById('f-output');if(!b||!o)return;b.addEventListener('click',function(){const order=[1,2,3,4,5].map(n=>document.getElementById('f'+n).value);const r=AppendixDG.auditLifecycle.check(order);o.innerHTML='<strong>'+(r.pass?'ترتیب تمرین درست است.':'ترتیب تمرین درست نیست.')+'</strong><br>مسیر پیشنهادی: ارزیابی اولیه → نظارت ادواری → بازرسی/یافتن مسئله → اقدام اصلاحی → بازبینی';o.className='sim-result '+(r.pass?'good':'bad');});})();
