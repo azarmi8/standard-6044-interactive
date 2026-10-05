@@ -447,8 +447,14 @@
           const cols=6,rows=6,ix=i%cols,iy=Math.floor(i/cols)%rows;
           return {x:width*(.19+(ix+(p.u-.5)*.8)/cols*.62),y:height*(.18+(iy+(p.v-.5)*.8)/rows*.67)};
         }
-        const u=p.u, v=p.v;
-        const x=width*(.5+(u-.5)*.52), y=height*(.19+v*.63);
+        /* Final form: fine binder/water/admixture particles fill the body; larger aggregate particles cluster inside it. */
+        if(p.type>=4){
+          const clusters=[[-.19,-.14,.085],[-.04,.07,.075],[.17,-.12,.095],[.08,.18,.068],[-.12,.17,.060]];
+          const q=clusters[(i+p.type)%clusters.length];
+          const a=p.phase+p.u*Math.PI*2, r=width*q[2]*Math.sqrt(p.v);
+          return {x:cx+width*q[0]+Math.cos(a)*r,y:height*.52+height*q[1]+Math.sin(a)*r*.82};
+        }
+        const x=width*(.5+(p.u-.5)*.49), y=height*(.22+p.v*.57);
         return {x,y};
       }
       function morphTo(m,instant){
@@ -507,7 +513,8 @@
           if(swirl){const dx=x-cx,dy=y-cy,dist=Math.hypot(dx,dy)||1,ang=Math.atan2(dy,dx)+swirl*.18*(p.speed/1.2);x=cx+Math.cos(ang)*dist;y=cy+Math.sin(ang)*dist+wobble}else y+=wobble;
           p.x=x;p.y=y;
           const col=palette[p.type%palette.length],pulse=.55+.45*Math.sin((i+1)*.17+now*.001);
-          ctx.globalAlpha=.34+.54*pulse;ctx.fillStyle=col;ctx.beginPath();ctx.arc(x,y,p.size*(mode===6?1.15:1),0,Math.PI*2);ctx.fill();
+          const sizeFactor=mode===6?(p.type>=4?1.75:1.08):1;
+          ctx.globalAlpha=.34+.54*pulse;ctx.fillStyle=col;ctx.beginPath();ctx.arc(x,y,p.size*sizeFactor,0,Math.PI*2);ctx.fill();
           if(i%19===0&&mode>=1){ctx.globalAlpha=.12;ctx.beginPath();ctx.arc(x,y,p.size*3.2,0,Math.PI*2);ctx.fill()}
         });
         ctx.globalAlpha=1;drawHud(now);if(!document.hidden)requestAnimationFrame(frame);
