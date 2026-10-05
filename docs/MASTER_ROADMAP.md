@@ -140,6 +140,8 @@ Each simulation must expose source clauses, inputs, outputs, assumptions and val
 - [x] RTL typography foundation.
 - [x] Mobile/desktop responsive command tiles.
 - [x] Direct entry to Search, Assessment and key simulators.
+- [x] Shared previous/list/next chapter navigation.
+- [x] Local return-position and bookmark UI.
 - [x] Reduced-motion behavior on new interaction layer.
 - [ ] Cover and contents final treatment.
 - [ ] Full chapter-wide visual consistency audit.
