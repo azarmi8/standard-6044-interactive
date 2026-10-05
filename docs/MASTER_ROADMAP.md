@@ -102,7 +102,7 @@ Priority:
 3. [ ] Delivery/temperature workflow.
 4. [ ] Specimen preparation.
 5. [ ] Strength/conformity decision.
-6. [ ] Production-control workflow.
+6. [x] Production-control workflow — Chapter 14 control-system checklist pilot with deterministic QA.
 7. [ ] Order → production → delivery.
 8. [ ] Conformity assessment.
 Each simulation must expose source clauses, inputs, outputs, assumptions and validation cases. Shared contract: `docs/SIMULATION_CONTRACT.md`; first shared primitive: `site/6044-1397/lib/simulations.js`.
