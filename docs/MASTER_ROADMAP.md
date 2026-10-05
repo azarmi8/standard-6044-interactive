@@ -79,12 +79,20 @@ Current artifacts:
 **Exit gate:** pilot chapters demonstrate one coherent animation language.
 
 # Phase 5 — Narration
-- [ ] Persian narration storyboard.
-- [ ] Beat timing.
-- [ ] Transcript/captions.
-- [ ] Speed/seek/replay.
-- [ ] No-audio fallback.
-- [ ] Audio QA.
+**Status: IN PROGRESS — narration engine + Persian pronunciation/TTS pipeline foundation implemented.**
+
+- [x] Persian narration storyboard pilot (Units 01, 07, 11).
+- [x] Beat-level transcript support.
+- [x] Play/pause/replay/speed controls in shared engine.
+- [x] No-audio fallback.
+- [x] displayText / spokenText separation.
+- [x] Persian pronunciation dictionary foundation.
+- [x] TTS benchmark pack.
+- [x] Provider-neutral narration manifest/schema.
+- [x] Local Piper generation tool (model weights kept outside repository).
+- [x] Audio QA/release gate.
+- [ ] Human listening benchmark and voice selection.
+- [ ] Generate/review release narration for all released units.
 **Exit gate:** every released unit has narration or an explicit reason it does not need narration.
 
 # Phase 6 — Engineering Simulations
