@@ -2,9 +2,9 @@
 
 ## Audit scope
 Branch: `phase9/legacy-engine-migration`  
-Audit date: 2026-10-05
+Audit date: 2026-10-06
 
-Checked Chapters 1–15 for:
+Checked Chapters 1–15 and Appendices A–G (Units 16–22) for:
 - document title
 - Persian RTL contract (`lang="fa"`, `dir="rtl"`)
 - 1600×900 SVG stage
@@ -31,14 +31,26 @@ Checked Chapters 1–15 for:
 | 14 | ✅ | ✅ | ✅ | ❌ | ✅ |
 | 15 | ✅ | ✅ | ✅ | ❌ | ✅ |
 
+### Appendices A–G
+
+| Unit | Appendix | Title/Surface | RTL | 1600×900 | Shared engine |
+|---|---|---|---:|---:|---:|
+| 16 | A | الزامات یکنواختی بتن | ✅ | ✅ | ✅ |
+| 17 | B | مقاومت فشاری هدف | ✅ | ✅ | ✅ |
+| 18 | C | هوای بتن و شرایط رویارویی | ✅ | ✅ | ✅ |
+| 19 | D | سامانه کنترل تولید | ✅ | ✅ | ✅ |
+| 20 | E | بتن پرمقاومت | ✅ | ✅ | ✅ |
+| 21 | F | ارزیابی، نظارت و گواهی کنترل تولید | ✅ | ✅ | ✅ |
+| 22 | G | تغییرات اعمال‌شده نسبت به مرجع | ✅ | ✅ | ✅ |
+
 ## Interpretation
 
-The visual contract is consistent across all 15 chapters, and Chapters 1–15 now use the shared book engine for playback/navigation. Appendices (Units 16–22) are a separate migration surface; Unit 17 already uses the engine, while Units 16 and 18–22 remain non-engine.
+The visual and engine contract is now consistent across all 22 learning units: Chapters 1–15 and Appendices A–G use the shared book engine for playback/navigation. Unit 23 is bibliography/reference surface and remains outside the learning-unit engine contract.
 
-This is a **Phase 9/10 cleanup item**, not a reason to add a new feature family.
+This closes the legacy-engine migration cleanup for the 22 learning units. Remaining Phase 9/10 work is browser/mobile validation, visual polish, narration review, and release QA.
 
 ### Migration rule
-For any remaining non-engine appendix migration:
+For future changes:
 1. Preserve their current source-grounded content and quiz behavior.
 2. Move playback/navigation state into `lib/engine.js`.
 3. Do not duplicate engine behavior in chapter-local scripts.
