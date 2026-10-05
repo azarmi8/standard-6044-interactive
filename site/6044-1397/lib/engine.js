@@ -67,4 +67,6 @@
   }
   render();
   window.BookEngine={next:()=>go(index+1),prev:()=>go(index-1),play:toggle,stop,go,get index(){return index}};
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
 })();
