@@ -36,14 +36,18 @@ Deliver a finished, independently usable Persian RTL interactive engineering boo
 **Phase 1 exit gate: PASSED.**
 
 # Phase 2 — Content Architecture
-**Status: IN PROGRESS — architecture map established.**
+**Status: IN PROGRESS — learning map + practice map established.**
 
 - [x] Learning objectives for every unit.
 - [x] Source concept → plain explanation → factory application → interaction.
-- [ ] Practice question and source reference per unit.
+- [x] Practice question and source reference per unit.
 - [x] Difficulty metadata.
 - [ ] Importance/priority metadata.
 **Exit gate:** every unit has a complete instructional storyboard.
+
+Current artifacts:
+- `books/6044-1397/LEARNING_MAP.md`
+- `books/6044-1397/PRACTICE_MAP.md`
 
 # Phase 3 — Core Book Engine
 - [ ] Shared chapter shell.
