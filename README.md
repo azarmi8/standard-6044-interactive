@@ -55,12 +55,16 @@ PDF → Book Map → Storyboard → Narration → Animation → Quiz → Web Boo
 
 ۱۵ فصل رسمی + پیوست‌های الف تا ح در نقشه پروژه ثبت شده‌اند.
 
-جزئیات پوشش در:
+جزئیات پوشش و قرارداد توسعه در:
 
 - `books/6044-1397/chapters.md`
 - `books/6044-1397/COVERAGE.md`
 - `docs/MASTER_ROADMAP.md`
 - `docs/AGENT_HANDOFF.md`
+- `docs/SOURCE_VERIFICATION.md`
+- `docs/PRODUCT_SPEC.md`
+
+> وضعیت فعلی: کتاب از نظر ساختار و ورودی ۲۳ واحد آماده است، اما محتوای source-derived هنوز در مرحله ممیزی بندبه‌بند است؛ بنابراین نسخه فعلی را نباید «نسخه نهایی تأییدشده استاندارد» تلقی کرد.
 
 ## 🤖 قرارداد کار Agentها
 
