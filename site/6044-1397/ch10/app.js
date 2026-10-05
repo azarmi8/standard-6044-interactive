@@ -1,18 +1,46 @@
 window.BOOK_CONFIG={
-  interval:5000,
+  interval:5200,
   beats:[
-    {title:'اسلامپ و S1 تا S4',body:'رده‌های اسلامپ در فصل ۱۰: S1 میانگین 25 mm با دامنه 10–40؛ S2 میانگین 70 با دامنه 50–90؛ S3 میانگین 125 با دامنه 100–150؛ S4 میانگین 185 با دامنه 160–210 mm. نتیجه باید در چارچوب رده و مشخصات سفارش تفسیر شود.'},
-    {title:'بتن خودتراکم',body:'برای SCC، رده‌های جریان اسلامپ SF0 تا SF3 مطرح‌اند: SF0 میانگین 500 با دامنه 450–550؛ SF1 میانگین 600 با دامنه 560–650؛ SF2 میانگین 700 با دامنه 660–750؛ SF3 میانگین 800 با دامنه 760–850 mm. پارامترهای J-ring، L-box، V-funnel و پایداری نیز در موارد مربوط بررسی می‌شوند.'},
-    {title:'هوای بتن',body:'مقدار هوای بتن و حدود/تلرانس آن باید در ارتباط با مشخصات موردنیاز کنترل شود؛ روش آزمون و شرایط نمونه نیز بخشی از زنجیره اندازه‌گیری است.'},
-    {title:'دمای بتن',body:'دمای بتن تازه طبق ASTM C1064/C1064M در محتوای این فصل مطرح شده است. زمان و شرایط آزمون باید در سوابق قابل ردیابی باشد.'},
-    {title:'چگالی',body:'چگالی بتن تازه طبق ISIRI 3203-6 اندازه‌گیری می‌شود. چگالی اندازه‌گیری‌شده در محل تحویل نباید بیش از 25 kg/m³ با مقدار مشخص‌شده/درج‌شده در برگه تحویل اختلاف داشته باشد.'},
-    {title:'تصمیم QC',body:'یک نتیجه تازه باید با سه پرسش خوانده شود: چه خاصیتی؟ با چه روش آزمونی؟ نسبت به چه مشخصات/رده‌ای؟ سپس نتیجه در سابقه محموله ثبت شود.'}
+    {title:'اسلامپ و رده S1 تا S4',body:'رده‌بندی اسلامپ باید همراه با مشخصات سفارش خوانده شود؛ عدد اندازه‌گیری‌شده ابتدا در محدوده رده قرار می‌گیرد و سپس نسبت به نیاز سفارش تفسیر می‌شود.',sourceRef:'فصل ۱۰، بند ۱۰-۱ و جدول‌های مربوط'},
+    {title:'بتن خودتراکم و SF',body:'در بتن خودتراکم، جریان اسلامپ و پارامترهای عملکردی مانند J-ring، L-box، V-funnel و پایداری در موارد مرتبط بررسی می‌شوند.',sourceRef:'فصل ۱۰، بند ۱۰-۲'},
+    {title:'هوای بتن',body:'مقدار هوای بتن باید همراه با روش آزمون و مشخصات موردنیاز تفسیر شود؛ خودِ عدد بدون دانستن معیار، تصمیم کامل نمی‌سازد.',sourceRef:'فصل ۱۰، بند ۱۰-۳'},
+    {title:'دمای بتن تازه',body:'دمای بتن تازه با روش آزمون مرجع کنترل می‌شود و نتیجه باید به زمان، محل و محموله قابل ردیابی باشد.',sourceRef:'فصل ۱۰، بند ۱۰-۴'},
+    {title:'چگالی بتن تازه',body:'چگالی طبق ISIRI 3203-6 اندازه‌گیری می‌شود و اختلاف با مقدار مشخص‌شده/درج‌شده در برگه تحویل نباید از 25 kg/m³ بیشتر باشد.',sourceRef:'فصل ۱۰، بند ۱۰-۵'},
+    {title:'تصمیم QC',body:'سه سؤال را هم‌زمان بپرس: چه خاصیتی؟ با چه روش آزمونی؟ نسبت به چه مشخصات یا رده‌ای؟ سپس نتیجه را در سابقه محموله ثبت کن.',sourceRef:'فصل ۱۰، بندهای ۱۰-۱ تا ۱۰-۵'}
   ],
-  quiz:{correct:'درست — خاصیت، روش آزمون و معیار باید با هم دیده شوند.',incorrect:'کافی نیست — عدد بدون زمینه، برای تصمیم انطباق کافی نیست.'},
+  scene:{root:'.stage',steps:[
+    {className:'slump',focus:{x:18,y:38},progress:.16,show:['measurement']},
+    {className:'flow',focus:{x:36,y:38},progress:.33,show:['measurement','scc']},
+    {className:'air',focus:{x:53,y:38},progress:.50,show:['scc','air']},
+    {className:'temperature',focus:{x:70,y:38},progress:.66,show:['air','temperature']},
+    {className:'density',focus:{x:84,y:38},progress:.83,show:['temperature','density']},
+    {className:'decision',focus:{x:60,y:58},progress:1,show:['density','decision']}
+  ]},
+  quiz:{correct:'درست — خاصیت، روش آزمون و معیار باید یک زنجیره واحد باشند.',incorrect:'کافی نیست — عدد بدون خاصیت، روش و معیار قابل تفسیر کامل نیست.'},
   onRender:function(index,b){
     const root=document.getElementById('cards'); if(!root)return;
-    root.innerHTML=BOOK_CONFIG.beats.map((v,k)=>'<g><rect x="'+(110+k*245)+'" y="220" width="215" height="275" rx="22" fill="'+(k===index?'#173c2a':'#dce9df')+'"/><text x="'+(217+k*245)+'" y="285" font-size="19" font-weight="700" text-anchor="middle" fill="'+(k===index?'#fff':'#173c2a')+'">'+(k+1)+'</text><text x="'+(217+k*245)+'" y="345" font-size="17" text-anchor="middle" fill="'+(k===index?'#fff':'#173c2a')+'">'+v.title+'</text></g>').join('');
-    const q=document.getElementById('q'),s=document.getElementById('sub');if(q)q.textContent=b.title;if(s)s.textContent='خاصیت → روش آزمون → معیار → ثبت';
+    const items=[
+      ['measurement','اسلامپ','S1 → S4','25 / 70 / 125 / 185 mm'],
+      ['scc','SCC / SF','SF0 → SF3','500 / 600 / 700 / 800 mm'],
+      ['air','هوا','روش آزمون + معیار','موردنیاز پروژه'],
+      ['temperature','دما','ASTM C1064/C1064M','شرایط تحویل'],
+      ['density','چگالی','ISIRI 3203-6','اختلاف ≤ 25 kg/m³'],
+      ['decision','تصمیم QC','خاصیت → آزمون → معیار','ثبت و ردیابی']
+    ];
+    root.innerHTML=items.map((v,k)=>{
+      const active=k===index;
+      return '<g class="scene-object fresh-card" data-scene-role="'+v[0]+'" data-beat="'+(k+1)+'" opacity="'+(active?'1':'.22')+'">'+
+        '<rect x="'+(90+k*250)+'" y="210" width="220" height="300" rx="26" fill="'+(active?'#173c2a':'#dce9df')+'" stroke="#527861" stroke-width="3"/>'+
+        '<circle cx="'+(200+k*250)+'" cy="270" r="28" fill="'+(active?'#f4ecda':'#b7d7c2')+'"/>'+
+        '<text x="'+(200+k*250)+'" y="279" text-anchor="middle" font-size="20" font-weight="900" fill="'+(active?'#173c2a':'#173c2a')+'">'+(k+1)+'</text>'+
+        '<text x="'+(200+k*250)+'" y="345" text-anchor="middle" font-size="22" font-weight="800" fill="'+(active?'#fff':'#173c2a')+'">'+v[1]+'</text>'+
+        '<text x="'+(200+k*250)+'" y="390" text-anchor="middle" font-size="17" fill="'+(active?'#dce9df':'#4b5e55')+'">'+v[2]+'</text>'+
+        '<text x="'+(200+k*250)+'" y="442" text-anchor="middle" font-size="15" fill="'+(active?'#dce9df':'#4b5e55')+'">'+v[3]+'</text>'+
+      '</g>';
+    }).join('');
+    const q=document.getElementById('q'),sub=document.getElementById('sub');
+    if(q)q.textContent=b.title;
+    if(sub)sub.textContent='خاصیت → روش آزمون → معیار → ثبت';
   }
 };
 
