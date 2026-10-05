@@ -1,4 +1,5 @@
 window.BOOK_CONFIG={
+
  interval:5000,
  beats:[
   {title:'ورود کامیون',body:'محموله باید با اطلاعات سفارش و مشخصات مورد ارزیابی قابل ردیابی باشد.'},
@@ -18,3 +19,21 @@ window.BOOK_CONFIG={
  ]},
  quiz:{correct:'درست — نتیجه باید در زنجیره نمونه‌برداری، آزمون، ردیابی و معیار انطباق تفسیر شود.',incorrect:'کافی نیست — تصمیم انطباق فقط با دیدن یک عدد انجام نمی‌شود.'}
 };
+
+(function(){
+ const $=id=>document.getElementById(id);
+ const btn=$('run-conformity'),out=$('conformity-output');
+ if(!btn||!out)return;
+ btn.addEventListener('click',()=>{
+  const fc=Number($('fc').value), values=[$('r1'),$('r2'),$('r3')].map(x=>Number(x.value));
+  const result=window.SimulationEngine.ch11.calculate({fc,results:values});
+  if(!result.valid){ out.textContent=result.error; out.className='sim-result bad'; return; }
+  const {mean,limit,meanOK,individualOK,pass}=result;
+  out.innerHTML='<strong>'+ (pass?'انطباق در این سناریو تأیید می‌شود.':'انطباق در این سناریو تأیید نمی‌شود.') +
+   '</strong><br>میانگین سه نتیجه: '+mean.toFixed(2)+' MPa'+
+   '<br>حداقل مجاز نتیجه منفرد (0.9fc): '+limit.toFixed(2)+' MPa'+
+   '<br>میانگین ≥ fc: '+(meanOK?'بله':'خیر')+
+   '<br>همه نتایج ≥ 0.9fc: '+(individualOK?'بله':'خیر');
+  out.className='sim-result '+(pass?'good':'bad');
+ });
+})();

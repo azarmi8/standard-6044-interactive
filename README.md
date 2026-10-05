@@ -53,7 +53,7 @@ PDF → Book Map → Storyboard → Narration → Animation → Quiz → Web Boo
 
 ## 📚 پوشش
 
-۱۵ فصل رسمی + پیوست‌های الف تا ح در نقشه پروژه ثبت شده‌اند.
+۱۵ فصل رسمی + پیوست‌های الف تا ز + کتاب‌نامه در نقشه پروژه ثبت شده‌اند.
 
 جزئیات پوشش و قرارداد توسعه در:
 
@@ -64,7 +64,7 @@ PDF → Book Map → Storyboard → Narration → Animation → Quiz → Web Boo
 - `docs/SOURCE_VERIFICATION.md`
 - `docs/PRODUCT_SPEC.md`
 
-> وضعیت فعلی: کتاب از نظر ساختار و ورودی ۲۳ واحد آماده است، اما محتوای source-derived هنوز در مرحله ممیزی بندبه‌بند است؛ بنابراین نسخه فعلی را نباید «نسخه نهایی تأییدشده استاندارد» تلقی کرد.
+> وضعیت فعلی: ساختار منبع، ممیزی source و معماری آموزشی تا پایان Phase 2 تثبیت شده‌اند. Engine/Animation در حال تکمیل و Narration در Phase 5 در حال توسعه است؛ نسخه فعلی هنوز Release نهایی 1.0 نیست.
 
 ## 🤖 قرارداد کار Agentها
 

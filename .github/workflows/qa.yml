@@ -1,0 +1,39 @@
+name: 6044 Static QA
+
+on:
+  push:
+    branches:
+      - phase5/narration-foundation
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run static QA
+        id: qa
+        shell: bash
+        run: |
+          set +e
+          node tools/run-qa.mjs 2>&1 | tee qa.log
+          status=${PIPESTATUS[0]}
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          exit "$status"
+      - name: Upload QA log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: 6044-static-qa-log
+          path: qa.log

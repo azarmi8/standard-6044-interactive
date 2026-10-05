@@ -95,32 +95,22 @@ Interactive beat work has been applied to:
 
 ## Immediate next work
 
-### Priority 1 — Source verification
-Review chapters 1–15 and appendices A–G against the actual source. Replace any unsupported/over-simplified claim.
+### Priority 1 — Release QA
+Run and review the static QA contract on the active branch, then perform browser/mobile/fullscreen/reduced-motion smoke checks.
 
-### Priority 2 — Shared engine
-Extract repeated chapter behavior into reusable:
-- scene model
-- beat/timeline controller
-- progress/navigation
-- quiz component
-- narration controller
+### Priority 2 — Visual consistency
+Finish the cross-chapter visual audit and cover/contents treatment without introducing a new framework or dependency.
 
-Do not break existing chapters while refactoring.
+### Priority 3 — Narration quality
+Complete the Persian voice benchmark, select a voice only after human listening, then generate/review release narration. Do not bulk-generate before pronunciation approval.
 
-### Priority 3 — High-value simulations
-Build real educational simulations beginning with:
-1. sampling
-2. fresh concrete testing
-3. delivery/temperature
-4. specimen preparation
-5. strength/conformity decisions
+### Priority 4 — Source/content finalization
+Resolve remaining clause-level source-audit items and ensure every released source-derived claim has a traceable source reference.
 
-### Priority 4 — Assessment
-Add reusable quiz/scenario infrastructure.
+### Priority 5 — Release
+Complete documentation/handoff, verify GitHub Pages, freeze scope, obtain owner acceptance, and tag v1.0.0.
 
-### Priority 5 — QA
-Run full static build/link/browser smoke checks.
+Do not start new feature families unless they are required to close a v1.0 blocker.
 
 ## Git discipline
 
@@ -151,7 +141,7 @@ Read docs/PRODUCT_SPEC.md before shared UX/animation/simulation work. Prefer reu
 
 ## Current truth
 
-All 23 units have HTML entry points, but they are not source-final. The next content milestone is clause-level source verification followed by replacement of unsupported summaries. Do not describe the current book as fully verified until that audit is complete.
+All 23 navigation surfaces have HTML entry points; Units 1–22 are the source learning units and Unit 23 is bibliography/reference. The current branch contains the shared book engine, pilot simulations, assessment/search/navigation persistence, Persian narration foundation, and visual QA contracts. The book is still a release candidate in progress: do not describe it as fully source-final or release-ready until Phase 10 QA and the remaining source/narration/browser gates pass.
 
 
 ## Finite delivery rule

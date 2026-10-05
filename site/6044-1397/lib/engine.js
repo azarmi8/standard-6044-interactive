@@ -1,4 +1,4 @@
-/* 6044 Interactive Book Engine — v0.3
+/* 6044 Interactive Book Engine — v0.5
    Shared, data-driven playback + scene lifecycle.
 */
 (function(){
@@ -13,7 +13,17 @@
     const title=$('title'), body=$('body'), count=$('count'), bar=$('bar'), play=$('play');
     const prev=$('prev'), next=$('next'), result=$('quizResult')||$('result'), fullscreen=$('fullscreen');
     const controls=document.querySelector('.book-controls');
-    let stepMode=false;
+    let stepMode=false, narrationAudio=null;
+    const progressKey='standard6044-book-progress-v1';
+    const chapterKey=location.pathname.match(/\/ch(\d{2})\//)?.[1]||null;
+    function loadProgress(){try{return JSON.parse(localStorage.getItem(progressKey)||'{}')}catch(e){return {}}}
+    function chapterNumber(){return chapterKey?Number(chapterKey):null}
+    function chapterNav(){const n=chapterNumber();if(!n)return;const host=document.querySelector('.book-controls');if(!host)return;const nav=document.createElement('nav');nav.className='chapter-nav';nav.setAttribute('aria-label','ناوبری فصل');const prev=n>1?'ch'+String(n-1).padStart(2,'0')+'/':'../';const next=n<22?'ch'+String(n+1).padStart(2,'0')+'/':'../';const prevLabel=n>1?'← فصل قبلی':'← فهرست';const nextLabel=n<22?'فصل بعدی →':'فهرست →';nav.innerHTML='<a class="secondary nav-link" href="'+prev+'">'+prevLabel+'</a><a class="secondary nav-link" href="../">فهرست</a><a class="secondary nav-link" href="'+next+'">'+nextLabel+'</a>';host.insertBefore(nav,host.firstChild)}
+    function saveProgress(){if(!chapterKey)return;const p=loadProgress();p[chapterKey]={index,total:beats.length,updatedAt:new Date().toISOString()};try{localStorage.setItem(progressKey,JSON.stringify(p))}catch(e){}}
+    function toggleBookmark(){if(!chapterKey)return;const p=loadProgress(),k='bookmark';p[k]=p[k]||{};if(p[k][chapterKey]===index)delete p[k][chapterKey];else p[k][chapterKey]=index;try{localStorage.setItem(progressKey,JSON.stringify(p))}catch(e){};updateBookmarkButton()}
+    function updateBookmarkButton(){const b=$('bookmark');if(!b||!chapterKey)return;const p=loadProgress(),saved=p.bookmark&&p.bookmark[chapterKey]===index;b.textContent=saved?'★ نشانک فعال':'☆ نشانک';b.setAttribute('aria-pressed',String(!!saved))}
+    function restoreProgress(){if(!chapterKey)return;const p=loadProgress(),saved=p[chapterKey];if(saved&&Number.isInteger(saved.index)&&saved.index>=0&&saved.index<beats.length)index=saved.index}
+    function resumeBookmark(){if(!chapterKey)return;const p=loadProgress(),saved=p.bookmark&&p.bookmark[chapterKey];if(Number.isInteger(saved)&&saved>=0&&saved<beats.length)index=saved}
 
     function sceneTargets(n){
       document.querySelectorAll('[data-beat]').forEach(el=>{
@@ -49,6 +59,12 @@
       const hook=cfg.scene&&cfg.scene[name];
       if(typeof hook==='function') hook(n,b);
     }
+    function narrationFor(i){ const n=cfg.narration; if(!n)return null; return Array.isArray(n)?(n[i]||null):(Array.isArray(n.beats)?(n.beats[i]||null):null); }
+    function syncNarration(){ const n=narrationFor(index); if(!n)return; if(narrationAudio){ narrationAudio.pause(); narrationAudio=null; } if(n.src){ narrationAudio=new Audio(n.src); narrationAudio.preload='metadata'; narrationAudio.playbackRate=Number(n.rate||1); narrationAudio.onended=()=>lifecycle('onNarrationEnd',index,beats[index]); } const transcript=document.querySelector('[data-narration-transcript]'); if(transcript) transcript.textContent=n.displayText||n.text||''; const status=document.querySelector('[data-narration-status]'); if(status) status.textContent=n.src?'روایت آماده':'متن روایت'; }
+    function playNarration(){ if(!narrationAudio)return; narrationAudio.play().catch(()=>{}); lifecycle('onNarrationPlay',index,beats[index]); }
+    function pauseNarration(){ if(narrationAudio){ narrationAudio.pause(); lifecycle('onNarrationPause',index,beats[index]); } }
+    function replayNarration(){ if(!narrationAudio)return; narrationAudio.currentTime=0; playNarration(); }
+    function setNarrationRate(rate){ if(!narrationAudio)return; narrationAudio.playbackRate=Math.max(.5,Math.min(2,Number(rate)||1)); }
     function render(){
       if(!beats.length)return;
       const b=beats[index]||{};
@@ -60,6 +76,9 @@
       applyScene(cfg.scene,index,b);
         document.documentElement.style.setProperty('--beat-index',index);
       lifecycle('onRender',index,b);
+      saveProgress();
+      updateBookmarkButton();
+      syncNarration();
     }
     function go(n){
       const nextIndex=Math.max(0,Math.min(beats.length-1,n));
@@ -87,7 +106,7 @@
       const root=document.querySelector('.stage,.book-stage'); if(root) root.classList.toggle('step-mode',stepMode);
     }
     function toggle(){
-      if(timer){stop();return}
+      if(timer){pauseNarration();stop();return}
       if(stepMode || (window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)){
         step(); return;
       }
@@ -96,6 +115,7 @@
         go(index+1);
       },interval);
       if(play) play.textContent='توقف';
+      playNarration();
       lifecycle('onPlay',index,beats[index]);
     }
     function enter(){
@@ -106,11 +126,14 @@
     if(prev) prev.onclick=()=>go(index-1);
     if(next) next.onclick=()=>go(index+1);
     if(play) play.onclick=toggle;
+    if(controls && !$('bookmark')){ const b=document.createElement('button'); b.id='bookmark'; b.type='button'; b.className='secondary'; b.textContent='☆ نشانک'; b.onclick=toggleBookmark; controls.appendChild(b); }
     if(controls && !$('step')){
       const b=document.createElement('button'); b.id='step'; b.type='button'; b.textContent='گام بعدی'; b.setAttribute('aria-pressed','false'); controls.appendChild(b);
     }
     const stepButton=$('step');
     if(stepButton){stepButton.onclick=()=>step(); stepButton.addEventListener('dblclick',toggleStepMode);}
+    chapterNav();
+    restoreProgress();
     if(fullscreen) fullscreen.onclick=()=>{
       const el=document.querySelector('.stage')||document.querySelector('.book-stage');
       if(!el)return;
@@ -141,7 +164,7 @@
     }
     window.addEventListener('beforeunload',()=>lifecycle('onExit',index,beats[index]));
     enter();
-    window.BookEngine={next:()=>go(index+1),prev:()=>go(index-1),play:toggle,stop,step,toggleStepMode,go,get index(){return index},get total(){return beats.length}};
+    window.BookEngine={next:()=>go(index+1),prev:()=>go(index-1),play:toggle,stop,step,toggleStepMode,go,playNarration,pauseNarration,replayNarration,setNarrationRate,toggleBookmark,get index(){return index},get total(){return beats.length}};
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
 })();

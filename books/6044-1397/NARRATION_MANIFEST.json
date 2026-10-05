@@ -1,0 +1,12 @@
+{
+  "book":"6044-1397",
+  "language":"fa",
+  "items":[
+    {"chapter":7,"beat":1,"sourceText":"در این فصل، روش اختلاط، تجهیزات، اصلاح کنترل‌شده، حمل، زمان و دمای تحویل را به‌صورت یک زنجیره می‌بینیم.","spokenText":"در این فصل، روش اختلاط، تجهیزات، اصلاح کنترل‌شده، حمل، زمان و دمای تحویل را به‌صورت یک زنجیره می‌بینیم.","audio":null,"status":"pending","provider":null,"model":null,"durationMs":null,"sha256":null},
+    {"chapter":7,"beat":2,"sourceText":"روش اختلاط باید با تجهیزات و شرایط واقعی تولید سازگار باشد و یکنواختی بتن حفظ شود.","spokenText":"روش اختلاط باید با تجهیزات و شرایط واقعی تولید سازگار باشد و یکنواختی بتن حفظ شود.","audio":null,"status":"pending","provider":null,"model":null,"durationMs":null,"sha256":null},
+    {"chapter":7,"beat":3,"sourceText":"هر افزودن یا اصلاح در مسیر باید در چارچوب الزامات و سوابق قابل ردیابی انجام شود.","spokenText":"هر افزودن یا اصلاح در مسیر باید در چارچوب الزامات و سوابق قابل ردیابی انجام شود.","audio":null,"status":"pending","provider":null,"model":null,"durationMs":null,"sha256":null},
+    {"chapter":7,"beat":4,"sourceText":"در تحویل، دما یکی از داده‌های مهم کنترل است. حد بالای دمای تحویل در استاندارد ۳۲ درجه سلسیوس است.","spokenText":"در تحویل، دما یکی از داده‌های مهم کنترل است. حد بالای دمای تحویل در استاندارد، سی و دو درجه سلسیوس است.","audio":null,"status":"pending","provider":null,"model":null,"durationMs":null,"sha256":null},
+    {"chapter":7,"beat":5,"sourceText":"در هوای سرد، حداقل دما با توجه به کوچک‌ترین بعد عضو تعیین می‌شود.","spokenText":"در هوای سرد، حداقل دما با توجه به کوچک‌ترین بُعد عضو تعیین می‌شود.","audio":null,"status":"pending","provider":null,"model":null,"durationMs":null,"sha256":null},
+    {"chapter":7,"beat":6,"sourceText":"تصمیم QC فقط یک عدد نیست؛ روش تولید، زمان، دما، تحویل و ثبت سوابق باید کنار هم دیده شوند.","spokenText":"تصمیم کنترل کیفیت فقط یک عدد نیست؛ روش تولید، زمان، دما، تحویل و ثبت سوابق باید کنار هم دیده شوند.","audio":null,"status":"pending","provider":null,"model":null,"durationMs":null,"sha256":null}
+  ]
+}

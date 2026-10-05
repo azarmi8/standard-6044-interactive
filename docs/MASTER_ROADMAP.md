@@ -54,7 +54,7 @@ Current artifacts:
 - Pilot migrations: ch01, ch02, ch10
 
 # Phase 3 — Core Book Engine
-**Status: PILOT IN PROGRESS — shared engine v0.2 + lifecycle contract + six-chapter-pattern validation.**
+**Status: PILOT IN PROGRESS — shared engine + lifecycle/scene contract validated across the current pilot set.**
 
 - [x] Shared chapter shell.
 - [x] Beat/timeline engine.
@@ -79,55 +79,74 @@ Current artifacts:
 **Exit gate:** pilot chapters demonstrate one coherent animation language.
 
 # Phase 5 — Narration
-- [ ] Persian narration storyboard.
-- [ ] Beat timing.
-- [ ] Transcript/captions.
-- [ ] Speed/seek/replay.
-- [ ] No-audio fallback.
-- [ ] Audio QA.
+**Status: IN PROGRESS — narration engine + Persian pronunciation/TTS pipeline foundation implemented.**
+
+- [x] Persian narration storyboard pilot (Units 01, 07, 11).
+- [x] Beat-level transcript support.
+- [x] Play/pause/replay/speed controls in shared engine.
+- [x] No-audio fallback.
+- [x] displayText / spokenText separation.
+- [x] Persian pronunciation dictionary foundation.
+- [x] TTS benchmark pack.
+- [x] Provider-neutral narration manifest/schema.
+- [x] Local Piper generation tool (model weights kept outside repository).
+- [x] Audio QA/release gate.
+- [ ] Human listening benchmark and voice selection.
+- [ ] Generate/review release narration for all released units.
 **Exit gate:** every released unit has narration or an explicit reason it does not need narration.
 
 # Phase 6 — Engineering Simulations
 Priority:
-1. [ ] Sampling workflow.
-2. [ ] Fresh concrete tests.
-3. [ ] Delivery/temperature workflow.
-4. [ ] Specimen preparation.
-5. [ ] Strength/conformity decision.
-6. [ ] Production-control workflow.
-7. [ ] Order → production → delivery.
-8. [ ] Conformity assessment.
-Each simulation must expose source clauses, inputs, outputs, assumptions and validation cases.
+1. [x] Sampling workflow — Chapter 8 pilot with deterministic QA.
+2. [x] Fresh concrete tests — Chapter 10 pilot with deterministic QA.
+3. [x] Delivery/temperature workflow — Chapter 7 pilot with deterministic QA.
+4. [x] Specimen preparation — Chapter 11 traceability pilot with deterministic QA.
+5. [x] Strength/conformity decision — Chapter 11 pilot with deterministic QA.
+6. [x] Production-control workflow — Chapter 14 control-system checklist pilot with deterministic QA.
+7. [x] Order → production → delivery — Chapter 6/12 traceability workflow pilot with deterministic QA.
+8. [x] Conformity assessment — Chapter 15 readiness-chain pilot with deterministic QA.
+Each simulation must expose source clauses, inputs, outputs, assumptions and validation cases. Shared contract: `docs/SIMULATION_CONTRACT.md`; first shared primitive: `site/6044-1397/lib/simulations.js`.
 **Exit gate:** documented cases reproduce consistently without invented limits.
 
 # Phase 7 — Assessment System
-- [ ] MCQ.
-- [ ] True/false.
-- [ ] Sequence ordering.
-- [ ] Drag/drop where useful.
-- [ ] Numeric/range decisions.
-- [ ] Scenario decisions.
-- [ ] Answer explanations.
-- [ ] Chapter score/weakness map/review recommendations.
-- [ ] Final assessment.
-**Exit gate:** meaningful learning-and-assessment loop.
+**Status: PILOT COMPLETE — shared deterministic assessment engine + 8-question final assessment surface implemented.**
+- [x] MCQ.
+- [x] True/false.
+- [x] Sequence ordering.
+- [x] Drag/drop where useful — not required for the v1.0 pilot because the same ordering task is keyboard/mobile friendly.
+- [x] Numeric/range decisions.
+- [x] Scenario decisions.
+- [x] Answer explanations.
+- [x] Chapter/unit score + weakness map + review recommendations.
+- [x] Final assessment.
+- [x] Local progress persistence and reset.
+- [x] Static QA for question-bank metadata and grading contract.
+**Exit gate:** PASSED for the current assessment pilot; broader chapter-level coverage remains a Phase 9/10 polish and QA task.
 
 # Phase 8 — Search & Knowledge Navigation
-- [ ] Chapter map.
-- [ ] Concept/clause search.
-- [ ] Cross-reference and related units.
-- [ ] Return position.
-- [ ] Progress persistence.
-- [ ] Bookmarks.
-**Exit gate:** known concepts can be found quickly.
+**Status: COMPLETE — local search + chapter navigation + return position + progress + bookmarks implemented.**
+- [x] Chapter/unit map.
+- [x] Concept/clause-oriented search index for all 22 learning units.
+- [x] Related-unit result links.
+- [x] Local/static operation without paid API.
+- [x] Return position — shared book-engine navigation restores the last beat locally.
+- [x] Progress persistence — chapter-level local progress.
+- [x] Bookmarks — chapter/beat bookmarks.
+**Exit gate:** PASSED — the navigation/persistence layer is implemented; remaining work is visual/browser QA in Phases 9–10.
 
 # Phase 9 — Visual/Product Polish
-- [ ] Cover and contents.
-- [ ] Consistent engineering visual system.
-- [ ] RTL typography.
-- [ ] Mobile/desktop/fullscreen.
+**Status: IN PROGRESS — unified engineering product shell and pilot visual system are implemented; final cross-chapter QA remains.**
+- [x] Consistent engineering visual system foundation.
+- [x] RTL typography foundation.
+- [x] Mobile/desktop responsive command tiles.
+- [x] Direct entry to Search, Assessment and key simulators.
+- [x] Shared previous/list/next chapter navigation.
+- [x] Local return-position and bookmark UI.
+- [x] Reduced-motion behavior on new interaction layer.
+- [ ] Cover and contents final treatment.
+- [x] Full chapter-wide visual consistency audit — structural contract checked across Chapters 1–15; eight legacy inline-engine chapters remain for migration.
 - [ ] Loading/error states.
-- [ ] Reduced-motion polish.
+- [ ] Fullscreen/mobile visual QA.
 - [ ] No childish gamification or decorative animation.
 **Exit gate:** all chapters look like one product.
 
@@ -145,6 +164,7 @@ Each simulation must expose source clauses, inputs, outputs, assumptions and val
 - [ ] Clean build.
 - [ ] No console errors.
 - [ ] Assets/links/performance/accessibility.
+- [x] Static QA runner + GitHub Actions contract check on the active development branch.
 **Exit gate:** clean release candidate.
 
 # Phase 11 — Documentation & Handoff
