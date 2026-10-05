@@ -149,7 +149,7 @@
     }
     window.addEventListener('beforeunload',()=>lifecycle('onExit',index,beats[index]));
     enter();
-    window.BookEngine={next:()=>go(index+1),prev:()=>go(index-1),playNarration,pauseNarration,replayNarration,setNarrationRatendex-1),play:toggle,stop,step,toggleStepMode,go,playNarration,pauseNarration,get index(){return index},get total(){return beats.length}};
+    window.BookEngine={next:()=>go(index+1),prev:()=>go(index-1),play:toggle,stop,step,toggleStepMode,go,playNarration,pauseNarration,replayNarration,setNarrationRate,get index(){return index},get total(){return beats.length}};
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
 })();
