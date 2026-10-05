@@ -1,121 +1,355 @@
-# MASTER ROADMAP — Interactive Standard 6044:1397
+# MASTER ROADMAP — Standard 6044 Interactive
 
-## Product North Star
+## North Star
 
-Build a professional Persian interactive engineering book and training simulator for Iranian National Standard 6044:1397.
+Deliver a **finished, independently usable Persian RTL interactive engineering book and training simulator** for Iranian National Standard 6044:1397.
 
-**North Star:** Standard → Learn → See → Practice → Decide → Assess
+**Owner:** Mohammadreza Azarmi  
+**Repository:** `azarmi8/standard-6044-interactive`
 
-## Current baseline
+The project is considered finished only when the Definition of Done below is satisfied. New features do not extend the roadmap unless the owner explicitly opens a post-release track.
 
-- 15 main chapters mapped.
-- Appendices A–H mapped as units 16–23.
-- Interactive HTML exists for all 23 units.
-- Core chapters 4, 6, 7, 9, 10, 11, 12, 13, 14, 15 have been deepened with interactive beats.
-- GitHub Pages workflow exists.
-- Private source PDF is not committed.
-- Attribution: Mohammadreza Azarmi.
-- Architecture is independent from Papermorph.
+---
 
-## Product tracks
+## 0. Completion contract
 
-### Track A — Source fidelity
-- Verify every chapter against the actual 6044:1397 source.
-- Preserve clause numbers, tables, limits, definitions and exceptions.
-- Mark educational paraphrase separately.
-- Never invent missing source content.
+### In scope for v1.0
+- Complete source-grounded coverage of all 15 chapters and normative/informative appendices in the source PDF.
+- Source verification ledger for every source-derived claim, number, table, formula, exception and cross-reference.
+- Professional interactive book engine.
+- Professional animation/beat engine.
+- Persian narration + transcript/captions.
+- Interactive engineering simulations where the standard can be represented faithfully.
+- Practice and assessment engine.
+- QC-oriented scenarios.
+- Search, chapter map, cross-references, bookmarks/progress.
+- Responsive desktop/mobile/fullscreen experience.
+- Accessibility basics and reduced-motion mode.
+- Offline/static-capable delivery without mandatory paid services.
+- Automated QA/build checks.
+- Final user guide and agent handoff.
+- Release tag and changelog.
 
-### Track B — Book engine
-- Shared chapter shell.
-- Shared scene/timeline model.
-- Progress and navigation.
-- Responsive/mobile behavior.
-- Accessibility and keyboard controls.
+### Explicitly out of v1.0
+- AI chatbot required for core operation.
+- Live IoT/device integrations.
+- Paid API dependency.
+- Full 3D recreation of every process.
+- User accounts/cloud sync unless already required by a completed core feature.
 
-### Track C — Animation engine
-- Timeline beats.
-- Scene transitions.
-- SVG motion.
-- Focus/highlight/zoom.
-- Controlled camera movement.
-- Replay/step mode.
-- Prefer lightweight 2D; use WebGL/Three.js only where it adds educational value.
+These may become v2 tracks, but they cannot block v1.0.
 
-### Track D — Narration
-- Persian narration JSON.
-- Timed narration-to-beat mapping.
-- Play/pause/seek/speed.
-- Optional captions/transcript.
+---
 
-### Track E — Engineering simulations
-Priority candidates:
-1. sampling workflow
-2. fresh concrete tests
-3. delivery/temperature workflow
-4. specimen preparation
-5. compressive-strength decision scenarios
-6. production-control workflow
-7. conformity/acceptance scenarios
+# Phase 1 — Source Lock & Audit
 
-Every simulation must document assumptions and source basis.
+**Goal:** eliminate content uncertainty.
 
-### Track F — Assessment
-- MCQ
-- true/false
-- sequence ordering
-- drag/drop
-- numeric/range decisions
-- scenario decisions
-- chapter score
-- weakness map
-- review recommendations
+- [ ] Audit PDF identity, revision, structure and pages.
+- [ ] Audit Chapter 1.
+- [ ] Audit Chapter 2.
+- [ ] Audit Chapter 3.
+- [ ] Audit Chapter 4.
+- [ ] Audit Chapter 5.
+- [ ] Audit Chapter 6.
+- [ ] Audit Chapter 7.
+- [ ] Audit Chapter 8.
+- [ ] Audit Chapter 9.
+- [ ] Audit Chapter 10.
+- [ ] Audit Chapter 11.
+- [ ] Audit Chapter 12.
+- [ ] Audit Chapter 13.
+- [ ] Audit Chapter 14.
+- [ ] Audit Chapter 15.
+- [ ] Audit Appendices A–H / bibliography according to source structure.
+- [ ] Mark every ambiguous extraction `NEEDS_SOURCE_REVIEW`.
+- [ ] No unsupported numeric limit remains in published content.
 
-### Track G — UX / visual polish
-- professional engineering visual language
-- RTL typography
-- mobile/desktop/fullscreen
-- chapter map
-- search
-- cross references
-- reduced-motion option
-- no decorative animation that harms learning
+**Exit gate:** every source-derived learning item has a verified source location.
 
-### Track H — QA / delivery
-- link checks
-- chapter registry check
-- narration schema check
-- JS errors
-- responsive smoke tests
-- accessibility smoke tests
-- content/source verification
-- final local preview
+---
 
-## Definition of Done for a chapter
+# Phase 2 — Content Architecture
 
-A chapter is not final merely because its HTML loads.
+**Goal:** convert verified material into teachable units.
 
-Required:
-- source reviewed
-- clause mapping documented
-- educational explanation separated
-- scene/storyboard present
-- animation beats functional
-- narration synchronized where planned
-- interaction works
-- quick check works
-- mobile layout checked
-- no broken links
-- no unsupported claims
-- chapter registered in roadmap/handoff
+For every chapter/unit:
 
-## Agent rule
+- [ ] Learning objectives.
+- [ ] Source concepts.
+- [ ] Plain-language explanation.
+- [ ] Practical QC interpretation.
+- [ ] Example.
+- [ ] Common mistake.
+- [ ] Interactive opportunity.
+- [ ] Practice question.
+- [ ] Source reference.
+- [ ] Difficulty/importance metadata.
 
-Do not create a new phase/architecture without owner instruction. Continue from the actual repository state.
+**Exit gate:** every unit has a complete instructional storyboard.
 
+---
 
+# Phase 3 — Core Book Engine
 
-## Source and experience gates
+**Goal:** stop duplicating page logic.
 
-Read docs/SOURCE_VERIFICATION.md before source-derived content work. The current HTML is a functional scaffold until clause-level verification is complete.
+- [ ] Shared chapter shell.
+- [ ] Beat/timeline engine.
+- [ ] Scene lifecycle.
+- [ ] Play/pause/next/previous.
+- [ ] Progress indicator.
+- [ ] Chapter navigation.
+- [ ] Keyboard controls.
+- [ ] Fullscreen.
+- [ ] Responsive layout.
+- [ ] Reduced-motion mode.
+- [ ] Error/fallback state.
+- [ ] Reusable SVG/scene helpers.
 
-Read docs/PRODUCT_SPEC.md before UX/animation/simulation architecture work. Animation, narration, simulation, assessment, search/cross-reference, mobile/fullscreen and accessibility are product requirements.
+**Exit gate:** a new chapter can be implemented mainly from configuration/content rather than copied HTML logic.
+
+---
+
+# Phase 4 — Professional Animation System
+
+**Goal:** make animation instructional.
+
+- [ ] Timeline-based beats.
+- [ ] Focus/highlight.
+- [ ] Zoom/pan.
+- [ ] Process movement.
+- [ ] State transitions.
+- [ ] Data reveal.
+- [ ] Procedure sequencing.
+- [ ] Replay.
+- [ ] Step mode.
+- [ ] Reduced-motion equivalent.
+- [ ] Performance budget.
+
+Use mature GitHub projects as implementation research where useful. Do not add dependencies merely for visual novelty.
+
+**Exit gate:** pilot chapters demonstrate a coherent animation language.
+
+---
+
+# Phase 5 — Narration
+
+- [ ] Persian narration storyboard.
+- [ ] Beat-to-narration timing.
+- [ ] Transcript.
+- [ ] Captions.
+- [ ] Playback speed.
+- [ ] Seek/replay.
+- [ ] No-audio fallback.
+- [ ] Audio asset QA.
+
+**Exit gate:** every released learning unit has narration or an explicit reason it does not need narration.
+
+---
+
+# Phase 6 — Engineering Simulations
+
+Build only simulations supported by verified source material.
+
+Priority:
+
+1. [ ] Sampling workflow.
+2. [ ] Fresh concrete workflow/tests.
+3. [ ] Delivery/temperature workflow.
+4. [ ] Specimen preparation.
+5. [ ] Strength/conformity decision.
+6. [ ] Production-control workflow.
+7. [ ] Order → production → delivery scenario.
+8. [ ] Conformity assessment scenario.
+
+Each simulation:
+- [ ] source clauses recorded
+- [ ] inputs defined
+- [ ] outputs defined
+- [ ] assumptions disclosed
+- [ ] validation cases
+- [ ] no invented limits
+
+**Exit gate:** simulations reproduce documented educational cases consistently.
+
+---
+
+# Phase 7 — Assessment System
+
+- [ ] MCQ.
+- [ ] True/false.
+- [ ] Sequence ordering.
+- [ ] Drag/drop where useful.
+- [ ] Numeric/range decisions.
+- [ ] Scenario decisions.
+- [ ] Explanations after answers.
+- [ ] Chapter score.
+- [ ] Weakness map.
+- [ ] Review recommendations.
+- [ ] Final assessment.
+
+**Exit gate:** learner can complete a meaningful learning-and-assessment loop without external tools.
+
+---
+
+# Phase 8 — Search & Knowledge Navigation
+
+- [ ] Chapter map.
+- [ ] Concept search.
+- [ ] Clause search.
+- [ ] Cross-reference.
+- [ ] Related learning units.
+- [ ] Return to previous position.
+- [ ] Progress persistence.
+- [ ] Useful bookmarks.
+
+**Exit gate:** a learner can find a known concept quickly.
+
+---
+
+# Phase 9 — Visual/Product Polish
+
+- [ ] Cover.
+- [ ] Contents.
+- [ ] Consistent visual system.
+- [ ] Professional engineering aesthetic.
+- [ ] RTL typography.
+- [ ] Mobile layout.
+- [ ] Desktop layout.
+- [ ] Fullscreen learning mode.
+- [ ] Empty/error states.
+- [ ] Loading states.
+- [ ] No childish gamification.
+- [ ] No unnecessary animation.
+
+**Exit gate:** all chapters look like one product, not separate prototypes.
+
+---
+
+# Phase 10 — QA & Validation
+
+### Content QA
+- [ ] Source references checked.
+- [ ] Numbers/tables/formulas checked.
+- [ ] No unsupported claims.
+- [ ] No broken cross-references.
+
+### Functional QA
+- [ ] Every chapter opens.
+- [ ] Every control works.
+- [ ] Every quiz works.
+- [ ] Narration works/falls back.
+- [ ] Mobile works.
+- [ ] Desktop works.
+- [ ] Fullscreen works.
+- [ ] Reduced-motion works.
+
+### Technical QA
+- [ ] Clean build.
+- [ ] No console errors.
+- [ ] No broken local assets.
+- [ ] Links checked.
+- [ ] Performance sanity check.
+- [ ] Accessibility sanity check.
+
+**Exit gate:** clean release candidate.
+
+---
+
+# Phase 11 — Documentation & Handoff
+
+- [ ] README finalized.
+- [ ] PRODUCT_SPEC finalized.
+- [ ] SOURCE_VERIFICATION finalized.
+- [ ] MASTER_ROADMAP finalized.
+- [ ] AGENT_HANDOFF finalized.
+- [ ] User guide finalized.
+- [ ] Architecture map finalized.
+- [ ] Development commands documented.
+- [ ] Known limitations documented.
+- [ ] Release checklist documented.
+
+**Exit gate:** a new agent can clone the repo and understand how to continue without asking the owner to reconstruct history.
+
+---
+
+# Phase 12 — Release 1.0
+
+- [ ] Final release candidate.
+- [ ] Owner acceptance review.
+- [ ] Fix release blockers only.
+- [ ] Freeze feature scope.
+- [ ] Tag `v1.0.0`.
+- [ ] Changelog.
+- [ ] Release notes.
+- [ ] Final Pages/Demo verification.
+- [ ] Archive source-sensitive material correctly.
+- [ ] Mark roadmap v1.0 COMPLETE.
+
+---
+
+# Definition of Done — v1.0
+
+The project is **DONE** when all are true:
+
+1. All source-derived content is verified against the 6044:1397 source.
+2. All 23 learning units have a coherent instructional experience.
+3. Shared engine architecture is used instead of uncontrolled page duplication.
+4. Animation is functional and educational.
+5. Narration/transcript works.
+6. Simulations work where applicable.
+7. Assessment works.
+8. Search/navigation works.
+9. Mobile and desktop work.
+10. Accessibility/reduced motion works.
+11. Automated/manual QA is clean.
+12. Documentation and agent handoff are complete.
+13. Release `v1.0.0` is tagged.
+14. No open v1.0 blocker remains.
+
+**A new idea is not a reason to delay v1.0.**
+
+---
+
+# Anti-Infinite-Project Rule
+
+AI projects often never finish because every new idea becomes “Phase Next”.
+
+This project has a hard rule:
+
+> **Finish the committed scope first. Then release.**
+
+New ideas after scope freeze go into `POST_RELEASE_IDEAS.md` and do not reopen v1.0.
+
+Possible post-release examples:
+- AI tutor.
+- Live IoT.
+- advanced 3D factory.
+- cloud accounts.
+- multilingual narration.
+- authoring tools.
+
+They are explicitly **not v1.0 blockers**.
+
+---
+
+# Progress protocol for every agent
+
+Before work:
+1. Read README.
+2. Read MASTER_ROADMAP.
+3. Read AGENT_HANDOFF.
+4. Read SOURCE_VERIFICATION for content work.
+5. Check current git/main state.
+6. Identify the first unchecked task that is actually unblocked.
+
+After work:
+1. Run relevant checks.
+2. Update documentation/status.
+3. Commit a focused change.
+4. Report what changed.
+5. Report what remains.
+6. Never silently expand scope.
+
+**The roadmap is a completion mechanism, not a list of endless ambitions.**
