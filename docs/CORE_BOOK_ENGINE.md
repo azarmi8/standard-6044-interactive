@@ -20,7 +20,7 @@ The 6044 interactive book uses one shared runtime for chapter playback and scene
 - `onPlay(index, beat)`, `onPause(index, beat)`: playback hooks.
 - `onExit(index, beat)`: lifecycle cleanup hook.
 
-The optional `scene` object may provide the same lifecycle callbacks for a more explicit scene namespace.
+The optional `scene` object may provide the same lifecycle callbacks for a more explicit scene namespace. It may also define `root` and `steps[]`; each step can set a scene state and a `show[]` list of `data-scene-role` elements.
 
 ## Declarative scene targets
 
@@ -56,7 +56,7 @@ Engine owns:
 - reduced motion
 - visibility pause
 - shared quiz feedback
-- declarative beat activation
+- declarative beat activation\n- declarative scene states and scene-role visibility
 
 Chapter owns:
 - source-grounded content
@@ -77,4 +77,4 @@ The engine must support at least:
 
 without changing the engine.
 
-Current pilot set: ch01, ch02, ch10.
+Current pilot set: ch01, ch02, ch07, ch10, ch11, ch17.\n\nScene API validation now covers: process flow (ch07), sampling/conformity (ch11), and calculation (ch17).
