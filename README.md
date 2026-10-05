@@ -64,7 +64,7 @@ PDF → Book Map → Storyboard → Narration → Animation → Quiz → Web Boo
 - `docs/SOURCE_VERIFICATION.md`
 - `docs/PRODUCT_SPEC.md`
 
-> وضعیت فعلی: ساختار منبع، ممیزی source و معماری آموزشی تا پایان Phase 2 تثبیت شده‌اند. Engine/Animation در حال تکمیل و Narration در Phase 5 در حال توسعه است؛ نسخه فعلی هنوز Release نهایی 1.0 نیست.
+> وضعیت فعلی: ۲۲ واحد یادگیری با engine مشترک، شبیه‌سازی‌ها، assessment/search/navigation و قرارداد Narration پیاده‌سازی شده‌اند. Static QA و Browser Smoke روی main سبز هستند؛ نسخه 1.0 هنوز به‌دلیل Pages، ممیزی نهایی منبع، بازبینی انسانی صدا و چند گیت انتشار آماده نیست.
 
 ## 🤖 قرارداد کار Agentها
 
