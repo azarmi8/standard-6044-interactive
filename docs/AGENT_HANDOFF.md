@@ -108,7 +108,7 @@ Complete the Persian voice benchmark, select a voice only after human listening,
 Resolve remaining clause-level source-audit items and ensure every released source-derived claim has a traceable source reference.
 
 ### Priority 5 — Release
-Documentation package is now present. Remaining release blockers are GitHub Pages enablement, human narration approval, final clause-level source audit, fullscreen review, owner acceptance, then v1.0.0.
+Documentation package is complete. Remaining release blockers are GitHub Pages enablement, human narration approval, final clause-level source audit, fullscreen review, owner acceptance, then v1.0.0.
 
 Do not start new feature families unless they are required to close a v1.0 blocker.
 
@@ -141,7 +141,7 @@ Read docs/PRODUCT_SPEC.md before shared UX/animation/simulation work. Prefer reu
 
 ## Current truth
 
-`main` baseline: `6d8f3dd31778e89f50545e4a92fa9ac0de7d8dcf` (current checked baseline). All 23 navigation surfaces have HTML entry points; Units 1–22 are the source learning units and Unit 23 is bibliography/reference. All 22 learning units now use the shared book engine and shared control/navigation contract. The repository contains pilot simulations, assessment/search/navigation persistence, Persian narration foundation, and visual QA contracts. GitHub Pages is still disabled at repository level, so deployment cannot complete until Pages is enabled/configured. The professional cover/contents treatment is complete. The book is still a release candidate in progress: do not describe it as fully source-final or release-ready until Phase 10 QA and the remaining source/narration/browser gates pass.
+`main` baseline: `5776a0ea2f13772037afefabbe8f7244d35b8aea` (current checked baseline). All 23 navigation surfaces have HTML entry points; Units 1–22 are the source learning units and Unit 23 is bibliography/reference. All 22 learning units now use the shared book engine and shared control/navigation contract. The repository contains pilot simulations, assessment/search/navigation persistence, Persian narration foundation, and visual QA contracts. GitHub Pages is still disabled at repository level, so deployment cannot complete until Pages is enabled/configured. The professional cover/contents treatment is complete. The book is still a release candidate in progress: do not describe it as fully source-final or release-ready until Phase 10 QA and the remaining source/narration/browser gates pass.
 
 
 ## Finite delivery rule
