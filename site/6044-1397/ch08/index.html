@@ -21,9 +21,9 @@
   });
   if(!result.valid){out.textContent=result.error;out.className='sim-result bad';return;}
   out.innerHTML='<strong>'+(result.pass?'الگوی نمونه‌برداری با معیارهای این سناریو منطبق است.':'الگوی نمونه‌برداری با معیارهای این سناریو منطبق نیست.')+'</strong>'+
-   '<br>نمونه اول در ۱۵٪: '+(result.firstAt15?'بله':'خیر')+
-   '<br>نمونه دوم در ۸۵٪: '+(result.secondAt85?'بله':'خیر')+
-   '<br>فاصله حداکثر ۱۵ دقیقه: '+(result.intervalOK?'بله':'خیر');
+   '<br>نقطه آموزشی ۱۵٪: '+(result.firstCheckpoint?'دقیقاً':'خیر')+
+   '<br>نقطه آموزشی ۸۵٪: '+(result.secondCheckpoint?'دقیقاً':'خیر')+
+   '<br>فاصله حداکثر ۱۵ دقیقه: '+(result.intervalOK?'بله':'خیر')+'<br>'+result.checkpointStatus;
   out.className='sim-result '+(result.pass?'good':'bad');
  });
 })();
