@@ -112,3 +112,10 @@ Required:
 
 Do not create a new phase/architecture without owner instruction. Continue from the actual repository state.
 
+
+
+## Source and experience gates
+
+Read docs/SOURCE_VERIFICATION.md before source-derived content work. The current HTML is a functional scaffold until clause-level verification is complete.
+
+Read docs/PRODUCT_SPEC.md before UX/animation/simulation architecture work. Animation, narration, simulation, assessment, search/cross-reference, mobile/fullscreen and accessibility are product requirements.
