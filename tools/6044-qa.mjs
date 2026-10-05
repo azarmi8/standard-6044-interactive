@@ -22,6 +22,7 @@ function rel(p){ return path.relative(ROOT,p).replaceAll(path.sep,'/'); }
 if(!exists(SITE)) fail('site/6044-1397 is missing');
 checkNarration(SITE);
 checkSimulationContract();
+checkAssessmentContract();
 if(!exists(BOOKS)) fail('books/6044-1397 is missing');
 
 for(const n of expected){
@@ -94,6 +95,31 @@ function checkSimulationContract(){
     if(!got.valid || got.assessmentReady!==tc.assessmentReady)
       fail('ch15 conformity simulation test failed: '+JSON.stringify(tc.input));
   }
+}
+
+
+function checkAssessmentContract(){
+  const jsPath=path.join(SITE,'lib','assessment.js');
+  const htmlPath=path.join(SITE,'assessment.html');
+  if(!exists(jsPath)){ fail('assessment engine missing: site/6044-1397/lib/assessment.js'); return; }
+  if(!exists(htmlPath)){ fail('assessment page missing: site/6044-1397/assessment.html'); return; }
+  const sandbox={window:{},console};
+  try{ vm.runInNewContext(read(jsPath),sandbox,{timeout:1000,filename:rel(jsPath)}); }
+  catch(e){ fail('assessment engine parse failure: '+e.message); return; }
+  const engine=sandbox.window.AssessmentEngine;
+  if(!engine || !Array.isArray(engine.questions) || engine.questions.length<8){ fail('assessment question bank is incomplete'); return; }
+  const requiredTypes=new Set(engine.questions.map(q=>q.type));
+  for(const type of ['mcq','truefalse','sequence','numeric','scenario']) if(!requiredTypes.has(type)) fail('assessment type missing: '+type);
+  for(const q of engine.questions){
+    if(!q.id || !q.unit || !q.source || !q.explanation) fail('assessment question missing metadata: '+(q.id||'unknown'));
+  }
+  const numeric=engine.questions.find(q=>q.id==='q08');
+  if(!numeric || Math.abs(engine.grade(numeric,35.36))>1) fail('assessment numeric grading contract invalid');
+  const summary=engine.summary();
+  if(summary.total!==engine.questions.length) fail('assessment summary total mismatch');
+  const html=read(htmlPath);
+  if(!html.includes('assessment.js')) fail('assessment page does not load shared assessment engine');
+  if(!html.includes('نقاط نیازمند مرور')) fail('assessment page missing weakness-map output');
 }
 
 function checkNarration(dir){
