@@ -163,7 +163,7 @@
       if(speechSupported()&&window.speechSynthesis.onvoiceschanged===null){window.speechSynthesis.onvoiceschanged=()=>{};}
     }
     function faNum(n){
-      return String(n).replace(/\\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
+      return String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
     }
     function ensureReaderHUD(){
       const stage=document.querySelector('.stage,.book-stage');
