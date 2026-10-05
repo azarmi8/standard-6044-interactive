@@ -124,18 +124,18 @@ Each simulation must expose source clauses, inputs, outputs, assumptions and val
 **Exit gate:** PASSED for the current assessment pilot; broader chapter-level coverage remains a Phase 9/10 polish and QA task.
 
 # Phase 8 — Search & Knowledge Navigation
-**Status: PILOT COMPLETE — local knowledge index + instant concept search implemented.**
+**Status: COMPLETE — local search + chapter navigation + return position + progress + bookmarks implemented.**
 - [x] Chapter/unit map.
 - [x] Concept/clause-oriented search index for all 22 learning units.
 - [x] Related-unit result links.
 - [x] Local/static operation without paid API.
-- [ ] Return position — reserved for the shared book-engine navigation layer.
-- [ ] Progress persistence — assessment has local persistence; book-wide persistence remains.
-- [ ] Bookmarks.
-**Exit gate:** PASSED for concept discovery pilot; book-wide navigation persistence remains a polish/QA task.
+- [x] Return position — shared book-engine navigation restores the last beat locally.
+- [x] Progress persistence — chapter-level local progress.
+- [x] Bookmarks — chapter/beat bookmarks.
+**Exit gate:** PASSED — the navigation/persistence layer is implemented; remaining work is visual/browser QA in Phases 9–10.
 
 # Phase 9 — Visual/Product Polish
-**Status: PILOT IN PROGRESS — unified engineering command deck added to the book home.**
+**Status: IN PROGRESS — unified engineering product shell and pilot visual system are implemented; final cross-chapter QA remains.**
 - [x] Consistent engineering visual system foundation.
 - [x] RTL typography foundation.
 - [x] Mobile/desktop responsive command tiles.
@@ -164,6 +164,7 @@ Each simulation must expose source clauses, inputs, outputs, assumptions and val
 - [ ] Clean build.
 - [ ] No console errors.
 - [ ] Assets/links/performance/accessibility.
+- [x] Static QA runner + GitHub Actions contract check on the active development branch.
 **Exit gate:** clean release candidate.
 
 # Phase 11 — Documentation & Handoff
