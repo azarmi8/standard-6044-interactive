@@ -153,3 +153,26 @@ window.SimulationEngine.specimen = {
     {input:{sampleId:'S-03',truckId:'T-23',placementLocation:'دال D2',samplingLocation:'خروجی کامیون',specimenCount:1},valid:false}
   ]
 };
+
+window.SimulationEngine.ch14 = {
+  id: 'ch14-production-control-system',
+  source: { chapter: 14, clauses: ['14-1','14-2'], pages: '38–39' },
+  requiredControls: [
+    ['materials','انتخاب و کنترل مواد'],
+    ['mixDesign','طرح مخلوط و نسبت‌های اختلاط'],
+    ['competence','صلاحیت نیروی انسانی'],
+    ['equipment','تجهیزات و فرایندهای تولید و کنترل'],
+    ['testing','بازرسی و آزمون بتن تازه و سخت‌شده'],
+    ['records','استفاده از نتایج آزمون و سوابق کنترل']
+  ],
+  calculate(input) {
+    if(!input || typeof input!=='object') return {valid:false,error:'اطلاعات سیستم کنترل تولید وارد نشده است.'};
+    const missing=this.requiredControls.filter(([key])=>input[key]!==true).map(([,label])=>label);
+    return {valid:true,complete:missing.length===0,missing};
+  },
+  testCases:[
+    {input:{materials:true,mixDesign:true,competence:true,equipment:true,testing:true,records:true},complete:true},
+    {input:{materials:true,mixDesign:true,competence:true,equipment:true,testing:true,records:false},complete:false},
+    {input:{materials:true,mixDesign:false,competence:false,equipment:true,testing:true,records:true},complete:false}
+  ]
+};
