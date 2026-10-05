@@ -53,6 +53,8 @@
     function syncNarration(){ const n=narrationFor(index); if(!n)return; if(narrationAudio){ narrationAudio.pause(); narrationAudio=null; } if(n.src){ narrationAudio=new Audio(n.src); narrationAudio.preload='metadata'; narrationAudio.playbackRate=Number(n.rate||1); narrationAudio.onended=()=>lifecycle('onNarrationEnd',index,beats[index]); } const transcript=document.querySelector('[data-narration-transcript]'); if(transcript) transcript.textContent=n.text||''; const status=document.querySelector('[data-narration-status]'); if(status) status.textContent=n.src?'روایت آماده':'متن روایت'; }
     function playNarration(){ if(!narrationAudio)return; narrationAudio.play().catch(()=>{}); lifecycle('onNarrationPlay',index,beats[index]); }
     function pauseNarration(){ if(narrationAudio){ narrationAudio.pause(); lifecycle('onNarrationPause',index,beats[index]); } }
+    function replayNarration(){ if(!narrationAudio)return; narrationAudio.currentTime=0; playNarration(); }
+    function setNarrationRate(rate){ if(!narrationAudio)return; narrationAudio.playbackRate=Math.max(.5,Math.min(2,Number(rate)||1)); }
     function render(){
       if(!beats.length)return;
       const b=beats[index]||{};
@@ -147,7 +149,7 @@
     }
     window.addEventListener('beforeunload',()=>lifecycle('onExit',index,beats[index]));
     enter();
-    window.BookEngine={next:()=>go(index+1),prev:()=>go(index-1),play:toggle,stop,step,toggleStepMode,go,playNarration,pauseNarration,get index(){return index},get total(){return beats.length}};
+    window.BookEngine={next:()=>go(index+1),prev:()=>go(index-1),playNarration,pauseNarration,replayNarration,setNarrationRatendex-1),play:toggle,stop,step,toggleStepMode,go,playNarration,pauseNarration,get index(){return index},get total(){return beats.length}};
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
 })();
