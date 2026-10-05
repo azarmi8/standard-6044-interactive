@@ -7,7 +7,7 @@
     const cfg=window.BOOK_CONFIG||{};
     const beats=Array.isArray(cfg.beats)?cfg.beats:[];
     const quiz=cfg.quiz||null;
-    let index=0,timer=null,interval=Number(cfg.interval||4500);
+    let index=0,timer=null,playing=false,interval=Number(cfg.interval||4500);
 
     const $=id=>document.getElementById(id);
     const title=$('title'), body=$('body'), count=$('count'), bar=$('bar'), play=$('play');
@@ -106,7 +106,7 @@
       const voice=pickFaVoice();
       if(voice)speechUtterance.voice=voice;
       const current=index;
-      speechUtterance.onend=()=>{ if(current===index) lifecycle('onNarrationEnd',index,beats[index]); };
+      speechUtterance.onend=()=>{ if(current!==index)return; lifecycle('onNarrationEnd',index,beats[index]); if(playing){if(index<beats.length-1)go(index+1);else stop();} };
       speechUtterance.onerror=()=>{ const el=document.querySelector('[data-narration-status]'); if(el) el.textContent='روایت دستگاه با خطا متوقف شد'; };
       window.speechSynthesis.speak(speechUtterance);
       return true;
@@ -177,15 +177,18 @@
     }
     function go(n){
       const nextIndex=Math.max(0,Math.min(beats.length-1,n));
-      if(nextIndex===index && beats.length){ render(); return; }
+      if(nextIndex===index && beats.length){ render(); if(playing&&!timer)playNarration(); return; }
       const previous=index;
       lifecycle('onBeatEnd',previous,beats[previous]);
       index=nextIndex;
       render();
       lifecycle('onBeatStart',index,beats[index]);
+      if(playing&&!timer)playNarration();
     }
     function stop(){
       if(timer){clearInterval(timer);timer=null}
+      playing=false;
+      pauseNarration();
       if(play) play.textContent='پخش';
       lifecycle('onPause',index,beats[index]);
     }
@@ -201,14 +204,18 @@
       const root=document.querySelector('.stage,.book-stage'); if(root) root.classList.toggle('step-mode',stepMode);
     }
     function toggle(){
-      if(timer){pauseNarration();stop();return}
+      if(playing){stop();return}
       if(stepMode || (window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)){
         step(); return;
       }
-      timer=setInterval(()=>{
-        if(index>=beats.length-1){stop();return}
-        go(index+1);
-      },interval);
+      playing=true;
+      const audioReady=!!narrationAudio||speechSupported();
+      if(!audioReady){
+        timer=setInterval(()=>{
+          if(index>=beats.length-1){stop();return}
+          go(index+1);
+        },interval);
+      }
       if(play) play.textContent='توقف';
       playNarration();
       lifecycle('onPlay',index,beats[index]);
