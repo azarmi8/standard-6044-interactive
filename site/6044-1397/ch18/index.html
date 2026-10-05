@@ -1,1 +1,41 @@
-<!doctype html><html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>فصل 18 — پیوست ج — هوای بتن و شرایط رویارویی</title><link rel="stylesheet" href="../style.css"><link rel="stylesheet" href="../lib/engine.css"></head><body><main class="shell"><div class="top"><div class="brand">۶۰۴۴ / فصل 18</div><div class="tag">پیوست ج — هوای بتن و شرایط رویارویی</div></div><section class="card"><div class="stage"><svg viewBox="0 0 1600 900"><rect width="1600" height="900" fill="#f5f1e6"/><text x="1450" y="90" font-size="38" font-weight="700" text-anchor="end">فصل 18 — پیوست ج — هوای بتن و شرایط رویارویی</text><rect x="130" y="220" width="1340" height="300" rx="34" fill="#dce9df" stroke="#173c2a" stroke-width="4"/><text id="a" x="800" y="330" font-size="34" font-weight="700" text-anchor="middle"></text><text id="c" x="800" y="410" font-size="25" text-anchor="middle"></text><rect x="130" y="580" width="1340" height="150" rx="30" fill="#173c2a"/><text id="q" x="800" y="665" fill="#fff" font-size="25" text-anchor="middle"></text></svg></div><div class="book-controls controls"><button id="prev" class="secondary">قبلی</button><button id="play">پخش</button><button id="next">بعدی</button><div class="progress"><i id="bar"></i></div><span id="count"></span></div><div class="panel"><h2 id="title"></h2><p id="body"></p><div class="quiz"><h3>بررسی سریع</h3><button id="yes" data-ok="1">در زنجیره کنترل کیفیت و سوابق مرتبط بررسی می‌کنم</button><button id="no" data-ok="0">فقط به یک نتیجه منفرد اکتفا می‌کنم</button><p id="result"></p></div></div></section></main><script src="./app.js"></script><script src="../lib/engine.js"></script></body></html>
+<!doctype html><html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>فصل 18 — پیوست ج — هوای بتن و شرایط رویارویی</title><link rel="stylesheet" href="../style.css"><link rel="stylesheet" href="../lib/engine.css"></head><body><main class="shell"><div class="top"><div class="brand">۶۰۴۴ / فصل 18</div><div class="tag">پیوست ج — هوای بتن و شرایط رویارویی</div></div><section class="card"><div class="stage"><svg viewBox="0 0 1600 900"><rect width="1600" height="900" fill="#f5f1e6"/><text x="1450" y="90" font-size="38" font-weight="700" text-anchor="end">فصل 18 — پیوست ج — هوای بتن و شرایط رویارویی</text><rect x="130" y="220" width="1340" height="300" rx="34" fill="#dce9df" stroke="#173c2a" stroke-width="4"/><text id="a" x="800" y="330" font-size="34" font-weight="700" text-anchor="middle"></text><text id="c" x="800" y="410" font-size="25" text-anchor="middle"></text><rect x="130" y="580" width="1340" height="150" rx="30" fill="#173c2a"/><text id="q" x="800" y="665" fill="#fff" font-size="25" text-anchor="middle"></text></svg></div><div class="book-controls controls"><button id="prev" class="secondary">قبلی</button><button id="play">پخش</button><button id="next">بعدی</button><div class="progress"><i id="bar"></i></div><span id="count"></span></div><div class="panel"><h2 id="title"></h2><p id="body"></p><div class="quiz"><h3>بررسی سریع</h3><button id="yes" data-ok="1">در زنجیره کنترل کیفیت و سوابق مرتبط بررسی می‌کنم</button><button id="no" data-ok="0">فقط به یک نتیجه منفرد اکتفا می‌کنم</button><p id="result"></p></div></div></section>
+<section class="panel simulation-panel" aria-labelledby="air-title">
+<h2 id="air-title">شبیه‌ساز جدول هوای بتن</h2>
+<p>سناریوی آموزشی: شرایط رویارویی و اندازه اسمی بزرگ‌ترین سنگدانه را انتخاب کن و مقدار هوای کل جدول ج-۱ را بخوان.</p>
+<div class="sim-grid">
+<label>اندازه اسمی بزرگ‌ترین سنگدانه
+<select id="air-size">
+<option value="9.5">۹٫۵ میلی‌متر</option>
+<option value="12.5">۱۲٫۵ میلی‌متر</option>
+<option value="19">۱۹ میلی‌متر</option>
+<option value="25">۲۵ میلی‌متر</option>
+<option value="37.5">۳۷٫۵ میلی‌متر</option>
+</select></label>
+<label>شرایط رویارویی
+<select id="air-exposure">
+<option value="moderate">متوسط</option>
+<option value="severe">شدید</option>
+</select></label>
+</div>
+<button id="run-air">خواندن مقدار جدول</button>
+<div id="air-output" class="sim-result" aria-live="polite"></div>
+<p class="sim-source"><strong>SOURCE:</strong> پیوست ج، جدول ج-۱، صفحه ۵۱.</p>
+</section>
+<script src="../lib/appendix-simulations.js"></script>
+<script>
+(function(){
+ const btn=document.getElementById('run-air'),out=document.getElementById('air-output');
+ if(!btn||!out)return;
+ btn.addEventListener('click',function(){
+  const r=window.AppendixSimulations.air.lookup(
+   document.getElementById('air-size').value,
+   document.getElementById('air-exposure').value
+  );
+  if(!r.valid){out.textContent=r.error;out.className='sim-result bad';return;}
+  out.innerHTML='<strong>مقدار هوای کل جدول: '+r.targetAirPct+'٪</strong><br>'+
+   'اندازه اسمی بزرگ‌ترین سنگدانه: '+r.sizeMm+' mm<br>'+
+   'شرایط رویارویی: '+(r.exposure==='moderate'?'متوسط':'شدید');
+  out.className='sim-result good';
+ });
+})();
+</script></main><script src="./app.js"></script><script src="../lib/engine.js"></script></body></html>
