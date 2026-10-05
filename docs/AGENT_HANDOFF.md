@@ -157,3 +157,8 @@ Read docs/PRODUCT_SPEC.md before shared UX/animation/simulation work. Prefer reu
 ## Current truth
 
 All 23 units have HTML entry points, but they are not source-final. The next content milestone is clause-level source verification followed by replacement of unsupported summaries. Do not describe the current book as fully verified until that audit is complete.
+
+
+## Finite delivery rule
+
+`docs/MASTER_ROADMAP.md` is the completion contract. v1.0 has a fixed Definition of Done and a scope-freeze rule. New ideas after scope freeze belong in `POST_RELEASE_IDEAS.md` and must not block v1.0.
