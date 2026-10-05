@@ -144,3 +144,16 @@ English technical identifiers are acceptable where useful.
 ## Attribution
 
 Created by **Mohammadreza Azarmi**.
+
+
+## Source verification gate
+
+Read docs/SOURCE_VERIFICATION.md before content work. The PDF 6044-1397.pdf in the owner's Library is authoritative. If OCR is ambiguous, inspect the page image. Never infer numbers, tables, limits, exceptions or clause wording.
+
+## Product quality gate
+
+Read docs/PRODUCT_SPEC.md before shared UX/animation/simulation work. Prefer reusable engine components and real educational interactions over duplicated static pages.
+
+## Current truth
+
+All 23 units have HTML entry points, but they are not source-final. The next content milestone is clause-level source verification followed by replacement of unsupported summaries. Do not describe the current book as fully verified until that audit is complete.
