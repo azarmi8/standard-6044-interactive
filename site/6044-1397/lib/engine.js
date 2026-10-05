@@ -21,14 +21,6 @@
         el.setAttribute('aria-hidden',active?'false':'true');
       });
     }
-    function sceneTargets(n){
-      document.querySelectorAll('[data-beat]').forEach(el=>{
-        const values=(el.getAttribute('data-beat')||'').split(/\\s+/).filter(Boolean).map(Number);
-        const active=values.includes(n+1);
-        el.classList.toggle('is-active',active);
-        el.setAttribute('aria-hidden',active?'false':'true');
-      });
-    }
     function applyScene(scene,n,b){
       if(!scene||typeof scene!=='object')return;
       const root=document.querySelector(scene.root||'.stage,.book-stage');
@@ -61,8 +53,9 @@
       if(body) body.textContent=b.body||b[1]||'';
       if(count) count.textContent=(index+1)+' / '+beats.length;
       if(bar) bar.style.width=((index+1)/beats.length*100)+'%';
-      sceneTargets(index);\n      applyScene(cfg.scene,index,b);
-      document.documentElement.style.setProperty('--beat-index',index);
+      sceneTargets(index);
+      applyScene(cfg.scene,index,b);
+        document.documentElement.style.setProperty('--beat-index',index);
       lifecycle('onRender',index,b);
     }
     function go(n){
