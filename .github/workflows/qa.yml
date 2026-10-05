@@ -23,4 +23,17 @@ jobs:
         with:
           node-version: 22
       - name: Run static QA
-        run: node tools/run-qa.mjs
+        id: qa
+        shell: bash
+        run: |
+          set +e
+          node tools/run-qa.mjs 2>&1 | tee qa.log
+          status=${PIPESTATUS[0]}
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          exit "$status"
+      - name: Upload QA log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: 6044-static-qa-log
+          path: qa.log
