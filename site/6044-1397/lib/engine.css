@@ -447,3 +447,21 @@ body{color:var(--tech-text)}
   .tech-scan,.tech-focus-frame,.tech-focus-tag,.stage[data-scene-state] .tech-scene-object.is-scene-visible,.book-stage[data-scene-state] .tech-scene-object.is-scene-visible{animation:none!important}
   .stage .tech-scene-object,.book-stage .tech-scene-object{transition:none!important}
 }
+
+/* v1.1 — cinematic particle/microstructure teaching module */
+.particle-morph-panel{margin-top:18px;background:linear-gradient(145deg,#071116,#091c20);border:1px solid #1e3f48;border-radius:20px;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
+.particle-morph-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:18px 20px 10px}
+.particle-morph-kicker{font-size:.72rem;font-weight:900;letter-spacing:.12em;color:#2bf2ad}
+.particle-morph-head h2{margin:4px 0 4px;color:#edf8f4}
+.particle-morph-head p{margin:0;color:#8fa9a2;line-height:1.8}
+.particle-morph-status{display:grid;gap:4px;min-width:190px;padding:10px 12px;border:1px solid #24565c;border-radius:13px;background:#08171d;text-align:left;direction:ltr}
+.particle-morph-status strong{color:#9fffe0;font-size:.72rem;letter-spacing:.08em}
+.particle-morph-status span{color:#d6e7e2;font-size:.82rem}
+.particle-morph-canvas-wrap{position:relative;min-height:420px;margin:0 14px 10px;border:1px solid #17373e;border-radius:16px;overflow:hidden;background:#050c10}
+.particle-morph-canvas-wrap canvas{display:block;width:100%;height:420px}
+.particle-morph-overlay{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(43,242,173,.035),transparent 38%,rgba(39,197,222,.025))}
+.particle-morph-controls{display:flex;flex-wrap:wrap;gap:8px;padding:0 20px 14px}
+.particle-morph-controls button{min-height:40px}
+.particle-morph-note{margin:0;padding:0 20px 18px;color:#8fa9a2;font-size:.82rem;line-height:1.8}
+@media(max-width:800px){.particle-morph-head{display:block}.particle-morph-status{margin-top:12px;min-width:0}.particle-morph-canvas-wrap{min-height:290px}.particle-morph-canvas-wrap canvas{height:290px}}
+@media(prefers-reduced-motion:reduce){.particle-morph-canvas-wrap canvas{opacity:.96}}
