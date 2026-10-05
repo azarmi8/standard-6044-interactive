@@ -54,7 +54,7 @@ Current artifacts:
 - Pilot migrations: ch01, ch02, ch10
 
 # Phase 3 — Core Book Engine
-**Status: PILOT IN PROGRESS — shared engine v0.2 + lifecycle contract + six-chapter-pattern validation.**
+**Status: PILOT IN PROGRESS — shared engine + lifecycle/scene contract validated across the current pilot set.**
 
 - [x] Shared chapter shell.
 - [x] Beat/timeline engine.
@@ -105,7 +105,7 @@ Priority:
 6. [ ] Production-control workflow.
 7. [ ] Order → production → delivery.
 8. [ ] Conformity assessment.
-Each simulation must expose source clauses, inputs, outputs, assumptions and validation cases.
+Each simulation must expose source clauses, inputs, outputs, assumptions and validation cases. Shared contract: `docs/SIMULATION_CONTRACT.md`; first shared primitive: `site/6044-1397/lib/simulations.js`.
 **Exit gate:** documented cases reproduce consistently without invented limits.
 
 # Phase 7 — Assessment System
