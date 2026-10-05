@@ -1,4 +1,4 @@
-/* 6044 Interactive Book Engine — v0.5
+/* 6044 Interactive Book Engine — v0.6 device narration + shared reader UI
    Shared, data-driven playback + scene lifecycle.
 */
 (function(){
@@ -59,12 +59,107 @@
       const hook=cfg.scene&&cfg.scene[name];
       if(typeof hook==='function') hook(n,b);
     }
-    function narrationFor(i){ const n=cfg.narration; if(!n)return null; return Array.isArray(n)?(n[i]||null):(Array.isArray(n.beats)?(n.beats[i]||null):null); }
-    function syncNarration(){ const n=narrationFor(index); if(!n)return; if(narrationAudio){ narrationAudio.pause(); narrationAudio=null; } if(n.src){ narrationAudio=new Audio(n.src); narrationAudio.preload='metadata'; narrationAudio.playbackRate=Number(n.rate||1); narrationAudio.onended=()=>lifecycle('onNarrationEnd',index,beats[index]); } const transcript=document.querySelector('[data-narration-transcript]'); if(transcript) transcript.textContent=n.displayText||n.text||''; const status=document.querySelector('[data-narration-status]'); if(status) status.textContent=n.src?'روایت آماده':'متن روایت'; }
-    function playNarration(){ if(!narrationAudio)return; narrationAudio.play().catch(()=>{}); lifecycle('onNarrationPlay',index,beats[index]); }
-    function pauseNarration(){ if(narrationAudio){ narrationAudio.pause(); lifecycle('onNarrationPause',index,beats[index]); } }
-    function replayNarration(){ if(!narrationAudio)return; narrationAudio.currentTime=0; playNarration(); }
-    function setNarrationRate(rate){ if(!narrationAudio)return; narrationAudio.playbackRate=Math.max(.5,Math.min(2,Number(rate)||1)); }
+    let speechUtterance=null,speechRate=1;
+    function narrationFor(i){
+      const b=beats[i]||{};
+      const n=cfg.narration;
+      const item=Array.isArray(n)?(n[i]||null):(n&&Array.isArray(n.beats)?(n.beats[i]||null):null);
+      return Object.assign({},{
+        displayText:b.displayText||b.body||'',
+        spokenText:b.spokenText||b.body||'',
+        lang:'fa-IR'
+      },item||{});
+    }
+    function speechSupported(){return 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window}
+    function stopSpeech(cancel=true){
+      if(!speechSupported())return;
+      if(cancel) window.speechSynthesis.cancel();
+      speechUtterance=null;
+    }
+    function pickFaVoice(){
+      if(!speechSupported())return null;
+      const voices=window.speechSynthesis.getVoices();
+      return voices.find(v=>/^fa([_-]|$)/i.test(v.lang||''))||voices.find(v=>/persian|farsi/i.test(v.name||''))||null;
+    }
+    function syncNarration(){
+      const n=narrationFor(index);
+      if(narrationAudio){ narrationAudio.pause(); narrationAudio=null; }
+      stopSpeech(true);
+      const transcript=document.querySelector('[data-narration-transcript]');
+      if(transcript) transcript.textContent=n.displayText||n.spokenText||'';
+      const status=document.querySelector('[data-narration-status]');
+      if(status){
+        status.textContent=n.src?'روایت صوتی آماده':(speechSupported()?'بلندخوانی فارسی دستگاه آماده':'متن روایت — صدای مرورگر در دسترس نیست');
+      }
+      const rateSelect=document.querySelector('[data-narration-rate]');
+      if(rateSelect) rateSelect.value=String(speechRate);
+    }
+    function speakCurrent(){
+      if(!speechSupported())return false;
+      const n=narrationFor(index), text=n.spokenText||n.displayText||'';
+      if(!text)return false;
+      stopSpeech(true);
+      speechUtterance=new SpeechSynthesisUtterance(text);
+      speechUtterance.lang=n.lang||'fa-IR';
+      speechUtterance.rate=Number(n.rate||speechRate||1);
+      speechUtterance.pitch=1;
+      const voice=pickFaVoice();
+      if(voice)speechUtterance.voice=voice;
+      const current=index;
+      speechUtterance.onend=()=>{ if(current===index) lifecycle('onNarrationEnd',index,beats[index]); };
+      speechUtterance.onerror=()=>{ const el=document.querySelector('[data-narration-status]'); if(el) el.textContent='روایت دستگاه با خطا متوقف شد'; };
+      window.speechSynthesis.speak(speechUtterance);
+      return true;
+    }
+    function playNarration(){
+      if(narrationAudio){ narrationAudio.play().catch(()=>{}); lifecycle('onNarrationPlay',index,beats[index]); return; }
+      if(speechSupported()){ 
+        if(window.speechSynthesis.paused) window.speechSynthesis.resume();
+        else speakCurrent();
+        lifecycle('onNarrationPlay',index,beats[index]);
+        const status=document.querySelector('[data-narration-status]'); if(status) status.textContent='در حال پخش روایت فارسی';
+        return;
+      }
+      const status=document.querySelector('[data-narration-status]'); if(status) status.textContent='صدای دستگاه/مرورگر در دسترس نیست';
+    }
+    function pauseNarration(){
+      if(narrationAudio){ narrationAudio.pause(); lifecycle('onNarrationPause',index,beats[index]); return; }
+      if(speechSupported()){ window.speechSynthesis.pause(); lifecycle('onNarrationPause',index,beats[index]); const status=document.querySelector('[data-narration-status]'); if(status) status.textContent='روایت مکث شد'; }
+    }
+    function replayNarration(){
+      if(narrationAudio){ narrationAudio.currentTime=0; playNarration(); return; }
+      if(speechSupported()){ speakCurrent(); const status=document.querySelector('[data-narration-status]'); if(status) status.textContent='در حال بازپخش روایت فارسی'; }
+    }
+    function setNarrationRate(rate){
+      speechRate=Math.max(.5,Math.min(2,Number(rate)||1));
+      if(narrationAudio)narrationAudio.playbackRate=speechRate;
+      const rateSelect=document.querySelector('[data-narration-rate]'); if(rateSelect) rateSelect.value=String(speechRate);
+      if(speechUtterance)speechUtterance.rate=speechRate;
+    }
+    function ensureNarrationUI(){
+      const host=document.querySelector('[data-narration-panel]')||document.querySelector('.narration-panel');
+      if(host){
+        host.setAttribute('data-narration-panel','true');
+      }else{
+        const after=document.querySelector('.book-controls');
+        if(!after)return;
+        const panel=document.createElement('section');
+        panel.className='narration-panel';
+        panel.setAttribute('data-narration-panel','true');
+        panel.setAttribute('aria-label','روایت فارسی');
+        panel.innerHTML='<div class="narration-head"><div><strong data-narration-status>بلندخوانی فارسی دستگاه</strong><span class="narration-label">NARRATION</span></div><div class="narration-actions"><button type="button" data-narrate-play>▶ روایت</button><button type="button" data-narrate-pause class="secondary">⏸ مکث</button><button type="button" data-narrate-replay class="secondary">↻ بازپخش</button><label>سرعت <select data-narration-rate aria-label="سرعت روایت"><option value="0.75">۰٫۷۵×</option><option value="1" selected>۱×</option><option value="1.25">۱٫۲۵×</option><option value="1.5">۱٫۵×</option></select></label></div></div><p data-narration-transcript>برای شنیدن روایت، دکمه روایت را بزنید.</p>';
+        after.insertAdjacentElement('afterend',panel);
+      }
+      const playBtn=document.querySelector('[data-narrate-play]');
+      const pauseBtn=document.querySelector('[data-narrate-pause]');
+      const replayBtn=document.querySelector('[data-narrate-replay]');
+      const rate=document.querySelector('[data-narration-rate]');
+      if(playBtn)playBtn.onclick=playNarration;
+      if(pauseBtn)pauseBtn.onclick=pauseNarration;
+      if(replayBtn)replayBtn.onclick=replayNarration;
+      if(rate)rate.onchange=()=>setNarrationRate(rate.value);
+      if(speechSupported()&&window.speechSynthesis.onvoiceschanged===null){window.speechSynthesis.onvoiceschanged=()=>{};}
+    }
     function render(){
       if(!beats.length)return;
       const b=beats[index]||{};
@@ -132,6 +227,7 @@
     }
     const stepButton=$('step');
     if(stepButton){stepButton.onclick=()=>step(); stepButton.addEventListener('dblclick',toggleStepMode);}
+    ensureNarrationUI();
     chapterNav();
     restoreProgress();
     if(fullscreen) fullscreen.onclick=()=>{
