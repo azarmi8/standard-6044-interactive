@@ -22,7 +22,7 @@ window.BOOK_CONFIG = {
       '<path d="M76 68h48v24h18v94H58V92h18z" fill="#667d77" stroke="#2bf2ad" stroke-width="5"/><path d="M72 115h56M72 145h56M72 175h45" stroke="#c7d6d1" stroke-width="5"/><path d="M88 58h24" stroke="#27c5de" stroke-width="7"/>',
       '<rect x="34" y="77" width="132" height="105" rx="18" fill="#0f2829" stroke="#2bf2ad" stroke-width="5"/><path d="M55 106h90M55 133h64M55 160h80" stroke="#85aaa0" stroke-width="6" stroke-linecap="round"/><circle cx="141" cy="133" r="13" fill="#2bf2ad"/>'
     ];
-    cards.innerHTML=this.beats.map((item,k)=>{
+    cards.innerHTML=window.BOOK_CONFIG.beats.map((item,k)=>{
       const active=k===index,x=35+k*248;
       return '<g class="scene-object material-pod" data-beat="'+(k+1)+'" transform="translate('+x+' 0)">'+
         '<rect x="0" y="190" width="215" height="330" rx="24" fill="#101f27" stroke="'+(active?'#2bf2ad':'#28505a')+'" stroke-width="'+(active?'3':'2')+'"/>'+
