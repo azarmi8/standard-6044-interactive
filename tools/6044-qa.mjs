@@ -38,8 +38,10 @@ function checkSimulationContract(){
   catch(e){ fail('shared simulation engine parse failure: '+e.message); return; }
   const sim=sandbox.window.SimulationEngine?.ch11;
   const fresh=sandbox.window.SimulationEngine?.ch10;
+  const sampling=sandbox.window.SimulationEngine?.ch08;
   if(!sim) { fail('ch11 shared simulation is missing'); return; }
   if(!fresh) { fail('ch10 shared simulation is missing'); return; }
+  if(!sampling) { fail('ch08 shared simulation is missing'); return; }
   for(const tc of (sim.testCases||[])){
     const got=sim.calculate(tc.input);
     if(!got.valid || got.pass!==tc.pass || Math.abs(got.mean-tc.mean)>1e-9)
@@ -51,6 +53,11 @@ function checkSimulationContract(){
     if(tc.kind==='flow') ok=fresh.classifyFlow(tc.input)===tc.expected;
     if(tc.kind==='density') ok=fresh.density(tc.input.measured,tc.input.specified).pass===tc.pass;
     if(!ok) fail('ch10 simulation test failed: '+JSON.stringify(tc));
+  }
+  for(const tc of (sampling.testCases||[])){
+    const got=sampling.calculate(tc.input);
+    if(!got.valid || got.pass!==tc.pass)
+      fail('ch08 simulation test failed: '+JSON.stringify(tc.input));
   }
 }
 
