@@ -172,6 +172,16 @@ function checkSearchContract(){
 checkSharedChapterNavigation();
 checkBookProgressContract();
 
+function checkVisualContract(htmlPath, html){
+  const relPath=rel(htmlPath);
+  const stageCount=(html.match(/<svg\\b/gi)||[]).length;
+  if(stageCount && !html.includes('viewBox="0 0 1600 900"')) fail(relPath+': SVG stage must use the 1600x900 visual contract');
+  if(/animation-iteration-count\\s*:\\s*infinite/i.test(html)) fail(relPath+': inline CSS contains forbidden infinite animation');
+  if(/animation[^;{]*infinite/i.test(html)) fail(relPath+': inline animation contains forbidden infinite loop');
+  if(!/<title>[^<]+<\\/title>/i.test(html)) fail(relPath+': document title is missing');
+  if(!/lang="fa"/i.test(html) || !/dir="rtl"/i.test(html)) fail(relPath+': Persian RTL document contract missing');
+}
+
 function checkNarration(dir){
   for(const file of walk(dir).filter(p=>p.endsWith('.js'))){
     const src=read(file);
@@ -204,6 +214,7 @@ for(const n of expected){
   const htmlPath=path.join(dir,'index.html');
   if(!exists(htmlPath)) continue;
   const html=read(htmlPath);
+  checkVisualContract(htmlPath, html);
 
   if(!html.includes('../lib/engine.js') && !html.includes('../lib/engine.css')){
     warn(`ch${n}: legacy/non-engine chapter (not yet migrated)`);
