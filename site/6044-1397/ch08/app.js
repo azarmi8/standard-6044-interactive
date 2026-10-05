@@ -1,0 +1,27 @@
+window.BOOK_CONFIG={
+  interval:5000,
+  beats:[
+    {title:'اختلاط و آماده‌سازی',body:'وسیله حمل باید با روش تولید و اختلاط سازگار باشد و بتن تا زمان تحویل یکنواختی و شرایط موردنیاز خود را حفظ کند.',sourceRef:'فصل ۸، بندهای ۸-۱ تا ۸-۵'},
+    {title:'حفاظت در مسیر حمل',body:'حمل باید از جداشدگی، آب‌زدگی و افت شرایط موردنیاز بتن جلوگیری کند. هدف، حفظ یکنواختی تا محل تحویل است.',sourceRef:'فصل ۸، بندهای ۸-۲ و ۸-۳'},
+    {title:'شروع تخلیه',body:'تخلیه باید در زنجیره قابل ردیابی تحویل دیده شود و نمونه‌برداری از بتن در حین تخلیه انجام شود.',sourceRef:'فصل ۸، بند ۸-۴'},
+    {title:'نمونه اول و دوم',body:'نمونه‌برداری در حدود ۱۵٪ و ۸۵٪ تخلیه انجام می‌شود. واژه «حدود» را نباید به یک بازه عددی ساختگی تبدیل کرد.',sourceRef:'فصل ۸، بند ۸-۴'},
+    {title:'فاصله نمونه‌ها',body:'فاصله زمانی بین دو نمونه نباید بیشتر از ۱۵ دقیقه باشد؛ اینجا یک شرط عددی صریح داریم.',sourceRef:'فصل ۸، بند ۸-۴'},
+    {title:'تصمیم QC',body:'نتیجه نمونه‌برداری باید به کامیون، محل، زمان و محموله متصل بماند تا کنترل یکنواختی و تصمیم بعدی قابل دفاع باشد.',sourceRef:'فصل ۸، بندهای ۸-۳ تا ۸-۵'}
+  ],
+  scene:{root:'.stage',steps:[
+    {className:'transport',focus:{x:28,y:47},progress:.16,show:['truck']},
+    {className:'protection',focus:{x:43,y:50},progress:.33,show:['truck','discharge']},
+    {className:'discharge',focus:{x:58,y:54},progress:.50,show:['truck','discharge','first']},
+    {className:'sampling',focus:{x:70,y:48},progress:.66,show:['truck','discharge','first','second']},
+    {className:'timing',focus:{x:75,y:55},progress:.83,show:['first','second','compare']},
+    {className:'trace',focus:{x:35,y:38},progress:1,show:['first','second','compare','trace']}
+  ]},
+  quiz:{
+    correct:'درست — نمونه‌برداری، فاصله زمانی و ردیابی باید با هم دیده شوند.',
+    incorrect:'کافی نیست — یک زمان یا یک نقطه به‌تنهایی زنجیره کنترل فصل ۸ را کامل نمی‌کند.'
+  },
+  onRender(index,beat){
+    const s=document.getElementById('sourceRef');
+    if(s)s.textContent=beat.sourceRef||'';
+  }
+};
