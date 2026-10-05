@@ -3,6 +3,7 @@ name: 6044 Static QA
 on:
   push:
     branches:
+      - main
       - phase5/narration-foundation
   pull_request:
     branches:
