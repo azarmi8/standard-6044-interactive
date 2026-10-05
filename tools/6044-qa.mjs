@@ -114,8 +114,9 @@ function checkAppendixDGContract(){
   if(d.productionControl.check({materials:true,equipment:false,production:true,records:false}).complete) fail('Appendix D incomplete case failed');
   if(!d.highStrength.check({supplier:true,admixture:true,powder:true,production:true}).complete) fail('Appendix E complete case failed');
   if(d.highStrength.check({supplier:true,admixture:false,powder:true,production:false}).complete) fail('Appendix E incomplete case failed');
-  if(!d.auditLifecycle.check(['initial','periodic','extraordinary','corrective','review']).pass) fail('Appendix F correct lifecycle case failed');
-  if(d.auditLifecycle.check(['initial','corrective','periodic','extraordinary','review']).pass) fail('Appendix F wrong lifecycle case failed');
+  if(!d.auditLifecycle.check({auditType:'periodic',order:['initial','audit','corrective','review']}).pass) fail('Appendix F periodic lifecycle case failed');
+  if(!d.auditLifecycle.check({auditType:'extraordinary',order:['initial','audit','corrective','review']}).pass) fail('Appendix F extraordinary lifecycle case failed');
+  if(d.auditLifecycle.check({auditType:'periodic',order:['initial','corrective','audit','review']}).pass) fail('Appendix F wrong lifecycle order case failed');
   if(!d.changeMap.describe('deleted')||!d.changeMap.describe('added')) fail('Appendix G change-map lookup failed');
 }
 
