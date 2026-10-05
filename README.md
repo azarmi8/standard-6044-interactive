@@ -1,46 +1,84 @@
 # استاندارد ملی ایران ۶۰۴۴:۱۳۹۷ — کتاب وب تعاملی
 
-یک کتاب وب تعاملی و آموزشی فارسی درباره **استاندارد ملی ایران ۶۰۴۴:۱۳۹۷ — بتن آماده، ویژگی‌ها**.
+یک **کتاب آموزشی تعاملی حرفه‌ای** برای یادگیری و کاربرد استاندارد ملی ایران ۶۰۴۴:۱۳۹۷ — «بتن آماده، ویژگی‌ها».
 
-## درباره پروژه
+> **Created by Mohammadreza Azarmi**
 
-این پروژه توسط **Mohammadreza Azarmi** ساخته می‌شود و هدف آن تبدیل محتوای استاندارد ۶۰۴۴ به یک تجربه آموزشی تعاملی، تصویری و قابل مرور در وب است.
+## 🎯 هدف محصول
 
-روش طراحی پروژه از ایده‌ها و ساختار پروژه [Papermorph](https://github.com/DozenTwelve/Papermorph) الهام گرفته است: PDF → نقشه کتاب → storyboard → narration → animation & quizzes → web book.
+این پروژه قرار نیست صرفاً PDF را به HTML تبدیل کند. هدف، ساخت یک **Professional Interactive Engineering Book / Training Simulator** است که متن و ساختار استاندارد را به تجربه‌ای قابل مطالعه، مشاهده، تمرین و ارزیابی تبدیل می‌کند.
 
-> Papermorph یک مرجع معماری/روش کار است؛ این مخزن یک پروژه مستقل با محتوای مستقل و متعلق به پروژه کتاب تعاملی ۶۰۴۴ است.
+### تجربه هدف
 
-## وضعیت
+**استاندارد → آموزش → Animation → Simulation → Practice → Scenario → Assessment**
 
-- Pilot فصل ۱: آماده
-- فصل‌های ۲ تا ۱۵: در دست ساخت
-- زبان: فارسی RTL
-- سبک: مهندسی، حرفه‌ای، تعاملی، بدون ظاهر کودکانه
-- خروجی فعلی: Static Web Book
-- منبع محتوای استاندارد: استاندارد ملی ایران ۶۰۴۴:۱۳۹۷
+## ✨ قابلیت‌های محصول
 
-## ساختار
+- کتاب وب فارسی RTL و Responsive
+- فصل‌بندی کامل استاندارد و پیوست‌ها
+- Sceneهای تعاملی 1600×900
+- Animationهای مرحله‌ای و Timeline-based
+- Play / Pause / Previous / Next / Replay
+- Narration فارسی همگام با Scene
+- Highlight بند، عدد، جدول و نکته در زمان آموزش
+- دیاگرام‌های مهندسی و SVG تعاملی
+- شبیه‌سازی فرآیندهای بتن و کنترل کیفیت در جاهایی که ارزش آموزشی دارند
+- Quizهای چندنوعی و سناریومحور
+- تمرین‌های «قبول / رد / بررسی بیشتر»
+- حالت Quick Learn / Full Study / Practice / Exam / QC Mode
+- جست‌وجوی مفهومی و Cross-reference بین فصل‌ها
+- Progress و یادگیری مرحله‌ای
+- طراحی حرفه‌ای مهندسی؛ نه داشبورد خشک و نه ظاهر کودکانه
+- Mobile / Desktop / Fullscreen
+- معماری مستقل از Papermorph و قابل توسعه توسط Agentهای مختلف
 
-```
-books/6044-1397/
-  BOOK.md
-  chapters.md
-  chapters/ch01.md
+## 🧱 اصول محتوایی
 
-content/6044-1397/ch01/
-  narration.fa.json
+1. **استاندارد منبع اصلی است.**
+2. متن، شماره بند، جدول، محدوده، استثنا و اصطلاحات بدون پشتوانه حدس زده نمی‌شوند.
+3. توضیح آموزشی از محتوای منبع با برچسب/ساختار مناسب جدا می‌شود.
+4. تمرین و Simulation نباید نتیجه استاندارد را تحریف کنند.
+5. اگر بخشی از منبع قابل خواندن یا تأیید نباشد، Agent باید توقف کند، منبع را دوباره بررسی کند یا گزارش «نیازمند تأیید» بدهد؛ حق ساختن مقدار یا بند جعلی ندارد.
+6. منابع وب و پروژه‌های GitHub فقط برای **روش، UX، معماری و ایده‌های فنی** هستند؛ جایگزین متن استاندارد نیستند.
 
-site/6044-1397/
-  index.html
-  style.css
-  ch01/
-    index.html
-    app.js
-```
+## 🎨 الهام فنی
 
-منابع خصوصی مانند PDF اصلی و متن استخراج‌شده عمداً در Git منتشر نمی‌شوند.
+روش workflow از پروژه‌هایی مانند **Papermorph** الهام گرفته شده است:
 
-## اجرای محلی
+PDF → Book Map → Storyboard → Narration → Animation → Quiz → Web Book
+
+همچنین برای قابلیت‌های سخت‌تر، Agentها می‌توانند پروژه‌های حرفه‌ای GitHub را بررسی کنند و از الگوهای mature در SVG/GSAP/WebGL/Three.js/page-turn/accessibility/testing الهام بگیرند.
+
+**هیچ پروژه خارجی dependency اجباری معماری نیست.**
+
+## 📚 پوشش
+
+۱۵ فصل رسمی + پیوست‌های الف تا ح در نقشه پروژه ثبت شده‌اند.
+
+جزئیات پوشش در:
+
+- `books/6044-1397/chapters.md`
+- `books/6044-1397/COVERAGE.md`
+- `docs/MASTER_ROADMAP.md`
+- `docs/AGENT_HANDOFF.md`
+
+## 🤖 قرارداد کار Agentها
+
+هر Agent قبل از تغییر:
+
+1. `docs/AGENT_HANDOFF.md` را بخواند.
+2. `docs/MASTER_ROADMAP.md` را بخواند.
+3. `books/6044-1397/BOOK.md` و `COVERAGE.md` را بررسی کند.
+4. وضعیت واقعی `main` و Git را بررسی کند.
+5. از تغییرات موازی و بازنویسی کور جلوگیری کند.
+6. محتوای استاندارد را حدس نزند.
+7. پس از کار، handoff و roadmap را به‌روز کند.
+
+## 🔒 منبع خصوصی
+
+PDF اصلی و extractionهای خصوصی عمداً در خروجی GitHub منتشر نمی‌شوند. فایل‌های حساس/منبع باید خارج از static site نگهداری شوند.
+
+## ▶️ اجرای محلی
 
 از ریشه پروژه:
 
@@ -54,10 +92,10 @@ python3 -m http.server 8765 -d site
 http://localhost:8765/6044-1397/
 ```
 
-## Attribution
+## 👤 Attribution
 
-Created by **Mohammadreza Azarmi**.
+**Created by Mohammadreza Azarmi**
 
-Interactive educational web book based on Iranian National Standard 6044:1397.
+Reference methodology: [DozenTwelve/Papermorph](https://github.com/DozenTwelve/Papermorph)
 
-Reference methodology: [DozenTwelve/Papermorph](https://github.com/DozenTwelve/Papermorph).
+این مخزن یک پروژه مستقل است.
