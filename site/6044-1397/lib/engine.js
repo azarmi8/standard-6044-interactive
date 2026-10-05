@@ -14,6 +14,12 @@
     const prev=$('prev'), next=$('next'), result=$('quizResult')||$('result'), fullscreen=$('fullscreen');
     const controls=document.querySelector('.book-controls');
     let stepMode=false, narrationAudio=null;
+    const progressKey='standard6044-book-progress-v1';
+    const chapterKey=location.pathname.match(/\/ch(\d{2})\//)?.[1]||null;
+    function loadProgress(){try{return JSON.parse(localStorage.getItem(progressKey)||'{}')}catch(e){return {}}}
+    function saveProgress(){if(!chapterKey)return;const p=loadProgress();p[chapterKey]={index,total:beats.length,updatedAt:new Date().toISOString()};try{localStorage.setItem(progressKey,JSON.stringify(p))}catch(e){}}
+    function toggleBookmark(){if(!chapterKey)return;const p=loadProgress(),k='bookmark';p[k]=p[k]||{};if(p[k][chapterKey]===index)delete p[k][chapterKey];else p[k][chapterKey]=index;try{localStorage.setItem(progressKey,JSON.stringify(p))}catch(e){};updateBookmarkButton()}
+    function updateBookmarkButton(){const b=$('bookmark');if(!b||!chapterKey)return;const p=loadProgress(),saved=p.bookmark&&p.bookmark[chapterKey]===index;b.textContent=saved?'★ نشانک فعال':'☆ نشانک';b.setAttribute('aria-pressed',String(!!saved))}
 
     function sceneTargets(n){
       document.querySelectorAll('[data-beat]').forEach(el=>{
@@ -66,6 +72,8 @@
       applyScene(cfg.scene,index,b);
         document.documentElement.style.setProperty('--beat-index',index);
       lifecycle('onRender',index,b);
+      saveProgress();
+      updateBookmarkButton();
       syncNarration();
     }
     function go(n){
@@ -114,6 +122,7 @@
     if(prev) prev.onclick=()=>go(index-1);
     if(next) next.onclick=()=>go(index+1);
     if(play) play.onclick=toggle;
+    if(controls && !$('bookmark')){ const b=document.createElement('button'); b.id='bookmark'; b.type='button'; b.className='secondary'; b.textContent='☆ نشانک'; b.onclick=toggleBookmark; controls.appendChild(b); }
     if(controls && !$('step')){
       const b=document.createElement('button'); b.id='step'; b.type='button'; b.textContent='گام بعدی'; b.setAttribute('aria-pressed','false'); controls.appendChild(b);
     }
@@ -149,7 +158,7 @@
     }
     window.addEventListener('beforeunload',()=>lifecycle('onExit',index,beats[index]));
     enter();
-    window.BookEngine={next:()=>go(index+1),prev:()=>go(index-1),play:toggle,stop,step,toggleStepMode,go,playNarration,pauseNarration,replayNarration,setNarrationRate,get index(){return index},get total(){return beats.length}};
+    window.BookEngine={next:()=>go(index+1),prev:()=>go(index-1),play:toggle,stop,step,toggleStepMode,go,playNarration,pauseNarration,replayNarration,setNarrationRate,toggleBookmark,get index(){return index},get total(){return beats.length}};
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
 })();
