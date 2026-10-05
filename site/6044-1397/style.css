@@ -61,3 +61,27 @@
 @media(max-width:900px){.book-cover{grid-template-columns:1fr}.cover-visual{min-height:280px;border-inline-start:0;border-top:1px solid #29483a}.toc-grid{grid-template-columns:1fr}}
 @media(max-width:560px){.book-cover-copy{padding:24px 20px}.cover-visual{min-height:220px}.home-entry{flex-direction:column;align-items:stretch}.home-entry a{text-align:center}}
 @media(prefers-reduced-motion:reduce){.book-cover svg *{animation:none!important;transition:none!important}}
+
+
+/* Reader UX v0.6 — narration + stronger book chrome */
+.narration-panel{margin-top:12px;padding:16px 18px;border:1px solid #c8d9ca;border-radius:16px;background:linear-gradient(135deg,#eff6ef,#fbfaf4);box-shadow:0 8px 24px #173c2a12}
+.narration-head{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.narration-head>div:first-child{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.narration-label{font-size:.68rem;letter-spacing:.09em;font-weight:900;color:#4d8a62;border:1px solid #9ebda6;padding:4px 7px;border-radius:999px;background:#fff}
+.narration-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.narration-actions button{border:0;border-radius:10px;padding:9px 12px;background:#173c2a;color:#fff;font-weight:800;cursor:pointer}
+.narration-actions button.secondary{background:#e6ece7;color:#173c2a}
+.narration-actions select{min-height:36px;border:1px solid #b8c7ba;border-radius:9px;background:#fff;color:#173c2a;padding:6px 9px}
+.narration-panel p{margin:11px 0 0;padding-top:11px;border-top:1px solid #d7e2d8;color:#435249;line-height:1.95}
+.narration-panel[data-state="playing"]{border-color:#77a488}
+.book-controls{background:linear-gradient(180deg,#ffffff,#f6f8f4);border-top:1px solid #d7ded7}
+.book-controls button{font-weight:800}
+@media(max-width:650px){
+  .narration-head{align-items:stretch}
+  .narration-actions{width:100%}
+  .narration-actions button,.narration-actions label{flex:1}
+  .narration-actions select{width:100%}
+}
+@media(prefers-reduced-motion:reduce){
+  .narration-panel{box-shadow:none!important}
+}
