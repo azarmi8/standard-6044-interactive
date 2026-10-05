@@ -26,10 +26,13 @@
       }
     },
     auditLifecycle:{
-      check(order){
-        const expected=['initial','periodic','extraordinary','corrective','review'];
-        const valid=Array.isArray(order)&&order.length===expected.length&&order.every((v,i)=>v===expected[i]);
-        return {valid:true,pass:valid,expected};
+      check(input){
+        const order=Array.isArray(input)?input:input?.order;
+        const auditType=Array.isArray(input)?null:input?.auditType;
+        const auditOk=auditType==='periodic'||auditType==='extraordinary';
+        const expected=['initial','audit','corrective','review'];
+        const valid=Array.isArray(order)&&order.length===4&&order.every((v,i)=>v===expected[i])&&auditOk;
+        return {valid:true,pass:valid,auditType,expected};
       }
     },
     changeMap:{
