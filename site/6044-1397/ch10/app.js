@@ -15,3 +15,27 @@ window.BOOK_CONFIG={
     const q=document.getElementById('q'),s=document.getElementById('sub');if(q)q.textContent=b.title;if(s)s.textContent='خاصیت → روش آزمون → معیار → ثبت';
   }
 };
+
+(function(){
+ const out=document.getElementById('fresh-sim-output');
+ const btn=document.getElementById('run-fresh-sim');
+ if(!out||!btn)return;
+ btn.addEventListener('click',function(){
+   const slump=Number(document.getElementById('slump-input').value);
+   const flow=Number(document.getElementById('flow-input').value);
+   const measured=Number(document.getElementById('density-measured').value);
+   const specified=Number(document.getElementById('density-specified').value);
+   const s=window.SimulationEngine.ch10.classifySlump(slump);
+   const fl=window.SimulationEngine.ch10.classifyFlow(flow);
+   const d=window.SimulationEngine.ch10.density(measured,specified);
+   if(!Number.isFinite(slump)||!Number.isFinite(flow)||!d.valid){
+     out.textContent='ورودی‌ها را کامل و معتبر وارد کنید.';
+     out.className='sim-result bad';
+     return;
+   }
+   out.innerHTML='<strong>نتیجه سناریو</strong><br>اسلامپ: '+(s||'خارج از دامنه رده‌های تعریف‌شده')+
+     '<br>اسلامپ‌فلو: '+(fl||'خارج از دامنه رده‌های تعریف‌شده')+
+     '<br>اختلاف چگالی: '+d.difference.toFixed(0)+' kg/m³ — '+(d.pass?'در محدوده 25 kg/m³':'بیش از 25 kg/m³');
+   out.className='sim-result '+(d.pass?'good':'bad');
+ });
+})();
