@@ -50,15 +50,17 @@ Current artifacts:
 - `books/6044-1397/PRACTICE_MAP.md`
 
 # Phase 3 — Core Book Engine
-- [ ] Shared chapter shell.
-- [ ] Beat/timeline engine.
+**Status: PILOT STARTED — shared engine v0.1 + Chapter 1 migrated.**
+
+- [x] Shared chapter shell.
+- [x] Beat/timeline engine.
 - [ ] Scene lifecycle.
-- [ ] Play/pause/next/previous.
+- [x] Play/pause/next/previous.
 - [ ] Progress/navigation/fullscreen.
-- [ ] Keyboard controls.
-- [ ] Responsive layout.
-- [ ] Reduced-motion and fallback states.
-- [ ] Reusable SVG/scene helpers.
+- [x] Keyboard controls.
+- [x] Responsive layout.
+- [x] Reduced-motion and fallback states.
+- [x] Reusable SVG/scene helpers.
 **Exit gate:** a new chapter can be implemented mainly from configuration/content.
 
 # Phase 4 — Professional Animation System
