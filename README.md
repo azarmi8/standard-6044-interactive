@@ -68,7 +68,7 @@ PDF → Book Map → Storyboard → Narration → Animation → Quiz → Web Boo
 - `docs/RELEASE_CHECKLIST.md`
 - `CHANGELOG.md`
 
-> وضعیت فعلی: ۲۲ واحد یادگیری با engine مشترک، شبیه‌سازی‌ها، assessment/search/navigation و قرارداد Narration پیاده‌سازی شده‌اند. Static QA و Browser Smoke روی main سبز هستند؛ نسخه 1.0 هنوز به‌دلیل Pages، ممیزی نهایی منبع، بازبینی انسانی صدا و چند گیت انتشار آماده نیست.
+> وضعیت فعلی: ۲۲ واحد یادگیری با engine مشترک، شبیه‌سازی‌ها، assessment/search/navigation، Device Narration fallback و Reader HUD پیاده‌سازی شده‌اند. PR #16 همچنین صفحه ورود کتاب و دو Scene آموزشی کلیدی را تقویت کرده است. Static QA و Browser Smoke سبز هستند و GitHub Pages فعال است؛ نسخه 1.0 هنوز به‌دلیل ممیزی نهایی منبع، بازبینی انسانی صدا و چند گیت نهایی انتشار آماده نیست.
 
 ## 🤖 قرارداد کار Agentها
 
