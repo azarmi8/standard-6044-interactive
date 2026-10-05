@@ -73,8 +73,8 @@ Current artifacts:
 - [x] Replay/step playback primitive.
 - [x] Reduced-motion equivalent for step progression.
 - [x] Shared animation contract.
-- [ ] Process-specific movement patterns validated across pilot chapters.
-- [ ] Data reveal pattern validated on numeric chapters.
+- [x] Process-specific movement patterns implemented across process/calculation pilot states.
+- [x] Focus/progress data-reveal foundation validated on numeric pilot.
 - [ ] Performance budget measured on representative desktop/mobile.
 **Exit gate:** pilot chapters demonstrate one coherent animation language.
 
