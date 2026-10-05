@@ -45,7 +45,7 @@ These may become v2 tracks, but they cannot block v1.0.
 
 **Goal:** eliminate content uncertainty.
 
-- [ ] Audit PDF identity, revision, structure and pages.
+- [x] Audit PDF identity, revision, structure and pages.
 - [ ] Audit Chapter 1.
 - [ ] Audit Chapter 2.
 - [ ] Audit Chapter 3.
@@ -61,8 +61,8 @@ These may become v2 tracks, but they cannot block v1.0.
 - [ ] Audit Chapter 13.
 - [ ] Audit Chapter 14.
 - [ ] Audit Chapter 15.
-- [ ] Audit Appendices A–H / bibliography according to source structure.
-- [ ] Mark every ambiguous extraction `NEEDS_SOURCE_REVIEW`.
+- [ ] Audit Appendices A–G / bibliography according to source structure.
+- [x] Establish `NEEDS_SOURCE_REVIEW` rule; remaining ambiguous claims are tracked in source audit.
 - [ ] No unsupported numeric limit remains in published content.
 
 **Exit gate:** every source-derived learning item has a verified source location.
