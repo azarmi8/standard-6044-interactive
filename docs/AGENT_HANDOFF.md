@@ -96,19 +96,19 @@ Interactive beat work has been applied to:
 ## Immediate next work
 
 ### Priority 1 — Release QA
-Current main gates are green: Static QA Run #62 and Browser Smoke Run #12. Remaining release QA is fullscreen visual QA plus final source/publication audit.
+The runtime/visual pass is now merged on main. Static QA and Browser Smoke passed on PR #16, including Chapter 3/8/10/17 plus mobile/reduced-motion and the new Reader HUD. Remaining release QA is fullscreen visual QA plus final source/publication audit.
 
 ### Priority 2 — Visual consistency
-Cross-chapter engine/visual audit is complete for Units 1–22. Remaining item is final fullscreen visual review.
+PR #16 strengthened the shared Reader HUD and upgraded the Chapter 10 measurement scene and Appendix B calculation scene. The remaining task is final fullscreen visual review and extending the pilot visual language where needed.
 
 ### Priority 3 — Narration quality
-Complete the Persian voice benchmark, select a voice only after human listening, then generate/review release narration. Do not bulk-generate before pronunciation approval.
+The shared engine now provides device-based Persian narration fallback plus play/pause/replay/rate controls. Complete the Persian voice benchmark, select a voice only after human listening, then generate/review release narration. Do not bulk-generate before pronunciation approval.
 
 ### Priority 4 — Source/content finalization
 Resolve remaining clause-level source-audit items and ensure every released source-derived claim has a traceable source reference.
 
 ### Priority 5 — Release
-Documentation package is complete. Remaining release blockers are GitHub Pages enablement, human narration approval, final clause-level source audit, fullscreen review, owner acceptance, then v1.0.0.
+Documentation package is complete. GitHub Pages enablement is resolved. Remaining release blockers are human narration approval, final clause-level source audit, fullscreen review, owner acceptance, then v1.0.0.
 
 Do not start new feature families unless they are required to close a v1.0 blocker.
 
@@ -141,7 +141,7 @@ Read docs/PRODUCT_SPEC.md before shared UX/animation/simulation work. Prefer reu
 
 ## Current truth
 
-`main` baseline: `5776a0ea2f13772037afefabbe8f7244d35b8aea` (current checked baseline). All 23 navigation surfaces have HTML entry points; Units 1–22 are the source learning units and Unit 23 is bibliography/reference. All 22 learning units now use the shared book engine and shared control/navigation contract. The repository contains pilot simulations, assessment/search/navigation persistence, Persian narration foundation, and visual QA contracts. GitHub Pages is still disabled at repository level, so deployment cannot complete until Pages is enabled/configured. The professional cover/contents treatment is complete. The book is still a release candidate in progress: do not describe it as fully source-final or release-ready until Phase 10 QA and the remaining source/narration/browser gates pass.
+`main` baseline: `966d24f4b1eba12249b315dfb8901c4ff2d23fb7`. All 23 navigation surfaces have HTML entry points; Units 1–22 are the source learning units and Unit 23 is bibliography/reference. The shared reader engine now includes device narration fallback and an in-scene Reader HUD. PR #16 also strengthened the book landing journey and two pedagogical pilot scenes. GitHub Pages is enabled and the deployment workflow has completed successfully. The book is still a release candidate in progress: do not describe it as fully source-final or release-ready until the remaining Phase 10 and release gates pass. The professional cover/contents treatment is complete. The book is still a release candidate in progress: do not describe it as fully source-final or release-ready until Phase 10 QA and the remaining source/narration/browser gates pass.
 
 
 ## Finite delivery rule
