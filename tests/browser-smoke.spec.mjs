@@ -3,6 +3,7 @@ import { test, expect } from '@playwright/test';
 const pages = [
   '/',
   '/ch03/',
+  '/ch04/',
   '/ch07/',
   '/ch08/',
   '/ch10/',
@@ -52,6 +53,29 @@ test.describe('6044 browser smoke', () => {
     });
   }
 
+
+  test('Chapter 4 particle morph + packaged narration wiring', async ({ page }) => {
+    await page.goto('http://127.0.0.1:8765/ch04/', { waitUntil: 'networkidle' });
+    await expect(page.locator('[data-particle-morph]')).toHaveCount(1);
+    await expect(page.locator('[data-particle-canvas]')).toHaveCount(1);
+    await expect(page.locator('[data-particle-phase]')).toContainText('MATERIAL INPUT');
+    const audioProbe = await page.evaluate(async () => {
+      const r = await fetch('../audio/fa/ch04-01.mp3', { cache: 'no-store' });
+      const b = await r.arrayBuffer();
+      return { ok: r.ok, status: r.status, bytes: b.byteLength };
+    });
+    expect(audioProbe.ok).toBeTruthy();
+    expect(audioProbe.status).toBe(200);
+    expect(audioProbe.bytes).toBeGreaterThan(1000);
+
+    await page.locator('[data-narrate-play]').click();
+    await page.waitForTimeout(250);
+    await expect(page.locator('[data-narration-status]')).toContainText('روایت صوتی فارسی آماده');
+
+    await page.locator('[data-particle-play]').click();
+    await page.waitForTimeout(2050);
+    await expect(page.locator('[data-particle-phase]')).toContainText('CEMENT / SCM');
+  });
 
   test('Chapter 8 shared reader + simulator respond', async ({ page }) => {
     await page.goto('http://127.0.0.1:8765/ch08/', { waitUntil: 'networkidle' });
