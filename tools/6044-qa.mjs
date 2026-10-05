@@ -22,6 +22,17 @@ function rel(p){ return path.relative(ROOT,p).replaceAll(path.sep,'/'); }
 if(!exists(SITE)) fail('site/6044-1397 is missing');
 if(!exists(BOOKS)) fail('books/6044-1397 is missing');
 
+const engineCssPath=path.join(SITE,'lib','engine.css');
+if(exists(engineCssPath)){
+  const engineCss=read(engineCssPath);
+  if(/animation(?:-iteration-count)?\\s*:[^;]*infinite/i.test(engineCss))
+    fail('engine.css: infinite animation detected; educational choreography must be one-shot');
+  if(/@keyframes\\s+[^\\{]+/i.test(engineCss) && /animation-[^:]+\\s*:/i.test(engineCss)===false)
+    warn('engine.css: keyframes exist without animation declarations');
+}else{
+  fail('shared engine.css is missing');
+}
+
 for(const n of expected){
   const dir=path.join(SITE,'ch'+n);
   const html=path.join(dir,'index.html');
