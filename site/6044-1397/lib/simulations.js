@@ -88,3 +88,37 @@ window.SimulationEngine.ch08 = {
     {input:{firstPercent:15,secondPercent:84,intervalMinutes:10},pass:false}
   ]
 };
+
+window.SimulationEngine.ch07 = {
+  id: 'ch07-delivery-temperature',
+  source: { chapter: 7, clauses: ['7-12'], table: '1', pages: '19–20' },
+  minimumTemperatureForDimension(mm) {
+    if(!Number.isFinite(mm) || mm<=0) return null;
+    if(mm<300) return 13;
+    if(mm<=900) return 10;
+    if(mm<=1800) return 7;
+    return 5;
+  },
+  calculate(input) {
+    if(!input || !Number.isFinite(input.memberDimensionMm) || !Number.isFinite(input.deliveryTemperatureC))
+      return {valid:false,error:'کوچک‌ترین بُعد عضو و دمای تحویل را وارد کنید.'};
+    if(input.memberDimensionMm<=0) return {valid:false,error:'کوچک‌ترین بُعد عضو باید بزرگ‌تر از صفر باشد.'};
+    const min=this.minimumTemperatureForDimension(input.memberDimensionMm);
+    const max=32;
+    return {
+      valid:true,
+      minimumC:min,
+      maximumC:max,
+      minimumOK:input.deliveryTemperatureC>=min,
+      maximumOK:input.deliveryTemperatureC<=max,
+      pass:input.deliveryTemperatureC>=min && input.deliveryTemperatureC<=max
+    };
+  },
+  testCases:[
+    {input:{memberDimensionMm:250,deliveryTemperatureC:13},pass:true,minimumC:13},
+    {input:{memberDimensionMm:600,deliveryTemperatureC:10},pass:true,minimumC:10},
+    {input:{memberDimensionMm:1200,deliveryTemperatureC:6},pass:false,minimumC:7},
+    {input:{memberDimensionMm:2000,deliveryTemperatureC:5},pass:true,minimumC:5},
+    {input:{memberDimensionMm:600,deliveryTemperatureC:33},pass:false,minimumC:10}
+  ]
+};
