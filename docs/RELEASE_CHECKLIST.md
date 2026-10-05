@@ -2,12 +2,12 @@
 
 ## وضعیت فعلی
 
-Baseline: `main @ 6d8f3dd31778e89f50545e4a92fa9ac0de7d8dcf`
+Baseline: `main @ 7ffc894b6dd4530fda7c2848f4b7e307f73d487f`
 
 ### گیت‌های فنی فعلی
 
-- [x] Static QA روی main — Run #62 موفق
-- [x] Browser Smoke روی main — Run #12 موفق
+- [x] Static QA روی main — Run #64 موفق
+- [x] Browser Smoke روی main — Run #14 موفق
 - [x] 22 واحد یادگیری با shared engine
 - [x] 1600×900 SVG contract
 - [x] reduced-motion / mobile smoke
