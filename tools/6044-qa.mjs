@@ -35,7 +35,8 @@ function checkNarration(dir){
     if(!src.includes('BOOK_CONFIG')) continue;
     if(src.includes('narration:')){
       if(!src.includes('beats:')) fail(`${rel(file)}: narration config missing beats array`);
-      if(!src.includes('text:')) fail(`${rel(file)}: narration beats missing transcript text`);
+      if(!src.includes('displayText:') && !src.includes('text:')) fail(`${rel(file)}: narration beats missing displayText/text`);
+      if(!src.includes('spokenText:') && !src.includes('text:')) fail(`${rel(file)}: narration beats missing spokenText/text`);
     }
   }
 }
