@@ -17,9 +17,12 @@
     const progressKey='standard6044-book-progress-v1';
     const chapterKey=location.pathname.match(/\/ch(\d{2})\//)?.[1]||null;
     function loadProgress(){try{return JSON.parse(localStorage.getItem(progressKey)||'{}')}catch(e){return {}}}
+    function chapterNumber(){return chapterKey?Number(chapterKey):null}
+    function chapterNav(){const n=chapterNumber();if(!n)return;const host=document.querySelector('.book-controls');if(!host)return;const nav=document.createElement('nav');nav.className='chapter-nav';nav.setAttribute('aria-label','ناوبری فصل');const prev=n>1?'ch'+String(n-1).padStart(2,'0')+'/':'../';const next=n<22?'ch'+String(n+1).padStart(2,'0')+'/':'../';const prevLabel=n>1?'← فصل قبلی':'← فهرست';const nextLabel=n<22?'فصل بعدی →':'فهرست →';nav.innerHTML='<a class="secondary nav-link" href="'+prev+'">'+prevLabel+'</a><a class="secondary nav-link" href="../">فهرست</a><a class="secondary nav-link" href="'+next+'">'+nextLabel+'</a>';host.insertBefore(nav,host.firstChild)}
     function saveProgress(){if(!chapterKey)return;const p=loadProgress();p[chapterKey]={index,total:beats.length,updatedAt:new Date().toISOString()};try{localStorage.setItem(progressKey,JSON.stringify(p))}catch(e){}}
     function toggleBookmark(){if(!chapterKey)return;const p=loadProgress(),k='bookmark';p[k]=p[k]||{};if(p[k][chapterKey]===index)delete p[k][chapterKey];else p[k][chapterKey]=index;try{localStorage.setItem(progressKey,JSON.stringify(p))}catch(e){};updateBookmarkButton()}
     function updateBookmarkButton(){const b=$('bookmark');if(!b||!chapterKey)return;const p=loadProgress(),saved=p.bookmark&&p.bookmark[chapterKey]===index;b.textContent=saved?'★ نشانک فعال':'☆ نشانک';b.setAttribute('aria-pressed',String(!!saved))}
+    function restoreProgress(){if(!chapterKey)return;const p=loadProgress(),saved=p[chapterKey];if(saved&&Number.isInteger(saved.index)&&saved.index>=0&&saved.index<beats.length)index=saved.index}
 
     function sceneTargets(n){
       document.querySelectorAll('[data-beat]').forEach(el=>{
@@ -128,6 +131,8 @@
     }
     const stepButton=$('step');
     if(stepButton){stepButton.onclick=()=>step(); stepButton.addEventListener('dblclick',toggleStepMode);}
+    chapterNav();
+    restoreProgress();
     if(fullscreen) fullscreen.onclick=()=>{
       const el=document.querySelector('.stage')||document.querySelector('.book-stage');
       if(!el)return;
