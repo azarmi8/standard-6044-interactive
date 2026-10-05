@@ -16,7 +16,7 @@
     function sceneTargets(n){
       document.querySelectorAll('[data-beat]').forEach(el=>{
         const values=(el.getAttribute('data-beat')||'').split(/\s+/).filter(Boolean).map(Number);
-        const active=values.includes(n)||values.includes(n+1);
+        const active=values.includes(n+1);
         el.classList.toggle('is-active',active);
         el.setAttribute('aria-hidden',active?'false':'true');
       });
