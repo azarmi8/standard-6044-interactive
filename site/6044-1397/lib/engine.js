@@ -23,6 +23,7 @@
     function toggleBookmark(){if(!chapterKey)return;const p=loadProgress(),k='bookmark';p[k]=p[k]||{};if(p[k][chapterKey]===index)delete p[k][chapterKey];else p[k][chapterKey]=index;try{localStorage.setItem(progressKey,JSON.stringify(p))}catch(e){};updateBookmarkButton()}
     function updateBookmarkButton(){const b=$('bookmark');if(!b||!chapterKey)return;const p=loadProgress(),saved=p.bookmark&&p.bookmark[chapterKey]===index;b.textContent=saved?'★ نشانک فعال':'☆ نشانک';b.setAttribute('aria-pressed',String(!!saved))}
     function restoreProgress(){if(!chapterKey)return;const p=loadProgress(),saved=p[chapterKey];if(saved&&Number.isInteger(saved.index)&&saved.index>=0&&saved.index<beats.length)index=saved.index}
+    function resumeBookmark(){if(!chapterKey)return;const p=loadProgress(),saved=p.bookmark&&p.bookmark[chapterKey];if(Number.isInteger(saved)&&saved>=0&&saved<beats.length)index=saved}
 
     function sceneTargets(n){
       document.querySelectorAll('[data-beat]').forEach(el=>{
