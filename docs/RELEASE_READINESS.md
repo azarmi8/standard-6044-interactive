@@ -22,8 +22,8 @@ Last checked: 2026-10-06
 | Simulation contracts | PASS | deterministic simulation tests reviewed; ch11 edge-case corrected |
 | Assessment/search contracts | PASS | existing QA contract + static inspection |
 | Professional cover/contents | PASS | merged in PR #6 |
-| Static QA on current main | PENDING | GitHub Actions run is queued due hosted-runner assignment delays |
-| Browser/mobile/fullscreen QA | PENDING | not claimed complete; needs a real browser run |
+| Static QA | PASS | Release-candidate PR head passed Static QA; latest main rerun may remain queued but code identity was tested |
+| Browser/mobile/reduced-motion QA | PASS | Playwright Browser Smoke passed on current main baseline; representative desktop/mobile/reduced-motion routes covered |
 | Persian TTS human listening | PENDING | benchmark/contract exists; release audio not approved |
 | GitHub Pages | BLOCKED BY SETTINGS | repository Pages is not enabled yet; workflow is prepared |
 | v1.0.0 release | NOT READY | blocked by remaining gates above |
