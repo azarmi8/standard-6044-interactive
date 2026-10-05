@@ -9,4 +9,22 @@
 <button id="run-sampling-sim">ارزیابی نمونه‌برداری</button>
 <div id="sampling-output" class="sim-result" aria-live="polite"></div>
 <p class="sim-source"><strong>SOURCE:</strong> فصل ۸ — نمونه‌برداری در حدود ۱۵٪ و ۸۵٪ تخلیه و فاصله حداکثر ۱۵ دقیقه بین دو نمونه.</p>
-</section></section></main><script src="../lib/engine.js"></script><script src="../lib/simulations.js"></script><script>const x=['اختلاط اولیه','حفاظت در برابر جداشدگی و آب‌زدگی','حفظ یکنواختی تا محل تحویل','نمونه‌برداری در حدود 15% و 85% تخلیه، با فاصله حداکثر 15 دقیقه','محدودیت استفاده از دستگاه غیرهمزن'];let i=0,t=null,$=z=>document.getElementById(z);function R(){$('h').textContent=x[i];$('b').textContent='حمل باید طوری انجام شود که یکنواختی، کارایی و شرایط موردنیاز بتن تا محل تحویل حفظ شود.';$('a').textContent=x[i];$('c').textContent='استاندارد ۶۰۴۴:۱۳۹۷ / مرحله '+(i+1)+' از '+x.length;$('q').textContent='این مرحله را به کنترل واقعی تحویل وصل کن.';$('num').textContent=(i+1)+' / '+x.length;$('bar').style.width=((i+1)/x.length*100)+'%'}$('n').onclick=()=>{i=Math.min(x.length-1,i+1);R()};$('p').onclick=()=>{i=Math.max(0,i-1);R()};$('play').onclick=()=>{if(t){clearInterval(t);t=null;$('play').textContent='پخش';return}t=setInterval(()=>{if(i===x.length-1){clearInterval(t);t=null;$('play').textContent='پخش'}else{i++;R()}},4500);$('play').textContent='توقف'};$('yes').onclick=()=>{$('r').textContent='درست — حمل بخشی از زنجیره کیفیت است.'};$('no').onclick=()=>{$('r').textContent='کافی نیست.'};R()</script></body></html>
+</section></section></main><script src="../lib/engine.js"></script><script src="../lib/simulations.js"></script><script>const x=['اختلاط اولیه','حفاظت در برابر جداشدگی و آب‌زدگی','حفظ یکنواختی تا محل تحویل','نمونه‌برداری در حدود 15% و 85% تخلیه، با فاصله حداکثر 15 دقیقه','محدودیت استفاده از دستگاه غیرهمزن'];let i=0,t=null,$=z=>document.getElementById(z);function R(){$('h').textContent=x[i];$('b').textContent='حمل باید طوری انجام شود که یکنواختی، کارایی و شرایط موردنیاز بتن تا محل تحویل حفظ شود.';$('a').textContent=x[i];$('c').textContent='استاندارد ۶۰۴۴:۱۳۹۷ / مرحله '+(i+1)+' از '+x.length;$('q').textContent='این مرحله را به کنترل واقعی تحویل وصل کن.';$('num').textContent=(i+1)+' / '+x.length;$('bar').style.width=((i+1)/x.length*100)+'%'}$('n').onclick=()=>{i=Math.min(x.length-1,i+1);R()};$('p').onclick=()=>{i=Math.max(0,i-1);R()};$('play').onclick=()=>{if(t){clearInterval(t);t=null;$('play').textContent='پخش';return}t=setInterval(()=>{if(i===x.length-1){clearInterval(t);t=null;$('play').textContent='پخش'}else{i++;R()}},4500);$('play').textContent='توقف'};$('yes').onclick=()=>{$('r').textContent='درست — حمل بخشی از زنجیره کیفیت است.'};$('no').onclick=()=>{$('r').textContent='کافی نیست.'};R()</script><script>
+(function(){
+ const btn=document.getElementById('run-sampling-sim'),out=document.getElementById('sampling-output');
+ if(!btn||!out)return;
+ btn.addEventListener('click',function(){
+  const result=window.SimulationEngine.ch08.calculate({
+   firstPercent:Number(document.getElementById('sample-first').value),
+   secondPercent:Number(document.getElementById('sample-second').value),
+   intervalMinutes:Number(document.getElementById('sample-interval').value)
+  });
+  if(!result.valid){out.textContent=result.error;out.className='sim-result bad';return;}
+  out.innerHTML='<strong>'+(result.pass?'الگوی نمونه‌برداری با معیارهای این سناریو منطبق است.':'الگوی نمونه‌برداری با معیارهای این سناریو منطبق نیست.')+'</strong>'+
+   '<br>نمونه اول در ۱۵٪: '+(result.firstAt15?'بله':'خیر')+
+   '<br>نمونه دوم در ۸۵٪: '+(result.secondAt85?'بله':'خیر')+
+   '<br>فاصله حداکثر ۱۵ دقیقه: '+(result.intervalOK?'بله':'خیر');
+  out.className='sim-result '+(result.pass?'good':'bad');
+ });
+})();
+</script></body></html>
