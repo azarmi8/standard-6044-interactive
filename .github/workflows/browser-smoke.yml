@@ -1,0 +1,41 @@
+name: 6044 Browser Smoke
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Playwright
+        run: npx --yes @playwright/test@1.63.0 install --with-deps chromium
+      - name: Start static site
+        shell: bash
+        run: |
+          nohup python3 -m http.server 8765 -d site/6044-1397 >/tmp/6044-http.log 2>&1 &
+          echo $! >/tmp/6044-http.pid
+          sleep 2
+          curl -fsS http://127.0.0.1:8765/ >/dev/null
+      - name: Run browser smoke
+        run: npx --yes @playwright/test@1.63.0 test tests/browser-smoke.spec.mjs --reporter=line
+      - name: Upload Playwright artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: 6044-browser-smoke
+          path: |
+            test-results
+            playwright-report
+            /tmp/6044-http.log
+          if-no-files-found: ignore
