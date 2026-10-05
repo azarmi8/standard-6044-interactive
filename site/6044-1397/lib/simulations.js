@@ -122,3 +122,34 @@ window.SimulationEngine.ch07 = {
     {input:{memberDimensionMm:600,deliveryTemperatureC:33},pass:false,minimumC:10}
   ]
 };
+
+window.SimulationEngine.specimen = {
+  id: 'ch11-specimen-preparation-traceability',
+  source: { chapter: 11, clauses: ['11-1'], pages: '28–30', references: ['ISIRI 1608-2','ISIRI 1608-3'] },
+  calculate(input) {
+    if(!input) return {valid:false,error:'اطلاعات نمونه وارد نشده است.'};
+    const fields=[
+      ['sampleId','شناسه نمونه'],
+      ['truckId','شناسه کامیون'],
+      ['placementLocation','محل بتن‌ریزی'],
+      ['samplingLocation','محل نمونه‌برداری']
+    ];
+    const missing=fields.filter(([key])=>!String(input[key]??'').trim()).map(([,label])=>label);
+    if(!Number.isInteger(input.specimenCount) || input.specimenCount<2)
+      return {valid:false,error:'هر نوبت نمونه‌برداری باید حداقل دو آزمونه استاندارد داشته باشد.'};
+    return {
+      valid:true,
+      specimenCount:input.specimenCount,
+      traceabilityComplete:missing.length===0,
+      missing,
+      preparationStandard:'ISIRI 1608-2',
+      testingStandard:'ISIRI 1608-3',
+      ready:missing.length===0
+    };
+  },
+  testCases:[
+    {input:{sampleId:'S-01',truckId:'T-21',placementLocation:'فونداسیون F1',samplingLocation:'خروجی کامیون',specimenCount:2},ready:true},
+    {input:{sampleId:'S-02',truckId:'T-22',placementLocation:'ستون C4',samplingLocation:'',specimenCount:2},ready:false},
+    {input:{sampleId:'S-03',truckId:'T-23',placementLocation:'دال D2',samplingLocation:'خروجی کامیون',specimenCount:1},valid:false}
+  ]
+};
