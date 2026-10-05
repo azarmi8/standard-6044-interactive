@@ -135,12 +135,16 @@ Each simulation must expose source clauses, inputs, outputs, assumptions and val
 **Exit gate:** PASSED for concept discovery pilot; book-wide navigation persistence remains a polish/QA task.
 
 # Phase 9 — Visual/Product Polish
-- [ ] Cover and contents.
-- [ ] Consistent engineering visual system.
-- [ ] RTL typography.
-- [ ] Mobile/desktop/fullscreen.
+**Status: PILOT IN PROGRESS — unified engineering command deck added to the book home.**
+- [x] Consistent engineering visual system foundation.
+- [x] RTL typography foundation.
+- [x] Mobile/desktop responsive command tiles.
+- [x] Direct entry to Search, Assessment and key simulators.
+- [x] Reduced-motion behavior on new interaction layer.
+- [ ] Cover and contents final treatment.
+- [ ] Full chapter-wide visual consistency audit.
 - [ ] Loading/error states.
-- [ ] Reduced-motion polish.
+- [ ] Fullscreen/mobile visual QA.
 - [ ] No childish gamification or decorative animation.
 **Exit gate:** all chapters look like one product.
 
