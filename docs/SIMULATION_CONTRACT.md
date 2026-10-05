@@ -24,14 +24,19 @@ Define one shared contract for engineering simulations in the 6044:1397 interact
 - Educational simulation output is not a project acceptance certificate.
 
 ## Minimum implementation shape
-A simulation should expose:
+A simulation must expose:
 - `id`
 - `source`
-- `inputs`
-- `validate(inputs)`
-- `calculate(inputs)`
-- `format(result)`
+- a deterministic calculation/classification API
 - `testCases`
+
+Validation is required for simulations that accept user-entered numeric/scenario data. The preferred API is:
+- `validate(input)`
+- `calculate(input)`
+
+Optional metadata/helpers such as `inputs`, `format(result)`, class tables, or source labels may be added when they materially improve the UI or QA contract. They are not mandatory fields.
+
+The implementation must not be forced into a single function signature when the simulation is a classifier or a family of related deterministic checks (for example Chapter 10 slump/flow classification and density deviation).
 
 ## Chapter 11 pilot
 **ID:** `ch11-compressive-conformity`
@@ -42,13 +47,13 @@ A simulation should expose:
 - mean of three consecutive sampling results >= `fc`
 - no individual specimen result < `0.9 fc`
 
-**Scenario inputs:** `fc`, `r1`, `r2`, `r3`, all in MPa.
+**Scenario inputs:** `fc` and `results`, where `results` contains exactly three numeric sampling results in MPa.
 
 **Educational validation cases:**
-- 30, 29, 31, 30 -> mean 30 -> PASS
-- 30, 26, 31, 30 -> mean 29 -> FAIL (individual criterion)
-- 30, 27, 30, 30 -> mean 29 -> PASS
-- 30, 20, 40, 40 -> mean 33.33 -> FAIL (individual criterion)
+- `fc=30`, `results=[29,31,30]` -> mean 30 -> PASS
+- `fc=30`, `results=[26,31,30]` -> mean 29 -> FAIL (individual criterion)
+- `fc=30`, `results=[27,30,30]` -> mean 29 -> PASS
+- `fc=30`, `results=[20,40,40]` -> mean 33.33 -> FAIL (individual criterion)
 
 These are hypothetical test cases derived from the source criteria, not source measurements.
 
