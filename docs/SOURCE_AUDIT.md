@@ -8,7 +8,6 @@
 - Revision: Second revision / 1397
 - Pages: 81
 - Structure: 15 chapters + 7 appendices (A–G) + bibliography
-- Printed-page starts: see docs/SOURCE_VERIFICATION.md
 
 ## Current audit state
 | Unit | Source pages | Current project state | Audit state |
@@ -25,44 +24,58 @@
 | 10 | 24–28 | ch10.md + HTML | VERIFIED_SOURCE_CONTENT |
 | 11 | 28–30 | ch11.md + HTML | VERIFIED_SOURCE_CONTENT |
 | 12 | 30–32 | ch12.md + HTML | VERIFIED_SOURCE_CONTENT |
-| 13 | 32–37 | ch13.md + HTML | NEEDS_CLAUSE_AUDIT |
-| 14 | 38–39 | ch14.md + HTML | NEEDS_CLAUSE_AUDIT |
-| 15 | 38–39 | ch15.md + HTML | NEEDS_CLAUSE_AUDIT |
-| 16 | 40–48 | ch16 HTML | NEEDS_CLAUSE_AUDIT |
-| 17 | 49–50 | ch17 HTML | NEEDS_CLAUSE_AUDIT |
-| 18 | 51–52 | ch18 HTML | NEEDS_CLAUSE_AUDIT |
-| 19 | 53–63 | ch19 HTML | NEEDS_CLAUSE_AUDIT |
-| 20 | 64–66 | ch20 HTML | NEEDS_CLAUSE_AUDIT |
-| 21 | 67–70 | ch21 HTML | NEEDS_CLAUSE_AUDIT |
-| 22 | 71–72 | ch22 HTML | NEEDS_CLAUSE_AUDIT |
+| 13 | 32–37 | ch13.md + HTML | VERIFIED_SOURCE_CONTENT |
+| 14 | 38 | ch14.md + HTML | VERIFIED_SOURCE_CONTENT |
+| 15 | 38–39 | ch15.md + HTML | VERIFIED_SOURCE_CONTENT |
+| 16 / A | 40–48 | ch16.md + HTML | VERIFIED_SOURCE_CONTENT |
+| 17 / B | 49–50 | ch17.md + HTML | VERIFIED_SOURCE_CONTENT |
+| 18 / C | 51–52 | ch18.md + HTML | VERIFIED_SOURCE_CONTENT |
+| 19 / D | 53–63 | ch19.md + HTML | VERIFIED_SOURCE_CONTENT |
+| 20 / E | 64–66 | ch20.md + HTML | VERIFIED_SOURCE_CONTENT |
+| 21 / F | 67–70 | ch21.md + HTML | VERIFIED_SOURCE_CONTENT |
+| 22 / G | 71–72 | ch22.md + HTML | VERIFIED_SOURCE_CONTENT |
 | 23 | 73 | ch23 HTML | BIBLIOGRAPHY_REVIEW |
 
-Page ranges are derived from the source table of contents and following section starts. Exact clause claims still require direct page-level verification.
+## Verified milestone — Units 13–15
+Chapters 13–15 were checked directly against source pages 32–39.
 
-## Verified milestone — Units 5–8
+Key verified anchors:
+- Chapter 13: material measurement, weighing/tolerance rules, batching equipment, Table 5, mixer capacity constraints and equipment requirements.
+- Chapter 14: producer responsibility and production-control system scope.
+- Chapter 15: conformity assessment and cases where an authorized body evaluates/approves production control.
+- OCR ambiguity was not used to invent missing values.
 
-Units 5–8 were checked directly against `6044-1397.pdf` for their mapped source ranges. Chapters 5–8 were rewritten as source-grounded educational paraphrase. Key numeric anchors in Chapters 7–8, including the temperature table and the 15%/85% sampling points, were checked directly against the source.
+## Verified milestone — Appendices A–G
+Appendices A–G were checked directly against source pages 40–72.
 
-## Verified milestone — Units 9–12
+Key verified anchors:
+- A: uniformity evaluation, two-sample comparison, 15%/85% sampling path, Table A-1.
+- B: target strength formulas and statistical-data path.
+- C: air-content table for freeze/thaw exposure conditions.
+- D: production-control records, initial testing, personnel/material/equipment control and control-program tables.
+- E: supplementary controls for high-strength concrete.
+- F: initial/periodic/extraordinary assessment and certification lifecycle.
+- G: deleted/replaced/added clauses relative to the source standard.
 
-Units 9–12 were checked directly against the source PDF for their mapped page ranges. The published Markdown was rewritten as source-grounded educational paraphrase. Key acceptance values and sampling rules were checked directly where visible in the source; formulas whose OCR representation was incomplete were intentionally not reconstructed.
+## Important numeric/formula rule
+Numeric values were only promoted to the Markdown when they were directly legible/confirmed from the source. Where a table is too dense for reliable OCR, the chapter explicitly treats the table as source data to be loaded from the PDF rather than reconstructing uncertain digits.
 
 ## High-priority findings
 
 ### F-001 — Invented Appendix H
 Severity: High  
-Status: Corrected in project navigation/docs.  
-The source has appendices A–G only. The former Unit 23 was labeled «پیوست ح — جمع‌بندی کاربرد». This was not source content. Unit 23 is now treated as bibliography/reference.
+Status: Corrected.  
+The source has appendices A–G only. The former Unit 23 was not source content and is now treated as bibliography/reference.
 
 ### F-002 — Existing interactive pages are not source-final
 Severity: High  
 Status: Open.  
-Existing HTML is a functional instructional scaffold. It must not be described as a verified reproduction of the standard until clause-level audit is complete.
+Existing HTML is a functional instructional scaffold. It must not be described as a verified reproduction of the standard until the interactive layer itself is audited against the verified Markdown/source ledger.
 
 ### F-003 — Numeric/acceptance content needs direct verification
 Severity: High  
-Status: Open.  
-Any S1–S4, air, temperature, density, strength, sampling frequency, conformity, table or formula content must be checked against the exact source table/clause before release.
+Status: Partially resolved.  
+Units 1–22 have now had direct source review. Remaining work is to audit the numeric values embedded in existing HTML and simulation logic against the verified source ledger before release.
 
 ### F-004 — OCR ambiguity
 Severity: Medium  
@@ -77,9 +90,7 @@ A source-derived item becomes VERIFIED only when:
 4. numeric values and exceptions are directly checked;
 5. any interpretation is labeled as educational interpretation rather than source text.
 
-## Verified milestone — Units 1–4
+## Phase 1 status
+**Content-source audit complete for Units 1–22.**
 
-Units 1–4 were re-read against the source PDF pages and their Markdown content was rewritten as source-grounded educational paraphrase. Units 5–8 and 9–12 are now verified. Units 13–22 remain open for clause-level audit.
-
-## Phase 1 exit condition
-No unit is marked fully verified merely because its HTML works. Phase 1 closes only after all source-derived claims in Units 1–22 have a source location and verification status.
+Phase 1 still has one release-facing follow-up: reconcile all numeric/source-derived values currently embedded in the existing HTML against this verified Markdown/source ledger. This is a content QA task, not permission to invent new requirements.
