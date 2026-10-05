@@ -1,0 +1,28 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "type":"object",
+  "required":["book","language","items"],
+  "properties":{
+    "book":{"const":"6044-1397"},
+    "language":{"const":"fa"},
+    "items":{
+      "type":"array",
+      "items":{
+        "type":"object",
+        "required":["chapter","beat","sourceText","spokenText","status"],
+        "properties":{
+          "chapter":{"type":"integer","minimum":1,"maximum":22},
+          "beat":{"type":"integer","minimum":1},
+          "sourceText":{"type":"string"},
+          "spokenText":{"type":"string"},
+          "audio":{"type":["string","null"]},
+          "status":{"enum":["pending","generated","reviewed","rejected"]},
+          "provider":{"type":["string","null"]},
+          "model":{"type":["string","null"]},
+          "durationMs":{"type":["integer","null"],"minimum":0},
+          "sha256":{"type":["string","null"]}
+        }
+      }
+    }
+  }
+}
