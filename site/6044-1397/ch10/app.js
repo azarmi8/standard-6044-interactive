@@ -42,7 +42,7 @@ window.BOOK_CONFIG={
         '<rect x="0" y="195" width="215" height="6" rx="3" fill="'+(active?'#2bf2ad':'#21424a')+'"/>'+
         '<circle cx="31" cy="235" r="16" fill="'+(active?'#2bf2ad':'#19373b')+'"/>'+
         '<text x="31" y="241" text-anchor="middle" fill="'+(active?'#062018':'#9eb7af')+'" font-size="13" font-weight="900">'+(k+1)+'</text>'+
-        '<g transform="translate(67 255)" '+(active?'filter="url(#'+((document.querySelector(".stage svg defs[data-tech-defs]")||{}).dataset?.prefix||"tech")+'-glowfx)"':'')+'>'+v[4]+'</g>'+
+        '<g transform="translate(67 255)" '+(active?'filter="url(#'+((document.querySelector(".stage svg defs[data-tech-defs]")||{}).dataset?.prefix||"tech")+'-glowfx)"':'')+'>'+icons[k]+'</g>'+
         '<text x="107" y="430" text-anchor="middle" fill="#edf7f3" font-size="22" font-weight="900">'+v[1]+'</text>'+
         '<text x="107" y="463" text-anchor="middle" fill="#8fa9a2" font-size="15">'+v[2]+'</text>'+
         '<text x="107" y="495" text-anchor="middle" fill="'+(active?'#2bf2ad':'#9bb0aa')+'" font-size="14" font-weight="'+(active?'800':'600')+'">'+v[3]+'</text>'+
