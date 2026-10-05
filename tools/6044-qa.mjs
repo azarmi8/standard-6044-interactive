@@ -22,6 +22,7 @@ function rel(p){ return path.relative(ROOT,p).replaceAll(path.sep,'/'); }
 if(!exists(SITE)) fail('site/6044-1397 is missing');
 checkNarration(SITE);
 checkAppendixSimulationContract();
+checkAppendixDGContract();
 checkSimulationContract();
 checkAssessmentContract();
 checkSearchContract();
@@ -99,6 +100,24 @@ function checkSimulationContract(){
     if(!got.valid || got.assessmentReady!==tc.assessmentReady)
       fail('ch15 conformity simulation test failed: '+JSON.stringify(tc.input));
   }
+}
+
+function checkAppendixDGContract(){
+  const p=path.join(SITE,'lib','appendix-d-g.js');
+  if(!exists(p)){ fail('Appendix D-G interaction helper missing'); return; }
+  const sandbox={window:{},console};
+  try{ vm.runInNewContext(read(p),sandbox,{timeout:1000,filename:rel(p)}); }
+  catch(e){ fail('Appendix D-G helper parse failure: '+e.message); return; }
+  const d=sandbox.window.AppendixDG;
+  if(!d?.productionControl||!d?.highStrength||!d?.auditLifecycle||!d?.changeMap){ fail('Appendix D-G helper contract incomplete'); return; }
+  if(!d.productionControl.check({materials:true,equipment:true,production:true,records:true}).complete) fail('Appendix D production-control complete case failed');
+  if(d.productionControl.check({materials:true,equipment:false,production:true,records:false}).complete) fail('Appendix D incomplete case failed');
+  if(!d.highStrength.check({supplier:true,admixture:true,powder:true,production:true}).complete) fail('Appendix E complete case failed');
+  if(d.highStrength.check({supplier:true,admixture:false,powder:true,production:false}).complete) fail('Appendix E incomplete case failed');
+  if(!d.auditLifecycle.check({auditType:'periodic',order:['initial','audit','corrective','review']}).pass) fail('Appendix F periodic lifecycle case failed');
+  if(!d.auditLifecycle.check({auditType:'extraordinary',order:['initial','audit','corrective','review']}).pass) fail('Appendix F extraordinary lifecycle case failed');
+  if(d.auditLifecycle.check({auditType:'periodic',order:['initial','corrective','audit','review']}).pass) fail('Appendix F wrong lifecycle order case failed');
+  if(!d.changeMap.describe('deleted')||!d.changeMap.describe('added')) fail('Appendix G change-map lookup failed');
 }
 
 function checkAppendixSimulationContract(){
