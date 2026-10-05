@@ -20,7 +20,8 @@ function read(p){ return fs.readFileSync(p,'utf8'); }
 function rel(p){ return path.relative(ROOT,p).replaceAll(path.sep,'/'); }
 
 if(!exists(SITE)) fail('site/6044-1397 is missing');
-checkNarration(SITE);\ncheckSimulationContract();
+checkNarration(SITE);
+checkSimulationContract();
 if(!exists(BOOKS)) fail('books/6044-1397 is missing');
 
 for(const n of expected){
@@ -36,11 +37,20 @@ function checkSimulationContract(){
   try{ vm.runInNewContext(src,sandbox,{timeout:1000,filename:rel(p)}); }
   catch(e){ fail('shared simulation engine parse failure: '+e.message); return; }
   const sim=sandbox.window.SimulationEngine?.ch11;
+  const fresh=sandbox.window.SimulationEngine?.ch10;
   if(!sim) { fail('ch11 shared simulation is missing'); return; }
+  if(!fresh) { fail('ch10 shared simulation is missing'); return; }
   for(const tc of (sim.testCases||[])){
     const got=sim.calculate(tc.input);
     if(!got.valid || got.pass!==tc.pass || Math.abs(got.mean-tc.mean)>1e-9)
       fail('ch11 simulation test failed: '+JSON.stringify(tc.input));
+  }
+  for(const tc of (fresh.testCases||[])){
+    let ok;
+    if(tc.kind==='slump') ok=fresh.classifySlump(tc.input)===tc.expected;
+    if(tc.kind==='flow') ok=fresh.classifyFlow(tc.input)===tc.expected;
+    if(tc.kind==='density') ok=fresh.density(tc.input.measured,tc.input.specified).pass===tc.pass;
+    if(!ok) fail('ch10 simulation test failed: '+JSON.stringify(tc));
   }
 }
 
