@@ -68,10 +68,14 @@ Current artifacts:
 **Exit gate:** a new chapter can be implemented mainly from configuration/content. **IN VALIDATION across ch01/ch02/ch07/ch10/ch11/ch17.**
 
 # Phase 4 — Professional Animation System
-- [ ] Timeline beats, focus/highlight, zoom/pan, process movement, state transitions, data reveal, procedure sequencing.
-- [ ] Replay and step mode.
-- [ ] Reduced-motion equivalent.
-- [ ] Performance budget.
+**Status: IN PROGRESS — animation contract + shared step/focus primitives implemented.**
+- [x] Timeline beats, focus/highlight, state transitions and procedure sequencing foundation.
+- [x] Replay/step playback primitive.
+- [x] Reduced-motion equivalent for step progression.
+- [x] Shared animation contract.
+- [ ] Process-specific movement patterns validated across pilot chapters.
+- [ ] Data reveal pattern validated on numeric chapters.
+- [ ] Performance budget measured on representative desktop/mobile.
 **Exit gate:** pilot chapters demonstrate one coherent animation language.
 
 # Phase 5 — Narration
