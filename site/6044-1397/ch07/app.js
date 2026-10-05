@@ -8,16 +8,13 @@ window.BOOK_CONFIG={
   {title:'تحویل و دما',body:'حداکثر دمای تحویل 32°C است. حداقل دما طبق جدول ۱ برای عضو کمتر از 300 mm برابر 13°C، برای 300 تا 900 mm برابر 10°C، برای 900 تا 1800 mm برابر 7°C و برای بیشتر از 1800 mm برابر 5°C است.'},
   {title:'تصمیم QC',body:'زنجیره این فصل را تولید → کنترل یکنواختی → تحویل → نمونه‌برداری → سوابق ببین؛ هر حلقه باید قابل بازسازی باشد.'}
  ],
- scene:{
-  root:'.stage',
-  steps:[
-   {className:'mixing',show:['plant']},
-   {className:'mixing',show:['plant','mixer']},
-   {className:'discharge',show:['plant','mixer','concrete']},
-   {className:'uniformity',show:['concrete','qc']},
-   {className:'arrival',show:['truck','concrete','qc']},
-   {className:'delivery',show:['truck','concrete','qc','record']}
-  ]
- },
+ scene:{root:'.stage',steps:[
+  {className:'mixing',focus:{x:50,y:45},progress:.16,show:['plant']},
+  {className:'mixing',focus:{x:50,y:45},progress:.33,show:['plant','mixer']},
+  {className:'discharge',focus:{x:50,y:55},progress:.50,show:['plant','mixer','concrete']},
+  {className:'uniformity',focus:{x:58,y:52},progress:.66,show:['concrete','qc']},
+  {className:'arrival',focus:{x:52,y:58},progress:.83,show:['truck','concrete','qc']},
+  {className:'delivery',focus:{x:52,y:50},progress:1,show:['truck','concrete','qc','record']}
+ ]},
  quiz:{correct:'درست — تولید، یکنواختی، تحویل و ردیابی باید به‌صورت یک زنجیره دیده شوند.',incorrect:'کافی نیست — کنترل یک حلقه منفرد، زنجیره کنترل فصل را کامل نمی‌کند.'}
 };
