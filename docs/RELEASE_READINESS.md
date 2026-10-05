@@ -4,7 +4,7 @@ Last checked: 2026-10-06
 
 ## Current baseline
 
-- Main: `7ffc894b6dd4530fda7c2848f4b7e307f73d487f`
+- Main: `966d24f4b1eba12249b315dfb8901c4ff2d23fb7`
 - Product: Persian RTL interactive engineering book for Iranian National Standard 6044:1397.
 - Source structure: 15 official chapters + Appendices A–G + bibliography.
 - Learning units: 22.
@@ -21,11 +21,11 @@ Last checked: 2026-10-06
 | JS/config smoke | PASS | 14 migrated appendix/chapter configs parse and callbacks execute |
 | Simulation contracts | PASS | deterministic simulation tests reviewed; ch11 edge-case corrected |
 | Assessment/search contracts | PASS | existing QA contract + static inspection |
-| Professional cover/contents | PASS | merged in PR #6 |
-| Static QA | PASS | Current main Run #64 succeeded on 2026-10-05 |
-| Browser/mobile/reduced-motion QA | PASS | Current main Browser Smoke Run #14 succeeded; representative desktop/mobile/reduced-motion routes covered |
+| Professional cover/contents | PASS | merged and strengthened by PR #16 |
+| Static QA | PASS | PR #16 Static QA passed after reader/runtime + visual pass changes |
+| Browser/mobile/reduced-motion QA | PASS | PR #16 Browser Smoke passed with Chapter 3/8/10/17 and mobile/reduced-motion coverage |
 | Persian TTS human listening | PENDING | benchmark/contract exists; release audio not approved |
-| GitHub Pages | BLOCKED BY SETTINGS | repository reports `has_pages: false`; workflow reaches Configure Pages and fails because Pages is disabled |
+| GitHub Pages | PASS | repository Pages is enabled; latest deployment reached Configure → Upload → Deploy successfully |
 | Release documentation/handoff | PASS | User guide, architecture map, release checklist and changelog merged in PR #14 |\n| v1.0.0 release | NOT READY | blocked by remaining release gates above |
 
 ## Merge policy
@@ -40,7 +40,7 @@ A change may be merged when:
 ## Release blockers
 
 ### B-001 — GitHub Pages enablement
-Repository-level Pages must be enabled with GitHub Actions as the publishing source.
+RESOLVED. Repository-level Pages is enabled and the workflow deploys `site/6044-1397` with GitHub Actions.
 
 ### B-002 — Hosted CI recovery
 RESOLVED. Current main Static QA Run #64 and Browser Smoke Run #14 both succeeded.
