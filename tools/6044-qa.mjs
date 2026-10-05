@@ -42,12 +42,14 @@ function checkSimulationContract(){
   const temperature=sandbox.window.SimulationEngine?.ch07;
   const specimen=sandbox.window.SimulationEngine?.specimen;
   const production=sandbox.window.SimulationEngine?.ch14;
+  const orderDelivery=sandbox.window.SimulationEngine?.orderDelivery;
   if(!sim) { fail('ch11 shared simulation is missing'); return; }
   if(!fresh) { fail('ch10 shared simulation is missing'); return; }
   if(!sampling) { fail('ch08 shared simulation is missing'); return; }
   if(!temperature) { fail('ch07 shared simulation is missing'); return; }
   if(!specimen) { fail('specimen shared simulation is missing'); return; }
   if(!production) { fail('ch14 shared simulation is missing'); return; }
+  if(!orderDelivery) { fail('order-delivery shared simulation is missing'); return; }
   for(const tc of (sim.testCases||[])){
     const got=sim.calculate(tc.input);
     if(!got.valid || got.pass!==tc.pass || Math.abs(got.mean-tc.mean)>1e-9)
@@ -79,6 +81,11 @@ function checkSimulationContract(){
     const got=production.calculate(tc.input);
     if(!got.valid || got.complete!==tc.complete)
       fail('ch14 production control simulation test failed: '+JSON.stringify(tc.input));
+  }
+  for(const tc of (orderDelivery.testCases||[])){
+    const got=orderDelivery.calculate(tc.input);
+    if(tc.valid===false ? got.valid : (!got.valid || got.traceable!==tc.traceable))
+      fail('order-delivery simulation test failed: '+JSON.stringify(tc.input));
   }
 }
 
