@@ -124,6 +124,20 @@ function checkAssessmentContract(){
 }
 
 
+
+function checkBookProgressContract(){
+  const enginePath=path.join(SITE,'lib','engine.js');
+  const homePath=path.join(SITE,'index.html');
+  if(!exists(enginePath)) return fail('book engine missing for progress contract');
+  const engine=read(enginePath);
+  if(!engine.includes("standard6044-book-progress-v1")) fail('book progress storage key missing');
+  if(!engine.includes('toggleBookmark') || !engine.includes('updateBookmarkButton')) fail('bookmark controls missing from shared engine');
+  if(!engine.includes('saveProgress()')) fail('chapter progress persistence missing from shared engine');
+  if(!exists(homePath)) return fail('book home missing for progress dashboard');
+  const home=read(homePath);
+  if(!home.includes('progress-dashboard') || !home.includes('chapters-done')) fail('home progress dashboard missing');
+}
+
 function checkSearchContract(){
   const jsPath=path.join(SITE,'lib','search.js');
   const htmlPath=path.join(SITE,'search.html');
@@ -140,6 +154,8 @@ function checkSearchContract(){
   if(engine.search('NOT-A-REAL-6044-TERM').length) fail('search no-result contract failed');
   if(!read(htmlPath).includes('search.js')) fail('search page does not load shared search engine');
 }
+
+checkBookProgressContract();
 
 function checkNarration(dir){
   for(const file of walk(dir).filter(p=>p.endsWith('.js'))){
