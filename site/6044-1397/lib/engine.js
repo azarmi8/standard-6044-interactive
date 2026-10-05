@@ -3,6 +3,7 @@
 */
 (function(){
   'use strict';
+  function boot(){
   const cfg=window.BOOK_CONFIG||{};
   const beats=Array.isArray(cfg.beats)?cfg.beats:[];
   const quiz=cfg.quiz||null;
