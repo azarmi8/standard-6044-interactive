@@ -25,7 +25,13 @@ test.describe('6044 browser smoke', () => {
       await page.goto('http://127.0.0.1:8765' + route, { waitUntil: 'networkidle' });
       await expect(page.locator('html')).toHaveAttribute('lang', 'fa');
       await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
-      await expect(page.locator('title')).toContainText('۶۰۴۴');
+      const pageTitle = (await page.title()).trim();
+      expect(pageTitle, `non-empty title on ${route}`).not.toBe('');
+      if (route.match(/^\/(ch\d{2})\/$/)) {
+        expect(pageTitle, `chapter/appendix title on ${route}`).toMatch(/(فصل|پیوست)/);
+      } else {
+        expect(pageTitle, `book title on ${route}`).toContain('۶۰۴۴');
+      }
 
       if (route.match(/^\/ch\d{2}\/$/)) {
         await expect(page.locator('.stage svg')).toHaveAttribute('viewBox', '0 0 1600 900');
