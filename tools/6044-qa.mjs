@@ -40,10 +40,12 @@ function checkSimulationContract(){
   const fresh=sandbox.window.SimulationEngine?.ch10;
   const sampling=sandbox.window.SimulationEngine?.ch08;
   const temperature=sandbox.window.SimulationEngine?.ch07;
+  const specimen=sandbox.window.SimulationEngine?.specimen;
   if(!sim) { fail('ch11 shared simulation is missing'); return; }
   if(!fresh) { fail('ch10 shared simulation is missing'); return; }
   if(!sampling) { fail('ch08 shared simulation is missing'); return; }
   if(!temperature) { fail('ch07 shared simulation is missing'); return; }
+  if(!specimen) { fail('specimen shared simulation is missing'); return; }
   for(const tc of (sim.testCases||[])){
     const got=sim.calculate(tc.input);
     if(!got.valid || got.pass!==tc.pass || Math.abs(got.mean-tc.mean)>1e-9)
@@ -65,6 +67,11 @@ function checkSimulationContract(){
     const got=temperature.calculate(tc.input);
     if(!got.valid || got.pass!==tc.pass || got.minimumC!==tc.minimumC)
       fail('ch07 temperature simulation test failed: '+JSON.stringify(tc.input));
+  }
+  for(const tc of (specimen.testCases||[])){
+    const got=specimen.calculate(tc.input);
+    if(tc.valid===false ? got.valid : (!got.valid || got.ready!==tc.ready))
+      fail('specimen simulation test failed: '+JSON.stringify(tc.input));
   }
 }
 
