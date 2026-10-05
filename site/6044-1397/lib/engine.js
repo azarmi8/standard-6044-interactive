@@ -11,7 +11,7 @@
 
   const $=id=>document.getElementById(id);
   const title=$('title'), body=$('body'), count=$('count'), bar=$('bar'), play=$('play');
-  const prev=$('prev'), next=$('next'), result=$('quizResult')||$('result');
+  const prev=$('prev'), next=$('next'), result=$('quizResult')||$('result'), fullscreen=$('fullscreen');
 
   function render(){
     if(!beats.length)return;
@@ -45,6 +45,7 @@
   if(prev) prev.onclick=()=>go(index-1);
   if(next) next.onclick=()=>go(index+1);
   if(play) play.onclick=toggle;
+  if(fullscreen) fullscreen.onclick=()=>{const el=document.querySelector('.stage')||document.querySelector('.book-stage');if(!el)return;if(document.fullscreenElement)document.exitFullscreen();else if(el.requestFullscreen)el.requestFullscreen()};
 
   document.addEventListener('keydown',e=>{
     if(e.target&&/INPUT|TEXTAREA|SELECT|BUTTON/.test(e.target.tagName))return;
@@ -53,6 +54,7 @@
     if(e.key===' '){e.preventDefault();toggle()}
     if(e.key==='Home') go(0);
     if(e.key==='End') go(beats.length-1);
+    if(e.key.toLowerCase()==='f'){e.preventDefault();if(fullscreen)fullscreen.click()}
   });
 
   if(quiz&&result){
