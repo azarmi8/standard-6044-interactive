@@ -20,8 +20,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Install Playwright
-        run: npx --yes @playwright/test@1.63.0 install --with-deps chromium
+      - name: Install Playwright package
+        run: npm install --no-save --package-lock=false @playwright/test@1.63.0
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
       - name: Start static site
         shell: bash
         run: |
@@ -30,7 +32,7 @@ jobs:
           sleep 2
           curl -fsS http://127.0.0.1:8765/ >/dev/null
       - name: Run browser smoke
-        run: npx --yes @playwright/test@1.63.0 test tests/browser-smoke.spec.mjs --reporter=line
+        run: npx playwright test tests/browser-smoke.spec.mjs --reporter=line
       - name: Upload Playwright artifacts
         if: always()
         uses: actions/upload-artifact@v4
