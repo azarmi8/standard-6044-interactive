@@ -51,7 +51,7 @@ Current artifacts:
 - `site/6044-1397/lib/engine.js`
 - `site/6044-1397/lib/engine.css`
 - `docs/CORE_BOOK_ENGINE.md`
-- Pilot migrations: ch01, ch02, ch10
+- Representative migrated units: ch01, ch02, ch07, ch10, ch11, ch17
 
 # Phase 3 — Core Book Engine
 **Status: COMPLETE — shared engine + lifecycle/scene contract is applied across all 22 learning units; browser/runtime validation is now handled by Phases 9–10.**
@@ -65,7 +65,7 @@ Current artifacts:
 - [x] Responsive layout.
 - [x] Reduced-motion and fallback states.
 - [x] Reusable SVG/scene helpers.
-**Exit gate:** a new chapter can be implemented mainly from configuration/content. **IN VALIDATION across ch01/ch02/ch07/ch10/ch11/ch17.**
+**Exit gate:** a new chapter can be implemented mainly from configuration/content. **PASSED.**
 
 # Phase 4 — Professional Animation System
 **Status: IN PROGRESS — animation contract and process choreography are implemented; remaining work is final performance/visual validation.**
@@ -174,7 +174,7 @@ Each simulation must expose source clauses, inputs, outputs, assumptions and val
 **Exit gate:** clean release candidate.
 
 ### Phase 11 — Documentation & Handoff
-**Status: IN PROGRESS — release documentation package added; final status synchronization remains.**
+**Status: COMPLETE — release documentation and continuation artifacts are present.**
 - [x] README.
 - [x] PRODUCT_SPEC.
 - [x] SOURCE_VERIFICATION.
@@ -184,7 +184,7 @@ Each simulation must expose source clauses, inputs, outputs, assumptions and val
 - [x] Architecture map.
 - [x] Commands/limitations/release checklist.
 - [x] Changelog.
-**Exit gate:** new agent can continue without reconstructing history.
+**Exit gate:** new agent can continue without reconstructing history. **PASSED.**
 
 # Phase 12 — Release 1.0
 - [ ] Release candidate.
