@@ -141,7 +141,7 @@ Read docs/PRODUCT_SPEC.md before shared UX/animation/simulation work. Prefer reu
 
 ## Current truth
 
-`main` baseline: `0719ea98467ce555c6709c23e16aede539a5a7f2`. All 23 navigation surfaces have HTML entry points; Units 1–22 are the source learning units and Unit 23 is bibliography/reference. All 22 learning units now use the shared book engine and shared control/navigation contract. The repository contains pilot simulations, assessment/search/navigation persistence, Persian narration foundation, and visual QA contracts. GitHub Pages is still disabled at repository level, so deployment cannot complete until Pages is enabled/configured. The book is still a release candidate in progress: do not describe it as fully source-final or release-ready until Phase 10 QA and the remaining source/narration/browser gates pass.
+`main` baseline: `b70590ed6cd6b48e2d846e0f052e8d3160710dc6` (latest feature merge; subsequent roadmap/handoff docs commits may advance this ref). All 23 navigation surfaces have HTML entry points; Units 1–22 are the source learning units and Unit 23 is bibliography/reference. All 22 learning units now use the shared book engine and shared control/navigation contract. The repository contains pilot simulations, assessment/search/navigation persistence, Persian narration foundation, and visual QA contracts. GitHub Pages is still disabled at repository level, so deployment cannot complete until Pages is enabled/configured. The professional cover/contents treatment is complete. The book is still a release candidate in progress: do not describe it as fully source-final or release-ready until Phase 10 QA and the remaining source/narration/browser gates pass.
 
 
 ## Finite delivery rule
