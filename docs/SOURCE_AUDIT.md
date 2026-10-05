@@ -13,10 +13,10 @@
 ## Current audit state
 | Unit | Source pages | Current project state | Audit state |
 |---:|---:|---|---|
-| 1 | 1 | ch01.md + HTML | NEEDS_CLAUSE_AUDIT |
-| 2 | 2–4 | ch02.md + HTML | NEEDS_CLAUSE_AUDIT |
-| 3 | 5–8 | ch03.md + HTML | NEEDS_CLAUSE_AUDIT |
-| 4 | 9–10 | ch04.md + HTML | NEEDS_CLAUSE_AUDIT |
+| 1 | 1 | ch01.md + HTML | VERIFIED_SOURCE_CONTENT |
+| 2 | 2–4 | ch02.md + HTML | VERIFIED_SOURCE_CONTENT |
+| 3 | 5–8 | ch03.md + HTML | VERIFIED_SOURCE_CONTENT |
+| 4 | 9–10 | ch04.md + HTML | VERIFIED_SOURCE_CONTENT |
 | 5 | 11 | ch05.md + HTML | NEEDS_CLAUSE_AUDIT |
 | 6 | 12–14 | ch06.md + HTML | NEEDS_CLAUSE_AUDIT |
 | 7 | 15–20 | ch07.md + HTML | NEEDS_CLAUSE_AUDIT |
@@ -68,6 +68,10 @@ A source-derived item becomes VERIFIED only when:
 3. the published wording is faithful educational paraphrase;
 4. numeric values and exceptions are directly checked;
 5. any interpretation is labeled as educational interpretation rather than source text.
+
+## Verified milestone — Units 1–4
+
+Units 1–4 were re-read against the source PDF pages and their Markdown content was rewritten as source-grounded educational paraphrase. Numeric/technical anchors are retained only where directly visible in the source. Units 5–22 remain open for clause-level audit.
 
 ## Phase 1 exit condition
 No unit is marked fully verified merely because its HTML works. Phase 1 closes only after all source-derived claims in Units 1–22 have a source location and verification status.
