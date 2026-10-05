@@ -20,7 +20,7 @@
    intervalMinutes:Number(document.getElementById('sample-interval').value)
   });
   if(!result.valid){out.textContent=result.error;out.className='sim-result bad';return;}
-  out.innerHTML='<strong>'+(result.pass?'الگوی نمونه‌برداری با معیارهای این سناریو منطبق است.':'الگوی نمونه‌برداری با معیارهای این سناریو منطبق نیست.')+'</strong>'+
+  out.innerHTML='<strong>'+(result.pass?'فاصله زمانی نمونه‌برداری با شرط عددی استاندارد منطبق است.':'فاصله زمانی نمونه‌برداری با شرط عددی استاندارد منطبق نیست.')+'</strong>'+
    '<br>نقطه آموزشی ۱۵٪: '+(result.firstCheckpoint?'دقیقاً':'خیر')+
    '<br>نقطه آموزشی ۸۵٪: '+(result.secondCheckpoint?'دقیقاً':'خیر')+
    '<br>فاصله حداکثر ۱۵ دقیقه: '+(result.intervalOK?'بله':'خیر')+'<br>'+result.checkpointStatus;
