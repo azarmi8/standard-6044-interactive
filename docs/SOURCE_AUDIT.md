@@ -21,10 +21,10 @@
 | 6 | 12–15 | ch06.md + HTML | VERIFIED_SOURCE_CONTENT |
 | 7 | 15–20 | ch07.md + HTML | VERIFIED_SOURCE_CONTENT |
 | 8 | 21–22 | ch08.md + HTML | VERIFIED_SOURCE_CONTENT |
-| 9 | 22–23 | ch09.md + HTML | NEEDS_CLAUSE_AUDIT |
-| 10 | 24–27 | ch10.md + HTML | NEEDS_CLAUSE_AUDIT |
-| 11 | 28–29 | ch11.md + HTML | NEEDS_CLAUSE_AUDIT |
-| 12 | 30–31 | ch12.md + HTML | NEEDS_CLAUSE_AUDIT |
+| 9 | 22–23 | ch09.md + HTML | VERIFIED_SOURCE_CONTENT |
+| 10 | 24–28 | ch10.md + HTML | VERIFIED_SOURCE_CONTENT |
+| 11 | 28–30 | ch11.md + HTML | VERIFIED_SOURCE_CONTENT |
+| 12 | 30–32 | ch12.md + HTML | VERIFIED_SOURCE_CONTENT |
 | 13 | 32–37 | ch13.md + HTML | NEEDS_CLAUSE_AUDIT |
 | 14 | 38–39 | ch14.md + HTML | NEEDS_CLAUSE_AUDIT |
 | 15 | 38–39 | ch15.md + HTML | NEEDS_CLAUSE_AUDIT |
@@ -42,6 +42,10 @@ Page ranges are derived from the source table of contents and following section 
 ## Verified milestone — Units 5–8
 
 Units 5–8 were checked directly against `6044-1397.pdf` for their mapped source ranges. Chapters 5–8 were rewritten as source-grounded educational paraphrase. Key numeric anchors in Chapters 7–8, including the temperature table and the 15%/85% sampling points, were checked directly against the source.
+
+## Verified milestone — Units 9–12
+
+Units 9–12 were checked directly against the source PDF for their mapped page ranges. The published Markdown was rewritten as source-grounded educational paraphrase. Key acceptance values and sampling rules were checked directly where visible in the source; formulas whose OCR representation was incomplete were intentionally not reconstructed.
 
 ## High-priority findings
 
@@ -75,7 +79,7 @@ A source-derived item becomes VERIFIED only when:
 
 ## Verified milestone — Units 1–4
 
-Units 1–4 were re-read against the source PDF pages and their Markdown content was rewritten as source-grounded educational paraphrase. Units 5–8 are now also verified. Units 9–22 remain open for clause-level audit.
+Units 1–4 were re-read against the source PDF pages and their Markdown content was rewritten as source-grounded educational paraphrase. Units 5–8 and 9–12 are now verified. Units 13–22 remain open for clause-level audit.
 
 ## Phase 1 exit condition
 No unit is marked fully verified merely because its HTML works. Phase 1 closes only after all source-derived claims in Units 1–22 have a source location and verification status.
