@@ -15,3 +15,8 @@
 .book-list{columns:2;column-gap:28px}
 .book-list li{break-inside:avoid;margin:5px 0}
 @media(max-width:700px){.progress-dashboard{grid-template-columns:1fr}.book-list{columns:1}}
+
+.chapter-nav{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.nav-link{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:8px 11px;border-radius:10px;border:1px solid #b8c7ba;text-decoration:none;background:#e6ece7;color:#173c2a;font-weight:700}
+.nav-link:hover,.nav-link:focus-visible{background:#fff;border-color:#8eae96;outline:2px solid #c8dacb;outline-offset:1px}
+@media(max-width:700px){.chapter-nav{width:100%;order:10}.nav-link{flex:1;min-width:90px}}
