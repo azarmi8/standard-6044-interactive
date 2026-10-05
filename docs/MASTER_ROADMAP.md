@@ -54,7 +54,7 @@ Current artifacts:
 - Pilot migrations: ch01, ch02, ch10
 
 # Phase 3 — Core Book Engine
-**Status: PILOT COMPLETE — shared engine + lifecycle/scene contract is applied across all 22 learning units; browser/runtime QA remains in Phases 9–10.**
+**Status: COMPLETE — shared engine + lifecycle/scene contract is applied across all 22 learning units; browser/runtime validation is now handled by Phases 9–10.**
 
 - [x] Shared chapter shell.
 - [x] Beat/timeline engine.
@@ -68,7 +68,7 @@ Current artifacts:
 **Exit gate:** a new chapter can be implemented mainly from configuration/content. **IN VALIDATION across ch01/ch02/ch07/ch10/ch11/ch17.**
 
 # Phase 4 — Professional Animation System
-**Status: IN PROGRESS — animation contract + shared step/focus primitives implemented.**
+**Status: IN PROGRESS — animation contract and process choreography are implemented; remaining work is final performance/visual validation.**
 - [x] Timeline beats, focus/highlight, state transitions and procedure sequencing foundation.
 - [x] Replay/step playback primitive.
 - [x] Reduced-motion equivalent for step progression.
@@ -76,10 +76,11 @@ Current artifacts:
 - [x] Process-specific movement patterns implemented across process/calculation pilot states.
 - [x] Focus/progress data-reveal foundation validated on numeric pilot.
 - [ ] Performance budget measured on representative desktop/mobile.
+- [x] One-shot process choreography guard covered by static QA.
 **Exit gate:** pilot chapters demonstrate one coherent animation language.
 
 # Phase 5 — Narration
-**Status: IN PROGRESS — narration engine + Persian pronunciation/TTS pipeline foundation implemented.**
+**Status: IN PROGRESS — narration engine and Persian TTS QA pipeline are implemented; release audio still needs human approval.**
 
 - [x] Persian narration storyboard pilot (Units 01, 07, 11).
 - [x] Beat-level transcript support.
@@ -135,7 +136,7 @@ Each simulation must expose source clauses, inputs, outputs, assumptions and val
 **Exit gate:** PASSED — the navigation/persistence layer is implemented; remaining work is visual/browser QA in Phases 9–10.
 
 # Phase 9 — Visual/Product Polish
-**Status: IN PROGRESS — unified engineering product shell, all-22-unit engine migration, professional cover/contents treatment, and representative browser smoke are implemented; final fullscreen/source-audit release gates remain.**
+**Status: IN PROGRESS — unified engineering product shell, all-22-unit engine migration, cover/contents treatment and browser smoke are complete; fullscreen and final publication audit remain.**
 - [x] Consistent engineering visual system foundation.
 - [x] RTL typography foundation.
 - [x] Mobile/desktop responsive command tiles.
@@ -145,7 +146,7 @@ Each simulation must expose source clauses, inputs, outputs, assumptions and val
 - [x] Reduced-motion behavior on new interaction layer.
 - [x] Cover and contents final treatment.
 - [x] Full 22-unit visual/engine consistency audit — Chapters 1–15 + Appendices A–G use the shared book engine; bibliography remains a reference-only surface.
-- [ ] Loading/error states.
+- [x] Loading/error states.
 - [x] Representative desktop/mobile/reduced-motion browser smoke — Playwright passed on the current release baseline.
 - [ ] Fullscreen visual QA.
 - [ ] No childish gamification or decorative animation.
@@ -153,40 +154,45 @@ Each simulation must expose source clauses, inputs, outputs, assumptions and val
 
 # Phase 10 — QA & Validation
 ### Content
-- [ ] Source references.
-- [ ] Numbers/tables/formulas.
-- [ ] Unsupported claims.
-- [ ] Cross-references.
+- [ ] Final clause-level source references.
+- [x] Numbers/tables/formulas in current numeric-bearing interactions reconciled.
+- [ ] Unsupported claims sweep.
+- [ ] Cross-references sweep.
 ### Functional
 - [ ] Chapters/controls/quizzes.
-- [ ] Narration/fallback.
-- [ ] Mobile/desktop/fullscreen/reduced-motion.
+- [x] Narration engine + fallback contract.
+- [ ] Release narration/audio review.
+- [x] Mobile/desktop/reduced-motion browser smoke.
+- [ ] Fullscreen visual QA.
 ### Technical
 - [ ] Clean build.
 - [x] No console/page errors on the browser-smoke route set.
-- [ ] Assets/links/performance/accessibility.
+- [ ] Assets/links/performance/accessibility final sweep.
 - [x] Static QA runner + GitHub Actions contract check on the active development branch.
-- [x] Static QA passed on release candidate PR head; post-merge main rerun remains observational while queued.
+- [x] Static QA passed on current main (Run #62).
+- [x] Browser Smoke passed on current main (Run #12).
 **Exit gate:** clean release candidate.
 
-# Phase 11 — Documentation & Handoff
-- [ ] README.
-- [ ] PRODUCT_SPEC.
-- [ ] SOURCE_VERIFICATION.
-- [ ] MASTER_ROADMAP.
-- [ ] AGENT_HANDOFF.
-- [ ] User guide.
-- [ ] Architecture map.
-- [ ] Commands/limitations/release checklist.
+### Phase 11 — Documentation & Handoff
+**Status: IN PROGRESS — release documentation package added; final status synchronization remains.**
+- [x] README.
+- [x] PRODUCT_SPEC.
+- [x] SOURCE_VERIFICATION.
+- [x] MASTER_ROADMAP.
+- [x] AGENT_HANDOFF.
+- [x] User guide.
+- [x] Architecture map.
+- [x] Commands/limitations/release checklist.
+- [x] Changelog.
 **Exit gate:** new agent can continue without reconstructing history.
 
 # Phase 12 — Release 1.0
 - [ ] Release candidate.
 - [ ] Owner acceptance review.
-- [ ] Release blockers only.
+- [x] Release blockers-only scope enforced.
 - [ ] Feature freeze.
 - [ ] Tag v1.0.0.
-- [ ] Changelog/release notes.
+- [x] Changelog/release-notes scaffold.
 - [ ] Pages/demo verification.
 - [ ] Archive source-sensitive material.
 - [ ] Mark roadmap COMPLETE.
