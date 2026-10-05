@@ -1,0 +1,78 @@
+# معماری — Standard 6044 Interactive
+
+## اصل معماری
+
+محصول یک وب‌اپلیکیشن استاتیک و مستقل از Papermorph است. Papermorph فقط مرجع روش طراحی workflow بوده و dependency اجرایی این مخزن نیست.
+
+جریان اصلی:
+
+**Source PDF → Source Ledger → Learning Map → Book Engine → Scene/Animation → Simulation/Assessment → QA → Static Release**
+
+## ساختار اصلی
+
+```text
+site/6044-1397/
+├── index.html                 # جلد و فهرست
+├── assessment.html            # ارزیابی نهایی
+├── search.html                # جست‌وجوی محلی
+├── style.css                  # پوسته بصری مشترک
+├── lib/
+│   ├── engine.js              # پخش، ناوبری، Beat، narration
+│   ├── engine.css             # کنترل‌ها و رفتار مشترک
+│   ├── simulations.js         # primitiveهای شبیه‌سازی
+│   ├── assessment.js          # بانک سؤال و grading
+│   └── search.js              # ایندکس جست‌وجو
+└── chNN/
+    ├── index.html             # surface آموزشی واحد
+    └── app.js                 # فقط منطق اختصاصی لازم
+```
+
+## قرارداد واحد آموزشی
+
+هر یک از ۲۲ واحد یادگیری منبع‌محور یک صحنه SVG با viewBox 1600×900، زبان فارسی RTL و engine مشترک دارد. Unit 23 فقط سطح کتاب‌نامه/مرجع است و جزو واحدهای یادگیری استاندارد محسوب نمی‌شود.
+
+## Engine
+
+`lib/engine.js` مسئول state و playback است:
+- index/total و Progress
+- Play/Pause/Next/Previous
+- Step mode
+- Fullscreen
+- keyboard
+- reduced-motion
+- visibility pause
+- narration synchronization
+- lifecycle callbacks
+- sceneTargets/applyScene
+
+منطق فصل نباید این مسئولیت‌ها را دوباره پیاده‌سازی کند.
+
+## Simulation
+
+`lib/simulations.js` APIهای deterministic را برای سناریوهای مهندسی ارائه می‌کند. هر شبیه‌سازی باید منبع، ورودی، خروجی، فرضیات و test caseهای روشن داشته باشد.
+
+## Assessment
+
+`lib/assessment.js` بانک سؤال و grading را مستقل از UI نگه می‌دارد و انواع MCQ، درست/غلط، ترتیب، numeric و scenario را پشتیبانی می‌کند.
+
+## Source governance
+
+- PDF مرجع اصلی است.
+- عدد، حد، جدول، فرمول، استثنا و cross-reference بدون منبع وارد نمی‌شود.
+- در ابهام OCR باید صفحه منبع بازبینی تصویری شود.
+- توضیح آموزشی از متن منبع تفکیک می‌شود.
+- داده فرضی تمرین باید صریحاً educational scenario باشد.
+
+## QA
+
+دو لایه CI برای محصول اصلی وجود دارد:
+
+**Static QA** — قرارداد فایل‌ها، ساختار، داده‌ها، شبیه‌سازها و guardهای محتوایی.
+
+**Browser Smoke** — اجرای واقعی routeهای نماینده با Playwright، شامل RTL، SVG، engine، تعامل‌های شبیه‌سازی، موبایل و reduced-motion.
+
+GitHub Pages مسیر انتشار استاتیک را می‌سازد، اما فعال‌سازی Pages در سطح مخزن یک تنظیم مالکیتی است.
+
+## اصل محدودیت وابستگی
+
+هیچ API پولی، backend اجباری یا framework سنگین برای اجرای نسخه پایه لازم نیست. قابلیت‌های post-release مانند AI tutor، IoT زنده و 3D گسترده نباید قبل از تکمیل v1.0 وارد scope شوند.
