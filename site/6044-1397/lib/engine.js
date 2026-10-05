@@ -1,4 +1,4 @@
-/* 6044 Interactive Book Engine — v0.3
+/* 6044 Interactive Book Engine — v0.4
    Shared, data-driven playback + scene lifecycle.
 */
 (function(){
