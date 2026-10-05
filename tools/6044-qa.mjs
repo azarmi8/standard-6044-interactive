@@ -297,8 +297,9 @@ for(const n of expected){
 const allHtml=walk(SITE).filter(p=>p.endsWith('.html'));
 for(const htmlPath of allHtml){
   const html=read(htmlPath);
+  const markup=html.replace(/<script\\b[\\s\\S]*?<\\/script>/gi,'');
   const base=path.dirname(htmlPath);
-  for(const m of html.matchAll(/(?:src|href)=["']([^"']+)["']/gi)){
+  for(const m of markup.matchAll(/(?:src|href)=["']([^"']+)["']/gi)){
     const ref=m[1];
     if(!ref || ref.startsWith('#') || /^[a-z][a-z0-9+.-]*:/i.test(ref) || ref.startsWith('//') || ref.startsWith('data:')) continue;
     const clean=decodeURIComponent(ref.split('#')[0].split('?')[0]);
