@@ -1,4 +1,4 @@
-/* 6044 Interactive Book Engine — v0.2
+/* 6044 Interactive Book Engine — v0.3
    Shared, data-driven playback + scene lifecycle.
 */
 (function(){
@@ -12,6 +12,8 @@
     const $=id=>document.getElementById(id);
     const title=$('title'), body=$('body'), count=$('count'), bar=$('bar'), play=$('play');
     const prev=$('prev'), next=$('next'), result=$('quizResult')||$('result'), fullscreen=$('fullscreen');
+    const controls=document.querySelector('.book-controls');
+    let stepMode=false;
 
     function sceneTargets(n){
       document.querySelectorAll('[data-beat]').forEach(el=>{
@@ -30,7 +32,8 @@
       if(step.focus){
         root.style.setProperty('--scene-focus-x',String(step.focus.x??50)+'%');
         root.style.setProperty('--scene-focus-y',String(step.focus.y??50)+'%');
-      }
+        root.classList.add('has-scene-focus');
+      } else root.classList.remove('has-scene-focus');
       if(step.className) root.dataset.sceneState=step.className;
       if(step.progress!=null) root.style.setProperty('--scene-progress',String(step.progress));
       root.querySelectorAll('[data-scene-role]').forEach(el=>{
@@ -72,10 +75,21 @@
       if(play) play.textContent='پخش';
       lifecycle('onPause',index,beats[index]);
     }
+    function step(){
+      if(!beats.length)return;
+      stop();
+      go(index+1);
+    }
+    function toggleStepMode(){
+      stepMode=!stepMode;
+      if(stepMode) stop();
+      const b=$('step'); if(b) b.setAttribute('aria-pressed',String(stepMode));
+      const root=document.querySelector('.stage,.book-stage'); if(root) root.classList.toggle('step-mode',stepMode);
+    }
     function toggle(){
       if(timer){stop();return}
-      if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-        go(index+1); return;
+      if(stepMode || (window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)){
+        step(); return;
       }
       timer=setInterval(()=>{
         if(index>=beats.length-1){stop();return}
@@ -92,6 +106,11 @@
     if(prev) prev.onclick=()=>go(index-1);
     if(next) next.onclick=()=>go(index+1);
     if(play) play.onclick=toggle;
+    if(controls && !$('step')){
+      const b=document.createElement('button'); b.id='step'; b.type='button'; b.textContent='گام بعدی'; b.setAttribute('aria-pressed','false'); controls.appendChild(b);
+    }
+    const stepButton=$('step');
+    if(stepButton){stepButton.onclick=()=>step(); stepButton.addEventListener('dblclick',toggleStepMode);}
     if(fullscreen) fullscreen.onclick=()=>{
       const el=document.querySelector('.stage')||document.querySelector('.book-stage');
       if(!el)return;
@@ -103,6 +122,8 @@
       if(e.key==='ArrowRight') go(index+1);
       if(e.key==='ArrowLeft') go(index-1);
       if(e.key===' '){e.preventDefault();toggle()}
+      if(e.key.toLowerCase()==='s'){e.preventDefault();step()}
+      if(e.key.toLowerCase()==='m'){e.preventDefault();toggleStepMode()}
       if(e.key==='Home') go(0);
       if(e.key==='End') go(beats.length-1);
       if(e.key.toLowerCase()==='f'){e.preventDefault();if(fullscreen)fullscreen.click()}
@@ -120,7 +141,7 @@
     }
     window.addEventListener('beforeunload',()=>lifecycle('onExit',index,beats[index]));
     enter();
-    window.BookEngine={next:()=>go(index+1),prev:()=>go(index-1),play:toggle,stop,go,get index(){return index},get total(){return beats.length}};
+    window.BookEngine={next:()=>go(index+1),prev:()=>go(index-1),play:toggle,stop,step,toggleStepMode,go,get index(){return index},get total(){return beats.length}};
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
 })();
