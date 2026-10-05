@@ -67,9 +67,9 @@ Severity: High
 Status: Corrected.  
 The source has appendices A–G only. The former Unit 23 was not source content and is now treated as bibliography/reference.
 
-### F-002 — Existing interactive pages are not source-final
+### F-002 — Existing interactive pages require final publication audit
 Severity: High  
-Status: Open.  
+Status: Open — source structure and current numeric-bearing interactions are verified, but final clause-level audit of all published source-derived wording/cross-references remains a release gate.  
 Existing HTML is a functional instructional scaffold. It must not be described as a verified reproduction of the standard until the interactive layer itself is audited against the verified Markdown/source ledger.
 
 ### F-003 — Numeric/acceptance content needs direct verification
@@ -91,6 +91,6 @@ A source-derived item becomes VERIFIED only when:
 5. any interpretation is labeled as educational interpretation rather than source text.
 
 ## Phase 1 status
-**Content-source audit complete for Units 1–22.**
+**COMPLETE — Source Lock & Audit.**
 
-Phase 1 still has one release-facing follow-up: reconcile all numeric/source-derived values currently embedded in the existing HTML against this verified Markdown/source ledger. This is a content QA task, not permission to invent new requirements.
+The source identity, 15-chapter + A–G structure, page map, correction of the former Appendix H, and source-reading pass for Units 1–22 are locked. The remaining work is a final clause-level audit of the published educational wording/cross-references, which belongs to the release QA gates and does not reopen source scope.
