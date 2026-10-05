@@ -97,28 +97,31 @@ Current artifacts:
 
 # Phase 6 — Engineering Simulations
 Priority:
-1. [ ] Sampling workflow.
-2. [ ] Fresh concrete tests.
-3. [ ] Delivery/temperature workflow.
-4. [ ] Specimen preparation.
-5. [ ] Strength/conformity decision.
+1. [x] Sampling workflow — Chapter 8 pilot with deterministic QA.
+2. [x] Fresh concrete tests — Chapter 10 pilot with deterministic QA.
+3. [x] Delivery/temperature workflow — Chapter 7 pilot with deterministic QA.
+4. [x] Specimen preparation — Chapter 11 traceability pilot with deterministic QA.
+5. [x] Strength/conformity decision — Chapter 11 pilot with deterministic QA.
 6. [x] Production-control workflow — Chapter 14 control-system checklist pilot with deterministic QA.
 7. [x] Order → production → delivery — Chapter 6/12 traceability workflow pilot with deterministic QA.
-8. [ ] Conformity assessment.
+8. [x] Conformity assessment — Chapter 15 readiness-chain pilot with deterministic QA.
 Each simulation must expose source clauses, inputs, outputs, assumptions and validation cases. Shared contract: `docs/SIMULATION_CONTRACT.md`; first shared primitive: `site/6044-1397/lib/simulations.js`.
 **Exit gate:** documented cases reproduce consistently without invented limits.
 
 # Phase 7 — Assessment System
-- [ ] MCQ.
-- [ ] True/false.
-- [ ] Sequence ordering.
-- [ ] Drag/drop where useful.
-- [ ] Numeric/range decisions.
-- [ ] Scenario decisions.
-- [ ] Answer explanations.
-- [ ] Chapter score/weakness map/review recommendations.
-- [ ] Final assessment.
-**Exit gate:** meaningful learning-and-assessment loop.
+**Status: PILOT COMPLETE — shared deterministic assessment engine + 8-question final assessment surface implemented.**
+- [x] MCQ.
+- [x] True/false.
+- [x] Sequence ordering.
+- [x] Drag/drop where useful — not required for the v1.0 pilot because the same ordering task is keyboard/mobile friendly.
+- [x] Numeric/range decisions.
+- [x] Scenario decisions.
+- [x] Answer explanations.
+- [x] Chapter/unit score + weakness map + review recommendations.
+- [x] Final assessment.
+- [x] Local progress persistence and reset.
+- [x] Static QA for question-bank metadata and grading contract.
+**Exit gate:** PASSED for the current assessment pilot; broader chapter-level coverage remains a Phase 9/10 polish and QA task.
 
 # Phase 8 — Search & Knowledge Navigation
 - [ ] Chapter map.
