@@ -3,9 +3,9 @@
  * Static QA for the 6044 interactive book.
  * No npm dependencies.
  */
-const fs = require('node:fs');
-const path = require('node:path');
-const vm = require('node:vm');
+import fs from 'node:fs';
+import path from 'node:path';
+import vm from 'node:vm';
 
 const ROOT = path.resolve(process.cwd());
 const SITE = path.join(ROOT, 'site', '6044-1397');
