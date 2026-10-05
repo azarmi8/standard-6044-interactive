@@ -87,11 +87,13 @@
     function narrationFor(i){
       const b=beats[i]||{}, n=cfg.narration;
       const item=Array.isArray(n)?(n[i]||null):(n&&Array.isArray(n.beats)?(n.beats[i]||null):null);
+      const audioSrc=item&&item.src?item.src:(chapterKey?'../audio/fa/ch'+chapterKey+'-'+String(i+1).padStart(2,'0')+'.mp3':'');
       return Object.assign({
         displayText:b.displayText||b.body||'',
         spokenText:b.spokenText||b.body||'',
         lang:'fa-IR',
-        rate:0.9
+        rate:0.9,
+        src:audioSrc
       },item||{});
     }
     function speechSupported(){return 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window}
