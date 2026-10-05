@@ -54,7 +54,7 @@ Current artifacts:
 - Pilot migrations: ch01, ch02, ch10
 
 # Phase 3 — Core Book Engine
-**Status: PILOT IN PROGRESS — shared engine v0.2 + lifecycle contract + multi-chapter pilot.**
+**Status: PILOT IN PROGRESS — shared engine v0.2 + lifecycle contract + six-chapter-pattern validation.**
 
 - [x] Shared chapter shell.
 - [x] Beat/timeline engine.
@@ -65,7 +65,7 @@ Current artifacts:
 - [x] Responsive layout.
 - [x] Reduced-motion and fallback states.
 - [x] Reusable SVG/scene helpers.
-**Exit gate:** a new chapter can be implemented mainly from configuration/content. **IN VALIDATION across ch01/ch02/ch10.**
+**Exit gate:** a new chapter can be implemented mainly from configuration/content. **IN VALIDATION across ch01/ch02/ch07/ch10/ch11/ch17.**
 
 # Phase 4 — Professional Animation System
 - [ ] Timeline beats, focus/highlight, zoom/pan, process movement, state transitions, data reveal, procedure sequencing.
