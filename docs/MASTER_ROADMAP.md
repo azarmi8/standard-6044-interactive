@@ -54,10 +54,10 @@ These may become v2 tracks, but they cannot block v1.0.
 - [x] Audit Chapter 6.
 - [x] Audit Chapter 7.
 - [x] Audit Chapter 8.
-- [ ] Audit Chapter 9.
-- [ ] Audit Chapter 10.
-- [ ] Audit Chapter 11.
-- [ ] Audit Chapter 12.
+- [x] Audit Chapter 9.
+- [x] Audit Chapter 10.
+- [x] Audit Chapter 11.
+- [x] Audit Chapter 12.
 - [ ] Audit Chapter 13.
 - [ ] Audit Chapter 14.
 - [ ] Audit Chapter 15.
@@ -65,7 +65,7 @@ These may become v2 tracks, but they cannot block v1.0.
 - [x] Establish `NEEDS_SOURCE_REVIEW` rule; remaining ambiguous claims are tracked in source audit.
 - [ ] No unsupported numeric limit remains in published content.
 
-**Next batch:** Chapters 9–12.
+**Next batch:** Chapters 13–15, then Appendices A–G.
 
 **Exit gate:** every source-derived learning item has a verified source location.
 
