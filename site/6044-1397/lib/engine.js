@@ -21,6 +21,33 @@
         el.setAttribute('aria-hidden',active?'false':'true');
       });
     }
+    function sceneTargets(n){
+      document.querySelectorAll('[data-beat]').forEach(el=>{
+        const values=(el.getAttribute('data-beat')||'').split(/\\s+/).filter(Boolean).map(Number);
+        const active=values.includes(n+1);
+        el.classList.toggle('is-active',active);
+        el.setAttribute('aria-hidden',active?'false':'true');
+      });
+    }
+    function applyScene(scene,n,b){
+      if(!scene||typeof scene!=='object')return;
+      const root=document.querySelector(scene.root||'.stage,.book-stage');
+      if(!root)return;
+      const steps=Array.isArray(scene.steps)?scene.steps:[];
+      const step=steps[n]||{};
+      if(step.focus){
+        root.style.setProperty('--scene-focus-x',String(step.focus.x??50)+'%');
+        root.style.setProperty('--scene-focus-y',String(step.focus.y??50)+'%');
+      }
+      if(step.className) root.dataset.sceneState=step.className;
+      if(step.progress!=null) root.style.setProperty('--scene-progress',String(step.progress));
+      root.querySelectorAll('[data-scene-role]').forEach(el=>{
+        const role=el.getAttribute('data-scene-role');
+        const visible=Array.isArray(step.show)?step.show.includes(role):true;
+        el.classList.toggle('is-scene-visible',visible);
+        el.setAttribute('aria-hidden',visible?'false':'true');
+      });
+    }
     function lifecycle(name,n,b){
       const fn=cfg[name];
       if(typeof fn==='function') fn(n,b);
@@ -34,7 +61,7 @@
       if(body) body.textContent=b.body||b[1]||'';
       if(count) count.textContent=(index+1)+' / '+beats.length;
       if(bar) bar.style.width=((index+1)/beats.length*100)+'%';
-      sceneTargets(index);
+      sceneTargets(index);\n      applyScene(cfg.scene,index,b);
       document.documentElement.style.setProperty('--beat-index',index);
       lifecycle('onRender',index,b);
     }
