@@ -1,4 +1,4 @@
-/* 6044 Interactive Book Engine — v0.3
+/* 6044 Interactive Book Engine — v0.5
    Shared, data-driven playback + scene lifecycle.
 */
 (function(){
@@ -13,7 +13,7 @@
     const title=$('title'), body=$('body'), count=$('count'), bar=$('bar'), play=$('play');
     const prev=$('prev'), next=$('next'), result=$('quizResult')||$('result'), fullscreen=$('fullscreen');
     const controls=document.querySelector('.book-controls');
-    let stepMode=false;
+    let stepMode=false, narrationAudio=null;
 
     function sceneTargets(n){
       document.querySelectorAll('[data-beat]').forEach(el=>{
@@ -49,6 +49,10 @@
       const hook=cfg.scene&&cfg.scene[name];
       if(typeof hook==='function') hook(n,b);
     }
+    function narrationFor(i){ const n=cfg.narration; if(!n)return null; return Array.isArray(n)?(n[i]||null):(Array.isArray(n.beats)?(n.beats[i]||null):null); }
+    function syncNarration(){ const n=narrationFor(index); if(!n)return; if(narrationAudio){ narrationAudio.pause(); narrationAudio=null; } if(n.src){ narrationAudio=new Audio(n.src); narrationAudio.preload='metadata'; narrationAudio.playbackRate=Number(n.rate||1); narrationAudio.onended=()=>lifecycle('onNarrationEnd',index,beats[index]); } const transcript=document.querySelector('[data-narration-transcript]'); if(transcript) transcript.textContent=n.text||''; const status=document.querySelector('[data-narration-status]'); if(status) status.textContent=n.src?'روایت آماده':'متن روایت'; }
+    function playNarration(){ if(!narrationAudio)return; narrationAudio.play().catch(()=>{}); lifecycle('onNarrationPlay',index,beats[index]); }
+    function pauseNarration(){ if(narrationAudio){ narrationAudio.pause(); lifecycle('onNarrationPause',index,beats[index]); } }
     function render(){
       if(!beats.length)return;
       const b=beats[index]||{};
@@ -60,6 +64,7 @@
       applyScene(cfg.scene,index,b);
         document.documentElement.style.setProperty('--beat-index',index);
       lifecycle('onRender',index,b);
+      syncNarration();
     }
     function go(n){
       const nextIndex=Math.max(0,Math.min(beats.length-1,n));
@@ -87,7 +92,7 @@
       const root=document.querySelector('.stage,.book-stage'); if(root) root.classList.toggle('step-mode',stepMode);
     }
     function toggle(){
-      if(timer){stop();return}
+      if(timer){pauseNarration();stop();return}
       if(stepMode || (window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)){
         step(); return;
       }
@@ -96,6 +101,7 @@
         go(index+1);
       },interval);
       if(play) play.textContent='توقف';
+      playNarration();
       lifecycle('onPlay',index,beats[index]);
     }
     function enter(){
@@ -141,7 +147,7 @@
     }
     window.addEventListener('beforeunload',()=>lifecycle('onExit',index,beats[index]));
     enter();
-    window.BookEngine={next:()=>go(index+1),prev:()=>go(index-1),play:toggle,stop,step,toggleStepMode,go,get index(){return index},get total(){return beats.length}};
+    window.BookEngine={next:()=>go(index+1),prev:()=>go(index-1),play:toggle,stop,step,toggleStepMode,go,playNarration,pauseNarration,get index(){return index},get total(){return beats.length}};
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
 })();
