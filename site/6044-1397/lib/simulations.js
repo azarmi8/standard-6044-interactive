@@ -62,3 +62,29 @@ window.SimulationEngine.ch10 = {
     {kind:'density',input:{measured:2390,specified:2420},pass:false}
   ]
 };
+
+window.SimulationEngine.ch08 = {
+  id: 'ch08-sampling-15-85',
+  source: { chapter: 8, clauses: ['8-3'], pages: '21–22' },
+  validate(input) {
+    if(!input || !Number.isFinite(input.firstPercent) || !Number.isFinite(input.secondPercent) || !Number.isFinite(input.intervalMinutes))
+      return 'درصدهای نمونه‌برداری و فاصله زمانی را کامل وارد کنید.';
+    if(input.firstPercent<0 || input.firstPercent>100 || input.secondPercent<0 || input.secondPercent>100 || input.intervalMinutes<0)
+      return 'مقادیر واردشده خارج از دامنه معتبر هستند.';
+    return null;
+  },
+  calculate(input) {
+    const error=this.validate(input);
+    if(error) return {valid:false,error};
+    const firstAt15=input.firstPercent===15;
+    const secondAt85=input.secondPercent===85;
+    const intervalOK=input.intervalMinutes<=15;
+    return {valid:true,firstAt15,secondAt85,intervalOK,pass:firstAt15&&secondAt85&&intervalOK};
+  },
+  testCases:[
+    {input:{firstPercent:15,secondPercent:85,intervalMinutes:15},pass:true},
+    {input:{firstPercent:15,secondPercent:85,intervalMinutes:16},pass:false},
+    {input:{firstPercent:14,secondPercent:85,intervalMinutes:10},pass:false},
+    {input:{firstPercent:15,secondPercent:84,intervalMinutes:10},pass:false}
+  ]
+};
