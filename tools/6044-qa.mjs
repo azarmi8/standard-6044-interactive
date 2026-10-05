@@ -20,13 +20,28 @@ function read(p){ return fs.readFileSync(p,'utf8'); }
 function rel(p){ return path.relative(ROOT,p).replaceAll(path.sep,'/'); }
 
 if(!exists(SITE)) fail('site/6044-1397 is missing');
-checkNarration(SITE);
+checkNarration(SITE);\ncheckSimulationContract();
 if(!exists(BOOKS)) fail('books/6044-1397 is missing');
 
 for(const n of expected){
   const dir=path.join(SITE,'ch'+n);
   const html=path.join(dir,'index.html');
   if(!exists(html)) fail(`ch${n}: index.html missing`);
+}
+
+function checkSimulationContract(){
+  const p=path.join(SITE,'lib','simulations.js');
+  if(!exists(p)){ fail('shared simulation engine missing: site/6044-1397/lib/simulations.js'); return; }
+  const src=read(p), sandbox={window:{},console};
+  try{ vm.runInNewContext(src,sandbox,{timeout:1000,filename:rel(p)}); }
+  catch(e){ fail('shared simulation engine parse failure: '+e.message); return; }
+  const sim=sandbox.window.SimulationEngine?.ch11;
+  if(!sim) { fail('ch11 shared simulation is missing'); return; }
+  for(const tc of (sim.testCases||[])){
+    const got=sim.calculate(tc.input);
+    if(!got.valid || got.pass!==tc.pass || Math.abs(got.mean-tc.mean)>1e-9)
+      fail('ch11 simulation test failed: '+JSON.stringify(tc.input));
+  }
 }
 
 function checkNarration(dir){
