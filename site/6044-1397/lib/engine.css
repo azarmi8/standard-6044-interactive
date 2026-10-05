@@ -16,3 +16,11 @@
   [data-beat]{transform:none}
 }
 @media(max-width:800px){.book-controls{flex-wrap:wrap}.book-controls .progress{min-width:180px}}
+
+.scene-object{opacity:.28;transform:translate3d(0,0,0) scale(.98);transition:opacity .35s ease,transform .45s ease,filter .35s ease}
+.scene-object.is-scene-visible{opacity:1;transform:translate3d(0,-8px,0) scale(1);filter:drop-shadow(0 10px 16px rgba(23,60,42,.16))}
+.stage[data-scene-state="arrival"] .scene-object[data-scene-role="truck"]{transform:translate3d(-18%,0,0)}
+.stage[data-scene-state="arrival"] .scene-object.is-scene-visible[data-scene-role="truck"]{transform:translate3d(0,-8px,0)}
+.stage[data-scene-state="discharge"] .scene-object[data-scene-role="concrete"]{transform:scaleY(.7);transform-origin:center bottom}
+.stage[data-scene-state="sample"] .scene-object[data-scene-role="sample"]{transform:translate3d(0,-24px,0) scale(1.05)}
+@media(prefers-reduced-motion:reduce){.scene-object{transition:none!important}}
