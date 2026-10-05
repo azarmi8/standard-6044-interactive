@@ -74,8 +74,8 @@ Existing HTML is a functional instructional scaffold. It must not be described a
 
 ### F-003 — Numeric/acceptance content needs direct verification
 Severity: High  
-Status: Partially resolved.  
-Units 1–22 have now had direct source review. Remaining work is to audit the numeric values embedded in existing HTML and simulation logic against the verified source ledger before release.
+Status: Resolved for current interactive HTML.  
+Units 1–22 have now had direct source review. The current numeric-bearing interactive chapters were reconciled against the verified source ledger: Ch7 temperature limits; Ch8 15%/85% sampling and 15-minute interval; Ch10 slump/SCC classes and fresh-density tolerance; Ch11 sampling/conformity criteria; Ch13 mixer capacity constraints; Appendix B formulas; Appendix C air-content values; Appendix D record-retention period; Appendix F surveillance/extraordinary-audit triggers. Future simulation logic must use the same source-ledger data rather than duplicating numbers.
 
 ### F-004 — OCR ambiguity
 Severity: Medium  
