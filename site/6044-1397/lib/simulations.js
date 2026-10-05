@@ -22,7 +22,7 @@ window.SimulationEngine.ch11 = {
   testCases: [
     { input:{fc:30,results:[29,31,30]}, pass:true, mean:30 },
     { input:{fc:30,results:[26,31,30]}, pass:false, mean:29 },
-    { input:{fc:30,results:[27,30,30]}, pass:true, mean:29 },
+    { input:{fc:30,results:[27,30,30]}, pass:false, mean:29 },
     { input:{fc:30,results:[20,40,40]}, pass:false, mean:33.333333333333336 }
   ]
 };
