@@ -33,3 +33,11 @@
 - تولید انبوه صوت قبل از تأیید voice و pronunciation dictionary.
 - اصلاح خودکار متن رسمی بدون حفظ نسخه نمایشی.
 - ادعای تلفظ صحیح صرفاً بر اساس خروجی یک مدل.
+
+## Candidate voices — benchmark only
+بررسی وب/GitHub در 2026-10-05 نشان می‌دهد دو مسیر عملی برای benchmark وجود دارد:
+- Microsoft Edge TTS: `fa-IR-FaridNeural` و `fa-IR-DilaraNeural` به‌عنوان voiceهای فارسی ایران فهرست شده‌اند. citeturn0search2
+- Piper: voiceهای فارسی ایران از جمله `amir` در مخزن voiceها موجود است و مسیر local/offline را فراهم می‌کند. citeturn0search1turn0search3
+- یک پروژه فارسی مبتنی بر Piper نیز چهار voice شامل Amir، Ganji، Gyro و Reza Ibrahim را معرفی می‌کند؛ این فقط یک گزینه برای benchmark است و کیفیت نهایی را تضمین نمی‌کند. citeturn0search5
+
+هیچ‌یک تا قبل از تست شنیداری و QA انسانی، voice نهایی پروژه محسوب نمی‌شود.
