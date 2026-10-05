@@ -127,3 +127,28 @@
 @media(prefers-reduced-motion:reduce){
   .reader-hud-dot{transition:none!important}
 }
+
+
+/* v0.7 — richer pilot motion for measurement and formula scenes */
+.stage[data-scene-state="slump"] .fresh-card[data-scene-role="measurement"],
+.stage[data-scene-state="flow"] .fresh-card[data-scene-role="scc"],
+.stage[data-scene-state="air"] .fresh-card[data-scene-role="air"],
+.stage[data-scene-state="temperature"] .fresh-card[data-scene-role="temperature"],
+.stage[data-scene-state="density"] .fresh-card[data-scene-role="density"],
+.stage[data-scene-state="decision"] .fresh-card[data-scene-role="decision"]{
+  animation:pilot-card-in .65s cubic-bezier(.2,.75,.3,1) 1 both;
+}
+.stage[data-scene-state="slump"] .fresh-card[data-scene-role="measurement"]{transform:translateY(-12px) scale(1.035)}
+.stage[data-scene-state="flow"] .fresh-card[data-scene-role="scc"]{transform:translateY(-12px) scale(1.035)}
+.stage[data-scene-state="air"] .fresh-card[data-scene-role="air"]{transform:translateY(-12px) scale(1.035)}
+.stage[data-scene-state="temperature"] .fresh-card[data-scene-role="temperature"]{transform:translateY(-12px) scale(1.035)}
+.stage[data-scene-state="density"] .fresh-card[data-scene-role="density"]{transform:translateY(-12px) scale(1.035)}
+.stage[data-scene-state="decision"] .fresh-card[data-scene-role="decision"]{transform:translateY(-12px) scale(1.035)}
+@keyframes pilot-card-in{from{opacity:.35;transform:translateY(14px) scale(.96)}to{opacity:1;transform:translateY(-12px) scale(1.035)}}
+.stage[data-scene-state="formula-one"] .scene-object[data-scene-role="formula1"],
+.stage[data-scene-state="formula-two"] .scene-object[data-scene-role="formula2"],
+.stage[data-scene-state="new-mix"] .scene-object[data-scene-role="newmix"],
+.stage[data-scene-state="decision"] .scene-object[data-scene-role="decision"]{
+  animation:formula-panel-in .65s cubic-bezier(.2,.75,.3,1) 1 both;
+}
+@keyframes formula-panel-in{from{opacity:.25;transform:translateY(16px) scale(.94)}to{opacity:1;transform:translateY(-8px) scale(1.02)}}
