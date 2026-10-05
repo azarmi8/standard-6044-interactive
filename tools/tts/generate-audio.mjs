@@ -69,7 +69,6 @@ for(const j of jobs){
   fs.unlinkSync(j.wav);
   manifest.push({chapter:j.chapter,beat:j.beat,file:'audio/fa/'+path.basename(j.mp3),text:j.spokenText});
 }
-  });
 }
-fs.writeFileSync(manifestPath,JSON.stringify({version:1,voice:'rhasspy/piper-voices fa_IR-gyro-medium',sampleRate:24000,bitrate:'64k',items:manifest},null,2)+'\n');
+fs.writeFileSync(manifestPath,JSON.stringify({version:1,voice:'rhasspy/piper-voices fa_IR-gyro-medium',sampleRate:22050,bitrate:'64k',items:manifest},null,2)+'\n');
 console.log('Generated',manifest.length,'Persian narration tracks');
