@@ -144,7 +144,7 @@ Each simulation must expose source clauses, inputs, outputs, assumptions and val
 - [x] Local return-position and bookmark UI.
 - [x] Reduced-motion behavior on new interaction layer.
 - [ ] Cover and contents final treatment.
-- [x] Full chapter-wide visual consistency audit — structural contract checked across Chapters 1–15; eight legacy inline-engine chapters remain for migration.
+- [x] Full chapter-wide visual consistency audit — structural contract checked across Chapters 1–15; Chapters 1–15 now use the shared book engine, while appendices 16 and 18–22 remain a separate non-engine migration surface.
 - [ ] Loading/error states.
 - [ ] Fullscreen/mobile visual QA.
 - [ ] No childish gamification or decorative animation.
