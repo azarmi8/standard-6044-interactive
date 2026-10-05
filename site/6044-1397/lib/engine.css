@@ -33,3 +33,29 @@
 @media(prefers-reduced-motion:reduce){
   .book-stage.has-scene-focus,.stage.has-scene-focus,.step-mode .scene-object.is-scene-visible{animation:none!important}
 }
+/* Process choreography: lightweight CSS/SVG motion, no runtime animation dependency. */
+.stage[data-scene-state="mixing"] .scene-object[data-scene-role="mixer"]{animation:mixer-pulse 1.2s ease-in-out infinite alternate}
+.stage[data-scene-state="discharge"] .scene-object[data-scene-role="concrete"]{animation:concrete-flow .8s ease-in-out infinite alternate}
+.stage[data-scene-state="arrival"] .scene-object[data-scene-role="truck"]{animation:truck-arrival .7s ease-out both}
+.stage[data-scene-state="sampling"] .scene-object[data-scene-role="sample"]{animation:sample-lift .7s ease-out both}
+.stage[data-scene-state="specimen"] .scene-object[data-scene-role="mold"]{animation:specimen-set .6s ease-out both}
+.stage[data-scene-state="testing"] .scene-object[data-scene-role="press"]{animation:press-cycle .9s ease-in-out infinite alternate}
+.stage[data-scene-state="formula-one"] .scene-object[data-scene-role="formula1"],
+.stage[data-scene-state="formula-two"] .scene-object[data-scene-role="formula2"]{animation:formula-reveal .6s ease-out both}
+@keyframes mixer-pulse{from{transform:rotate(-1deg) scale(1)}to{transform:rotate(1deg) scale(1.025)}}
+@keyframes concrete-flow{from{transform:scaleY(.72) translateY(4px)}to{transform:scaleY(1) translateY(-2px)}}
+@keyframes truck-arrival{from{transform:translate3d(-28%,0,0)}to{transform:translate3d(0,-8px,0)}}
+@keyframes sample-lift{from{transform:translate3d(0,30px,0) scale(.9)}to{transform:translate3d(0,-24px,0) scale(1.05)}}
+@keyframes specimen-set{from{transform:translate3d(0,18px,0) scale(.92)}to{transform:translate3d(0,-8px,0) scale(1)}}
+@keyframes press-cycle{from{transform:translateY(8px)}to{transform:translateY(-5px)}}
+@keyframes formula-reveal{from{opacity:.15;transform:scale(.92)}to{opacity:1;transform:scale(1.02)}}
+@media(prefers-reduced-motion:reduce){
+ .stage[data-scene-state="mixing"] .scene-object[data-scene-role="mixer"],
+ .stage[data-scene-state="discharge"] .scene-object[data-scene-role="concrete"],
+ .stage[data-scene-state="arrival"] .scene-object[data-scene-role="truck"],
+ .stage[data-scene-state="sampling"] .scene-object[data-scene-role="sample"],
+ .stage[data-scene-state="specimen"] .scene-object[data-scene-role="mold"],
+ .stage[data-scene-state="testing"] .scene-object[data-scene-role="press"],
+ .stage[data-scene-state="formula-one"] .scene-object[data-scene-role="formula1"],
+ .stage[data-scene-state="formula-two"] .scene-object[data-scene-role="formula2"]{animation:none}
+}
