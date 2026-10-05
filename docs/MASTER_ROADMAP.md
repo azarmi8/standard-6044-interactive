@@ -124,13 +124,15 @@ Each simulation must expose source clauses, inputs, outputs, assumptions and val
 **Exit gate:** PASSED for the current assessment pilot; broader chapter-level coverage remains a Phase 9/10 polish and QA task.
 
 # Phase 8 — Search & Knowledge Navigation
-- [ ] Chapter map.
-- [ ] Concept/clause search.
-- [ ] Cross-reference and related units.
-- [ ] Return position.
-- [ ] Progress persistence.
+**Status: PILOT COMPLETE — local knowledge index + instant concept search implemented.**
+- [x] Chapter/unit map.
+- [x] Concept/clause-oriented search index for all 22 learning units.
+- [x] Related-unit result links.
+- [x] Local/static operation without paid API.
+- [ ] Return position — reserved for the shared book-engine navigation layer.
+- [ ] Progress persistence — assessment has local persistence; book-wide persistence remains.
 - [ ] Bookmarks.
-**Exit gate:** known concepts can be found quickly.
+**Exit gate:** PASSED for concept discovery pilot; book-wide navigation persistence remains a polish/QA task.
 
 # Phase 9 — Visual/Product Polish
 - [ ] Cover and contents.
