@@ -103,7 +103,7 @@ Priority:
 4. [ ] Specimen preparation.
 5. [ ] Strength/conformity decision.
 6. [x] Production-control workflow — Chapter 14 control-system checklist pilot with deterministic QA.
-7. [ ] Order → production → delivery.
+7. [x] Order → production → delivery — Chapter 6/12 traceability workflow pilot with deterministic QA.
 8. [ ] Conformity assessment.
 Each simulation must expose source clauses, inputs, outputs, assumptions and validation cases. Shared contract: `docs/SIMULATION_CONTRACT.md`; first shared primitive: `site/6044-1397/lib/simulations.js`.
 **Exit gate:** documented cases reproduce consistently without invented limits.
