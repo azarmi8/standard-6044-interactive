@@ -23,6 +23,7 @@ if(!exists(SITE)) fail('site/6044-1397 is missing');
 checkNarration(SITE);
 checkSimulationContract();
 checkAssessmentContract();
+checkSearchContract();
 if(!exists(BOOKS)) fail('books/6044-1397 is missing');
 
 for(const n of expected){
@@ -120,6 +121,24 @@ function checkAssessmentContract(){
   const html=read(htmlPath);
   if(!html.includes('assessment.js')) fail('assessment page does not load shared assessment engine');
   if(!html.includes('نقاط نیازمند مرور')) fail('assessment page missing weakness-map output');
+}
+
+
+function checkSearchContract(){
+  const jsPath=path.join(SITE,'lib','search.js');
+  const htmlPath=path.join(SITE,'search.html');
+  if(!exists(jsPath)){ fail('search engine missing: site/6044-1397/lib/search.js'); return; }
+  if(!exists(htmlPath)){ fail('search page missing: site/6044-1397/search.html'); return; }
+  const sandbox={window:{},console};
+  try{ vm.runInNewContext(read(jsPath),sandbox,{timeout:1000,filename:rel(jsPath)}); }
+  catch(e){ fail('search engine parse failure: '+e.message); return; }
+  const engine=sandbox.window.BookSearch;
+  if(!engine || !Array.isArray(engine.items) || engine.items.length!==22) fail('search index must contain exactly 22 learning units');
+  for(const term of ['۳۲','اسلامپ','مقاومت','نمونه‌برداری']){
+    if(!engine.search(term).length) fail('search query returned no result: '+term);
+  }
+  if(engine.search('NOT-A-REAL-6044-TERM').length) fail('search no-result contract failed');
+  if(!read(htmlPath).includes('search.js')) fail('search page does not load shared search engine');
 }
 
 function checkNarration(dir){
