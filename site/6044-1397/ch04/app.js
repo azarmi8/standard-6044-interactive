@@ -35,7 +35,7 @@ window.BOOK_CONFIG = {
     const sub = document.getElementById('sub');
     const cards = document.getElementById('cards');
     if (q) q.textContent = beat.title || '';
-    if (sub) sub.textContent = '۶۰۴۴:۱۳۹۷  •  مرحله ' + (index + 1) + ' از ' + this.beats.length;
+    if (sub) sub.textContent = '۶۰۴۴:۱۳۹۷  •  مرحله ' + (index + 1) + ' از ' + window.BOOK_CONFIG.beats.length;
     if (!cards) return;
 
     cards.innerHTML = this.beats.map((item, k) => {
