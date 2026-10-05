@@ -4,7 +4,7 @@ Last checked: 2026-10-06
 
 ## Current baseline
 
-- Main: `6d8f3dd31778e89f50545e4a92fa9ac0de7d8dcf`
+- Main: `7ffc894b6dd4530fda7c2848f4b7e307f73d487f`
 - Product: Persian RTL interactive engineering book for Iranian National Standard 6044:1397.
 - Source structure: 15 official chapters + Appendices A–G + bibliography.
 - Learning units: 22.
@@ -22,11 +22,11 @@ Last checked: 2026-10-06
 | Simulation contracts | PASS | deterministic simulation tests reviewed; ch11 edge-case corrected |
 | Assessment/search contracts | PASS | existing QA contract + static inspection |
 | Professional cover/contents | PASS | merged in PR #6 |
-| Static QA | PASS | Current main Run #62 succeeded on 2026-10-05 |
-| Browser/mobile/reduced-motion QA | PASS | Current main Browser Smoke Run #12 succeeded; representative desktop/mobile/reduced-motion routes covered |
+| Static QA | PASS | Current main Run #64 succeeded on 2026-10-05 |
+| Browser/mobile/reduced-motion QA | PASS | Current main Browser Smoke Run #14 succeeded; representative desktop/mobile/reduced-motion routes covered |
 | Persian TTS human listening | PENDING | benchmark/contract exists; release audio not approved |
-| GitHub Pages | BLOCKED BY SETTINGS | repository reports `has_pages: false`; workflow is prepared but Pages is not enabled |
-| v1.0.0 release | NOT READY | blocked by remaining gates above |
+| GitHub Pages | BLOCKED BY SETTINGS | repository reports `has_pages: false`; workflow reaches Configure Pages and fails because Pages is disabled |
+| Release documentation/handoff | PASS | User guide, architecture map, release checklist and changelog merged in PR #14 |\n| v1.0.0 release | NOT READY | blocked by remaining release gates above |
 
 ## Merge policy
 
@@ -43,10 +43,10 @@ A change may be merged when:
 Repository-level Pages must be enabled with GitHub Actions as the publishing source.
 
 ### B-002 — Hosted CI recovery
-RESOLVED. Current main Static QA and Browser Smoke runs are executing successfully.
+RESOLVED. Current main Static QA Run #64 and Browser Smoke Run #14 both succeeded.
 
 ### B-003 — Browser smoke
-Core smoke is verified on current main. Remaining release task is fullscreen visual QA.
+Core smoke is verified on current main. Remaining release task is fullscreen visual QA; no browser-smoke failure is currently open.
 
 ### B-004 — Persian narration review
 Select a voice only after human listening. Check Persian pronunciation, numbers, units, ASTM/ISIRI/SCC/fc and technical pauses before approving release audio.
