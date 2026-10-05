@@ -26,11 +26,9 @@ window.BOOK_CONFIG={
  if(!btn||!out)return;
  btn.addEventListener('click',()=>{
   const fc=Number($('fc').value), values=[$('r1'),$('r2'),$('r3')].map(x=>Number(x.value));
-  if(!Number.isFinite(fc)||fc<=0||values.some(v=>!Number.isFinite(v))){
-   out.textContent='ورودی‌ها را کامل و معتبر وارد کنید.'; out.className='sim-result bad'; return;
-  }
-  const mean=values.reduce((a,b)=>a+b,0)/3, limit=.9*fc;
-  const meanOK=mean>=fc, individualOK=values.every(v=>v>=limit), pass=meanOK&&individualOK;
+  const result=window.SimulationEngine.ch11.calculate({fc,results:values});
+  if(!result.valid){ out.textContent=result.error; out.className='sim-result bad'; return; }
+  const {mean,limit,meanOK,individualOK,pass}=result;
   out.innerHTML='<strong>'+ (pass?'انطباق در این سناریو تأیید می‌شود.':'انطباق در این سناریو تأیید نمی‌شود.') +
    '</strong><br>میانگین سه نتیجه: '+mean.toFixed(2)+' MPa'+
    '<br>حداقل مجاز نتیجه منفرد (0.9fc): '+limit.toFixed(2)+' MPa'+
