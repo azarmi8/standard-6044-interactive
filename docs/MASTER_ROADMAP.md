@@ -48,6 +48,9 @@ Deliver a finished, independently usable Persian RTL interactive engineering boo
 Current artifacts:
 - `books/6044-1397/LEARNING_MAP.md`
 - `books/6044-1397/PRACTICE_MAP.md`
+- `site/6044-1397/lib/engine.js`
+- `site/6044-1397/lib/engine.css`
+- Pilot migrations: ch01, ch02, ch10
 
 # Phase 3 — Core Book Engine
 **Status: PILOT STARTED — shared engine v0.1 + Chapter 1 migrated.**
@@ -56,7 +59,7 @@ Current artifacts:
 - [x] Beat/timeline engine.
 - [ ] Scene lifecycle.
 - [x] Play/pause/next/previous.
-- [ ] Progress/navigation/fullscreen.
+- [x] Progress/navigation/fullscreen.
 - [x] Keyboard controls.
 - [x] Responsive layout.
 - [x] Reduced-motion and fallback states.
