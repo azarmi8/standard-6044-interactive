@@ -316,7 +316,7 @@ for(const n of expected){
 const allHtml=walk(SITE).filter(p=>p.endsWith('.html'));
 for(const htmlPath of allHtml){
   const html=read(htmlPath);
-  const markup=html.replace(/<script\\b[\\s\\S]*?<\\/script>/gi,'');
+  const markup=html.replace(/<script\b[\s\S]*?<\/script>/gi,'');
   const base=path.dirname(htmlPath);
   for(const m of markup.matchAll(/(?:src|href)=["']([^"']+)["']/gi)){
     const ref=m[1];
