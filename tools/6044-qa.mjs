@@ -1,0 +1,124 @@
+#!/usr/bin/env node
+/**
+ * Static QA for the 6044 interactive book.
+ * No npm dependencies.
+ */
+const fs = require('node:fs');
+const path = require('node:path');
+const vm = require('node:vm');
+
+const ROOT = path.resolve(process.cwd());
+const SITE = path.join(ROOT, 'site', '6044-1397');
+const BOOKS = path.join(ROOT, 'books', '6044-1397');
+const expected = Array.from({length:22}, (_,i)=>String(i+1).padStart(2,'0'));
+const errors = [], warnings = [];
+
+function fail(m){ errors.push(m); }
+function warn(m){ warnings.push(m); }
+function exists(p){ return fs.existsSync(p); }
+function read(p){ return fs.readFileSync(p,'utf8'); }
+function rel(p){ return path.relative(ROOT,p).replaceAll(path.sep,'/'); }
+
+if(!exists(SITE)) fail('site/6044-1397 is missing');
+if(!exists(BOOKS)) fail('books/6044-1397 is missing');
+
+for(const n of expected){
+  const dir=path.join(SITE,'ch'+n);
+  const html=path.join(dir,'index.html');
+  if(!exists(html)) fail(`ch${n}: index.html missing`);
+}
+
+function walk(dir){
+  if(!exists(dir)) return [];
+  const out=[];
+  for(const ent of fs.readdirSync(dir,{withFileTypes:true})){
+    const p=path.join(dir,ent.name);
+    if(ent.isDirectory()) out.push(...walk(p));
+    else out.push(p);
+  }
+  return out;
+}
+
+for(const p of walk(SITE)){
+  if(p.toLowerCase().endsWith('.pdf')) fail(`PDF inside site output: ${rel(p)}`);
+}
+
+for(const n of expected){
+  const dir=path.join(SITE,'ch'+n);
+  const htmlPath=path.join(dir,'index.html');
+  if(!exists(htmlPath)) continue;
+  const html=read(htmlPath);
+
+  if(!html.includes('../lib/engine.js') && !html.includes('../lib/engine.css')){
+    warn(`ch${n}: legacy/non-engine chapter (not yet migrated)`);
+  }
+
+  const appMatch=html.match(/<script[^>]+src=["']\.\/app\.js["'][^>]*>/i);
+  if(!appMatch) continue;
+
+  const appPath=path.join(dir,'app.js');
+  if(!exists(appPath)){ fail(`ch${n}: index references app.js but file is missing`); continue; }
+  const app=read(appPath);
+  if(!/window\.BOOK_CONFIG\s*=/.test(app)) fail(`ch${n}: app.js has no BOOK_CONFIG`);
+
+  const sandbox={window:{},console};
+  try{
+    vm.runInNewContext(app,sandbox,{timeout:1000,filename:rel(appPath)});
+  }catch(e){
+    fail(`ch${n}: app.js syntax/runtime parse failure: ${e.message}`);
+    continue;
+  }
+  const cfg=sandbox.window.BOOK_CONFIG;
+  if(!cfg || !Array.isArray(cfg.beats) || !cfg.beats.length) fail(`ch${n}: BOOK_CONFIG.beats is empty/missing`);
+
+  const engineJs=html.includes('../lib/engine.js');
+  const engineCss=html.includes('../lib/engine.css');
+  if(!engineJs) fail(`ch${n}: app.js exists but shared engine.js is not referenced`);
+  if(!engineCss) fail(`ch${n}: app.js exists but shared engine.css is not referenced`);
+
+  const beatCount=cfg?.beats?.length||0;
+  const beatAttrs=[...html.matchAll(/data-beat=["']([^"']+)["']/gi)];
+  for(const m of beatAttrs){
+    for(const token of m[1].trim().split(/\s+/)){
+      const num=Number(token);
+      if(!Number.isInteger(num) || num<1 || num>beatCount)
+        fail(`ch${n}: data-beat="${m[1]}" points outside 1..${beatCount}`);
+    }
+  }
+
+  const roles=[...html.matchAll(/data-scene-role=["']([^"']+)["']/gi)].map(m=>m[1]);
+  const shown=new Set();
+  for(const step of (cfg?.scene?.steps||[])){
+    for(const role of (step.show||[])) shown.add(role);
+  }
+  for(const role of new Set(roles)){
+    if(!shown.has(role)) warn(`ch${n}: scene role "${role}" is never listed in scene.show[]`);
+  }
+}
+
+for(const n of expected){
+  const dir=path.join(BOOKS,'chapters');
+  const md=path.join(dir,'ch'+n+'.md');
+  if(!exists(md)) fail(`source chapter map missing: books/6044-1397/chapters/ch${n}.md`);
+}
+
+const allHtml=walk(SITE).filter(p=>p.endsWith('.html'));
+for(const htmlPath of allHtml){
+  const html=read(htmlPath);
+  const base=path.dirname(htmlPath);
+  for(const m of html.matchAll(/(?:src|href)=["']([^"']+)["']/gi)){
+    const ref=m[1];
+    if(!ref || ref.startsWith('#') || /^[a-z][a-z0-9+.-]*:/i.test(ref) || ref.startsWith('//') || ref.startsWith('data:')) continue;
+    const clean=decodeURIComponent(ref.split('#')[0].split('?')[0]);
+    if(!clean) continue;
+    const target=path.resolve(base,clean);
+    if(!target.startsWith(SITE)) continue;
+    if(!exists(target)) fail(`${rel(htmlPath)} -> missing local reference: ${clean}`);
+  }
+}
+
+console.log(`6044 QA: ${errors.length?'FAIL':'PASS'}`);
+console.log(`Checked learning units: ${expected.length}`);
+console.log(`Checked HTML files: ${allHtml.length}`);
+if(warnings.length){ console.log(`Warnings: ${warnings.length}`); for(const x of warnings) console.log('  WARN '+x); }
+if(errors.length){ console.log(`Errors: ${errors.length}`); for(const x of errors) console.log('  FAIL '+x); process.exit(1); }
