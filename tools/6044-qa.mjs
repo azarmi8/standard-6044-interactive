@@ -68,7 +68,9 @@ function checkSimulationContract(){
   }
   for(const tc of (sampling.testCases||[])){
     const got=sampling.calculate(tc.input);
-    if(!got.valid || got.pass!==tc.pass)
+    if(!got.valid || got.pass!==tc.pass ||
+       got.firstCheckpoint!==tc.firstCheckpoint ||
+       got.secondCheckpoint!==tc.secondCheckpoint)
       fail('ch08 simulation test failed: '+JSON.stringify(tc.input));
   }
   for(const tc of (temperature.testCases||[])){
