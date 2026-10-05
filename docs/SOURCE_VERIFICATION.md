@@ -1,69 +1,75 @@
 # SOURCE VERIFICATION — 6044:1397
 
-## Authoritative source
-Primary source in the owner's Library: 6044-1397.pdf
-Iranian National Standard No. 6044 — Second revision — 1397
-Title: «بتن آماده — ویژگی‌ها»
-Source PDF: 81 pages
-The standard states it is a modification of ASTM C94/C94M:2017a.
+## منبع مرجع
+Primary source in the owner's Library: **6044-1397.pdf**
 
-Agents MUST use this PDF as the authority for source-derived claims.
+- Iranian National Standard No. 6044
+- Second revision
+- 1397
+- Title: «بتن آماده — ویژگی‌ها»
+- Source PDF: 81 pages
+- The standard states it is a modification of ASTM C94/C94M:2017a.
 
-## Verified contents map
-| Unit | Source section | Printed page |
+این PDF مرجع اصلی همه ادعاهای منبع‌محور پروژه است.
+
+## ساختار تأییدشده منبع
+فهرست مطالب PDF نشان می‌دهد ساختار واقعی منبع:
+- ۱۵ فصل رسمی
+- ۷ پیوست: الف، ب، ج، د، هـ، و، ز
+- کتاب‌نامه از صفحه ۷۳
+
+**اصلاح مهم:** پیوست «ح» در استاندارد ۶۰۴۴:۱۳۹۷ وجود ندارد. هر محتوایی با عنوان «پیوست ح» در نسخه قبلی پروژه، محتوای ساخته‌شده توسط پروژه بوده و منبع استاندارد محسوب نمی‌شود.
+
+## نقشه صفحات چاپی منبع
+| واحد | بخش منبع | شروع صفحه چاپی |
 |---:|---|---:|
-| 1 | هدف و دامنه کاربرد | 1 |
-| 2 | مراجع الزامی | 2 |
-| 3 | اصطلاحات و تعاریف | 5 |
-| 4 | مصالح | 9 |
-| 5 | مبنای سفارش و خرید بتن | 11 |
-| 6 | اطلاعات سفارش | 12 |
-| 7 | اختلاط و تحویل | 15 |
-| 8 | حمل بتن با استفاده از دستگاه مخلوط‌کن | 21 |
-| 9 | نمونه‌برداری از بتن تازه | 22 |
-| 10 | الزامات بتن تازه | 24 |
-| 11 | الزامات بتن سخت‌شده | 28 |
-| 12 | به‌کارگیری کنترل بتن آماده | 30 |
-| 13 | الزامات تأسیسات تولید بتن آماده | 32 |
-| 14 | کنترل تولید و بازرسی واحد تولیدی | 38 |
-| 15 | ارزیابی انطباق | 38 |
+| 1 | فصل 1 — هدف و دامنه کاربرد | 1 |
+| 2 | فصل 2 — مراجع الزامی | 2 |
+| 3 | فصل 3 — اصطلاحات و تعاریف | 5 |
+| 4 | فصل 4 — مصالح | 9 |
+| 5 | فصل 5 — مبنای سفارش و خرید بتن | 11 |
+| 6 | فصل 6 — اطلاعات سفارش | 12 |
+| 7 | فصل 7 — اختلاط و تحویل | 15 |
+| 8 | فصل 8 — حمل بتن با استفاده از دستگاه مخلوط‌کن | 21 |
+| 9 | فصل 9 — نمونه‌برداری از بتن تازه | 22 |
+| 10 | فصل 10 — الزامات بتن تازه | 24 |
+| 11 | فصل 11 — الزامات بتن سخت‌شده | 28 |
+| 12 | فصل 12 — به‌کارگیری کنترل بتن آماده | 30 |
+| 13 | فصل 13 — الزامات تأسیسات تولید بتن آماده | 32 |
+| 14 | فصل 14 — کنترل تولید و بازرسی واحد تولیدی | 38 |
+| 15 | فصل 15 — ارزیابی انطباق | 38 |
 | 16 | پیوست الف — الزامات یکنواختی بتن | 40 |
-| 17 | پیوست ب — محاسبه مقاومت فشاری هدف برای برآورد الزامات مقاومت فشاری | 49 |
-| 18 | پیوست ج — آگاهی‌دهنده: محاسبه درصد هوای بتن و انواع شرایط رویارویی | 51 |
-| 19 | پیوست د — آگاهی‌دهنده: راهنمایی در مورد سامانه کنترل تولید | 53 |
-| 20 | پیوست هـ — آگاهی‌دهنده: مقررات تکمیلی برای بتن پرمقاومت | 64 |
-| 21 | پیوست و — الزامی: مقررات ارزیابی، نظارت و گواهی کنترل تولید | 67 |
-| 22 | پیوست ز — الزامی: تغییرات اعمال‌شده در این استاندارد ملی در مقایسه با استاندارد مرجع | 71 |
+| 17 | پیوست ب — محاسبه مقاومت فشاری هدف | 49 |
+| 18 | پیوست ج — محاسبه درصد هوای بتن و انواع شرایط رویارویی | 51 |
+| 19 | پیوست د — راهنمایی در مورد سامانه کنترل تولید | 53 |
+| 20 | پیوست هـ — مقررات تکمیلی برای بتن پرمقاومت | 64 |
+| 21 | پیوست و — ارزیابی، نظارت و گواهی کنترل تولید | 67 |
+| 22 | پیوست ز — تغییرات اعمال‌شده نسبت به استاندارد مرجع | 71 |
 | 23 | کتاب‌نامه | 73 |
 
-## Source facts already verified
-- Cover identity and revision are verified.
-- Chapter 1 includes safety warnings and defines purpose/scope.
-- Chapter 3 contains terminology including effective water, total water, initial test, ready-mixed concrete, conventional compactable concrete, high-strength concrete, SCC, central-mixed, shrink-mixed, truck-mixed, dry-mixed, agitator equipment, delivery time, truck mixer and delivery place.
-- Chapter 4 contains 4-1 کلیات, 4-2 مواد سیمانی, 4-2-1 سیمان هیدرولیکی, 4-2-2 مواد مکمل سیمانی, 4-3 سنگدانه‌ها, 4-4 افزودنی‌های پودری معدنی, 4-5 افزودنی‌های شیمیایی, 4-6 آب.
-- Clause 4-6 requires mixing water to comply with Iranian National Standard 14748.
-- Chapter 5 begins with the basis of ordering/purchasing/delivery around volume of fresh concrete delivered, expressed in cubic metres. Its continuation still requires clause-level audit.
-
-## Verification status
-| Area | Status |
+## وضعیت ممیزی
+| ناحیه | وضعیت |
 |---|---|
-| Official 23-unit map | VERIFIED |
-| Source PDF identity | VERIFIED |
-| Chapter 1 | VERIFIED at source-reading level |
-| Chapter 3 | VERIFIED at source-reading level |
-| Chapter 4 | VERIFIED at source-reading level |
-| Chapter 5 opening clauses | VERIFIED / continuation required |
-| Chapters 6–15 | MAPPED; clause-by-clause audit pending |
-| Appendices A–H | MAPPED; clause-by-clause audit pending |
-| Existing interactive HTML | FUNCTIONAL SCAFFOLD, NOT SOURCE-FINAL |
+| هویت/ویرایش/عنوان PDF | VERIFIED |
+| ساختار ۱۵ فصل + ۷ پیوست + کتاب‌نامه | VERIFIED |
+| فصل 1 | VERIFIED at source-reading level؛ ممیزی ادعاهای منتشرشده هنوز لازم است |
+| فصل 3 | VERIFIED at source-reading level؛ ممیزی ادعاهای منتشرشده هنوز لازم است |
+| فصل 4 | VERIFIED at source-reading level؛ ممیزی ادعاهای منتشرشده هنوز لازم است |
+| فصل 5 | افتتاحیه VERIFIED؛ ادامه clause-level audit pending |
+| فصل‌های 2 و 6–15 | SOURCE-LOCATED؛ clause-level audit pending |
+| پیوست‌های الف تا ز | SOURCE-LOCATED؛ clause-level audit pending |
+| کتاب‌نامه | SOURCE-LOCATED؛ باید با صفحه ۷۳ تطبیق شود |
+| محتوای قبلی «پیوست ح» | INVALID AS SOURCE CLAIM؛ باید به کتاب‌نامه تبدیل/جایگزین شود |
+| HTML موجود | FUNCTIONAL SCAFFOLD، NOT SOURCE-FINAL |
 
-## Mandatory rule
-Never promote a scaffold summary to verified standard text.
+## قاعده سخت
+هیچ scaffold یا خلاصه آموزشی نباید به‌عنوان متن نهایی استاندارد معرفی شود.
 
-When extraction is ambiguous:
-1. inspect the relevant PDF page image;
-2. compare nearby source text;
-3. use web copies only as corroboration/location aids;
-4. if unresolved, mark NEEDS_SOURCE_REVIEW.
+برای هر عدد، حد، جدول، فرمول، استثنا، تعریف یا cross-reference:
+1. محل دقیق PDF ثبت شود.
+2. در صورت ابهام OCR، تصویر همان صفحه بررسی شود.
+3. وب فقط برای corroboration/location aid استفاده شود.
+4. اگر ابهام حل نشد، وضعیت **NEEDS_SOURCE_REVIEW** ثبت شود.
 
-Web sources and GitHub projects may help with discovery, UX, animation and implementation patterns, but they do not replace the standard.
+## Exit gate فاز 1
+فاز 1 زمانی بسته می‌شود که تمام ادعاهای منبع‌محور منتشرشده در ۱۵ فصل و ۷ پیوست، محل منبع و وضعیت تأیید داشته باشند.
