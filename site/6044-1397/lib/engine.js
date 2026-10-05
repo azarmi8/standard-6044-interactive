@@ -1,4 +1,4 @@
-/* 6044 Interactive Book Engine — v0.6 device narration + shared reader UI
+/* 6044 Interactive Book Engine — v0.7 reader HUD + device narration
    Shared, data-driven playback + scene lifecycle.
 */
 (function(){
@@ -118,9 +118,11 @@
         else speakCurrent();
         lifecycle('onNarrationPlay',index,beats[index]);
         const status=document.querySelector('[data-narration-status]'); if(status) status.textContent='در حال پخش روایت فارسی';
+        const panel=document.querySelector('[data-narration-panel]'); if(panel) panel.dataset.state='playing';
         return;
       }
       const status=document.querySelector('[data-narration-status]'); if(status) status.textContent='صدای دستگاه/مرورگر در دسترس نیست';
+      const panel=document.querySelector('[data-narration-panel]'); if(panel) panel.dataset.state='paused';
     }
     function pauseNarration(){
       if(narrationAudio){ narrationAudio.pause(); lifecycle('onNarrationPause',index,beats[index]); return; }
@@ -155,10 +157,57 @@
       const replayBtn=document.querySelector('[data-narrate-replay]');
       const rate=document.querySelector('[data-narration-rate]');
       if(playBtn)playBtn.onclick=playNarration;
-      if(pauseBtn)pauseBtn.onclick=pauseNarration;
-      if(replayBtn)replayBtn.onclick=replayNarration;
+      if(pauseBtn)pauseBtn.onclick=()=>{pauseNarration();const panel=document.querySelector('[data-narration-panel]');if(panel)panel.dataset.state='paused';};
+      if(replayBtn)replayBtn.onclick=()=>{replayNarration();const panel=document.querySelector('[data-narration-panel]');if(panel)panel.dataset.state='playing';};
       if(rate)rate.onchange=()=>setNarrationRate(rate.value);
       if(speechSupported()&&window.speechSynthesis.onvoiceschanged===null){window.speechSynthesis.onvoiceschanged=()=>{};}
+    }
+    function faNum(n){
+      return String(n).replace(/\\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
+    }
+    function ensureReaderHUD(){
+      const stage=document.querySelector('.stage,.book-stage');
+      if(!stage)return null;
+      let hud=stage.querySelector('[data-reader-hud]');
+      if(hud)return hud;
+      hud=document.createElement('div');
+      hud.className='reader-hud';
+      hud.setAttribute('data-reader-hud','true');
+      hud.innerHTML='<div class="reader-hud-head"><div><span class="reader-hud-brand">۶۰۴۴ / INTERACTIVE READER</span><span class="reader-hud-source" data-reader-hud-source>استاندارد ملی ایران ۶۰۴۴:۱۳۹۷</span></div><span class="reader-hud-step" data-reader-hud-step></span></div><div class="reader-hud-main"><strong data-reader-hud-title></strong><span data-reader-hud-role>زنجیره استاندارد → آموزش → تمرین</span></div><div class="reader-hud-rail" data-reader-hud-rail aria-label="مراحل این بخش"></div>';
+      stage.appendChild(hud);
+      return hud;
+    }
+    function updateReaderHUD(){
+      const hud=ensureReaderHUD();
+      if(!hud)return;
+      const beat=beats[index]||{};
+      const step=hud.querySelector('[data-reader-hud-step]');
+      const t=hud.querySelector('[data-reader-hud-title]');
+      const source=hud.querySelector('[data-reader-hud-source]');
+      const rail=hud.querySelector('[data-reader-hud-rail]');
+      if(step)step.textContent='گام '+faNum(index+1)+' / '+faNum(beats.length);
+      if(t)t.textContent=beat.title||'';
+      if(source)source.textContent=beat.sourceRef||'استاندارد ملی ایران ۶۰۴۴:۱۳۹۷';
+      if(rail && rail.childElementCount!==beats.length){
+        rail.innerHTML='';
+        beats.forEach((b,i)=>{
+          const btn=document.createElement('button');
+          btn.type='button';
+          btn.className='reader-hud-dot';
+          btn.dataset.readerBeat=String(i);
+          btn.setAttribute('aria-label','گام '+faNum(i+1)+': '+(b.title||''));
+          btn.title=b.title||'';
+          btn.addEventListener('click',()=>go(i));
+          rail.appendChild(btn);
+        });
+      }
+      if(rail){
+        rail.querySelectorAll('.reader-hud-dot').forEach((el,i)=>{
+          const active=i===index;
+          el.classList.toggle('is-current',active);
+          el.setAttribute('aria-current',active?'step':'false');
+        });
+      }
     }
     function render(){
       if(!beats.length)return;
@@ -169,6 +218,7 @@
       if(bar) bar.style.width=((index+1)/beats.length*100)+'%';
       sceneTargets(index);
       applyScene(cfg.scene,index,b);
+      updateReaderHUD();
         document.documentElement.style.setProperty('--beat-index',index);
       lifecycle('onRender',index,b);
       saveProgress();
@@ -190,6 +240,7 @@
       playing=false;
       pauseNarration();
       if(play) play.textContent='پخش';
+      const panel=document.querySelector('[data-narration-panel]'); if(panel) panel.dataset.state='paused';
       lifecycle('onPause',index,beats[index]);
     }
     function step(){
