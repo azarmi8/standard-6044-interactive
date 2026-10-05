@@ -17,10 +17,10 @@
 | 2 | 2–4 | ch02.md + HTML | VERIFIED_SOURCE_CONTENT |
 | 3 | 5–8 | ch03.md + HTML | VERIFIED_SOURCE_CONTENT |
 | 4 | 9–10 | ch04.md + HTML | VERIFIED_SOURCE_CONTENT |
-| 5 | 11 | ch05.md + HTML | NEEDS_CLAUSE_AUDIT |
-| 6 | 12–14 | ch06.md + HTML | NEEDS_CLAUSE_AUDIT |
-| 7 | 15–20 | ch07.md + HTML | NEEDS_CLAUSE_AUDIT |
-| 8 | 21 | ch08.md + HTML | NEEDS_CLAUSE_AUDIT |
+| 5 | 11–12 | ch05.md + HTML | VERIFIED_SOURCE_CONTENT |
+| 6 | 12–15 | ch06.md + HTML | VERIFIED_SOURCE_CONTENT |
+| 7 | 15–20 | ch07.md + HTML | VERIFIED_SOURCE_CONTENT |
+| 8 | 21–22 | ch08.md + HTML | VERIFIED_SOURCE_CONTENT |
 | 9 | 22–23 | ch09.md + HTML | NEEDS_CLAUSE_AUDIT |
 | 10 | 24–27 | ch10.md + HTML | NEEDS_CLAUSE_AUDIT |
 | 11 | 28–29 | ch11.md + HTML | NEEDS_CLAUSE_AUDIT |
@@ -38,6 +38,10 @@
 | 23 | 73 | ch23 HTML | BIBLIOGRAPHY_REVIEW |
 
 Page ranges are derived from the source table of contents and following section starts. Exact clause claims still require direct page-level verification.
+
+## Verified milestone — Units 5–8
+
+Units 5–8 were checked directly against `6044-1397.pdf` for their mapped source ranges. Chapters 5–8 were rewritten as source-grounded educational paraphrase. Key numeric anchors in Chapters 7–8, including the temperature table and the 15%/85% sampling points, were checked directly against the source.
 
 ## High-priority findings
 
@@ -71,7 +75,7 @@ A source-derived item becomes VERIFIED only when:
 
 ## Verified milestone — Units 1–4
 
-Units 1–4 were re-read against the source PDF pages and their Markdown content was rewritten as source-grounded educational paraphrase. Numeric/technical anchors are retained only where directly visible in the source. Units 5–22 remain open for clause-level audit.
+Units 1–4 were re-read against the source PDF pages and their Markdown content was rewritten as source-grounded educational paraphrase. Units 5–8 are now also verified. Units 9–22 remain open for clause-level audit.
 
 ## Phase 1 exit condition
 No unit is marked fully verified merely because its HTML works. Phase 1 closes only after all source-derived claims in Units 1–22 have a source location and verification status.
