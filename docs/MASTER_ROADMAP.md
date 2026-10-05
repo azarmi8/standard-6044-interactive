@@ -135,7 +135,7 @@ Each simulation must expose source clauses, inputs, outputs, assumptions and val
 **Exit gate:** PASSED — the navigation/persistence layer is implemented; remaining work is visual/browser QA in Phases 9–10.
 
 # Phase 9 — Visual/Product Polish
-**Status: IN PROGRESS — unified engineering product shell and pilot visual system are implemented; final cross-chapter QA remains.**
+**Status: IN PROGRESS — unified engineering product shell, all-22-unit engine migration, and professional cover/contents treatment are implemented; browser/runtime QA remains.**
 - [x] Consistent engineering visual system foundation.
 - [x] RTL typography foundation.
 - [x] Mobile/desktop responsive command tiles.
@@ -143,7 +143,7 @@ Each simulation must expose source clauses, inputs, outputs, assumptions and val
 - [x] Shared previous/list/next chapter navigation.
 - [x] Local return-position and bookmark UI.
 - [x] Reduced-motion behavior on new interaction layer.
-- [ ] Cover and contents final treatment.
+- [x] Cover and contents final treatment.
 - [x] Full 22-unit visual/engine consistency audit — Chapters 1–15 + Appendices A–G use the shared book engine; bibliography remains a reference-only surface.
 - [ ] Loading/error states.
 - [ ] Fullscreen/mobile visual QA.
