@@ -36,35 +36,36 @@ Deliver a finished, independently usable Persian RTL interactive engineering boo
 **Phase 1 exit gate: PASSED.**
 
 # Phase 2 — Content Architecture
-**Status: IN PROGRESS — learning map + practice map established.**
+**Status: COMPLETE — learning map + practice map + priority metadata established.**
 
 - [x] Learning objectives for every unit.
 - [x] Source concept → plain explanation → factory application → interaction.
 - [x] Practice question and source reference per unit.
 - [x] Difficulty metadata.
-- [ ] Importance/priority metadata.
-**Exit gate:** every unit has a complete instructional storyboard.
+- [x] Importance/priority metadata.
+**Exit gate:** every unit has a complete instructional storyboard. **PASSED.**
 
 Current artifacts:
 - `books/6044-1397/LEARNING_MAP.md`
 - `books/6044-1397/PRACTICE_MAP.md`
 - `site/6044-1397/lib/engine.js`
 - `site/6044-1397/lib/engine.css`
+- `docs/CORE_BOOK_ENGINE.md`
 - Pilot migrations: ch01, ch02, ch10
 
 # Phase 3 — Core Book Engine
-**Status: PILOT STARTED — shared engine v0.1 + Chapter 1 migrated.**
+**Status: PILOT IN PROGRESS — shared engine v0.2 + lifecycle contract + multi-chapter pilot.**
 
 - [x] Shared chapter shell.
 - [x] Beat/timeline engine.
-- [ ] Scene lifecycle.
+- [x] Scene lifecycle.
 - [x] Play/pause/next/previous.
 - [x] Progress/navigation/fullscreen.
 - [x] Keyboard controls.
 - [x] Responsive layout.
 - [x] Reduced-motion and fallback states.
 - [x] Reusable SVG/scene helpers.
-**Exit gate:** a new chapter can be implemented mainly from configuration/content.
+**Exit gate:** a new chapter can be implemented mainly from configuration/content. **IN VALIDATION across ch01/ch02/ch10.**
 
 # Phase 4 — Professional Animation System
 - [ ] Timeline beats, focus/highlight, zoom/pan, process movement, state transitions, data reveal, procedure sequencing.
