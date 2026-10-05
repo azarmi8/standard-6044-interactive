@@ -1,0 +1,7 @@
+*.pdf
+books/*/pages/
+books/*/source.txt
+site/*/ch*/audio/
+.DS_Store
+.venv/
+__pycache__/
