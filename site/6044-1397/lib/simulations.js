@@ -176,3 +176,43 @@ window.SimulationEngine.ch14 = {
     {input:{materials:true,mixDesign:false,competence:false,equipment:true,testing:true,records:true},complete:false}
   ]
 };
+
+window.SimulationEngine.orderDelivery = {
+  id: 'ch06-ch12-order-production-delivery',
+  source: { chapters: [6,12], clauses: ['6-1','6-2','6-4','6-5','12-1','12-2'], pages: '12–15, 30–32' },
+  requiredOrder: [
+    ['orderId','شناسه سفارش'],
+    ['project','پروژه'],
+    ['concreteSpec','مشخصات بتن'],
+    ['strengthClass','رده مقاومت'],
+    ['volumeM3','حجم بتن'],
+    ['deliveryMethod','روش انتقال']
+  ],
+  requiredDelivery: [
+    ['truckId','شناسه کامیون'],
+    ['ticketId','شناسه برگه تحویل'],
+    ['loadTime','زمان بارگیری/اختلاط'],
+    ['arrivalTime','زمان ورود'],
+    ['dischargeStart','شروع تخلیه']
+  ],
+  calculate(input) {
+    if(!input || typeof input!=='object') return {valid:false,error:'اطلاعات سناریو وارد نشده است.'};
+    const missingOrder=this.requiredOrder.filter(([k])=>{
+      const v=input[k]; return v===undefined || v===null || String(v).trim()==='';
+    }).map(([,label])=>label);
+    const missingDelivery=this.requiredDelivery.filter(([k])=>{
+      const v=input[k]; return v===undefined || v===null || String(v).trim()==='';
+    }).map(([,label])=>label);
+    if(input.volumeM3!==undefined && input.volumeM3!=='' && (!Number.isFinite(Number(input.volumeM3)) || Number(input.volumeM3)<=0))
+      return {valid:false,error:'حجم بتن باید عددی بزرگ‌تر از صفر باشد.'};
+    const orderComplete=missingOrder.length===0;
+    const deliveryComplete=missingDelivery.length===0;
+    const traceable=orderComplete && deliveryComplete;
+    return {valid:true,orderComplete,deliveryComplete,traceable,missingOrder,missingDelivery};
+  },
+  testCases:[
+    {input:{orderId:'O-100',project:'P-01',concreteSpec:'C30',strengthClass:'C30',volumeM3:24,deliveryMethod:'کامیون مخلوط‌کن',truckId:'T-01',ticketId:'D-01',loadTime:'08:00',arrivalTime:'08:35',dischargeStart:'08:40'},traceable:true},
+    {input:{orderId:'O-101',project:'P-02',concreteSpec:'C25',strengthClass:'C25',volumeM3:12,deliveryMethod:'کامیون مخلوط‌کن',truckId:'T-02',ticketId:'',loadTime:'09:00',arrivalTime:'09:30',dischargeStart:'09:35'},traceable:false},
+    {input:{orderId:'O-102',project:'P-03',concreteSpec:'C40',strengthClass:'C40',volumeM3:-5,deliveryMethod:'کامیون',truckId:'T-03',ticketId:'D-03',loadTime:'10:00',arrivalTime:'10:30',dischargeStart:'10:35'},valid:false}
+  ]
+};
