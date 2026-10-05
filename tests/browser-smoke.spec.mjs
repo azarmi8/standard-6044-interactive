@@ -8,6 +8,7 @@ const pages = [
   '/ch10/',
   '/ch11/',
   '/ch16/',
+  '/ch17/',
   '/ch21/',
   '/ch22/',
   '/assessment.html',
@@ -61,6 +62,14 @@ test.describe('6044 browser smoke', () => {
     await page.goto('http://127.0.0.1:8765/ch10/', { waitUntil: 'networkidle' });
     await page.locator('#run-fresh-sim').click();
     await expect(page.locator('#fresh-sim-output')).not.toBeEmpty();
+  });
+
+  test('Appendix B target-strength calculator responds', async ({ page }) => {
+    await page.goto('http://127.0.0.1:8765/ch17/', { waitUntil: 'networkidle' });
+    await expect(page.locator('[data-reader-hud]')).toBeVisible();
+    await page.locator('#run-target-strength').click();
+    await expect(page.locator('#target-strength-output')).toContainText('fcm');
+    await expect(page.locator('#svg-result')).toContainText('fcm =');
   });
 
   test('Appendix A uniformity simulator responds', async ({ page }) => {
