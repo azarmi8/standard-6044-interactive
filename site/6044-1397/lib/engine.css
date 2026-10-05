@@ -77,3 +77,53 @@
  .stage[data-scene-state="formula-one"] .scene-object[data-scene-role="formula1"],
  .stage[data-scene-state="formula-two"] .scene-object[data-scene-role="formula2"]{animation:none}
 }
+
+/* v0.7 — in-scene reader HUD: technical, compact, touch-friendly */
+.reader-hud{
+  position:absolute;
+  inset:14px 14px auto 14px;
+  z-index:20;
+  pointer-events:none;
+  max-width:min(720px,calc(100% - 28px));
+  padding:12px 14px 11px;
+  border:1px solid rgba(220,233,223,.34);
+  border-radius:15px;
+  background:linear-gradient(135deg,rgba(15,29,23,.90),rgba(23,60,42,.78));
+  color:#f4ecda;
+  box-shadow:0 10px 30px rgba(0,0,0,.22);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+}
+.reader-hud-head,.reader-hud-main{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.reader-hud-head{font-size:.68rem;opacity:.92}
+.reader-hud-head>div{display:flex;align-items:center;gap:8px;min-width:0}
+.reader-hud-brand{font-weight:900;letter-spacing:.08em;white-space:nowrap}
+.reader-hud-source{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.8}
+.reader-hud-step{font-weight:900;color:#dcefe0;white-space:nowrap}
+.reader-hud-main{margin-top:5px}
+.reader-hud-main strong{font-size:1rem;line-height:1.4}
+.reader-hud-main span{font-size:.68rem;opacity:.72;white-space:nowrap}
+.reader-hud-rail{display:flex;gap:5px;margin-top:9px;pointer-events:auto}
+.reader-hud-dot{
+  width:28px;height:5px;padding:0;border:0;border-radius:99px;
+  background:rgba(220,233,223,.28);cursor:pointer;
+  transition:width .25s ease,background .25s ease,transform .25s ease;
+}
+.reader-hud-dot.is-current{width:46px;background:#dce9df}
+.reader-hud-dot:hover,.reader-hud-dot:focus-visible{transform:scaleY(1.35);outline:2px solid rgba(244,236,218,.8);outline-offset:2px}
+.stage{isolation:isolate}
+.stage:has(.reader-hud){background:#14251d}
+.narration-panel[data-state="playing"]{box-shadow:0 0 0 1px rgba(77,138,98,.28),0 12px 30px rgba(23,60,42,.16)}
+@media(max-width:700px){
+  .reader-hud{inset:9px 9px auto 9px;max-width:calc(100% - 18px);padding:9px 10px}
+  .reader-hud-head{font-size:.6rem}
+  .reader-hud-source{display:none}
+  .reader-hud-main strong{font-size:.82rem}
+  .reader-hud-main span{display:none}
+  .reader-hud-rail{margin-top:7px}
+  .reader-hud-dot{height:5px;flex:1;width:auto}
+  .reader-hud-dot.is-current{width:auto;flex:1.5}
+}
+@media(prefers-reduced-motion:reduce){
+  .reader-hud-dot{transition:none!important}
+}
