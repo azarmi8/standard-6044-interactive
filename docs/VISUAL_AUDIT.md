@@ -1,7 +1,7 @@
 # Visual & Engine Audit — 6044 Interactive
 
 ## Audit scope
-Branch: `phase5/narration-foundation`  
+Branch: `phase9/legacy-engine-migration`  
 Audit date: 2026-10-05
 
 Checked Chapters 1–15 for:
@@ -18,27 +18,27 @@ Checked Chapters 1–15 for:
 | 01 | ✅ | ✅ | ✅ | ❌ | ✅ |
 | 02 | ✅ | ✅ | ✅ | ❌ | ✅ |
 | 03 | ✅ | ✅ | ✅ | ❌ | ✅ |
-| 04 | ✅ | ✅ | ✅ | ❌ | ⚠️ legacy inline |
-| 05 | ✅ | ✅ | ✅ | ❌ | ⚠️ legacy inline |
-| 06 | ✅ | ✅ | ✅ | ❌ | ⚠️ legacy inline |
+| 04 | ✅ | ✅ | ✅ | ❌ | ✅ |
+| 05 | ✅ | ✅ | ✅ | ❌ | ✅ |
+| 06 | ✅ | ✅ | ✅ | ❌ | ✅ |
 | 07 | ✅ | ✅ | ✅ | ❌ | ✅ |
 | 08 | ✅ | ✅ | ✅ | ❌ | ✅ |
-| 09 | ✅ | ✅ | ✅ | ❌ | ⚠️ legacy inline |
+| 09 | ✅ | ✅ | ✅ | ❌ | ✅ |
 | 10 | ✅ | ✅ | ✅ | ❌ | ✅ |
 | 11 | ✅ | ✅ | ✅ | ❌ | ✅ |
-| 12 | ✅ | ✅ | ✅ | ❌ | ⚠️ legacy inline |
-| 13 | ✅ | ✅ | ✅ | ❌ | ⚠️ legacy inline |
-| 14 | ✅ | ✅ | ✅ | ❌ | ⚠️ legacy inline |
-| 15 | ✅ | ✅ | ✅ | ❌ | ⚠️ legacy inline |
+| 12 | ✅ | ✅ | ✅ | ❌ | ✅ |
+| 13 | ✅ | ✅ | ✅ | ❌ | ✅ |
+| 14 | ✅ | ✅ | ✅ | ❌ | ✅ |
+| 15 | ✅ | ✅ | ✅ | ❌ | ✅ |
 
 ## Interpretation
 
-The visual contract is already consistent across all 15 chapters. The remaining architecture inconsistency is that eight chapters still use self-contained inline beat/playback logic rather than the shared book engine.
+The visual contract is consistent across all 15 chapters, and Chapters 1–15 now use the shared book engine for playback/navigation. Appendices (Units 16–22) are a separate migration surface; Unit 17 already uses the engine, while Units 16 and 18–22 remain non-engine.
 
 This is a **Phase 9/10 cleanup item**, not a reason to add a new feature family.
 
 ### Migration rule
-When those eight chapters are migrated:
+For any remaining non-engine appendix migration:
 1. Preserve their current source-grounded content and quiz behavior.
 2. Move playback/navigation state into `lib/engine.js`.
 3. Do not duplicate engine behavior in chapter-local scripts.
