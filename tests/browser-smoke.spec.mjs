@@ -2,7 +2,9 @@ import { test, expect } from '@playwright/test';
 
 const pages = [
   '/',
+  '/ch03/',
   '/ch07/',
+  '/ch08/',
   '/ch10/',
   '/ch11/',
   '/ch16/',
@@ -37,12 +39,23 @@ test.describe('6044 browser smoke', () => {
         await expect(page.locator('.stage svg')).toHaveAttribute('viewBox', '0 0 1600 900');
         await expect(page.locator('script[src="../lib/engine.js"]')).toHaveCount(1);
         await expect(page.locator('.book-controls')).toHaveCount(1);
+        await expect(page.locator('[data-narration-panel]')).toHaveCount(1);
+        await expect(page.locator('[data-narration-transcript]')).not.toBeEmpty();
       }
 
       expect(consoleErrors, `console errors on ${route}`).toEqual([]);
       expect(pageErrors, `page errors on ${route}`).toEqual([]);
     });
   }
+
+
+  test('Chapter 8 shared reader + simulator respond', async ({ page }) => {
+    await page.goto('http://127.0.0.1:8765/ch08/', { waitUntil: 'networkidle' });
+    await page.locator('#next').click();
+    await expect(page.locator('#count')).toContainText('2 / 6');
+    await page.locator('#run-sampling-sim').click();
+    await expect(page.locator('#sampling-output')).toContainText('فاصله حداکثر ۱۵ دقیقه');
+  });
 
   test('Chapter 10 simulator responds', async ({ page }) => {
     await page.goto('http://127.0.0.1:8765/ch10/', { waitUntil: 'networkidle' });
