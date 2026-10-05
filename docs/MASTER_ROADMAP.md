@@ -135,7 +135,7 @@ Each simulation must expose source clauses, inputs, outputs, assumptions and val
 **Exit gate:** PASSED — the navigation/persistence layer is implemented; remaining work is visual/browser QA in Phases 9–10.
 
 # Phase 9 — Visual/Product Polish
-**Status: IN PROGRESS — unified engineering product shell, all-22-unit engine migration, and professional cover/contents treatment are implemented; browser/runtime QA remains.**
+**Status: IN PROGRESS — unified engineering product shell, all-22-unit engine migration, professional cover/contents treatment, and representative browser smoke are implemented; final fullscreen/source-audit release gates remain.**
 - [x] Consistent engineering visual system foundation.
 - [x] RTL typography foundation.
 - [x] Mobile/desktop responsive command tiles.
@@ -146,7 +146,8 @@ Each simulation must expose source clauses, inputs, outputs, assumptions and val
 - [x] Cover and contents final treatment.
 - [x] Full 22-unit visual/engine consistency audit — Chapters 1–15 + Appendices A–G use the shared book engine; bibliography remains a reference-only surface.
 - [ ] Loading/error states.
-- [ ] Fullscreen/mobile visual QA.
+- [x] Representative desktop/mobile/reduced-motion browser smoke — Playwright passed on the current release baseline.
+- [ ] Fullscreen visual QA.
 - [ ] No childish gamification or decorative animation.
 **Exit gate:** all chapters look like one product.
 
@@ -162,9 +163,10 @@ Each simulation must expose source clauses, inputs, outputs, assumptions and val
 - [ ] Mobile/desktop/fullscreen/reduced-motion.
 ### Technical
 - [ ] Clean build.
-- [ ] No console errors.
+- [x] No console/page errors on the browser-smoke route set.
 - [ ] Assets/links/performance/accessibility.
 - [x] Static QA runner + GitHub Actions contract check on the active development branch.
+- [x] Static QA passed on release candidate PR head; post-merge main rerun remains observational while queued.
 **Exit gate:** clean release candidate.
 
 # Phase 11 — Documentation & Handoff
