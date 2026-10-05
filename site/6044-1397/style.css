@@ -7,3 +7,11 @@
 @media(max-width:900px){.product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:520px){.product-grid{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){.product-tile{transition:none!important}}
+
+.progress-dashboard{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:14px 0}
+.progress-stat{padding:14px;border:1px solid #d7ded7;border-radius:14px;background:#f7f9f6}
+.progress-stat strong{display:block;font-size:1.2rem;color:#173c2a;margin-bottom:4px}
+.progress-stat span{font-size:.84rem;color:#68736b}
+.book-list{columns:2;column-gap:28px}
+.book-list li{break-inside:avoid;margin:5px 0}
+@media(max-width:700px){.progress-dashboard{grid-template-columns:1fr}.book-list{columns:1}}
