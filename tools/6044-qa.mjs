@@ -20,12 +20,24 @@ function read(p){ return fs.readFileSync(p,'utf8'); }
 function rel(p){ return path.relative(ROOT,p).replaceAll(path.sep,'/'); }
 
 if(!exists(SITE)) fail('site/6044-1397 is missing');
+checkNarration(SITE);
 if(!exists(BOOKS)) fail('books/6044-1397 is missing');
 
 for(const n of expected){
   const dir=path.join(SITE,'ch'+n);
   const html=path.join(dir,'index.html');
   if(!exists(html)) fail(`ch${n}: index.html missing`);
+}
+
+function checkNarration(dir){
+  for(const file of walk(dir).filter(p=>p.endsWith('.js'))){
+    const src=read(file);
+    if(!src.includes('BOOK_CONFIG')) continue;
+    if(src.includes('narration:')){
+      if(!src.includes('beats:')) fail(`${rel(file)}: narration config missing beats array`);
+      if(!src.includes('text:')) fail(`${rel(file)}: narration beats missing transcript text`);
+    }
+  }
 }
 
 function walk(dir){
