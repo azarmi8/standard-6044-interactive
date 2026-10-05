@@ -72,17 +72,12 @@ Reuse ideas and patterns responsibly; do not blindly copy code or create unneces
 
 Units 1–15 = official chapters.
 
-Units 16–23:
-- 16: Appendix A
-- 17: Appendix B
-- 18: Appendix C
-- 19: Appendix D
-- 20: Appendix E
-- 21: Appendix F
-- 22: Appendix G
-- 23: Appendix H
+Source structure: 15 official chapters + 7 appendices (A–G) + bibliography.
+- Units 1–15 = official chapters.
+- Units 16–22 = appendices A–G.
+- Unit 23 = bibliography/reference surface.
 
-All 23 units currently have interactive HTML entry points.
+There is no Appendix H in the source. All 23 project entry points may remain as navigation surfaces, but only 22 are source sections.
 
 ## Current deepened chapters
 
@@ -101,7 +96,7 @@ Interactive beat work has been applied to:
 ## Immediate next work
 
 ### Priority 1 — Source verification
-Review chapters 1–15 and appendices A–H against the actual source. Replace any unsupported/over-simplified claim.
+Review chapters 1–15 and appendices A–G against the actual source. Replace any unsupported/over-simplified claim.
 
 ### Priority 2 — Shared engine
 Extract repeated chapter behavior into reusable:
