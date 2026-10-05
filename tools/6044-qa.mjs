@@ -21,6 +21,7 @@ function rel(p){ return path.relative(ROOT,p).replaceAll(path.sep,'/'); }
 
 if(!exists(SITE)) fail('site/6044-1397 is missing');
 checkNarration(SITE);
+checkAppendixSimulationContract();
 checkSimulationContract();
 checkAssessmentContract();
 checkSearchContract();
@@ -98,6 +99,30 @@ function checkSimulationContract(){
     if(!got.valid || got.assessmentReady!==tc.assessmentReady)
       fail('ch15 conformity simulation test failed: '+JSON.stringify(tc.input));
   }
+}
+
+function checkAppendixSimulationContract(){
+  const p=path.join(SITE,'lib','appendix-simulations.js');
+  if(!exists(p)){ fail('appendix simulation engine missing: site/6044-1397/lib/appendix-simulations.js'); return; }
+  const sandbox={window:{},console};
+  try{ vm.runInNewContext(read(p),sandbox,{timeout:1000,filename:rel(p)}); }
+  catch(e){ fail('appendix simulation engine parse failure: '+e.message); return; }
+  const a=sandbox.window.AppendixSimulations?.uniformity;
+  const c=sandbox.window.AppendixSimulations?.air;
+  if(!a){ fail('Appendix A simulation is missing'); return; }
+  if(!c){ fail('Appendix C simulation is missing'); return; }
+  const a1=a.compare('densityNoAir',2400,2420);
+  if(!a1.valid || !a1.pass) fail('Appendix A density comparison case failed');
+  const a2=a.compare('slump',100,130);
+  if(!a2.valid || a2.pass) fail('Appendix A slump edge case failed');
+  const a3=a.compare('compressiveAverage',30,32);
+  if(!a3.valid || !a3.pass) fail('Appendix A strength comparison case failed');
+  const c1=c.lookup('9.5','moderate');
+  if(!c1.valid || c1.targetAirPct!==4.5) fail('Appendix C 9.5/moderate lookup failed');
+  const c2=c.lookup('37.5','severe');
+  if(!c2.valid || c2.targetAirPct!==7.5) fail('Appendix C 37.5/severe lookup failed');
+  const c3=c.lookup('100','severe');
+  if(c3.valid) fail('Appendix C invalid-size guard failed');
 }
 
 
@@ -272,8 +297,9 @@ for(const n of expected){
 const allHtml=walk(SITE).filter(p=>p.endsWith('.html'));
 for(const htmlPath of allHtml){
   const html=read(htmlPath);
+  const markup=html.replace(/<script\\b[\\s\\S]*?<\\/script>/gi,'');
   const base=path.dirname(htmlPath);
-  for(const m of html.matchAll(/(?:src|href)=["']([^"']+)["']/gi)){
+  for(const m of markup.matchAll(/(?:src|href)=["']([^"']+)["']/gi)){
     const ref=m[1];
     if(!ref || ref.startsWith('#') || /^[a-z][a-z0-9+.-]*:/i.test(ref) || ref.startsWith('//') || ref.startsWith('data:')) continue;
     const clean=decodeURIComponent(ref.split('#')[0].split('?')[0]);

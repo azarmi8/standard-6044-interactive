@@ -1,1 +1,41 @@
-<!doctype html><html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>فصل 16 — پیوست الف — الزامات یکنواختی بتن</title><link rel="stylesheet" href="../style.css"><link rel="stylesheet" href="../lib/engine.css"></head><body><main class="shell"><div class="top"><div class="brand">۶۰۴۴ / فصل 16</div><div class="tag">پیوست الف — الزامات یکنواختی بتن</div></div><section class="card"><div class="stage"><svg viewBox="0 0 1600 900"><rect width="1600" height="900" fill="#f5f1e6"/><text x="1450" y="90" font-size="38" font-weight="700" text-anchor="end">فصل 16 — پیوست الف — الزامات یکنواختی بتن</text><rect x="130" y="220" width="1340" height="300" rx="34" fill="#dce9df" stroke="#173c2a" stroke-width="4"/><text id="a" x="800" y="330" font-size="34" font-weight="700" text-anchor="middle"></text><text id="c" x="800" y="410" font-size="25" text-anchor="middle"></text><rect x="130" y="580" width="1340" height="150" rx="30" fill="#173c2a"/><text id="q" x="800" y="665" fill="#fff" font-size="25" text-anchor="middle"></text></svg></div><div class="book-controls controls"><button id="prev" class="secondary">قبلی</button><button id="play">پخش</button><button id="next">بعدی</button><div class="progress"><i id="bar"></i></div><span id="count"></span></div><div class="panel"><h2 id="title"></h2><p id="body"></p><div class="quiz"><h3>بررسی سریع</h3><button id="yes" data-ok="1">در زنجیره کنترل کیفیت و سوابق مرتبط بررسی می‌کنم</button><button id="no" data-ok="0">فقط به یک نتیجه منفرد اکتفا می‌کنم</button><p id="result"></p></div></div></section></main><script src="./app.js"></script><script src="../lib/engine.js"></script></body></html>
+<!doctype html><html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>پیوست الف — پیوست الف — الزامات یکنواختی بتن</title><link rel="stylesheet" href="../style.css"><link rel="stylesheet" href="../lib/engine.css"></head><body><main class="shell"><div class="top"><div class="brand">۶۰۴۴ / پیوست الف</div><div class="tag">پیوست الف — الزامات یکنواختی بتن</div></div><section class="card"><div class="stage"><svg viewBox="0 0 1600 900"><rect width="1600" height="900" fill="#f5f1e6"/><text x="1450" y="90" font-size="38" font-weight="700" text-anchor="end">پیوست الف — پیوست الف — الزامات یکنواختی بتن</text><rect x="130" y="220" width="1340" height="300" rx="34" fill="#dce9df" stroke="#173c2a" stroke-width="4"/><text id="a" x="800" y="330" font-size="34" font-weight="700" text-anchor="middle"></text><text id="c" x="800" y="410" font-size="25" text-anchor="middle"></text><rect x="130" y="580" width="1340" height="150" rx="30" fill="#173c2a"/><text id="q" x="800" y="665" fill="#fff" font-size="25" text-anchor="middle"></text></svg></div><div class="book-controls controls"><button id="prev" class="secondary">قبلی</button><button id="play">پخش</button><button id="next">بعدی</button><div class="progress"><i id="bar"></i></div><span id="count"></span></div><div class="panel"><h2 id="title"></h2><p id="body"></p><p id="sourceRef" class="sim-source" aria-live="polite"></p><div class="quiz"><h3>بررسی سریع</h3><button id="yes" data-ok="1">در زنجیره کنترل کیفیت و سوابق مرتبط بررسی می‌کنم</button><button id="no" data-ok="0">فقط به یک نتیجه منفرد اکتفا می‌کنم</button><p id="result"></p></div></div></section>
+<section class="panel simulation-panel" aria-labelledby="uniformity-title">
+<h2 id="uniformity-title">شبیه‌ساز مقایسه دو نمونه</h2>
+<p>سناریوی آموزشی: دو نتیجه از بخش‌های مختلف یک پیمانه را مقایسه کن. محاسبه درصد اختلاف نسبت به میانگین، فقط یک ابزار آموزشی برای مقایسه با حد جدول الف-۱ است.</p>
+<div class="sim-grid">
+<label>ویژگی
+<select id="uniformity-feature">
+<option value="densityNoAir">چگالی بدون حباب هوا</option>
+<option value="air">درصد حباب هوا</option>
+<option value="slump">اسلامپ</option>
+<option value="coarseAggregate">درصد سنگدانه درشت</option>
+<option value="compressiveAverage">مقاومت فشاری متوسط</option>
+</select></label>
+<label>نمونه ۱<input id="uniformity-a" type="number" step="0.1" value="2400"></label>
+<label>نمونه ۲<input id="uniformity-b" type="number" step="0.1" value="2420"></label>
+</div>
+<button id="run-uniformity">مقایسه دو نمونه</button>
+<div id="uniformity-output" class="sim-result" aria-live="polite"></div>
+<p class="sim-source"><strong>SOURCE:</strong> پیوست الف، جدول الف-۱، صفحه ۴۸.</p>
+</section>
+<script src="../lib/appendix-simulations.js"></script>
+<script>
+(function(){
+ const btn=document.getElementById('run-uniformity'),out=document.getElementById('uniformity-output');
+ if(!btn||!out)return;
+ btn.addEventListener('click',function(){
+  const r=window.AppendixSimulations.uniformity.compare(
+   document.getElementById('uniformity-feature').value,
+   Number(document.getElementById('uniformity-a').value),
+   Number(document.getElementById('uniformity-b').value)
+  );
+  if(!r.valid){out.textContent=r.error;out.className='sim-result bad';return;}
+  out.innerHTML='<strong>'+(r.pass?'اختلاف در محدوده حد جدول است.':'اختلاف از حد جدول بیشتر است.')+'</strong>'+
+   '<br>ویژگی: '+r.label+
+   '<br>میانگین دو مقدار: '+r.mean.toFixed(2)+' '+r.unit+
+   '<br>اختلاف نسبی: '+r.diffPct.toFixed(2)+'٪'+
+   '<br>حد جدول: '+r.limitPct+'٪';
+  out.className='sim-result '+(r.pass?'good':'bad');
+ });
+})();
+</script></main><script src="./app.js"></script><script src="../lib/engine.js"></script></body></html>
