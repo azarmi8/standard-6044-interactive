@@ -63,6 +63,10 @@ PDF → Book Map → Storyboard → Narration → Animation → Quiz → Web Boo
 - `docs/AGENT_HANDOFF.md`
 - `docs/SOURCE_VERIFICATION.md`
 - `docs/PRODUCT_SPEC.md`
+- `docs/USER_GUIDE.md`
+- `docs/ARCHITECTURE.md`
+- `docs/RELEASE_CHECKLIST.md`
+- `CHANGELOG.md`
 
 > وضعیت فعلی: ۲۲ واحد یادگیری با engine مشترک، شبیه‌سازی‌ها، assessment/search/navigation و قرارداد Narration پیاده‌سازی شده‌اند. Static QA و Browser Smoke روی main سبز هستند؛ نسخه 1.0 هنوز به‌دلیل Pages، ممیزی نهایی منبع، بازبینی انسانی صدا و چند گیت انتشار آماده نیست.
 
