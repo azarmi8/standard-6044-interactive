@@ -42,6 +42,9 @@ test.describe('6044 browser smoke', () => {
         await expect(page.locator('.book-controls')).toHaveCount(1);
         await expect(page.locator('[data-narration-panel]')).toHaveCount(1);
         await expect(page.locator('[data-narration-transcript]')).not.toBeEmpty();
+        await expect(page.locator('[data-reader-hud]')).toBeVisible();
+        await expect(page.locator('.stage')).toHaveAttribute('data-tech-composed', 'v09');
+        await expect(page.locator('[data-narration-status]')).toContainText('فارسی');
       }
 
       expect(consoleErrors, `console errors on ${route}`).toEqual([]);
@@ -53,7 +56,7 @@ test.describe('6044 browser smoke', () => {
   test('Chapter 8 shared reader + simulator respond', async ({ page }) => {
     await page.goto('http://127.0.0.1:8765/ch08/', { waitUntil: 'networkidle' });
     await page.locator('#next').click();
-    await expect(page.locator('#count')).toContainText('2 / 6');
+    await expect(page.locator('#count')).toContainText('۲ / ۶');
     await page.locator('#run-sampling-sim').click();
     await expect(page.locator('#sampling-output')).toContainText('فاصله حداکثر ۱۵ دقیقه');
   });
