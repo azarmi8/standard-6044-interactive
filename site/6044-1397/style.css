@@ -533,3 +533,31 @@ body:not(.home-page) #uniformity-output.bad{background:linear-gradient(145deg,#2
   body:not(.home-page) .shell{padding-inline:12px}
   body:not(.home-page) .top{margin-inline:-12px;padding-inline:12px}
 }
+
+
+/* V3 render gallery */
+.render-gallery{padding:clamp(76px,10vw,140px) clamp(22px,8vw,130px);border-bottom:1px solid var(--line)}
+.render-gallery-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.55fr);gap:60px;align-items:end;margin-bottom:42px}
+.render-gallery-head h2{margin:14px 0 0;font-size:var(--fs-section);line-height:1.08;letter-spacing:-.035em}
+.render-gallery-head h2 em{font-style:normal;color:var(--green)}
+.render-gallery-head p{margin:0;color:#91a8a2;font-size:16px;line-height:2}
+.render-gallery-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr);gap:16px}
+.gallery-render{position:relative;margin:0;min-height:430px;overflow:hidden;border:1px solid rgba(143,169,161,.18);border-radius:22px;background:#0b171d;box-shadow:0 28px 80px rgba(0,0,0,.26)}
+.gallery-render-wide{min-height:560px}
+.gallery-render img{width:100%;height:100%;min-height:430px;display:block;object-fit:cover;object-position:center}
+.gallery-render-wide img{min-height:560px}
+.gallery-render:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(4,13,17,.86),transparent 48%);pointer-events:none}
+.gallery-render figcaption{position:absolute;z-index:2;left:24px;right:24px;bottom:22px;display:flex;flex-direction:column;gap:5px}
+.gallery-render figcaption span{font-size:10px;color:#74b8a6;letter-spacing:.10em;font-weight:900}
+.gallery-render figcaption strong{font-size:17px;line-height:1.35;color:#f2f8f5}
+@media(max-width:900px){
+ .render-gallery-head{grid-template-columns:1fr;gap:20px}
+ .render-gallery-grid{grid-template-columns:1fr}
+ .gallery-render-wide,.gallery-render-wide img{min-height:430px}
+}
+@media(max-width:600px){
+ .render-gallery{padding:70px 18px}
+ .gallery-render,.gallery-render img{min-height:320px}
+ .gallery-render-wide,.gallery-render-wide img{min-height:360px}
+ .gallery-render figcaption{left:18px;right:18px;bottom:18px}
+}
