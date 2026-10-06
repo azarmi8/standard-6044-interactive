@@ -61,6 +61,9 @@ test.describe('6044 browser smoke', () => {
     page.on('pageerror', err => pageErrors.push(String(err)));
     await page.goto('http://127.0.0.1:8765/', { waitUntil: 'networkidle' });
     await expect(page.locator('[data-engineering-hero]')).toHaveCount(1);
+    const heroStage = page.locator('.engineering-hero-stage');
+    await expect(heroStage).toHaveAttribute('data-hero-renderer', /^(webgl|canvas)$/);
+    await expect(heroStage).toHaveAttribute('data-hero-quality', /^(high|balanced|low|adaptive-low|adaptive-balanced)$/);
     await expect(page.locator('.engineering-hero-status [data-hero-phase]')).not.toBeEmpty();
     await expect(page.locator('.engineering-hero-status [data-hero-detail]')).not.toBeEmpty();
     await expect(page.locator('[data-hero-progress]')).toHaveCount(1);
