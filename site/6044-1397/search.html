@@ -1,10 +1,10 @@
 <!doctype html><html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>جست‌وجوی استاندارد ۶۰۴۴</title><link rel="stylesheet" href="style.css"></head>
-<body><main class="shell"><div class="top"><div class="brand">۶۰۴۴ / Knowledge Search</div><div class="tag">جست‌وجوی دانش مهندسی</div></div>
-<section class="card panel"><h1>جست‌وجوی استاندارد ۶۰۴۴:۱۳۹۷</h1><p class="muted">جست‌وجوی محلی و بدون API پولی؛ نتیجه به واحد مرتبط کتاب هدایت می‌شود.</p>
+<body><main class="shell"><div class="top"><div class="brand">۶۰۴۴ / جست‌وجوی استاندارد</div><div class="tag">جست‌وجوی مطالب استاندارد</div></div>
+<section class="card panel"><h1>جست‌وجوی استاندارد ۶۰۴۴:۱۳۹۷</h1><p class="muted">جست‌وجوی محلی و بدون نیاز به سرویس بیرونی؛ نتیجه شما را به بخش مرتبط کتاب هدایت می‌کند.</p>
 <input id="q" aria-label="عبارت جست‌وجو" placeholder="مثلاً: ۳۲ درجه، ۰٫۹ fc، اسلامپ، نمونه‌برداری">
 <div id="results" aria-live="polite"></div><p><a href="index.html">بازگشت به فهرست کتاب</a></p></section></main>
 <script src="lib/search.js"></script><script>
 const q=document.getElementById('q'),out=document.getElementById('results');
-function render(){const r=BookSearch.search(q.value);out.innerHTML=r.length?r.map(x=>'<article class="panel"><h2><a href="'+x.url+'">فصل/واحد '+x.unit+' — '+x.title+'</a></h2><p>'+x.text+'</p><small>واژه‌های مرتبط: '+x.tags+'</small></article>').join(''):'<p class="muted">نتیجه‌ای پیدا نشد.</p>';}
+function render(){const r=BookSearch.search(q.value);out.innerHTML=r.length?r.map(x=>'<article class="panel"><h2><a href="'+x.url+'">فصل/پیوست '+x.unit+' — '+x.title+'</a></h2><p>'+x.text+'</p><small>واژه‌های مرتبط: '+x.tags+'</small></article>').join(''):'<p class="muted">نتیجه‌ای پیدا نشد.</p>';}
 q.oninput=render;render();q.focus();
 </script></body></html>
