@@ -168,21 +168,22 @@ function particleMorph(){
 }
 
 hero();particleMorph();
-$("[data-process-step]").forEach(btn=>{
-  btn.addEventListener("click",()=>{$("[data-process-step]").forEach(b=>b.setAttribute("aria-selected",String(b===btn)));const i=Number(btn.dataset.processStep);const root=$("[data-process-stage]");if(root)root.dataset.processState=String(i)})
-});
-(()=>{const stage=$("[data-process-stage]");if(!stage||!window.IntersectionObserver)return;
-  const setFromScroll=()=>{if(Date.now()<processManualUntil)return;const r=stage.getBoundingClientRect(),vh=innerHeight||800;const p=Math.max(0,Math.min(0.999,(vh*.84-r.top)/(Math.max(1,r.height)*.78)));const i=Math.min(4,Math.floor(p*5));stage.dataset.processState=String(i);$("[data-process-step]").forEach(b=>b.setAttribute("aria-selected",String(Number(b.dataset.processStep)===i)))};
-  addEventListener("scroll",setFromScroll,{passive:true});addEventListener("resize",setFromScroll,{passive:true});setFromScroll();
-})();
-(()=>{const stage=$("[data-process-stage]");if(!stage)return;let s=0;const texts=[
-["01","MATERIAL INPUT","مواد وارد می‌شوند.","سه گروه اصلی ماده وارد فرایند می‌شوند و هنوز با هم مخلوط نشده‌اند."],
-["02","MIXING","اختلاط آغاز می‌شود.","حرکت کنترل‌شده، اجزا را از حالت جدا به یک سیستم واحد نزدیک می‌کند."],
-["03","FRESH CONCRETE","بتن تازه شکل می‌گیرد.","اسکلت سنگدانه و خمیر پیوسته، یک مادهٔ قابل آزمون می‌سازند."],
-["04","SPECIMEN / TEST","شاهد ساخته می‌شود.","نمونهٔ قابل ردیابی آماده می‌شود تا نتیجهٔ آزمون معنا پیدا کند."],
-["05","EVIDENCE / DECISION","داده به تصمیم می‌رسد.","عدد، ردیابی و معیار پذیرش کنار هم قرار می‌گیرند."]
-];
-function set(i){s=Math.max(0,Math.min(4,i));stage.dataset.processState=String(s);$("[data-process-number]").textContent=texts[s][0];$("[data-process-kicker]").textContent=texts[s][1];$("[data-process-title]").textContent=texts[s][2];$("[data-process-copy]").textContent=texts[s][3]}
-set(0);$$("[data-process-step]").forEach(b=>b.addEventListener("click",()=>set(Number(b.dataset.processStep))));
-})();
-})();
+let processManualUntil=0;
+const processStage=$("[data-process-stage]");
+const processSteps=$$("[data-process-step]");
+if(processStage){
+  const processTexts=[
+    ["01","MATERIAL INPUT","مواد وارد می‌شوند.","سه گروه اصلی ماده وارد فرایند می‌شوند و هنوز با هم مخلوط نشده‌اند."],
+    ["02","MIXING","اختلاط آغاز می‌شود.","حرکت کنترل‌شده، اجزا را از حالت جدا به یک سیستم واحد نزدیک می‌کند."],
+    ["03","FRESH CONCRETE","بتن تازه شکل می‌گیرد.","اسکلت سنگدانه و خمیر پیوسته، یک مادهٔ قابل آزمون می‌سازند."],
+    ["04","SPECIMEN / TEST","شاهد ساخته می‌شود.","نمونهٔ قابل ردیابی آماده می‌شود تا نتیجهٔ آزمون معنا پیدا کند."],
+    ["05","EVIDENCE / DECISION","داده به تصمیم می‌رسد.","عدد، ردیابی و معیار پذیرش کنار هم قرار می‌گیرند."]
+  ];
+  const setProcess=(i)=>{const s=Math.max(0,Math.min(4,Number(i)||0));processStage.dataset.processState=String(s);const x=processTexts[s];const n=$("[data-process-number]"),k=$("[data-process-kicker]"),t=$("[data-process-title]"),p=$("[data-process-copy]");if(n)n.textContent=x[0];if(k)k.textContent=x[1];if(t)t.textContent=x[2];if(p)p.textContent=x[3];processSteps.forEach(b=>b.setAttribute("aria-selected",String(Number(b.dataset.processStep)===s)))};
+  processSteps.forEach(btn=>btn.addEventListener("click",()=>{processManualUntil=Date.now()+1600;setProcess(btn.dataset.processStep)}));
+  setProcess(0);
+  if(window.IntersectionObserver){
+    const syncFromScroll=()=>{if(Date.now()<processManualUntil)return;const r=processStage.getBoundingClientRect(),vh=innerHeight||800;const q=Math.max(0,Math.min(.999,(vh*.84-r.top)/(Math.max(1,r.height)*.78)));setProcess(Math.min(4,Math.floor(q*5)))};
+    addEventListener("scroll",syncFromScroll,{passive:true});addEventListener("resize",syncFromScroll,{passive:true});syncFromScroll();
+  }
+}
