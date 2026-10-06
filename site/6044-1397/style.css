@@ -199,3 +199,128 @@ body{
 @media(prefers-reduced-motion:reduce){
   .core-live i,.core-orbit,.core-center,.core-lines path{animation:none!important}
 }
+
+
+/* Engineering Hero v1 — material-to-decision visual narrative */
+.cover-visual.engineering-hero-stage{
+  position:relative;
+  min-height:560px;
+  border-inline-start:1px solid #20363f;
+  background:#071015;
+  overflow:hidden;
+}
+.engineering-hero-frame{
+  position:relative;
+  min-height:560px;
+  width:100%;
+  background:
+    radial-gradient(circle at 67% 42%,rgba(43,242,173,.08),transparent 38%),
+    radial-gradient(circle at 32% 70%,rgba(39,197,222,.06),transparent 34%),
+    #071015;
+}
+.engineering-hero-frame canvas{
+  display:block;
+  width:100%;
+  height:auto;
+  min-height:560px;
+  aspect-ratio:900/600;
+  cursor:crosshair;
+}
+.engineering-hero-vignette{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(4,10,13,.62),transparent 20%,transparent 78%,rgba(4,10,13,.82)),
+    linear-gradient(90deg,rgba(4,10,13,.55),transparent 28%,transparent 82%,rgba(4,10,13,.32));
+}
+.engineering-hero-topline,
+.engineering-hero-status,
+.engineering-hero-caption,
+.engineering-hero-progress{
+  position:absolute;
+  z-index:2;
+  pointer-events:none;
+}
+.engineering-hero-topline{
+  inset:18px 20px auto;
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  color:#6f938b;
+  font:800 10px/1.2 Tahoma,Arial,sans-serif;
+  letter-spacing:.12em;
+}
+.engineering-hero-status{
+  inset:auto 22px 64px auto;
+  max-width:58%;
+  text-align:right;
+  direction:rtl;
+  text-shadow:0 4px 18px rgba(0,0,0,.45);
+}
+.engineering-hero-status strong{
+  display:block;
+  color:#eef9f4;
+  font-size:clamp(1.15rem,2vw,1.55rem);
+  line-height:1.4;
+}
+.engineering-hero-status span{
+  display:block;
+  margin-top:5px;
+  color:#8fa9a0;
+  font-size:.8rem;
+  line-height:1.7;
+}
+.engineering-hero-progress{
+  left:20px;
+  right:20px;
+  bottom:25px;
+  height:2px;
+  background:rgba(255,255,255,.09);
+}
+.engineering-hero-progress i{
+  display:block;
+  width:0;
+  height:100%;
+  background:linear-gradient(90deg,#27c5de,#2bf2ad);
+  box-shadow:0 0 14px rgba(43,242,173,.5);
+  transition:width .18s linear;
+}
+.engineering-hero-caption{
+  left:20px;
+  bottom:43px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:#6f938b;
+  font:800 9px/1.2 Tahoma,Arial,sans-serif;
+  letter-spacing:.08em;
+}
+.engineering-hero-caption b{
+  color:#2bf2ad;
+  font-size:12px;
+}
+@media(max-width:900px){
+  .cover-visual.engineering-hero-stage{
+    min-height:460px;
+    border-inline-start:0;
+    border-top:1px solid #20363f;
+  }
+  .engineering-hero-frame{min-height:460px}
+  .engineering-hero-frame canvas{min-height:460px}
+}
+@media(max-width:560px){
+  .cover-visual.engineering-hero-stage{min-height:330px}
+  .engineering-hero-frame{min-height:330px}
+  .engineering-hero-frame canvas{min-height:330px}
+  .engineering-hero-status{right:14px;left:14px;bottom:48px;max-width:none}
+  .engineering-hero-status strong{font-size:1rem}
+  .engineering-hero-status span{font-size:.72rem}
+  .engineering-hero-topline{inset:12px 14px auto;font-size:8px}
+  .engineering-hero-caption{left:14px;bottom:27px;gap:5px;font-size:7px}
+  .engineering-hero-progress{left:14px;right:14px;bottom:15px}
+}
+@media(prefers-reduced-motion:reduce){
+  .engineering-hero-frame canvas{cursor:default}
+  .engineering-hero-progress i{transition:none}
+}
