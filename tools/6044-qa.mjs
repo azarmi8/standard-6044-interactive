@@ -22,6 +22,7 @@ function rel(p){ return path.relative(ROOT,p).replaceAll(path.sep,'/'); }
 if(!exists(SITE)) fail('site/6044-1397 is missing');
 checkNarration(SITE);
 checkPersianProductLanguage(SITE);
+checkHtmlIdentityAndIds(SITE);
 checkAppendixSimulationContract();
 checkAppendixDGContract();
 checkSimulationContract();
@@ -55,6 +56,28 @@ function checkPersianProductLanguage(dir){
         if(level==='warning') warn(`${rel(file)}: legacy orthography phrase remains: ${phrase}`);
         else fail(`${rel(file)}: forbidden product-language phrase remains: ${phrase}`);
       }
+    }
+  }
+}
+
+function checkHtmlIdentityAndIds(dir){
+  const brandForbidden=[
+    /AZARMI\\s+6044/i,
+    /AZARMI\\s+ENGINEERING/i,
+    /AZARMI\\s*\\/\\s*(READER|MATERIAL VISUAL)/i,
+    /azarmi-capabilities/i
+  ];
+  for(const file of walk(dir)){
+    if(!/\\.html$/i.test(file)) continue;
+    const src=read(file);
+    const ids=[...src.matchAll(/\\bid\\s*=\\s*[\"']([^\"']+)[\"']/gi)].map(m=>m[1]);
+    const seen=new Set();
+    for(const id of ids){
+      if(seen.has(id)) fail('Duplicate HTML id in '+rel(file)+': '+id);
+      seen.add(id);
+    }
+    for(const pattern of brandForbidden){
+      if(pattern.test(src)) fail('Legacy product brand token remains in '+rel(file)+': '+pattern);
     }
   }
 }
