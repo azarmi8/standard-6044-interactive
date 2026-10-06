@@ -5,6 +5,9 @@ All notable changes to this project will be documented here.
 ## [Unreleased]
 
 ### Fixed — 2026-10-06
+- Corrected the bibliography surface: Unit 23 now reflects the two references listed on source page 73 and is no longer presented as a nonexistent Appendix H.
+- Repaired a real Chapter 15 JavaScript runtime/syntax failure by moving the conformity interaction into the chapter script with DOM guards.
+- Expanded Browser Smoke to cover all 23 book surfaces and added regression guards for duplicate HTML IDs and stale public-brand tokens.
 - Rebranded the public product as **CRETIQ 6044** and kept Mohammadreza Azarmi as creator attribution only.
 - Fixed assessment/search page titles and public brand surfaces to use the new product identity.
 - Removed a duplicated capability block from the homepage and aligned its CSS class with the active CRETIQ product shell.

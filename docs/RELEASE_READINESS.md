@@ -4,7 +4,7 @@ Last checked: 2026-10-06
 
 ## Current baseline
 
-- Main: `ecebb1d3e3514366523a599c297d88809674b495`
+- Main: `b4b5c6a564a96f830aa70b1ee970f5a856cfefdf`
 - Product: Persian RTL interactive engineering book for Iranian National Standard 6044:1397.
 - Source structure: 15 official chapters + Appendices A–G + bibliography.
 - Learning units: 22.
@@ -22,10 +22,10 @@ Last checked: 2026-10-06
 | Simulation contracts | PASS | deterministic simulation tests reviewed; ch11 edge-case corrected |
 | Assessment/search contracts | PASS | existing QA contract + static inspection |
 | Professional cover/contents | PASS | merged and strengthened by PR #16 |
-| Static QA | PASS | Main Run #206 succeeded on `ecebb1d3e3514366523a599c297d88809674b495` |
-| Browser/mobile/reduced-motion QA | FAIL — 2 tests | Main Browser Smoke Run #156: 24 passed, 2 failed; assessment/search document titles still had the old brand |
+| Static QA | PASS | Main Run #217 succeeded on `b4b5c6a564a96f830aa70b1ee970f5a856cfefdf` |
+| Browser/mobile/reduced-motion QA | PENDING | Main Browser Smoke Run #167 was still in progress at last check; PR #27 Browser Smoke passed 39/39 after the Chapter 15 + bibliography fixes |
 | Persian TTS human listening | PENDING | benchmark/contract exists; release audio not approved |
-| GitHub Pages | PASS | Main Deploy Run #214 succeeded for `ecebb1d3e3514366523a599c297d88809674b495` |
+| GitHub Pages | PASS | Main Deploy Run #218 succeeded for `b4b5c6a564a96f830aa70b1ee970f5a856cfefdf` |
 | Release documentation/handoff | PASS | Core release documentation exists; current-state refresh is required after QA/branding changes |\n| v1.0.0 release | NOT READY | blocked by remaining release gates above |
 
 ## Merge policy
@@ -43,9 +43,12 @@ A change may be merged when:
 RESOLVED. Repository-level Pages is enabled and the workflow deploys `site/6044-1397` with GitHub Actions.
 
 ### B-002 — Hosted CI recovery
-RESOLVED. Main Static QA is succeeding; current Browser Smoke has a deterministic title-brand mismatch.
+RESOLVED. Main Static QA is green on Run #217.
 
 ### B-003 — Browser smoke
+PENDING. PR #27 Browser Smoke passed 39/39; main Run #167 was still running at the last status check.
+
+
 OPEN. Run #156 reports 24/26 passed; two failures are the `/assessment.html` and `/search.html` title assertions caused by the stale AZARMI titles.
 
 ### B-004 — Persian narration review
