@@ -1,9 +1,6 @@
 name: Build Persian narration audio
 
 on:
-  push:
-    branches:
-      - feat/audio-jarvis-engineering-core
   workflow_dispatch:
 
 permissions:
@@ -37,4 +34,4 @@ jobs:
             exit 0
           fi
           git commit -m "build: add Persian narration audio [skip ci]"
-          git push origin HEAD:feat/audio-jarvis-engineering-core
+          git push origin HEAD:${GITHUB_REF_NAME}

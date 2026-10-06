@@ -447,3 +447,161 @@ body{color:var(--tech-text)}
   .tech-scan,.tech-focus-frame,.tech-focus-tag,.stage[data-scene-state] .tech-scene-object.is-scene-visible,.book-stage[data-scene-state] .tech-scene-object.is-scene-visible{animation:none!important}
   .stage .tech-scene-object,.book-stage .tech-scene-object{transition:none!important}
 }
+
+/* v1.1 — cinematic particle/microstructure teaching module */
+.particle-morph-panel{margin-top:18px;background:linear-gradient(145deg,#071116,#091c20);border:1px solid #1e3f48;border-radius:20px;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
+.particle-morph-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:18px 20px 10px}
+.particle-morph-kicker{font-size:.72rem;font-weight:900;letter-spacing:.12em;color:#2bf2ad}
+.particle-morph-head h2{margin:4px 0 4px;color:#edf8f4}
+.particle-morph-head p{margin:0;color:#8fa9a2;line-height:1.8}
+.particle-morph-status{display:grid;gap:4px;min-width:190px;padding:10px 12px;border:1px solid #24565c;border-radius:13px;background:#08171d;text-align:left;direction:ltr}
+.particle-morph-status strong{color:#9fffe0;font-size:.72rem;letter-spacing:.08em}
+.particle-morph-status span{color:#d6e7e2;font-size:.82rem}
+.particle-morph-canvas-wrap{position:relative;min-height:420px;margin:0 14px 10px;border:1px solid #17373e;border-radius:16px;overflow:hidden;background:#050c10}
+.particle-morph-canvas-wrap canvas{display:block;width:100%;height:420px}
+.particle-morph-overlay{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(43,242,173,.035),transparent 38%,rgba(39,197,222,.025))}
+.particle-morph-controls{display:flex;flex-wrap:wrap;gap:8px;padding:0 20px 14px}
+.particle-morph-controls button{min-height:40px}
+.particle-morph-note{margin:0;padding:0 20px 18px;color:#8fa9a2;font-size:.82rem;line-height:1.8}
+@media(max-width:800px){.particle-morph-head{display:block}.particle-morph-status{margin-top:12px;min-width:0}.particle-morph-canvas-wrap{min-height:290px}.particle-morph-canvas-wrap canvas{height:290px}}
+@media(prefers-reduced-motion:reduce){.particle-morph-canvas-wrap canvas{opacity:.96}}
+
+
+/* v2 visual engine — material scene hierarchy, state-aware controls, scan choreography */
+.particle-morph-panel[data-visual-engine="v2"]{
+  position:relative;
+  background:
+    radial-gradient(circle at 78% 18%,rgba(43,242,173,.055),transparent 30%),
+    linear-gradient(145deg,#050b0f,#08171c 56%,#071b19);
+  border-color:#24515a;
+}
+.particle-morph-panel[data-visual-engine="v2"]::before{
+  content:"";
+  position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(43,242,173,.025),transparent);
+  transform:translateX(-120%);animation:visual-sweep 7s linear infinite;
+}
+.particle-morph-panel[data-visual-engine="v2"] .particle-morph-status{
+  border-color:rgba(43,242,173,.30);
+  box-shadow:inset 0 0 0 1px rgba(39,197,222,.04),0 0 22px rgba(43,242,173,.04);
+}
+.particle-morph-panel[data-visual-state="5"] .particle-morph-status{
+  border-color:rgba(43,242,173,.62);
+  box-shadow:0 0 28px rgba(43,242,173,.12);
+}
+.particle-morph-panel[data-visual-state="5"] .particle-morph-kicker{color:#84ffd7}
+.particle-morph-panel[data-visual-engine="v2"] .particle-morph-canvas-wrap{
+  background:#03080b;
+  box-shadow:inset 0 0 0 1px rgba(43,242,173,.05),inset 0 0 70px rgba(0,0,0,.36);
+}
+.particle-morph-panel[data-visual-engine="v2"] .particle-morph-canvas-wrap::after{
+  content:"";
+  position:absolute;left:0;right:0;top:-30%;height:18%;
+  pointer-events:none;
+  background:linear-gradient(180deg,transparent,rgba(43,242,173,.10),transparent);
+  border-top:1px solid rgba(43,242,173,.14);
+  animation:visual-canvas-scan 6.5s linear infinite;
+}
+.particle-morph-panel[data-visual-engine="v2"] .particle-morph-overlay{
+  background:
+    linear-gradient(90deg,transparent 0,rgba(43,242,173,.035) 50%,transparent 100%),
+    radial-gradient(circle at 50% 52%,transparent 35%,rgba(0,0,0,.24) 100%);
+}
+.particle-morph-panel[data-visual-engine="v2"] .particle-morph-controls{
+  position:relative;z-index:2;
+}
+.particle-morph-panel[data-visual-engine="v2"] .particle-morph-controls button:first-child{
+  background:linear-gradient(135deg,#0d4f3b,#0b3027)!important;
+  border-color:#2a8b6b!important;
+  box-shadow:0 0 18px rgba(43,242,173,.08);
+}
+@keyframes visual-sweep{from{transform:translateX(-120%)}to{transform:translateX(120%)}}
+@keyframes visual-canvas-scan{from{transform:translateY(-120%)}to{transform:translateY(760%)}}
+@media(prefers-reduced-motion:reduce){
+  .particle-morph-panel[data-visual-engine="v2"]::before,
+  .particle-morph-panel[data-visual-engine="v2"] .particle-morph-canvas-wrap::after{animation:none!important}
+}
+
+
+/* v2 laboratory hero scenes */
+.lab-visual-panel{
+  margin-top:18px;
+  position:relative;
+  overflow:hidden;
+  border:1px solid #24515a!important;
+  background:
+    radial-gradient(circle at 72% 16%,rgba(39,197,222,.055),transparent 30%),
+    linear-gradient(145deg,#050b0f,#08171c 58%,#071b19)!important;
+}
+.lab-visual-head{
+  position:relative;z-index:2;
+  display:flex;justify-content:space-between;align-items:flex-start;gap:18px;
+  padding:18px 20px 10px;
+}
+.lab-visual-head h2{margin:4px 0 4px;color:#edf8f4}
+.lab-visual-head p{margin:0;color:#8fa9a2;line-height:1.8}
+.lab-visual-status{
+  display:grid;gap:5px;min-width:210px;padding:11px 13px;
+  border:1px solid rgba(43,242,173,.30);border-radius:13px;
+  background:#08171d;text-align:left;direction:ltr;
+}
+.lab-visual-status strong{color:#9fffe0;font-size:.72rem;letter-spacing:.08em}
+.lab-visual-status span{color:#e2eee9;font-size:.85rem}
+.lab-visual-canvas-wrap{
+  position:relative;z-index:1;
+  margin:0 14px 10px;min-height:360px;overflow:hidden;
+  border:1px solid #17373e;border-radius:16px;background:#03080b;
+  box-shadow:inset 0 0 0 1px rgba(43,242,173,.04),inset 0 0 65px rgba(0,0,0,.38);
+}
+.lab-visual-canvas-wrap canvas{display:block;width:100%;height:360px}
+.lab-visual-canvas-wrap::after{
+  content:"";position:absolute;left:0;right:0;top:-28%;height:16%;pointer-events:none;
+  background:linear-gradient(180deg,transparent,rgba(43,242,173,.085),transparent);
+  border-top:1px solid rgba(43,242,173,.12);
+  animation:visual-canvas-scan 7.2s linear infinite;
+}
+.lab-visual-controls{position:relative;z-index:2;display:flex;gap:8px;flex-wrap:wrap;padding:0 20px 18px}
+.lab-visual-controls button:first-child{
+  background:linear-gradient(135deg,#0d4f3b,#0b3027)!important;
+  border-color:#2a8b6b!important;
+  box-shadow:0 0 18px rgba(43,242,173,.07);
+}
+.lab-visual-panel[data-lab-state="5"] .lab-visual-status{
+  border-color:rgba(43,242,173,.64);box-shadow:0 0 26px rgba(43,242,173,.10)
+}
+.lab-visual-panel[data-lab-state="4"] .lab-visual-status{border-color:rgba(243,200,91,.52)}
+@media(max-width:800px){
+  .lab-visual-head{display:block}
+  .lab-visual-status{margin-top:12px;min-width:0}
+  .lab-visual-canvas-wrap{min-height:270px}
+  .lab-visual-canvas-wrap canvas{height:270px}
+}
+@media(prefers-reduced-motion:reduce){
+  .lab-visual-canvas-wrap::after{animation:none!important}
+}
+
+/* v1.0 product polish — typography, reading surface and visual hierarchy */
+:root{font-family:Vazirmatn,Tahoma,Arial,sans-serif;--paper:#f4f1e8;--paper-2:#ebe6da;--ink:#18221d;--ink-muted:#68736b}
+body,button,input,select,textarea{font-family:Vazirmatn,Tahoma,Arial,sans-serif}
+body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+button,input,select,textarea{font-variant-numeric:tabular-nums}
+.top{padding-inline:48px}
+.top .brand{font-weight:900;letter-spacing:.01em}
+.top .tag{font-weight:800}
+.card > .panel:has(#title){
+  background:linear-gradient(145deg,#f7f3e9,#ece8dd)!important;
+  color:var(--ink)!important;
+  border-color:#cfc8b8!important;
+  box-shadow:0 18px 50px rgba(0,0,0,.18)!important;
+}
+.card > .panel:has(#title) h1,.card > .panel:has(#title) h2,.card > .panel:has(#title) h3,
+.card > .panel:has(#title) p,.card > .panel:has(#title) label{color:var(--ink)!important}
+.card > .panel:has(#title) .muted,
+.card > .panel:has(#title) .sim-source{color:var(--ink-muted)!important}
+.card > .panel:has(#title) .source-badge{background:#e2e9e2!important;color:#173c2a!important;border-color:#b9c7bb!important}
+.card > .panel:has(#title) .explanation-badge{background:#eee9dc!important;color:#574f3d!important;border-color:#d6cdb9!important}
+.card > .panel:has(#title) .practice-badge{background:#f0dfdc!important;color:#6b3d36!important;border-color:#d7bbb6!important}
+.card > .panel:has(#title) .quiz button{background:#fff!important;color:#26322c!important;border-color:#bfc8c0!important}
+.card > .panel:has(#title) .quiz button:hover{border-color:#2d7e63!important;box-shadow:0 0 0 2px rgba(43,126,99,.08)}
+.card > .panel:has(#title) .sim-result{background:#fffdf8!important;color:#27312c!important;border-color:#c9c0ae!important}
+@media(max-width:700px){.top{padding-inline:0}.card > .panel:has(#title){border-radius:16px!important}}

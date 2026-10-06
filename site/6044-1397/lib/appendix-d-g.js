@@ -4,7 +4,7 @@
     productionControl:{
       categories:[
         {id:'materials',label:'مواد و مصالح',source:'پیوست د، جدول د-۲'},
-        {id:'equipment',label:'وسایل و تجهیزات',source:'پیوست د، جدول د-۳'},
+        {id:'equipment',label:'تجهیزات',source:'پیوست د، جدول د-۳'},
         {id:'production',label:'روش‌های تولید و خواص بتن',source:'پیوست د، جدول د-۴'},
         {id:'records',label:'سوابق و مستندات',source:'پیوست د، الزامات سامانه کنترل تولید'}
       ],
@@ -15,7 +15,7 @@
     },
     highStrength:{
       categories:[
-        {id:'supplier',label:'شواهد تأمین‌کننده مواد',source:'پیوست هـ، جدول هـ-۱'},
+        {id:'supplier',label:'مدارک تأمین‌کننده مصالح',source:'پیوست هـ، جدول هـ-۱'},
         {id:'admixture',label:'کنترل افزودنی‌ها',source:'پیوست هـ، جدول هـ-۱'},
         {id:'powder',label:'کنترل مواد مکمل پودری',source:'پیوست هـ، جدول هـ-۱'},
         {id:'production',label:'کنترل تکمیلی تولید',source:'پیوست هـ، جدول هـ-۱ و هـ-۲'}
@@ -38,7 +38,7 @@
     changeMap:{
       categories:[
         {id:'deleted',label:'حذف‌شده',description:'در نقشه تغییرات، مواردی که از ساختار نسخه مرجع حذف شده‌اند.'},
-        {id:'replaced',label:'جایگزین/جابه‌جاشده',description:'مواردی که متن یا محل آن‌ها در ساختار استاندارد ملی تغییر کرده است.'},
+        {id:'replaced',label:'جایگزین یا جابه‌جا شده',description:'مواردی که متن یا جایگاه آن‌ها در ساختار استاندارد ملی تغییر کرده است.'},
         {id:'added',label:'اضافه‌شده',description:'مواردی که برای نیاز استاندارد ملی به ساختار اضافه شده‌اند.'}
       ],
       describe(id){return this.categories.find(x=>x.id===id)||null;}

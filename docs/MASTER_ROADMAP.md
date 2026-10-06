@@ -67,6 +67,30 @@ Current artifacts:
 - [x] Reusable SVG/scene helpers.
 **Exit gate:** a new chapter can be implemented mainly from configuration/content. **PASSED.**
 
+## Engineering Visual Engine v2 — current branch upgrade
+## Engineering Product Polish — current branch upgrade
+**Status: implemented as a non-Production PR upgrade.**
+- [x] Persian-first typography baseline across the book shell.
+- [x] Premium RTL Study Command Drawer across home, search, assessment and all 23 book surfaces.
+- [x] Context-aware current chapter plus previous/next navigation in the drawer.
+- [x] Local study-state summary in the drawer using existing progress/bookmark storage.
+- [x] Hybrid visual language: Engineering Dark for visual/simulation surfaces + restrained warm reading surface for chapter copy.
+- [x] Homepage narrative ordering: material-intelligence showcase now follows the main entry experience before the architecture showcase.
+- [x] Browser smoke coverage for drawer open/close, current context and 23-unit navigation.
+- [x] CI concurrency guard so only the latest Browser Smoke run remains active for the PR.
+- [ ] Final human visual review on representative desktop/mobile devices.
+
+**Status: implemented as a non-Production PR prototype.**
+
+- [x] Semantic particle states for aggregate, cement/SCM, water and admixture.
+- [x] Shared Reader-to-visual beat event for narration/scene synchronization.
+- [x] Reusable visual timeline primitive.
+- [x] Chapter 4 material morphology hero scene.
+- [x] Chapter 10 fresh-concrete laboratory hero scene.
+- [x] Chapter 11 compressive-strength laboratory hero scene.
+- [x] Reduced-motion stable rendering path for canvas scenes.
+- [ ] Final human visual review and desktop/mobile performance measurement.
+
 # Phase 4 — Professional Animation System
 **Status: IN PROGRESS — animation contract and process choreography are implemented; remaining work is final performance/visual validation.**
 - [x] Timeline beats, focus/highlight, state transitions and procedure sequencing foundation.
@@ -145,6 +169,7 @@ Each simulation must expose source clauses, inputs, outputs, assumptions and val
 - [x] Local return-position and bookmark UI.
 - [x] Reduced-motion behavior on new interaction layer.
 - [x] Cover and contents final treatment.
+- [x] Engineering Hero Visual v1 — material particles → concrete → specimen → test data → decision, with reduced-motion and responsive canvas geometry.
 - [x] Full 22-unit visual/engine consistency audit — Chapters 1–15 + Appendices A–G use the shared book engine; bibliography remains a reference-only surface.
 - [x] Loading/error states.
 - [x] Representative desktop/mobile/reduced-motion browser smoke — Playwright passed on the current release baseline.
