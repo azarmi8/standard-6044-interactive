@@ -2,12 +2,12 @@
 
 ## وضعیت فعلی
 
-Baseline: `main @ 7ffc894b6dd4530fda7c2848f4b7e307f73d487f`
+Baseline: `main @ 1f281bd511b5f16e11296771d4a08436c5c21a3f`
 
 ### گیت‌های فنی فعلی
 
-- [x] Static QA روی main — Run #64 موفق
-- [x] Browser Smoke روی main — Run #14 موفق
+- [x] Static QA روی main — Run #219 موفق
+- [x] Browser Smoke روی main — Run #169 موفق (39/39)
 - [x] 22 واحد یادگیری با shared engine
 - [x] 1600×900 SVG contract
 - [x] reduced-motion / mobile smoke
@@ -17,7 +17,7 @@ Baseline: `main @ 7ffc894b6dd4530fda7c2848f4b7e307f73d487f`
 - [ ] Final clause-level source audit
 - [ ] Persian TTS human listening benchmark
 - [ ] Release narration approval/generation
-- [ ] GitHub Pages enablement + successful deploy
+- [x] GitHub Pages enablement + successful deploy — Run #219
 - [ ] Final owner acceptance
 - [ ] v1.0.0 tag
 - [ ] Release notes finalized
