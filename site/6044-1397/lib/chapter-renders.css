@@ -14,9 +14,12 @@
   display:grid;
   grid-template-columns:minmax(0,1.08fr) minmax(320px,.92fr);
   min-height:420px;
+  min-width:0;
 }
 .chapter-render-media{
   position:relative;
+  min-width:0;
+  margin:0;
   min-height:420px;
   overflow:hidden;
   background:#071015;
@@ -83,6 +86,8 @@
 }
 .chapter-render-copy{
   display:flex;
+  min-width:0;
+  overflow:hidden;
   flex-direction:column;
   justify-content:space-between;
   gap:22px;
@@ -112,6 +117,7 @@
 }
 .chapter-render-step{
   display:grid;
+  min-width:0;
   grid-template-columns:auto 1fr;
   gap:11px;
   align-items:start;
@@ -138,6 +144,7 @@
   color:#eaf7f3;
   font-size:.92rem;
 }
+.chapter-render-step>div{min-width:0;overflow-wrap:anywhere}
 .chapter-render-step span{
   display:block;
   color:#8ca59d;
@@ -155,6 +162,8 @@
 }
 .chapter-render-source span{
   display:inline-flex;
+  min-width:0;
+  overflow-wrap:anywhere;
   min-height:27px;
   align-items:center;
   padding:4px 8px;
