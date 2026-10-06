@@ -95,22 +95,22 @@ Interactive beat work has been applied to:
 
 ## Immediate next work
 
-### Priority 1 — Release QA
-The runtime/visual pass is now merged on main. Static QA and Browser Smoke passed on PR #16, including Chapter 3/8/10/17 plus mobile/reduced-motion and the new Reader HUD. Remaining release QA is fullscreen visual QA plus final source/publication audit.
+### Priority 1 — Release hardening
+PR #34 is the active release-hardening branch. Homepage and representative Chapter 4/10/11 surfaces now use authored engineering renders, with legacy decorative Canvas visual runtimes removed from those migrated chapter surfaces. Static QA and Browser Smoke are green on the current head.
 
-### Priority 2 — Visual consistency
-PR #16 strengthened the shared Reader HUD and upgraded the Chapter 10 measurement scene and Appendix B calculation scene. The remaining task is final fullscreen visual review and extending the pilot visual language where needed.
+### Priority 2 — Final visual acceptance
+Perform human visual review on representative desktop/mobile pages, including fullscreen behavior, image sharpness, spacing, typography, focus states and reduced-motion behavior. The automation proves runtime safety; it does not replace human art-direction acceptance.
 
-### Priority 3 — Narration quality
-The shared engine now provides device-based Persian narration fallback plus play/pause/replay/rate controls. Complete the Persian voice benchmark, select a voice only after human listening, then generate/review release narration. Do not bulk-generate before pronunciation approval.
+### Priority 3 — Source/publication finalization
+Complete the final clause-level publication audit against the authoritative 6044-1397 PDF. Do not infer or normalize ambiguous OCR. Any unresolved claim must be re-read from the source page image before release.
 
-### Priority 4 — Source/content finalization
-Resolve remaining clause-level source-audit items and ensure every released source-derived claim has a traceable source reference.
+### Priority 4 — Narration release
+Human-listen to the Persian narration benchmark, approve pronunciation/voice, then generate/review the final release package. Keep model weights outside the repository.
 
 ### Priority 5 — Release
-Documentation package is complete. GitHub Pages enablement is resolved. Remaining release blockers are human narration approval, final clause-level source audit, fullscreen review, owner acceptance, then v1.0.0.
+After the above gates: verify Pages from main, freeze scope, tag v1.0.0, update release notes, and mark the roadmap complete.
 
-Do not start new feature families unless they are required to close a v1.0 blocker.
+Do not start new feature families unless they close one of these release gates.
 
 ## Git discipline
 
