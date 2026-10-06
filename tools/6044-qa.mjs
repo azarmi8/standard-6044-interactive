@@ -263,7 +263,9 @@ function checkHomePhotoAssets(){
     'site/6044-1397/assets/visuals/slump.webp',
     'site/6044-1397/assets/visuals/strength.webp'
   ];
-  for(const p of assets) if(!exists(path.join(ROOT,p))) fail('homepage photographic asset missing: '+p);
+  // Render sources are embedded in homepage HTML for deterministic static hosting.
+  // Keep the legacy asset paths present only as compatibility artifacts.
+  for(const p of assets) if(!exists(path.join(ROOT,p))) fail('homepage photographic compatibility asset missing: '+p);
 }
 
 function checkBookProgressContract(){
@@ -277,8 +279,8 @@ function checkBookProgressContract(){
   if(!exists(homePath)) return fail('book home missing for progress dashboard');
   const home=read(homePath);
   if(!home.includes('cinematic-hero') || !home.includes('chapter-explorer') || !home.includes('data-study-open')) fail('home cinematic study entry contract missing');
-  if(!home.includes('photo-hero-visual') || !home.includes('assets/visuals/hero.webp')) fail('home photographic hero contract missing');
-  if(!home.includes('assets/visuals/slump.webp') || !home.includes('assets/visuals/strength.webp')) fail('home photographic gallery contract missing');
+  if(!home.includes('photo-hero-visual') || !home.includes('data:image/webp;base64,')) fail('home photographic hero contract missing');
+  if((home.match(/data:image\/webp;base64,/g)||[]).length < 3) fail('home photographic gallery must contain three embedded render images');
 }
 
 function checkSearchContract(){
