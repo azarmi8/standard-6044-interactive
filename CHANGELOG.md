@@ -4,6 +4,12 @@ All notable changes to this project will be documented here.
 
 ## [Unreleased]
 
+### Fixed — 2026-10-06
+- Rebranded the public product as **CRETIQ 6044** and kept Mohammadreza Azarmi as creator attribution only.
+- Fixed assessment/search page titles and public brand surfaces to use the new product identity.
+- Removed a duplicated capability block from the homepage and aligned its CSS class with the active CRETIQ product shell.
+- Documented the current Browser Smoke failure instead of reporting stale green status.
+
 ### Added
 - Professional Persian RTL interactive book surface for Standard 6044:1397.
 - Shared book engine for the 22 source learning units.
@@ -21,5 +27,5 @@ All notable changes to this project will be documented here.
 
 ### Release status
 - v1.0.0 has **not** been released yet.
-- GitHub Pages remains blocked until repository Pages is enabled with GitHub Actions as the publishing source.
+- GitHub Pages is enabled; the current main deployment is green. Browser Smoke remains the active functional release gate.
 - Persian narration remains pending human listening approval.
