@@ -48,6 +48,8 @@ jobs:
               rel = Path(item["file"])
               if rel.suffix.lower() != ".mp3": continue
               target = root / rel
+              if target.exists():
+                  continue
               text = item.get("text","").strip()
               if not text: continue
               wav_file = Path("/tmp/cretiq-voice") / (target.stem + ".wav")
