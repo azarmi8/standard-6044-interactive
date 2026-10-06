@@ -59,6 +59,8 @@ test.describe('6044 browser smoke', () => {
     await expect(page.locator('[data-particle-morph]')).toHaveCount(1);
     await expect(page.locator('[data-particle-canvas]')).toHaveCount(1);
     await expect(page.locator('[data-particle-phase]')).toContainText('MATERIAL INPUT');
+    await expect(page.locator('[data-particle-morph]')).toHaveAttribute('data-visual-engine','v2');
+    await expect(page.locator('[data-particle-morph]')).toHaveAttribute('data-visual-state','0');
     const audioProbe = await page.evaluate(async () => {
       const r = await fetch('../audio/fa/ch04-01.mp3', { cache: 'no-store' });
       const b = await r.arrayBuffer();
@@ -73,8 +75,13 @@ test.describe('6044 browser smoke', () => {
     await expect(page.locator('[data-narration-status]')).toContainText('روایت صوتی فارسی آماده');
 
     await page.locator('[data-particle-play]').click();
-    await page.waitForTimeout(2050);
-    await expect(page.locator('[data-particle-phase]')).toContainText('CEMENT / SCM');
+    await page.waitForTimeout(250);
+    await expect(page.locator('[data-particle-morph]')).toHaveAttribute('data-visual-state','0');
+    await page.evaluate(() => window.BookEngine.go(5));
+    await expect(page.locator('[data-particle-morph]')).toHaveAttribute('data-visual-state','5');
+    await expect(page.locator('[data-particle-phase]')).toContainText('HOMOGENIZATION');
+    await page.locator('[data-particle-reset]').click();
+    await expect(page.locator('[data-particle-morph]')).toHaveAttribute('data-visual-state','0');
   });
 
   test('Chapter 8 shared reader + simulator respond', async ({ page }) => {
