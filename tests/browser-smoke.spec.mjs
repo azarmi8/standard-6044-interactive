@@ -180,6 +180,13 @@ test.describe('6044 browser smoke', () => {
     await reduced.close();
   });
 
+  test('authored render assets remain visually inspectable', async ({ page }) => {
+    for (const asset of ['hero.webp','slump.webp','strength.webp']) {
+      await page.goto('http://127.0.0.1:8765/assets/visuals/' + asset, { waitUntil: 'load' });
+      await page.screenshot({ path: 'test-results/asset-' + asset + '.png', fullPage: true });
+    }
+  });
+
   test('homepage visual language contract', async ({ page }) => {
     await page.goto('http://127.0.0.1:8765/', { waitUntil: 'networkidle' });
     await expect(page.locator('.cinematic-hero')).toHaveCount(1);
