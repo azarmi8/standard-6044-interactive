@@ -7,4 +7,4 @@
 const q=document.getElementById('q'),out=document.getElementById('results');
 function render(){const r=BookSearch.search(q.value);out.innerHTML=r.length?r.map(x=>'<article class="panel"><h2><a href="'+x.url+'">فصل/پیوست '+x.unit+' — '+x.title+'</a></h2><p>'+x.text+'</p><small>واژه‌های مرتبط: '+x.tags+'</small></article>').join(''):'<p class="muted">نتیجه‌ای پیدا نشد.</p>';}
 q.oninput=render;render();q.focus();
-</script></body></html>
+</script><script src="lib/navigation.js"></script></body></html>
