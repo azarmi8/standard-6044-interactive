@@ -157,6 +157,7 @@ Each simulation must expose source clauses, inputs, outputs, assumptions and val
 - [x] Local return-position and bookmark UI.
 - [x] Reduced-motion behavior on new interaction layer.
 - [x] Cover and contents final treatment.
+- [x] Engineering Hero Visual v1 — material particles → concrete → specimen → test data → decision, with reduced-motion and responsive canvas geometry.
 - [x] Full 22-unit visual/engine consistency audit — Chapters 1–15 + Appendices A–G use the shared book engine; bibliography remains a reference-only surface.
 - [x] Loading/error states.
 - [x] Representative desktop/mobile/reduced-motion browser smoke — Playwright passed on the current release baseline.
