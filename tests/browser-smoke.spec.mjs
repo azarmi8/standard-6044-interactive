@@ -54,6 +54,20 @@ test.describe('6044 browser smoke', () => {
   }
 
 
+  test('homepage engineering hero particle narrative boots cleanly', async ({ page }) => {
+    const consoleErrors = [];
+    const pageErrors = [];
+    page.on('console', msg => { if (msg.type() === 'error') consoleErrors.push(msg.text()); });
+    page.on('pageerror', err => pageErrors.push(String(err)));
+    await page.goto('http://127.0.0.1:8765/', { waitUntil: 'networkidle' });
+    await expect(page.locator('[data-engineering-hero]')).toHaveCount(1);
+    await expect(page.locator('[data-hero-phase]')).not.toBeEmpty();
+    await expect(page.locator('[data-hero-detail]')).not.toBeEmpty();
+    await expect(page.locator('[data-hero-progress]')).toHaveCount(1);
+    expect(consoleErrors).toEqual([]);
+    expect(pageErrors).toEqual([]);
+  });
+
   test('homepage intelligence core + visual showcase boot', async ({ page }) => {
     await page.goto('http://127.0.0.1:8765/', { waitUntil: 'networkidle' });
     await expect(page.locator('.engineering-core')).toHaveCount(1);
