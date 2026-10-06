@@ -204,7 +204,7 @@ function checkSharedChapterNavigation(){
     const html=read(htmlPath);
     if(!html.includes('../lib/engine.js')) continue;
     if(!html.includes('../lib/engine.css')) fail('ch'+n+': shared engine CSS missing');
-    if(!/class=["'][^"']*\\bbook-controls\\b[^"']*["']/i.test(html)) warn('ch'+n+': no .book-controls container for shared navigation');
+    if(!/class=["'][^"']*\bbook-controls\b[^"']*["']/i.test(html)) warn('ch'+n+': no .book-controls container for shared navigation');
   }
 }
 
