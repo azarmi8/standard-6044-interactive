@@ -64,6 +64,7 @@ test.describe('6044 browser smoke', () => {
     await expect(page.locator('.engineering-hero-status [data-hero-phase]')).not.toBeEmpty();
     await expect(page.locator('.engineering-hero-status [data-hero-detail]')).not.toBeEmpty();
     await expect(page.locator('[data-hero-progress]')).toHaveCount(1);
+    await page.screenshot({ path: 'test-results/hero-desktop.png', fullPage: false });
     expect(consoleErrors).toEqual([]);
     expect(pageErrors).toEqual([]);
   });
