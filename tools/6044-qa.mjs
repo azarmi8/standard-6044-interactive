@@ -70,7 +70,7 @@ function checkHtmlIdentityAndIds(dir){
   for(const file of walk(dir)){
     if(!/\.html$/i.test(file)) continue;
     const src=read(file);
-    const ids=[...src.matchAll(/\\bid\\s*=\\s*[\"']([^\"']+)[\"']/gi)].map(m=>m[1]);
+    const ids=[...src.matchAll(/\bid\s*=\s*["']([^"']+)["']/gi)].map(m=>m[1]);
     const seen=new Set();
     for(const id of ids){
       if(seen.has(id)) fail('Duplicate HTML id in '+rel(file)+': '+id);
