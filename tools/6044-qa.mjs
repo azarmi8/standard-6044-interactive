@@ -23,6 +23,7 @@ if(!exists(SITE)) fail('site/6044-1397 is missing');
 checkNarration(SITE);
 checkPersianProductLanguage(SITE);
 checkHtmlIdentityAndIds(SITE);
+checkBibliographySurface(SITE);
 checkAppendixSimulationContract();
 checkAppendixDGContract();
 checkSimulationContract();
@@ -68,7 +69,7 @@ function checkHtmlIdentityAndIds(dir){
     /azarmi-capabilities/i
   ];
   for(const file of walk(dir)){
-    if(!/\.html$/i.test(file)) continue;
+    if(!/\.(html|css|js)$/i.test(file)) continue;
     const src=read(file);
     const ids=[...src.matchAll(/\bid\s*=\s*["']([^"']+)["']/gi)].map(m=>m[1]);
     const seen=new Set();
@@ -80,6 +81,15 @@ function checkHtmlIdentityAndIds(dir){
       if(pattern.test(src)) fail('Legacy product brand token remains in '+rel(file)+': '+pattern);
     }
   }
+}
+
+function checkBibliographySurface(dir){
+  const p=path.join(dir,'ch23','index.html');
+  if(!exists(p)){ fail('ch23 bibliography surface missing'); return; }
+  const src=read(p);
+  if(src.includes('پیوست ح')) fail('ch23 still contains the removed Appendix H classification');
+  if(!src.includes('EN 206: 2013+A1 2016')) fail('ch23 missing bibliography reference EN 206: 2013+A1 2016');
+  if(!src.includes('ISO 22965-2: 2007')) fail('ch23 missing bibliography reference ISO 22965-2: 2007');
 }
 
 function checkSimulationContract(){
