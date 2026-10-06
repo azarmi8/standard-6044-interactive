@@ -57,7 +57,7 @@ function hero(){
   let w=main.w,h=main.h,t0=performance.now(),paused=matchMedia?.("(prefers-reduced-motion: reduce)").matches,phase=0,phaseP=0,quality="high";
   stage.dataset.heroRenderer="canvas";stage.dataset.heroQuality=quality;
   const p=$("[data-hero-phase]",stage),d=$("[data-hero-detail]",stage),bar=$("[data-hero-progress]",stage);
-  const rnd=seeded(60441397),pts=Array.from({length:150},()=>({x:rnd(),y:rnd(),r:1+rnd()*2.4,a:.2+rnd()*.7}));
+  const rnd=seeded(60441397),pts=Array.from({length:230},()=>({x:rnd(),y:rnd(),r:.65+rnd()*2.1,a:.25+rnd()*.72}));
   function resize(){const a=fitCanvas(canvas,stage),b=fitCanvas(overlay,stage);w=a.w;h=a.h}
   window.addEventListener("resize",resize,{passive:true});
   function header(){
@@ -80,7 +80,12 @@ function hero(){
     const cx=w*.58,cy=h*.49,u=Math.min(w,h);
     drawCrosshair(c,cx,cy,u*.34);
     if(phase===0){
-      particles(c,cx,cy,105,.47,now,[colors.sand,colors.binder,colors.water,colors.orange]);
+      particles(c,cx,cy,170,.43,now,[colors.sand,colors.binder,colors.water,colors.orange]);
+      c.save();
+      c.strokeStyle="rgba(43,242,173,.18)";c.lineWidth=2;
+      c.beginPath();c.moveTo(w*.16,h*.72);c.lineTo(cx-u*.12,cy+u*.04);c.lineTo(cx+u*.10,cy-u*.02);c.lineTo(w*.84,h*.67);c.stroke();
+      c.strokeStyle="rgba(255,255,255,.09)";c.lineWidth=1;for(let i=0;i<4;i++){c.beginPath();c.moveTo(w*.16+i*8,h*.72+i*3);c.lineTo(cx-u*.12+i*5,cy+u*.04);c.stroke()}c.restore();
+      c.save();c.strokeStyle="rgba(242,234,216,.12)";c.lineWidth=1;for(let i=0;i<3;i++){c.beginPath();c.arc(cx,cy,u*(.16+i*.055),0,Math.PI*2);c.stroke()}c.restore();
       const spots=[[.25,.26,colors.sand,"AGGREGATE"],[.12,.67,colors.binder,"CEMENT / SCM"],[.76,.21,colors.water,"WATER"],[.81,.70,colors.orange,"ADMIXTURE"]];
       spots.forEach(([x,y,col,txt],i)=>{const sx=w*x,sy=h*y;glowDot(c,sx,sy,4,col,.65);label(c,txt,sx+10,sy+4,8,col,"left");if(i<3){c.strokeStyle="rgba(255,255,255,.08)";c.beginPath();c.moveTo(sx,sy);c.lineTo(cx+(i-1)*u*.11,cy+(i%2?.08:-.08)*u);c.stroke()}});
     }else if(phase===1){
@@ -163,9 +168,13 @@ function particleMorph(){
 }
 
 hero();particleMorph();
-$$("[data-process-step]").forEach(btn=>{
-  btn.addEventListener("click",()=>{$$("[data-process-step]").forEach(b=>b.setAttribute("aria-selected",String(b===btn)));const i=Number(btn.dataset.processStep);const root=$("[data-process-stage]");if(root)root.dataset.processState=String(i)})
+$("[data-process-step]").forEach(btn=>{
+  btn.addEventListener("click",()=>{$("[data-process-step]").forEach(b=>b.setAttribute("aria-selected",String(b===btn)));const i=Number(btn.dataset.processStep);const root=$("[data-process-stage]");if(root)root.dataset.processState=String(i)})
 });
+(()=>{const stage=$("[data-process-stage]");if(!stage||!window.IntersectionObserver)return;
+  const setFromScroll=()=>{const r=stage.getBoundingClientRect(),vh=innerHeight||800;const p=Math.max(0,Math.min(0.999,(vh*.84-r.top)/(Math.max(1,r.height)*.78)));const i=Math.min(4,Math.floor(p*5));stage.dataset.processState=String(i);$("[data-process-step]").forEach(b=>b.setAttribute("aria-selected",String(Number(b.dataset.processStep)===i)))};
+  addEventListener("scroll",setFromScroll,{passive:true});addEventListener("resize",setFromScroll,{passive:true});setFromScroll();
+})();
 (()=>{const stage=$("[data-process-stage]");if(!stage)return;let s=0;const texts=[
 ["01","MATERIAL INPUT","مواد وارد می‌شوند.","سه گروه اصلی ماده وارد فرایند می‌شوند و هنوز با هم مخلوط نشده‌اند."],
 ["02","MIXING","اختلاط آغاز می‌شود.","حرکت کنترل‌شده، اجزا را از حالت جدا به یک سیستم واحد نزدیک می‌کند."],
