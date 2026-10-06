@@ -114,4 +114,4 @@
 <script>
 (function(){const btn=document.getElementById('run-temp-sim'),out=document.getElementById('temp-output');if(!btn||!out)return;btn.addEventListener('click',function(){const r=window.SimulationEngine.ch07.calculate({memberDimensionMm:Number(document.getElementById('member-dimension').value),deliveryTemperatureC:Number(document.getElementById('delivery-temp').value)});if(!r.valid){out.textContent=r.error;out.className='sim-result bad';return;}out.innerHTML='<strong>'+(r.pass?'دمای تحویل در محدوده این سناریو قرار دارد.':'دمای تحویل خارج از محدوده این سناریو است.')+'</strong><br>حداقل مجاز بر اساس بُعد عضو: '+r.minimumC+' °C<br>حداکثر دمای تحویل: '+r.maximumC+' °C<br>کنترل حداقل: '+(r.minimumOK?'پذیرش':'رد')+'<br>کنترل حداکثر: '+(r.maximumOK?'پذیرش':'رد');out.className='sim-result '+(r.pass?'good':'bad');});})();
 </script>
-</body></html>
+<script src="../lib/navigation.js"></script></body></html>
