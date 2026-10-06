@@ -30,7 +30,8 @@ window.BOOK_CONFIG = {
   }
 };
 
-window.addEventListener('DOMContentLoaded', () => {
+if (typeof document !== 'undefined' && typeof document.addEventListener === 'function') {
+  document.addEventListener('DOMContentLoaded', () => {
   const button = document.getElementById('run-conformity');
   const output = document.getElementById('conformity-output');
   if (!button || !output || !window.SimulationEngine?.ch15) return;
@@ -57,6 +58,4 @@ window.addEventListener('DOMContentLoaded', () => {
       (r.missing.length ? '<br>موارد ناقص: ' + r.missing.join('، ') : '');
 
     output.className = 'sim-result ' + (r.assessmentReady ? 'good' : 'bad');
-  });
-});
-
+  });\n  });\n}\n
