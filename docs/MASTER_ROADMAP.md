@@ -68,6 +68,19 @@ Current artifacts:
 **Exit gate:** a new chapter can be implemented mainly from configuration/content. **PASSED.**
 
 ## Engineering Visual Engine v2 — current branch upgrade
+## Authored Render Hardening — current branch upgrade
+**Status: implemented on PR #34 and validated by CI.**
+
+- [x] Repository-owned engineering renders are the canonical homepage visual assets.
+- [x] Homepage semantic render sequence communicates Factory → Fresh Concrete → Strength Evidence.
+- [x] Representative Chapter 4 uses the factory/material render instead of particle-morph Canvas.
+- [x] Representative Chapter 10 uses the fresh-concrete/slump render instead of lab Canvas.
+- [x] Representative Chapter 11 uses the strength render instead of lab Canvas.
+- [x] Shared evidence-led render panel with responsive desktop/mobile treatment.
+- [x] Static QA forbids the migrated decorative visual runtimes from reappearing on chapter surfaces.
+- [x] Browser Smoke covers representative render presence, natural dimensions and legacy-canvas absence.
+- [ ] Human visual acceptance of representative chapter surfaces.
+
 ## Engineering Product Polish — current branch upgrade
 **Status: implemented as a non-Production PR upgrade.**
 - [x] Persian-first typography baseline across the book shell.
@@ -249,20 +262,19 @@ After: checks → docs/status → focused commit → report changed/remaining �
 
 ## V3.1 Release Candidate — current branch truth
 
-**Branch:** `redesign/cretiq-rendered-visuals-v3`  
+**Branch:** redesign/cretiq-rendered-visuals-v3  
 **PR:** #34  
-**Current head:** `bd9038d53458260547d0fec7b26a1458c1fe12c4`
+**Current head:** 6781ba7826127abdffaed597a5920269ffced378
 
 ### Verified
-- [x] CRETIQ 6044 rendered homepage uses repository-owned `hero.webp`, `slump.webp`, `strength.webp`.
+- [x] CRETIQ 6044 rendered homepage uses repository-owned hero.webp, slump.webp, strength.webp.
 - [x] Legacy homepage canvas/process choreography is no longer loaded by the homepage.
 - [x] Semantic render sequence: Factory → Fresh Concrete → Strength Evidence.
 - [x] Manual scene selection, playback, keyboard navigation and reduced-motion behavior.
-- [x] Desktop/mobile visual smoke.
-- [x] Static QA.
-- [x] Browser Smoke 40/40.
-- [x] No branch drift: 19 commits ahead of main, 0 behind at this checkpoint.
-- [x] Shared UI design baseline added: Emil Design Engineering, UI/UX Pro Max, Taste.
+- [x] Representative Chapter 4/10/11 surfaces use authored renders and no longer load the migrated decorative Canvas visual runtimes.
+- [x] Static QA: PASS.
+- [x] Browser Smoke: PASS.
+- [x] PR mergeability verified.
 
 ### Still blocking v1.0
 - [ ] Human visual acceptance of representative pages.
@@ -273,3 +285,4 @@ After: checks → docs/status → focused commit → report changed/remaining �
 - [ ] Merge to main, Pages verification, release tag.
 
 **Scope rule:** no new feature family should be opened unless it closes one of these release gates.
+
