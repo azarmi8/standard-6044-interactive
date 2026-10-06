@@ -250,6 +250,7 @@ test.describe('6044 browser smoke', () => {
       await expect(render.locator('img')).toHaveAttribute('src', item.asset);
       await expect(render.locator('.chapter-render-step')).toHaveCount(4);
       await expect(render.locator('.chapter-render-source')).toContainText('VISUAL / واقعی');
+      await page.screenshot({ path: 'test-results/' + item.route.replaceAll('/','') + 'render-desktop.png', fullPage: false });
       const meta = await render.locator('img').evaluate(img => ({ complete: img.complete, w: img.naturalWidth, h: img.naturalHeight }));
       expect(meta.complete && meta.w > 0 && meta.h > 0, JSON.stringify(meta)).toBeTruthy();
       await expect(page.locator('[data-lab-visual], [data-lab-canvas]')).toHaveCount(0);
