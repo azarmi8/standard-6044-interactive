@@ -83,8 +83,8 @@ test.describe('6044 browser smoke', () => {
     const heroStage = page.locator('.engineering-hero-stage');
     await expect(heroStage).toHaveAttribute('data-hero-renderer', /^(webgl|canvas)$/);
     await expect(heroStage).toHaveAttribute('data-hero-quality', /^(high|balanced|low|adaptive-low|adaptive-balanced)$/);
-    await expect(page.locator('.engineering-hero-status [data-hero-phase]')).not.toBeEmpty();
-    await expect(page.locator('.engineering-hero-status [data-hero-detail]')).not.toBeEmpty();
+    await expect(page.locator('.hero-visual-state [data-hero-phase]')).not.toBeEmpty();
+    await expect(page.locator('.hero-visual-state [data-hero-detail]')).not.toBeEmpty();
     await expect(page.locator('[data-hero-progress]')).toHaveCount(1);
     await page.screenshot({ path: 'test-results/hero-desktop.png', fullPage: false });
     for (const phase of [1, 2, 3, 4]) {
@@ -105,13 +105,17 @@ test.describe('6044 browser smoke', () => {
     expect(pageErrors).toEqual([]);
   });
 
-  test('homepage intelligence core + visual showcase boot', async ({ page }) => {
+  test('homepage cinematic visual showcase boot', async ({ page }) => {
     await page.goto('http://127.0.0.1:8765/', { waitUntil: 'networkidle' });
-    await expect(page.locator('.engineering-core')).toHaveCount(1);
-    await expect(page.locator('.home-visual-preview')).toHaveCount(1);
+    await expect(page.locator('.cinematic-hero')).toHaveCount(1);
+    await expect(page.locator('.story-intro')).toHaveCount(1);
+    await expect(page.locator('.cinematic-process')).toHaveCount(1);
+    await expect(page.locator('.learning-editorial')).toHaveCount(1);
+    await expect(page.locator('.visual-feature')).toHaveCount(1);
+    await expect(page.locator('.chapter-explorer')).toHaveCount(1);
     await expect(page.locator('.home-visual-preview')).toHaveAttribute('data-visual-state','0');
-    await expect(page.locator('#capabilities-title')).toHaveCount(1);
-    await expect(page.locator('.engineering-core')).toHaveCount(1);
+    await page.locator('[data-process-step="2"]').click();
+    await expect(page.locator('[data-process-stage]')).toHaveAttribute('data-process-state','2');
     await page.locator('.home-visual-preview [data-particle-play]').click();
     await page.waitForTimeout(250);
     await expect(page.locator('.home-visual-preview')).toHaveAttribute('data-visual-state','0');
