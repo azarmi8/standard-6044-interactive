@@ -188,6 +188,16 @@ function checkAppendixSimulationContract(){
   const c=sandbox.window.AppendixSimulations?.air;
   if(!a){ fail('Appendix A simulation is missing'); return; }
   if(!c){ fail('Appendix C simulation is missing'); return; }
+  if(a.thresholds.densityNoAir?.limitPct!==1) fail('Appendix A density threshold must be 1.0% per Table A-1');
+  if(a.thresholds.air?.limitPct!==2) fail('Appendix A air-content threshold must be 2.0% per Table A-1');
+  const densityBoundary=a.compare('densityNoAir',2400,2424);
+  if(!densityBoundary.valid || !densityBoundary.pass) fail('Appendix A density 1.0% boundary case failed');
+  const densityBeyond=a.compare('densityNoAir',2400,2425);
+  if(!densityBeyond.valid || densityBeyond.pass) fail('Appendix A density >1.0% guard failed');
+  const airBoundary=a.compare('air',5,5.1);
+  if(!airBoundary.valid || !airBoundary.pass) fail('Appendix A air 2.0% boundary case failed');
+  const airBeyond=a.compare('air',5,5.2);
+  if(!airBeyond.valid || airBeyond.pass) fail('Appendix A air >2.0% guard failed');
   const a1=a.compare('densityNoAir',2400,2420);
   if(!a1.valid || !a1.pass) fail('Appendix A density comparison case failed');
   const a2=a.compare('slump',100,130);
