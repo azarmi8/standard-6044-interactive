@@ -165,7 +165,7 @@ test.describe('6044 browser smoke', () => {
   test('Appendix F conditional audit path responds', async ({ page }) => {
     await page.goto('http://127.0.0.1:8765/ch21/', { waitUntil: 'networkidle' });
     await page.locator('#run-f-sim').click();
-    await expect(page.locator('#f-output')).toContainText('ترتیب مسیر آموزشی');
+    await expect(page.locator('#f-output')).toContainText('ترتیب مراحل');
   });
 
   test('Chapter 10 laboratory visual follows shared reader state', async ({ page }) => {
