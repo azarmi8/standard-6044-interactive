@@ -48,8 +48,8 @@
       : '<small>مسیر مطالعه</small><strong>استاندارد ملی ایران ۶۰۴۴:۱۳۹۷</strong><span>منبع → فهم → کاربرد → تمرین → تصمیم</span>';
     const html=
       '<button class="study-drawer-launch" type="button" data-study-open aria-controls="study-command-drawer" aria-expanded="false"><span class="launch-mark" aria-hidden="true">☰</span><span>مرکز مطالعه</span></button>'+
-      '<div class="study-drawer-backdrop" data-study-backdrop></div>'+
-      '<aside class="study-drawer" id="study-command-drawer" data-study-drawer aria-label="مرکز مطالعه">'+
+      '<div class="study-drawer-backdrop" data-study-backdrop hidden></div>'+
+      '<aside class="study-drawer" id="study-command-drawer" data-study-drawer aria-label="مرکز مطالعه" hidden>'+
         '<div class="study-drawer-head"><div><div class="study-drawer-eyebrow">6044 / STUDY NAVIGATION</div><div class="study-drawer-title">مرکز مطالعه</div></div><button class="study-drawer-close" type="button" data-study-close aria-label="بستن مرکز مطالعه">×</button></div>'+
         '<div class="study-drawer-current">'+currentMeta+'</div>'+
         '<section class="study-drawer-section"><h3>دسترسی سریع</h3><div class="study-drawer-links">'+
@@ -67,6 +67,7 @@
     let lastFocus=null;
     const focusables=()=>drawer.querySelectorAll('a[href],button:not([disabled])');
     function setOpen(v){
+      drawer.hidden=!v;back.hidden=!v;
       drawer.classList.toggle('is-open',v);back.classList.toggle('is-open',v);document.body.classList.toggle('study-drawer-open',v);open.setAttribute('aria-expanded',String(v));
       if(v){lastFocus=document.activeElement;close.focus()} else if(lastFocus){lastFocus.focus()}
     }
