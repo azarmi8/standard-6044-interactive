@@ -25,17 +25,6 @@ Mohammadreza Azarmi
 ## Content rule
 محتوای هر فصل باید بر اساس منبع استاندارد ساخته شود و مواردی که منبع صراحتاً بیان نکرده است نباید به‌عنوان الزام استاندارد معرفی شود.
 
-## Papermorph relationship
-ساختار و روش تولید از Papermorph الهام گرفته است، به‌خصوص:
-- book map
-- chapter storyboard
-- narration JSON
-- interactive 1600×900 stage
-- beats
-- quick checks
-- static self-contained delivery
-
-مرجع: https://github.com/DozenTwelve/Papermorph
 
 ## Source privacy
 PDF اصلی، صفحات استخراج‌شده و متن خام منبع خصوصی هستند و نباید در خروجی استاتیک یا Git قرار بگیرند.
