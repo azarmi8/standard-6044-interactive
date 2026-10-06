@@ -54,6 +54,26 @@ test.describe('6044 browser smoke', () => {
   }
 
 
+
+  test('study command drawer works from home and chapter context', async ({ page }) => {
+    await page.goto('http://127.0.0.1:8765/', { waitUntil: 'networkidle' });
+    const launcher = page.locator('[data-study-open]');
+    await expect(launcher).toHaveCount(1);
+    await launcher.click();
+    const drawer = page.locator('[data-study-drawer]');
+    await expect(drawer).toHaveClass(/is-open/);
+    await expect(drawer.locator('.study-drawer-link')).toHaveCount(27);
+    await expect(drawer.getByText('جست‌وجوی استاندارد')).toBeVisible();
+    await page.keyboard.press('Escape');
+    await expect(drawer).not.toHaveClass(/is-open/);
+
+    await page.goto('http://127.0.0.1:8765/ch11/', { waitUntil: 'networkidle' });
+    await page.locator('[data-study-open]').click();
+    await expect(page.locator('[data-study-drawer] .study-drawer-link.is-current')).toContainText('الزامات بتن سخت‌شده');
+    await expect(page.locator('[data-study-drawer]')).toContainText('فصل بعدی');
+    await page.keyboard.press('Escape');
+  });
+
   test('homepage engineering hero particle narrative boots cleanly', async ({ page }) => {
     const consoleErrors = [];
     const pageErrors = [];
