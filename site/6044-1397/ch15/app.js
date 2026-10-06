@@ -58,4 +58,5 @@ if (typeof document !== 'undefined' && typeof document.addEventListener === 'fun
       (r.missing.length ? '<br>موارد ناقص: ' + r.missing.join('، ') : '');
 
     output.className = 'sim-result ' + (r.assessmentReady ? 'good' : 'bad');
-  });\n  });\n}\n
+  });
+}
