@@ -447,5 +447,5 @@
   resize();spawnParticles();render(performance.now());
   if(!reduced) requestAnimationFrame(tick);
 
-  window.6044HeroVisual={pause:()=>paused=true,play:()=>{if(!reduced)paused=false},reset:()=>{elapsed=0;render(performance.now())}};
+  window['6044HeroVisual']={pause:()=>paused=true,play:()=>{if(!reduced)paused=false},reset:()=>{elapsed=0;render(performance.now())}};
 })();
