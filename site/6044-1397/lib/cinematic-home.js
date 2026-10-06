@@ -115,13 +115,14 @@ function hero(){
     }
   }
   function frame(now){
-    const total=23,elapsed=(now-t0)/1000;const raw=(elapsed%total)/total*heroPhases.length;phase=Math.floor(raw);phaseP=raw-phase;
+    const total=23,elapsed=Math.max(0,(now-t0)/1000);const raw=((elapsed%total)/total)*heroPhases.length;phase=Math.max(0,Math.min(heroPhases.length-1,Math.floor(raw)));phaseP=Math.max(0,Math.min(0.999,raw-phase));
+    const hp=heroPhases[phase]||heroPhases[0];
     drawHero(now);header();
-    p.textContent=heroPhases[phase].title;d.textContent=heroPhases[phase].detail;bar.style.width=((phase+phaseP)/heroPhases.length*100).toFixed(1)+"%";
+    p.textContent=hp.title;d.textContent=hp.detail;bar.style.width=((phase+phaseP)/heroPhases.length*100).toFixed(1)+"%";
     if(!paused)requestAnimationFrame(frame)
   }
   stage.addEventListener("pointermove",e=>{stage.style.setProperty("--pointer-x",e.offsetX+"px");stage.style.setProperty("--pointer-y",e.offsetY+"px")});
-  window["6044HeroVisual"]={seekPhase(i,pct=.5){phase=clamp(Number(i),0,heroPhases.length-1);phaseP=clamp(Number(pct));t0=performance.now();drawHero(performance.now());header();p.textContent=heroPhases[phase].title;d.textContent=heroPhases[phase].detail;bar.style.width=((phase+phaseP)/heroPhases.length*100)+"%"}};
+  window["6044HeroVisual"]={seekPhase(i,pct=.5){phase=Math.max(0,Math.min(heroPhases.length-1,Math.floor(Number(i)||0)));phaseP=Math.max(0,Math.min(.999,Number(pct)||0));t0=performance.now();drawHero(performance.now());header();const hp=heroPhases[phase]||heroPhases[0];p.textContent=hp.title;d.textContent=hp.detail;bar.style.width=((phase+phaseP)/heroPhases.length*100)+"%"}};
   frame(performance.now())
 }
 
