@@ -72,12 +72,20 @@
     attribute float a_size;
     uniform float u_time;
     uniform float u_pointScale;
+    uniform float u_yaw;
+    uniform float u_pitch;
     varying vec4 v_color;
     void main(){
       vec3 p = a_position;
       float sway = sin(u_time * .85 + p.z * 9.0 + p.x * 3.0) * .004;
       p.xy += vec2(sway, cos(u_time * .72 + p.y * 7.0) * .003);
-      float depth = clamp(1.35 - p.z * .28, .72, 1.7);
+
+      float cy = cos(u_yaw), sy = sin(u_yaw);
+      float cp = cos(u_pitch), sp = sin(u_pitch);
+      p = vec3(p.x * cy - p.z * sy, p.y, p.x * sy + p.z * cy);
+      p = vec3(p.x, p.y * cp - p.z * sp, p.y * sp + p.z * cp);
+
+      float depth = clamp(1.35 - p.z * .34, .68, 1.82);
       vec2 projected = p.xy / depth;
       gl_Position = vec4(projected, clamp(p.z * .72, -1.0, 1.0), 1.0);
       gl_PointSize = max(1.0, a_size * u_pointScale / depth);
@@ -113,7 +121,12 @@
     gl.attachShader(program,vs); gl.attachShader(program,fs); gl.linkProgram(program);
     if(!gl.getProgramParameter(program,gl.LINK_STATUS)){ program=null; return; }
     posBuffer=gl.createBuffer(); colorBuffer=gl.createBuffer(); sizeBuffer=gl.createBuffer();
-    uniforms={time:gl.getUniformLocation(program,'u_time'), pointScale:gl.getUniformLocation(program,'u_pointScale')};
+    uniforms={
+      time:gl.getUniformLocation(program,'u_time'),
+      pointScale:gl.getUniformLocation(program,'u_pointScale'),
+      yaw:gl.getUniformLocation(program,'u_yaw'),
+      pitch:gl.getUniformLocation(program,'u_pitch')
+    };
     attribs={position:gl.getAttribLocation(program,'a_position'), color:gl.getAttribLocation(program,'a_color'), size:gl.getAttribLocation(program,'a_size')};
     gl.useProgram(program);
     gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
@@ -219,11 +232,14 @@
     }
     if(phase===2){
       const a=(p.seed*.009)% (Math.PI*2);
-      const radial=.12+.34*Math.sqrt((p.seed%97)/97);
+      const radial=Math.min(.46,.10+.36*p.radiusBias);
       const rr=radial*(p.type==='aggregate'?1:p.type==='cement'?.92:.86);
-      return {x:cx+Math.cos(a)*rr,
-              y:cy+Math.sin(a)*rr*.77,
-              z:p.zBias};
+      const zScale=Math.sqrt(Math.max(.05,1-(rr/.48)*(rr/.48)));
+      return {
+        x:cx+Math.cos(a)*rr,
+        y:cy+Math.sin(a)*rr*.74,
+        z:p.zBias*zScale
+      };
     }
     if(phase===3){
       const a=p.seed*1.73;
@@ -324,6 +340,13 @@
     }
     if(phase===2){
       ctx.save();
+      const reticleR=Math.min(width*.33,height*.28);
+      ctx.strokeStyle='rgba(43,242,173,.18)';
+      ctx.lineWidth=1;
+      [[0,-reticleR],[reticleR,0],[0,reticleR],[-reticleR,0]].forEach(([dx,dy])=>{
+        ctx.beginPath();ctx.moveTo(cx+dx*.92,cy+dy*.92);ctx.lineTo(cx+dx,cy+dy);ctx.stroke();
+      });
+
       const aura=ctx.createRadialGradient(cx-width*.04,cy-height*.02,8,cx,cy,width*.34);
       aura.addColorStop(0,'rgba(43,242,173,.105)');
       aura.addColorStop(.45,'rgba(39,197,222,.045)');
@@ -396,6 +419,10 @@
     gl.useProgram(program);
     gl.uniform1f(uniforms.time,timeSec);
     gl.uniform1f(uniforms.pointScale, width<600 ? 1.95*dpr : 2.35*dpr);
+    const targetYaw = pointer.active ? (pointer.x-.5)*.34 : Math.sin(timeSec*.28)*.025;
+    const targetPitch = pointer.active ? (.5-pointer.y)*.24 : Math.cos(timeSec*.22)*.018;
+    gl.uniform1f(uniforms.yaw,targetYaw);
+    gl.uniform1f(uniforms.pitch,targetPitch);
 
     gl.bindBuffer(gl.ARRAY_BUFFER,posBuffer);
     const locPos=attribs.position;
@@ -464,7 +491,6 @@
     pointer.active=true;
   },{passive:true});
   wrap.addEventListener('pointerleave',()=>{pointer.active=false;});
-  wrap.addEventListener('click',()=>{paused=!paused;},{passive:true});
 
   window.addEventListener('resize',()=>{resize();spawnParticles();render(performance.now());},{passive:true});
   document.addEventListener('visibilitychange',()=>{ if(document.hidden) paused=true; else if(!reduced) paused=false; });
