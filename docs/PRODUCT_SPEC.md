@@ -5,7 +5,7 @@ Standard 6044 Interactive is a professional Persian RTL interactive engineering 
 
 Owner / creator: Mohammadreza Azarmi
 
-Independent implementation. Papermorph is a workflow reference, not a runtime dependency.
+Independent implementation. این محصول is a workflow reference, not a runtime dependency.
 
 ## Product promise
 Standard → Explain → Animate → Simulate → Practice → Decide → Assess
