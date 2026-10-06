@@ -6,6 +6,9 @@ This repository uses a three-skill design baseline for any task that changes UI,
 1. `.agents/skills/ui-ux-pro-max/SKILL.md` — system-level UI/UX, accessibility, responsive behavior, typography, color, interaction, charts, and stack-aware implementation.
 2. `.agents/skills/emil-design-eng/SKILL.md` — design-engineering craft, motion quality, interaction details, component polish, and perceived quality.
 3. `.agents/skills/design-taste-frontend/SKILL.md` — anti-slop visual direction, layout/typography/spacing discipline, redesign audit, and intentional design variance.
+4. `.agents/skills/frontend-ui-engineering/SKILL.md` — production UI engineering, component states, accessibility, responsive behavior, and performance.
+5. `.agents/skills/ui-animation/SKILL.md` — purposeful motion, timing, continuity, and reduced-motion discipline.
+6. `.agents/skills/playwright-visual-regression/SKILL.md` — bounded screenshot/regression verification for representative surfaces.
 
 ## Precedence
 Product/domain correctness > usability/accessibility > product identity > visual polish.
