@@ -65,6 +65,11 @@ test.describe('6044 browser smoke', () => {
     await expect(page.locator('.engineering-hero-status [data-hero-detail]')).not.toBeEmpty();
     await expect(page.locator('[data-hero-progress]')).toHaveCount(1);
     await page.screenshot({ path: 'test-results/hero-desktop.png', fullPage: false });
+    for (const phase of [1, 2, 3, 4]) {
+      await page.evaluate((p) => window['6044HeroVisual']?.seekPhase(p, 0.55), phase);
+      await page.waitForTimeout(60);
+      await page.screenshot({ path: `test-results/hero-phase-${phase}.png`, fullPage: false });
+    }
     const mobileContext = await page.context().browser().newContext({
       viewport: { width: 390, height: 844 },
       reducedMotion: 'reduce'
