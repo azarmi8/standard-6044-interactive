@@ -21,6 +21,7 @@ function rel(p){ return path.relative(ROOT,p).replaceAll(path.sep,'/'); }
 
 if(!exists(SITE)) fail('site/6044-1397 is missing');
 checkNarration(SITE);
+checkPersianProductLanguage(SITE);
 checkAppendixSimulationContract();
 checkAppendixDGContract();
 checkSimulationContract();
@@ -32,6 +33,30 @@ for(const n of expected){
   const dir=path.join(SITE,'ch'+n);
   const html=path.join(dir,'index.html');
   if(!exists(html)) fail(`ch${n}: index.html missing`);
+}
+
+function checkPersianProductLanguage(dir){
+  const forbidden=[
+    'کنترل‌گر پروژه',
+    'نقشه ضعف',
+    'Knowledge Search',
+    'موتور تعاملی مشترک',
+    'سازنده برنامه کنترل تولید',
+    'Change Map',
+    'فرآیند'
+  ];
+  for(const file of walk(dir)){
+    if(!/\.(html|js)$/i.test(file)) continue;
+    const src=read(file);
+    for(const phrase of forbidden){
+      if(src.includes(phrase)){
+        const isRuntimeCode=/\.js$/i.test(file);
+        const level=isRuntimeCode && !['کنترل‌گر پروژه','نقشه ضعف','Knowledge Search','موتور تعاملی مشترک','سازنده برنامه کنترل تولید','Change Map'].includes(phrase) ? 'warning' : 'error';
+        if(level==='warning') warn(`${rel(file)}: legacy orthography phrase remains: ${phrase}`);
+        else fail(`${rel(file)}: forbidden product-language phrase remains: ${phrase}`);
+      }
+    }
+  }
 }
 
 function checkSimulationContract(){
@@ -166,7 +191,7 @@ function checkAssessmentContract(){
   if(summary.total!==engine.questions.length) fail('assessment summary total mismatch');
   const html=read(htmlPath);
   if(!html.includes('assessment.js')) fail('assessment page does not load shared assessment engine');
-  if(!html.includes('نقاط نیازمند مرور')) fail('assessment page missing weakness-map output');
+  if(!html.includes('مباحث نیازمند مرور')) fail('assessment page missing review-topics output');
 }
 
 
