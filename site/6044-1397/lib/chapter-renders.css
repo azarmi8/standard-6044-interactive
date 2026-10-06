@@ -185,3 +185,148 @@
 @media(prefers-reduced-motion:reduce){
   .chapter-render-feature *{scroll-behavior:auto!important}
 }
+
+
+/* Render-led reader stage — shared with representative chapters */
+.rendered-reader-stage{
+  position:relative;
+  min-height:520px;
+  overflow:hidden;
+  border-radius:18px;
+  background:#071015;
+  border:1px solid #20363f;
+  isolation:isolate;
+}
+.rendered-reader-stage>img{
+  display:block;
+  width:100%;
+  height:100%;
+  min-height:520px;
+  object-fit:cover;
+  object-position:center;
+  filter:saturate(.94) contrast(1.04);
+  transition:transform .45s cubic-bezier(.22,.8,.24,1),filter .3s ease;
+}
+.rendered-reader-stage:hover>img{transform:scale(1.012);filter:saturate(1) contrast(1.06)}
+.rendered-reader-overlay{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  padding:18px;
+  background:
+    linear-gradient(180deg,rgba(3,9,12,.62),transparent 24%,transparent 58%,rgba(3,9,12,.82)),
+    linear-gradient(90deg,rgba(3,9,12,.18),transparent 46%,rgba(3,9,12,.42));
+  pointer-events:none;
+}
+.rendered-reader-topline{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  color:#a9c8be;
+  font-size:.66rem;
+  font-weight:900;
+  letter-spacing:.12em;
+}
+.rendered-reader-topline span:last-child{color:#2bf2ad}
+.rendered-reader-copy{
+  max-width:min(760px,82%);
+  margin-top:auto;
+  margin-bottom:12px;
+  text-shadow:0 8px 24px rgba(0,0,0,.52);
+}
+.rendered-reader-kicker{
+  display:block;
+  margin-bottom:7px;
+  color:#8ae7c9;
+  font-size:.66rem;
+  font-weight:900;
+  letter-spacing:.1em;
+}
+.rendered-reader-copy strong{
+  display:block;
+  color:#f2faf7;
+  font-size:clamp(1.4rem,2.8vw,2.35rem);
+  line-height:1.3;
+}
+.rendered-reader-copy p{
+  margin:8px 0 0;
+  color:#c4d6d0;
+  font-size:.9rem;
+  line-height:1.8;
+}
+.rendered-reader-rail{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+  pointer-events:auto;
+  max-width:100%;
+}
+.rendered-reader-rail button{
+  appearance:none;
+  min-height:40px;
+  padding:8px 12px;
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  border:1px solid rgba(183,220,208,.28);
+  border-radius:10px;
+  background:rgba(7,16,21,.76);
+  color:#dbe9e4;
+  cursor:pointer;
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  transition:transform .18s ease,border-color .18s ease,background .18s ease,color .18s ease;
+}
+.rendered-reader-rail button span{
+  color:#7f9f95;
+  font-size:.62rem;
+  font-weight:900;
+}
+.rendered-reader-rail button:hover,
+.rendered-reader-rail button:focus-visible{
+  transform:translateY(-1px);
+  border-color:#62dcb8;
+  background:rgba(9,34,31,.92);
+  outline:2px solid rgba(43,242,173,.32);
+  outline-offset:2px;
+}
+.rendered-reader-rail button.is-active,
+.rendered-reader-rail button[aria-current="step"]{
+  border-color:#2bf2ad;
+  background:rgba(8,52,41,.94);
+  color:#f2fff9;
+  box-shadow:0 8px 22px rgba(43,242,173,.12);
+}
+.rendered-reader-rail button.is-active span,
+.rendered-reader-rail button[aria-current="step"] span{color:#2bf2ad}
+.rendered-reader-roles{display:none}
+.rendered-reader-stage .reader-hud{
+  top:18px;
+  left:18px;
+  right:auto;
+  max-width:min(460px,74%);
+  pointer-events:none;
+}
+.rendered-reader-stage .reader-hud-rail{display:none}
+@media(max-width:900px){
+  .rendered-reader-stage,.rendered-reader-stage>img{min-height:420px}
+  .rendered-reader-copy{max-width:92%}
+}
+@media(max-width:560px){
+  .rendered-reader-stage,.rendered-reader-stage>img{min-height:320px}
+  .rendered-reader-overlay{padding:13px}
+  .rendered-reader-topline{font-size:.58rem}
+  .rendered-reader-copy{max-width:100%;margin-bottom:9px}
+  .rendered-reader-copy strong{font-size:1.28rem}
+  .rendered-reader-copy p{font-size:.78rem;line-height:1.65}
+  .rendered-reader-rail{gap:5px}
+  .rendered-reader-rail button{min-height:38px;padding:7px 9px;font-size:.73rem}
+  .rendered-reader-stage .reader-hud{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .rendered-reader-stage>img,
+  .rendered-reader-rail button{transition:none!important}
+  .rendered-reader-stage:hover>img{transform:none}
+}
