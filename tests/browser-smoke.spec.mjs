@@ -84,6 +84,7 @@ test.describe('6044 browser smoke', () => {
     const hero = page.locator('.rendered-hero-stage img');
     await expect(hero).toHaveAttribute('src', 'assets/visuals/hero.webp');
     await expect(hero).toBeVisible();
+    await page.screenshot({ path: 'test-results/home-render-top-desktop.png', fullPage: false });
 
     await expect(page.locator('[data-engineering-hero]')).toHaveCount(0);
     await expect(page.locator('.cinematic-process')).toHaveCount(0);
@@ -106,6 +107,26 @@ test.describe('6044 browser smoke', () => {
     expect(imageState.some(x => x.src?.includes('slump.webp'))).toBeTruthy();
     expect(imageState.some(x => x.src?.includes('strength.webp'))).toBeTruthy();
     expect(imageState.some(x => x.src?.includes('hero.webp'))).toBeTruthy();
+
+    const layout = await page.evaluate(() => {
+      const body = document.body;
+      const h1 = document.querySelector('h1');
+      const lead = document.querySelector('.hero-lead');
+      const styles = [
+        h1 && getComputedStyle(h1).fontSize,
+        lead && getComputedStyle(lead).fontSize
+      ];
+      return {
+        overflowX: body.scrollWidth - document.documentElement.clientWidth,
+        h1FontPx: parseFloat(styles[0] || '0'),
+        leadFontPx: parseFloat(styles[1] || '0')
+      };
+    });
+    expect(layout.overflowX, JSON.stringify(layout)).toBeLessThanOrEqual(1);
+    expect(layout.h1FontPx, JSON.stringify(layout)).toBeGreaterThanOrEqual(40);
+    expect(layout.h1FontPx, JSON.stringify(layout)).toBeLessThanOrEqual(76);
+    expect(layout.leadFontPx, JSON.stringify(layout)).toBeGreaterThanOrEqual(16);
+    expect(layout.leadFontPx, JSON.stringify(layout)).toBeLessThanOrEqual(20);
 
     await page.screenshot({ path: 'test-results/home-render-desktop.png', fullPage: false });
     const mobileContext = await page.context().browser().newContext({
