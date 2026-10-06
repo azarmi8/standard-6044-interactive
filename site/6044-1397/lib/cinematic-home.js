@@ -187,3 +187,4 @@ if(processStage){
     addEventListener("scroll",syncFromScroll,{passive:true});addEventListener("resize",syncFromScroll,{passive:true});syncFromScroll();
   }
 }
+})();
