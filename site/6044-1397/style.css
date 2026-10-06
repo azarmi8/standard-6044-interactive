@@ -489,3 +489,31 @@ a{transition:color .18s ease,opacity .18s ease}
 @media(prefers-reduced-motion:reduce){
   .photo-product-page .photo-panel img,.photo-product-page .photo-chapter-strip a,.photo-product-page .photo-chapter-strip a:before{transition:none!important}
 }
+
+/* V3 typography scale — disciplined engineering editorial hierarchy */
+.photo-product-page{font-size:16px;line-height:1.55}
+.photo-product-page .cinematic-nav{font-size:12px}
+.photo-product-page .cinematic-brand span{font-size:17px}.photo-product-page .cinematic-brand b{font-size:11px}
+.photo-product-page .photo-nav-links a,.photo-product-page .cinematic-nav-link{font-size:12px;line-height:1.2}
+.photo-product-page .hero-kicker,.photo-product-page .story-index,.photo-product-page .final-kicker{font-size:11px;line-height:1.35}
+.photo-product-page .cinematic-hero h1{font-size:clamp(42px,5.3vw,76px);line-height:1.02;letter-spacing:-.045em;margin:20px 0 24px}
+.photo-product-page .hero-lead{font-size:clamp(16px,1.25vw,19px);line-height:1.95;max-width:610px}
+.photo-product-page .hero-actions{font-size:14px}.photo-product-page .hero-primary,.photo-product-page .hero-text-link,.photo-product-page .final-button{font-size:14px}
+.photo-product-page .hero-index{font-size:12px}.photo-product-page .hero-index b{font-size:20px}
+.photo-product-page .photo-hero-caption strong{font-size:clamp(18px,2vw,26px);line-height:1.35}.photo-product-page .photo-hero-caption small{font-size:11px;line-height:1.6}
+.photo-product-page .story-copy h2,.photo-product-page .process-copy h2,.photo-product-page .learning-statement h2,.photo-product-page .explorer-head h2,.photo-product-page .final-cta h2,.photo-product-page .photo-feature .visual-feature-copy h2{font-size:clamp(34px,4vw,58px);line-height:1.08;letter-spacing:-.035em}
+.photo-product-page .story-copy p,.photo-product-page .process-copy>p,.photo-product-page .visual-feature-copy>p,.photo-product-page .photo-final p{font-size:16px;line-height:1.95}
+.photo-product-page .photo-panel-label strong{font-size:16px}.photo-product-page .photo-panel-label span{font-size:11px}
+.photo-product-page .process-steps button{font-size:14px}.photo-product-page .process-steps button b{font-size:11px}
+.photo-product-page .judgement-panel span,.photo-product-page .photo-lab-meta span{font-size:10px}.photo-product-page .judgement-panel strong{font-size:14px;line-height:1.8}
+.photo-product-page .learning-list article strong{font-size:16px}.photo-product-page .learning-list article p{font-size:14px;line-height:1.8}.photo-product-page .learning-list article span{font-size:11px}
+.photo-product-page .photo-chapter-strip strong{font-size:16px}.photo-product-page .photo-chapter-strip small{font-size:13px}.photo-product-page .photo-chapter-strip span{font-size:11px}
+.photo-product-page .photo-lab-meta strong{font-size:18px}.photo-product-page .photo-final p{font-size:16px}
+@media(max-width:700px){
+  .photo-product-page{font-size:15px}
+  .photo-product-page .cinematic-brand span{font-size:16px}.photo-product-page .cinematic-brand b{font-size:10px}
+  .photo-product-page .cinematic-hero h1{font-size:clamp(34px,10vw,46px);line-height:1.05}
+  .photo-product-page .hero-lead{font-size:15px;line-height:1.9}
+  .photo-product-page .story-copy h2,.photo-product-page .process-copy h2,.photo-product-page .learning-statement h2,.photo-product-page .explorer-head h2,.photo-product-page .final-cta h2,.photo-product-page .photo-feature .visual-feature-copy h2{font-size:clamp(30px,8.5vw,40px)}
+  .photo-product-page .story-copy p,.photo-product-page .process-copy>p,.photo-product-page .visual-feature-copy>p,.photo-product-page .photo-final p{font-size:15px}
+}
