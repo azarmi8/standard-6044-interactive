@@ -141,30 +141,35 @@ Read docs/PRODUCT_SPEC.md before shared UX/animation/simulation work. Prefer reu
 
 ## Current truth
 
-**Active release branch:** `redesign/cretiq-rendered-visuals-v3`  
+**Active release branch:** redesign/cretiq-rendered-visuals-v3  
 **PR:** #34  
-**Head:** `bd9038d53458260547d0fec7b26a1458c1fe12c4`
+**Current head:** 6781ba7826127abdffaed597a5920269ffced378
 
-The current branch contains the CRETIQ 6044 rendered-visual V3.1 upgrade. Homepage now uses repository-owned engineering renders rather than the previous Canvas/particle homepage choreography. The semantic render sequence communicates Factory → Fresh Concrete → Strength Evidence and supports manual selection, playback, keyboard navigation and reduced motion.
+The current branch contains the CRETIQ 6044 rendered-visual V3.1 upgrade. Homepage uses repository-owned engineering renders rather than the previous decorative Canvas/particle homepage choreography. Representative engineering chapters now follow the same authored-render rule:
+- Chapter 4: factory/material evidence render
+- Chapter 10: fresh-concrete/slump render
+- Chapter 11: strength/conformity render
+
+The representative chapter migration removes the legacy particle/lab Canvas runtimes from those surfaces. Visuals are paired with evidence-led text rails instead of fake telemetry or decorative animation.
 
 Latest CI at this checkpoint:
 - Static QA: PASS
-- Browser Smoke: PASS 40/40
+- Browser Smoke: PASS
 - PR mergeable: yes
 - PR merged: no
 
-The branch is 19 commits ahead of `main` and 0 behind at this checkpoint.
+The branch remains ahead of main with no behind drift at this checkpoint.
 
 The three project design skills are now part of the repository baseline:
-- `.agents/skills/ui-ux-pro-max/SKILL.md`
-- `.agents/skills/emil-design-eng/SKILL.md`
-- `.agents/skills/design-taste-frontend/SKILL.md`
+- .agents/skills/ui-ux-pro-max/SKILL.md
+- .agents/skills/emil-design-eng/SKILL.md
+- .agents/skills/design-taste-frontend/SKILL.md
 
-Release gates still open: human visual acceptance, final source/publication audit, human narration approval, fullscreen/performance/accessibility sweep, owner acceptance, merge and Pages verification.
+Release gates still open: human visual acceptance, final source/publication audit, human narration listening approval, fullscreen/performance/accessibility sweep, owner acceptance, merge and Pages verification.
 
-`main` remains untouched by PR #34.
+main remains untouched by PR #34.
 
-`CRETIQ 6044` is the product brand. Repository continuity remains `standard-6044-interactive`.
+CRETIQ 6044 is the product brand. Repository continuity remains standard-6044-interactive.
 
 ## Finite delivery rule
 
