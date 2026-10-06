@@ -1,0 +1,187 @@
+/* CRETIQ 6044 — authored render panels for representative chapter surfaces.
+   Purpose: replace decorative canvas motion with real product visuals + evidence-led reading.
+   No infinite motion, no fake telemetry, no new dependency. */
+.chapter-render-feature{
+  margin-top:14px;
+  padding:0;
+  overflow:hidden;
+  border:1px solid #20363f;
+  border-radius:22px;
+  background:linear-gradient(145deg,#0a151b,#0d1b21);
+  box-shadow:0 22px 65px rgba(0,0,0,.25);
+}
+.chapter-render-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.08fr) minmax(320px,.92fr);
+  min-height:420px;
+}
+.chapter-render-media{
+  position:relative;
+  min-height:420px;
+  overflow:hidden;
+  background:#071015;
+  border-inline-end:1px solid #20363f;
+}
+.chapter-render-media img{
+  display:block;
+  width:100%;
+  height:100%;
+  min-height:420px;
+  object-fit:cover;
+  object-position:center;
+}
+.chapter-render-media::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(4,10,13,.12),transparent 34%,rgba(4,10,13,.62)),
+    linear-gradient(90deg,transparent 55%,rgba(4,10,13,.34));
+}
+.chapter-render-index{
+  position:absolute;
+  z-index:2;
+  top:16px;
+  left:16px;
+  display:inline-flex;
+  align-items:center;
+  min-height:30px;
+  padding:5px 10px;
+  border:1px solid rgba(43,242,173,.34);
+  border-radius:999px;
+  color:#baf8e2;
+  background:rgba(7,16,21,.72);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  font-size:.68rem;
+  font-weight:900;
+  letter-spacing:.08em;
+}
+.chapter-render-caption{
+  position:absolute;
+  z-index:2;
+  right:18px;
+  left:18px;
+  bottom:16px;
+  color:#eaf7f3;
+  text-shadow:0 6px 18px rgba(0,0,0,.42);
+}
+.chapter-render-caption small{
+  display:block;
+  margin-bottom:5px;
+  color:#79d9bb;
+  font-size:.68rem;
+  font-weight:900;
+  letter-spacing:.08em;
+}
+.chapter-render-caption strong{
+  display:block;
+  max-width:780px;
+  font-size:clamp(1rem,1.8vw,1.45rem);
+  line-height:1.55;
+}
+.chapter-render-copy{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  gap:22px;
+  padding:28px 28px 26px;
+}
+.chapter-render-kicker{
+  color:#2bf2ad;
+  font-size:.68rem;
+  font-weight:900;
+  letter-spacing:.1em;
+}
+.chapter-render-copy h2{
+  margin:8px 0 10px;
+  color:#f1f8f5;
+  font-size:clamp(1.35rem,2.1vw,2rem);
+  line-height:1.35;
+}
+.chapter-render-copy p{
+  margin:0;
+  color:#9eb4ad;
+  line-height:1.95;
+}
+.chapter-render-steps{
+  display:grid;
+  gap:8px;
+  margin-top:18px;
+}
+.chapter-render-step{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:11px;
+  align-items:start;
+  padding:11px 12px;
+  border:1px solid #20363f;
+  border-radius:13px;
+  background:#0b151b;
+}
+.chapter-render-step-number{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:28px;
+  height:28px;
+  border-radius:9px;
+  background:#092f26;
+  color:#79f2cb;
+  font-size:.66rem;
+  font-weight:900;
+}
+.chapter-render-step strong{
+  display:block;
+  margin-bottom:2px;
+  color:#eaf7f3;
+  font-size:.92rem;
+}
+.chapter-render-step span{
+  display:block;
+  color:#8ca59d;
+  font-size:.78rem;
+  line-height:1.7;
+}
+.chapter-render-source{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  align-items:center;
+  margin-top:14px;
+  padding-top:13px;
+  border-top:1px solid #20363f;
+}
+.chapter-render-source span{
+  display:inline-flex;
+  min-height:27px;
+  align-items:center;
+  padding:4px 8px;
+  border:1px solid #28434a;
+  border-radius:999px;
+  color:#9fc0b5;
+  background:#0a151b;
+  font-size:.66rem;
+  font-weight:800;
+}
+.chapter-render-note{
+  margin-top:8px!important;
+  color:#728d86!important;
+  font-size:.74rem;
+}
+@media(max-width:900px){
+  .chapter-render-grid{grid-template-columns:1fr}
+  .chapter-render-media{min-height:360px;border-inline-end:0;border-bottom:1px solid #20363f}
+  .chapter-render-media img{min-height:360px}
+  .chapter-render-copy{padding:22px 20px 20px}
+}
+@media(max-width:560px){
+  .chapter-render-media{min-height:260px}
+  .chapter-render-media img{min-height:260px}
+  .chapter-render-caption{right:13px;left:13px;bottom:13px}
+  .chapter-render-index{top:12px;left:12px}
+}
+@media(prefers-reduced-motion:reduce){
+  .chapter-render-feature *{scroll-behavior:auto!important}
+}
