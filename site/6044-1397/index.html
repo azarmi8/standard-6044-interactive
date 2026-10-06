@@ -44,13 +44,32 @@
     </div>
   </div>
   <div class="render-story-visual">
-    <figure class="render-card render-card-large">
-      <img src="assets/visuals/slump.webp" alt="رندر مهندسی آزمایش اسلامپ و بتن تازه برای CRETIQ 6044" loading="lazy" decoding="async">
-      <figcaption><span>CONCEPT RENDER</span><b>Material → Test → Compliance</b></figcaption>
-    </figure>
-    <div class="render-card-small">
-      <div><span>VISUAL LANGUAGE</span><strong>Factory / Lab / Evidence</strong></div>
-      <i aria-hidden="true"></i>
+    <div class="render-sequence" data-render-sequence aria-label="روایت دیداری سه‌مرحله‌ای از کارخانه تا آزمون مقاومت">
+      <div class="render-sequence-stage">
+        <div class="render-sequence-media" aria-live="polite">
+          <img id="render-scene-0" class="is-active" src="assets/visuals/hero.webp" alt="رندر مهندسی کارخانه و بتن آماده برای مرحله مواد و تولید" fetchpriority="low" decoding="async">
+          <img id="render-scene-1" src="assets/visuals/slump.webp" alt="رندر مهندسی آزمایش بتن تازه و اسلامپ برای مرحله آزمون" loading="lazy" decoding="async">
+          <img id="render-scene-2" src="assets/visuals/strength.webp" alt="رندر مهندسی آزمون مقاومت فشاری بتن برای مرحله شاهد و تصمیم" loading="lazy" decoding="async">
+        </div>
+        <div class="render-sequence-shade" aria-hidden="true"></div>
+        <div class="render-sequence-meta">
+          <span data-render-kicker>01 / FACTORY</span>
+          <span data-render-count>01 — 03</span>
+        </div>
+        <div class="render-sequence-caption">
+          <small data-render-title>مواد و تولید</small>
+          <strong data-render-copy>ردپای بتن از کارخانه شروع می‌شود.</strong>
+        </div>
+      </div>
+      <div class="render-sequence-controls">
+        <div class="render-sequence-tabs" role="tablist" aria-label="مراحل روایت">
+          <button type="button" role="tab" aria-selected="true" aria-controls="render-scene-0" data-render-scene="0"><span>01</span><b>کارخانه</b></button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="render-scene-1" data-render-scene="1"><span>02</span><b>بتن تازه</b></button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="render-scene-2" data-render-scene="2"><span>03</span><b>مقاومت</b></button>
+        </div>
+        <button class="render-sequence-play" type="button" data-render-play aria-pressed="false"><span>پخش مسیر</span><i aria-hidden="true"></i></button>
+      </div>
+      <div class="render-sequence-progress" aria-hidden="true"><i></i></div>
     </div>
   </div>
 </section>
@@ -88,5 +107,5 @@
 <section class="final-cta"><div class="final-kicker">CRETIQ 6044 / STANDARD 6044:1397</div><h2>حالا وارد کارخانهٔ<br><em>یادگیری</em> شو.</h2><a href="ch01/" class="final-button">شروع فصل اول <span>←</span></a><div class="final-meta"><span>فارسی · راست‌به‌چپ</span><span>۲۰۲۶ · CRETIQ ENGINEERING</span></div></section>
 <footer class="cinematic-footer"><span>CRETIQ 6044 · سامانه آموزش و تمرین مهندسی</span><span>طراحی و توسعه: Mohammadreza Azarmi</span></footer>
 </main>
-<script src="lib/navigation.js"></script>
+<script src="lib/render-sequence.js"></script><script src="lib/navigation.js"></script>
 </body></html>
