@@ -257,6 +257,15 @@ function checkStudyNavigationContract(){
   }
 }
 
+function checkHomePhotoAssets(){
+  const assets=[
+    'site/6044-1397/assets/visuals/hero.webp',
+    'site/6044-1397/assets/visuals/slump.webp',
+    'site/6044-1397/assets/visuals/strength.webp'
+  ];
+  for(const p of assets) if(!exists(path.join(ROOT,p))) fail('homepage photographic asset missing: '+p);
+}
+
 function checkBookProgressContract(){
   const enginePath=path.join(SITE,'lib','engine.js');
   const homePath=path.join(SITE,'index.html');
@@ -268,6 +277,8 @@ function checkBookProgressContract(){
   if(!exists(homePath)) return fail('book home missing for progress dashboard');
   const home=read(homePath);
   if(!home.includes('cinematic-hero') || !home.includes('chapter-explorer') || !home.includes('data-study-open')) fail('home cinematic study entry contract missing');
+  if(!home.includes('photo-hero-visual') || !home.includes('assets/visuals/hero.webp')) fail('home photographic hero contract missing');
+  if(!home.includes('assets/visuals/slump.webp') || !home.includes('assets/visuals/strength.webp')) fail('home photographic gallery contract missing');
 }
 
 function checkSearchContract(){
@@ -287,6 +298,7 @@ function checkSearchContract(){
   if(!read(htmlPath).includes('search.js')) fail('search page does not load shared search engine');
 }
 
+checkHomePhotoAssets();
 checkSharedChapterNavigation();
 checkBookProgressContract();
 checkStudyNavigationContract();
