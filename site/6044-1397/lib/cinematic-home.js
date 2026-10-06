@@ -172,7 +172,7 @@ $("[data-process-step]").forEach(btn=>{
   btn.addEventListener("click",()=>{$("[data-process-step]").forEach(b=>b.setAttribute("aria-selected",String(b===btn)));const i=Number(btn.dataset.processStep);const root=$("[data-process-stage]");if(root)root.dataset.processState=String(i)})
 });
 (()=>{const stage=$("[data-process-stage]");if(!stage||!window.IntersectionObserver)return;
-  const setFromScroll=()=>{const r=stage.getBoundingClientRect(),vh=innerHeight||800;const p=Math.max(0,Math.min(0.999,(vh*.84-r.top)/(Math.max(1,r.height)*.78)));const i=Math.min(4,Math.floor(p*5));stage.dataset.processState=String(i);$("[data-process-step]").forEach(b=>b.setAttribute("aria-selected",String(Number(b.dataset.processStep)===i)))};
+  const setFromScroll=()=>{if(Date.now()<processManualUntil)return;const r=stage.getBoundingClientRect(),vh=innerHeight||800;const p=Math.max(0,Math.min(0.999,(vh*.84-r.top)/(Math.max(1,r.height)*.78)));const i=Math.min(4,Math.floor(p*5));stage.dataset.processState=String(i);$("[data-process-step]").forEach(b=>b.setAttribute("aria-selected",String(Number(b.dataset.processStep)===i)))};
   addEventListener("scroll",setFromScroll,{passive:true});addEventListener("resize",setFromScroll,{passive:true});setFromScroll();
 })();
 (()=>{const stage=$("[data-process-stage]");if(!stage)return;let s=0;const texts=[
