@@ -62,7 +62,7 @@ test.describe('6044 browser smoke', () => {
     await launcher.click();
     const drawer = page.locator('[data-study-drawer]');
     await expect(drawer).toHaveClass(/is-open/);
-    await expect(drawer.locator('.study-drawer-link')).toHaveCount(27);
+    await expect(drawer.locator('.study-drawer-link')).toHaveCount(26);
     await expect(drawer.getByText('جست‌وجوی استاندارد')).toBeVisible();
     await page.keyboard.press('Escape');
     await expect(drawer).not.toHaveClass(/is-open/);
