@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>استاندارد ملی ایران ۶۰۴۴:۱۳۹۷ — کتاب وب تعاملی</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="lib/engine.css">
 </head>
 <body>
 <main class="shell">
@@ -198,46 +198,8 @@
   <footer class="panel muted" style="padding-bottom:4px">
     <small>استاندارد ملی ایران ۶۰۴۴:۱۳۹۷ • کتاب وب تعاملی آموزشی • ساخته‌شده توسط Mohammadreza Azarmi</small>
   </footer>
-</main>
 
-<script>
-(function(){
-  const key='standard6044-book-progress-v1';
-  const fa=n=>String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
-  const resume=document.getElementById('resume-link');
-  const done=document.getElementById('chapters-done');
-  const last=document.getElementById('last-position');
-  const bookmark=document.getElementById('bookmark-position');
-  const clear=document.getElementById('clear-progress');
-
-  function read(){
-    try{return JSON.parse(localStorage.getItem(key)||'{}')}catch(e){return {}}
-  }
-  function render(){
-    const p=read();
-    const chapters=Object.keys(p).filter(k=>/^\d{2}$/.test(k));
-    done.textContent=fa(chapters.length);
-    const lastEntry=chapters.map(k=>({k,v:p[k]})).sort((a,b)=>String(b.v.updatedAt||'').localeCompare(String(a.v.updatedAt||'')))[0];
-    if(lastEntry){
-      last.textContent='فصل '+fa(lastEntry.k)+' — گام '+fa(Number(lastEntry.v.index)+1)+' از '+fa(lastEntry.v.total);
-      resume.href='ch'+lastEntry.k+'/';
-      resume.textContent='ادامه فصل '+fa(lastEntry.k);
-    }else{
-      last.textContent='هنوز شروع نشده';
-      resume.href='ch01/';
-      resume.textContent='شروع مطالعه';
-    }
-    const bookmarks=p.bookmark||{};
-    const bmKeys=Object.keys(bookmarks);
-    const bm=bmKeys[0];
-    bookmark.textContent=bm ? 'فصل '+fa(bm)+' — گام '+fa(Number(bookmarks[bm])+1) : 'ندارد';
-  }
-  clear.onclick=()=>{localStorage.removeItem(key);render()};
-  render();
-})();
-</script>
-</body>
-</html<section class="card panel engineering-core" style="margin-top:16px" aria-labelledby="core-title">
+<section class="card panel engineering-core" style="margin-top:16px" aria-labelledby="core-title">
   <div class="core-header">
     <div>
       <div class="section-kicker">ENGINEERING INTELLIGENCE CORE</div>
@@ -281,3 +243,69 @@
 </section>
 
 >
+
+<section class="card panel particle-morph-panel home-visual-preview" data-particle-morph data-visual-engine="v2" aria-labelledby="home-visual-title">
+  <div class="particle-morph-head">
+    <div>
+      <div class="particle-morph-kicker">LIVE VISUAL ENGINE / MATERIAL INTELLIGENCE</div>
+      <h2 id="home-visual-title">مواد را ببین که چگونه به یک سامانهٔ بتن تبدیل می‌شوند.</h2>
+      <p>پیش‌نمایش زندهٔ موتور بصری آموزش: سیمان و مواد مکمل، سنگدانه، آب و افزودنی هرکدام رفتار تصویری متفاوت دارند و تبدیل مفهومی آن‌ها با مسیر آموزشی هماهنگ است.</p>
+    </div>
+    <div class="particle-morph-status" aria-live="polite" dir="ltr">
+      <strong>6044 / ENGINE CORE V2</strong>
+      <span data-particle-phase>MATERIAL INPUT / ورودی مواد</span>
+      <span data-particle-sub>مواد جدا / کنترل‌شده</span>
+      <span data-particle-count>PARTICLES</span>
+    </div>
+  </div>
+  <div class="particle-morph-canvas-wrap"><canvas data-particle-canvas aria-label="پیش‌نمایش زنده جمع‌شدن ذرات مواد و شکل‌گیری ماتریس مفهومی بتن"></canvas><div class="particle-morph-overlay" aria-hidden="true"></div></div>
+  <div class="particle-morph-controls">
+    <button type="button" data-particle-play>▶ اجرای تبدیل</button>
+    <button type="button" class="secondary" data-particle-pause>⏸ مکث</button>
+    <button type="button" class="secondary" data-particle-reset>↺ شروع مجدد</button>
+    <a class="secondary-entry" href="ch04/">ورود به آموزش مصالح →</a>
+  </div>
+  <p class="particle-morph-note"><strong>مرز علمی:</strong> این تصویرسازی مفهومی است و شبیه‌سازی اتمی، CFD یا DEM نیست.</p>
+</section>
+</main>
+<script>
+(function(){
+  const key='standard6044-book-progress-v1';
+  const fa=n=>String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
+  const resume=document.getElementById('resume-link');
+  const done=document.getElementById('chapters-done');
+  const last=document.getElementById('last-position');
+  const bookmark=document.getElementById('bookmark-position');
+  const clear=document.getElementById('clear-progress');
+
+  function read(){
+    try{return JSON.parse(localStorage.getItem(key)||'{}')}catch(e){return {}}
+  }
+  function render(){
+    const p=read();
+    const chapters=Object.keys(p).filter(k=>/^\d{2}$/.test(k));
+    done.textContent=fa(chapters.length);
+    const lastEntry=chapters.map(k=>({k,v:p[k]})).sort((a,b)=>String(b.v.updatedAt||'').localeCompare(String(a.v.updatedAt||'')))[0];
+    if(lastEntry){
+      last.textContent='فصل '+fa(lastEntry.k)+' — گام '+fa(Number(lastEntry.v.index)+1)+' از '+fa(lastEntry.v.total);
+      resume.href='ch'+lastEntry.k+'/';
+      resume.textContent='ادامه فصل '+fa(lastEntry.k);
+    }else{
+      last.textContent='هنوز شروع نشده';
+      resume.href='ch01/';
+      resume.textContent='شروع مطالعه';
+    }
+    const bookmarks=p.bookmark||{};
+    const bmKeys=Object.keys(bookmarks);
+    const bm=bmKeys[0];
+    bookmark.textContent=bm ? 'فصل '+fa(bm)+' — گام '+fa(Number(bookmarks[bm])+1) : 'ندارد';
+  }
+  clear.onclick=()=>{localStorage.removeItem(key);render()};
+  render();
+})();
+</script>
+</body>
+</html
+<script src="lib/visual-timeline.js"></script><script src="lib/material-visual.js"></script>
+</body>
+</html>
