@@ -208,6 +208,22 @@ function checkSharedChapterNavigation(){
   }
 }
 
+function checkStudyNavigationContract(){
+  const navJs=path.join(SITE,'lib','navigation.js');
+  const navCss=path.join(SITE,'lib','navigation.css');
+  if(!exists(navJs)) fail('study navigation script missing: site/6044-1397/lib/navigation.js');
+  if(!exists(navCss)) fail('study navigation stylesheet missing: site/6044-1397/lib/navigation.css');
+  const htmlPaths=[path.join(SITE,'index.html'),path.join(SITE,'search.html'),path.join(SITE,'assessment.html'),...expected.map(n=>path.join(SITE,'ch'+n,'index.html'))];
+  for(const htmlPath of htmlPaths){
+    if(!exists(htmlPath)) continue;
+    const html=read(htmlPath);
+    const expectedSrc=htmlPath===path.join(SITE,'index.html')||htmlPath===path.join(SITE,'search.html')||htmlPath===path.join(SITE,'assessment.html')
+      ? 'lib/navigation.js' : '../lib/navigation.js';
+    const count=(html.match(new RegExp('src=["']'+expectedSrc.replaceAll('.','\\.')+'["']','g'))||[]).length;
+    if(count!==1) fail(rel(htmlPath)+': study navigation script count must be exactly 1');
+  }
+}
+
 function checkBookProgressContract(){
   const enginePath=path.join(SITE,'lib','engine.js');
   const homePath=path.join(SITE,'index.html');
@@ -240,6 +256,7 @@ function checkSearchContract(){
 
 checkSharedChapterNavigation();
 checkBookProgressContract();
+checkStudyNavigationContract();
 
 function checkVisualContract(htmlPath, html){
   const relPath=rel(htmlPath);
