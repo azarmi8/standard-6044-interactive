@@ -1,7 +1,7 @@
-# PRODUCT SPEC — Professional Interactive 6044
+# PRODUCT SPEC — CRETIQ 6044
 
 ## Product identity
-Standard 6044 Interactive is a professional Persian RTL interactive engineering book and training simulator for Iranian National Standard 6044:1397.
+CRETIQ 6044 is a professional Persian RTL interactive engineering book and training simulator for Iranian National Standard 6044:1397.
 
 Owner / creator: Mohammadreza Azarmi
 
