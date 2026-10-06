@@ -275,10 +275,18 @@ test.describe('6044 browser smoke', () => {
       await expect(render).toBeVisible();
       await expect(render.locator('img')).toBeVisible();
       await expect(render.locator('.chapter-render-step')).toHaveCount(4);
-      const layout = await page.evaluate(() => ({
-        overflowX: document.documentElement.scrollWidth - document.documentElement.clientWidth,
-        width: document.documentElement.clientWidth
-      }));
+      const layout = await page.evaluate(() => {
+        const width = document.documentElement.clientWidth;
+        const offenders = [...document.querySelectorAll('body *')].map(el => {
+          const r = el.getBoundingClientRect();
+          return {tag:el.tagName, id:el.id||'', cls:typeof el.className==='string'?el.className.slice(0,90):'', left:Math.round(r.left*100)/100, right:Math.round(r.right*100)/100, width:Math.round(r.width*100)/100};
+        }).filter(x => x.right > width + 1 || x.left < -1).sort((a,b) => Math.max(Math.abs(b.right-width),Math.abs(b.left)) - Math.max(Math.abs(a.right-width),Math.abs(a.left))).slice(0,8);
+        return {
+          overflowX: document.documentElement.scrollWidth - width,
+          width,
+          offenders
+        };
+      });
       expect(layout.overflowX, JSON.stringify(layout)).toBeLessThanOrEqual(1);
     }
     await context.close();
