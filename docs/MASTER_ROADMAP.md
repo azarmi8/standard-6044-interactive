@@ -67,6 +67,18 @@ Current artifacts:
 - [x] Reusable SVG/scene helpers.
 **Exit gate:** a new chapter can be implemented mainly from configuration/content. **PASSED.**
 
+## Engineering Visual Engine v2 — current branch upgrade
+**Status: implemented as a non-Production PR prototype.**
+
+- [x] Semantic particle states for aggregate, cement/SCM, water and admixture.
+- [x] Shared Reader-to-visual beat event for narration/scene synchronization.
+- [x] Reusable visual timeline primitive.
+- [x] Chapter 4 material morphology hero scene.
+- [x] Chapter 10 fresh-concrete laboratory hero scene.
+- [x] Chapter 11 compressive-strength laboratory hero scene.
+- [x] Reduced-motion stable rendering path for canvas scenes.
+- [ ] Final human visual review and desktop/mobile performance measurement.
+
 # Phase 4 — Professional Animation System
 **Status: IN PROGRESS — animation contract and process choreography are implemented; remaining work is final performance/visual validation.**
 - [x] Timeline beats, focus/highlight, state transitions and procedure sequencing foundation.
