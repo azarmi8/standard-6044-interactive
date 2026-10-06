@@ -2,16 +2,7 @@ import { test, expect } from '@playwright/test';
 
 const pages = [
   '/',
-  '/ch03/',
-  '/ch04/',
-  '/ch07/',
-  '/ch08/',
-  '/ch10/',
-  '/ch11/',
-  '/ch16/',
-  '/ch17/',
-  '/ch21/',
-  '/ch22/',
+  ...Array.from({ length: 23 }, (_, i) => '/ch' + String(i + 1).padStart(2, '0') + '/'),
   '/assessment.html',
   '/search.html'
 ];
@@ -31,7 +22,7 @@ test.describe('6044 browser smoke', () => {
       await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
       const pageTitle = (await page.title()).trim();
       expect(pageTitle, `non-empty title on ${route}`).not.toBe('');
-      if (route.match(/^\/(ch\d{2})\/$/)) {
+      if (route.match(/^\/ch(?!23)\d{2}\/$/)) {
         expect(pageTitle, `chapter/appendix title on ${route}`).toMatch(/(فصل|پیوست)/);
       } else {
         expect(pageTitle, `book title on ${route}`).toContain('۶۰۴۴');
@@ -40,7 +31,14 @@ test.describe('6044 browser smoke', () => {
         }
       }
 
-      if (route.match(/^\/ch\d{2}\/$/)) {
+      if (route === '/ch23/') {
+        await expect(page).toHaveTitle(/کتاب‌نامه/);
+        await expect(page.locator('body')).not.toContainText('پیوست ح');
+        await expect(page.locator('body')).toContainText('EN 206: 2013+A1 2016');
+        await expect(page.locator('body')).toContainText('ISO 22965-2: 2007');
+      }
+
+      if (route.match(/^\/ch(?!23)\d{2}\/$/)) {
         await expect(page.locator('.stage svg')).toHaveAttribute('viewBox', '0 0 1600 900');
         await expect(page.locator('script[src="../lib/engine.js"]')).toHaveCount(1);
         await expect(page.locator('.book-controls')).toHaveCount(1);
