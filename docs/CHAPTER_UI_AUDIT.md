@@ -1,44 +1,23 @@
-# Chapter UI / Engine Audit — 6044:1397
+# Chapter UI / Engine Audit — CRETIQ 6044
 
 Date: 2026-10-05
 Branch: phase5/narration-foundation
 
 ## Result
 
-The 22 learning-unit HTML pages were checked against the shared book-engine contract.
+The 22 source learning units are on the shared book engine contract.
 
-### Engine-ready / already using shared engine
+### Current state
 
-- ch01
-- ch02
-- ch07
-- ch08
-- ch10
-- ch11
-- ch17
-
-### Partial / simulation without shared book engine
-
-- ch12 — simulation script present, shared engine absent
-- ch15 — simulation script present, shared engine absent
-
-### Legacy / scaffold pages without shared engine
-
-- ch03
-- ch04
-- ch05
-- ch06
-- ch09
-- ch13
-- ch14
-- ch16
-- ch18
-- ch19
-- ch20
-- ch21
-- ch22
+- Chapters 01–15: shared reader engine + shared navigation
+- Appendices A–G (Units 16–22): shared reader engine + shared navigation
+- Unit 23: bibliography/reference surface; intentionally outside the learning-unit engine contract
 
 ## Important interpretation
+
+This is a structural audit only. It confirms the current migration state; it does not approve source correctness or release readiness.
+
+
 
 This is a structural audit only. It does **not** mean the legacy pages have incorrect source content.
 
