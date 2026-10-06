@@ -5,7 +5,7 @@ CRETIQ 6044 is a professional Persian RTL interactive engineering book and train
 
 Owner / creator: Mohammadreza Azarmi
 
-Independent implementation. این محصول is a workflow reference, not a runtime dependency.
+The implementation is independent; external projects referenced during research or workflow design are not runtime dependencies.
 
 ## Product promise
 Standard → Explain → Animate → Simulate → Practice → Decide → Assess
