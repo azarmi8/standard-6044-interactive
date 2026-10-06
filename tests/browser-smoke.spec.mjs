@@ -124,6 +124,24 @@ test.describe('6044 browser smoke', () => {
     await expect(page.locator('#f-output')).toContainText('ترتیب مسیر آموزشی');
   });
 
+  test('Chapter 10 laboratory visual follows shared reader state', async ({ page }) => {
+    await page.goto('http://127.0.0.1:8765/ch10/', { waitUntil: 'networkidle' });
+    await expect(page.locator('[data-lab-visual="fresh"]')).toHaveCount(1);
+    await expect(page.locator('[data-lab-visual="fresh"]')).toHaveAttribute('data-lab-state','0');
+    await page.evaluate(() => window.BookEngine.go(4));
+    await expect(page.locator('[data-lab-visual="fresh"]')).toHaveAttribute('data-lab-state','4');
+    await expect(page.locator('[data-lab-phase]')).toContainText('دما');
+  });
+
+  test('Chapter 11 strength laboratory visual follows shared reader state', async ({ page }) => {
+    await page.goto('http://127.0.0.1:8765/ch11/', { waitUntil: 'networkidle' });
+    await expect(page.locator('[data-lab-visual="strength"]')).toHaveCount(1);
+    await expect(page.locator('[data-lab-visual="strength"]')).toHaveAttribute('data-lab-state','0');
+    await page.evaluate(() => window.BookEngine.go(4));
+    await expect(page.locator('[data-lab-visual="strength"]')).toHaveAttribute('data-lab-state','4');
+    await expect(page.locator('[data-lab-phase]')).toContainText('شکست');
+  });
+
   test('mobile + reduced motion smoke', async ({ browser }) => {
     const context = await browser.newContext({
       viewport: { width: 390, height: 844 },
