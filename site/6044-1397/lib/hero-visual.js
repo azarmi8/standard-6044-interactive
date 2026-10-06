@@ -422,7 +422,7 @@
     if(phaseDetail) phaseDetail.textContent=phases[idx].detail;
     if(progress) progress.style.width=Math.round(p*100)+'%';
     wrap.dataset.heroRenderer=glReady?'webgl':'canvas';
-    wrap.dataset.heroPhase=phases[idx].key.toLowerCase();
+    wrap.dataset.heroPhaseState=phases[idx].key.toLowerCase();
   }
 
   function tick(now){
