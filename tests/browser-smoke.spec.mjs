@@ -187,34 +187,15 @@ test.describe('6044 browser smoke', () => {
     await expect(page.locator('.render-gallery img[src*="hero.webp"]')).toHaveCount(1);
   });
 
-  test('Chapter 4 particle morph + packaged narration wiring', async ({ page }) => {
+  test('Chapter 4 authored render replaces decorative particle scene', async ({ page }) => {
     await page.goto('http://127.0.0.1:8765/ch04/', { waitUntil: 'networkidle' });
-    await expect(page.locator('[data-particle-morph]')).toHaveCount(1);
-    await expect(page.locator('[data-particle-canvas]')).toHaveCount(1);
-    await expect(page.locator('[data-particle-phase]')).toContainText('MATERIAL INPUT');
-    await expect(page.locator('[data-particle-morph]')).toHaveAttribute('data-visual-engine','v2');
-    await expect(page.locator('[data-particle-morph]')).toHaveAttribute('data-visual-state','0');
-    const audioProbe = await page.evaluate(async () => {
-      const r = await fetch('../audio/fa/ch04-01.mp3', { cache: 'no-store' });
-      const b = await r.arrayBuffer();
-      return { ok: r.ok, status: r.status, bytes: b.byteLength };
-    });
-    expect(audioProbe.ok).toBeTruthy();
-    expect(audioProbe.status).toBe(200);
-    expect(audioProbe.bytes).toBeGreaterThan(1000);
-
-    await page.locator('[data-narrate-play]').click();
-    await page.waitForTimeout(250);
-    await expect(page.locator('[data-narration-status]')).toContainText('روایت صوتی فارسی آماده');
-
-    await page.locator('[data-particle-play]').click();
-    await page.waitForTimeout(250);
-    await expect(page.locator('[data-particle-morph]')).toHaveAttribute('data-visual-state','0');
-    await page.evaluate(() => window.BookEngine.go(5));
-    await expect(page.locator('[data-particle-morph]')).toHaveAttribute('data-visual-state','5');
-    await expect(page.locator('[data-particle-phase]')).toContainText('HOMOGENIZATION');
-    await page.locator('[data-particle-reset]').click();
-    await expect(page.locator('[data-particle-morph]')).toHaveAttribute('data-visual-state','0');
+    const render = page.locator('[aria-labelledby="ch04-render-title"]');
+    await expect(render).toHaveCount(1);
+    await expect(render.locator('img')).toHaveAttribute('src', '../assets/visuals/hero.webp');
+    await expect(render.locator('.chapter-render-step')).toHaveCount(4);
+    await expect(page.locator('[data-particle-morph], [data-particle-canvas]')).toHaveCount(0);
+    const meta = await render.locator('img').evaluate(img => ({ complete: img.complete, w: img.naturalWidth, h: img.naturalHeight }));
+    expect(meta.complete && meta.w > 0 && meta.h > 0, JSON.stringify(meta)).toBeTruthy();
   });
 
   test('Chapter 8 shared reader + simulator respond', async ({ page }) => {
@@ -257,22 +238,22 @@ test.describe('6044 browser smoke', () => {
     await expect(page.locator('#f-output')).toContainText('ترتیب مراحل');
   });
 
-  test('Chapter 10 laboratory visual follows shared reader state', async ({ page }) => {
-    await page.goto('http://127.0.0.1:8765/ch10/', { waitUntil: 'networkidle' });
-    await expect(page.locator('[data-lab-visual="fresh"]')).toHaveCount(1);
-    await expect(page.locator('[data-lab-visual="fresh"]')).toHaveAttribute('data-lab-state','0');
-    await page.evaluate(() => window.BookEngine.go(4));
-    await expect(page.locator('[data-lab-visual="fresh"]')).toHaveAttribute('data-lab-state','4');
-    await expect(page.locator('[data-lab-phase]')).toContainText('دما');
-  });
-
-  test('Chapter 11 strength laboratory visual follows shared reader state', async ({ page }) => {
-    await page.goto('http://127.0.0.1:8765/ch11/', { waitUntil: 'networkidle' });
-    await expect(page.locator('[data-lab-visual="strength"]')).toHaveCount(1);
-    await expect(page.locator('[data-lab-visual="strength"]')).toHaveAttribute('data-lab-state','0');
-    await page.evaluate(() => window.BookEngine.go(4));
-    await expect(page.locator('[data-lab-visual="strength"]')).toHaveAttribute('data-lab-state','4');
-    await expect(page.locator('[data-lab-phase]')).toContainText('شکست');
+  test('Chapter 10 and 11 authored renders stay evidence-led', async ({ page }) => {
+    const cases = [
+      { route: '/ch10/', title: 'ch10-render-title', asset: '../assets/visuals/slump.webp' },
+      { route: '/ch11/', title: 'ch11-render-title', asset: '../assets/visuals/strength.webp' }
+    ];
+    for (const item of cases) {
+      await page.goto('http://127.0.0.1:8765' + item.route, { waitUntil: 'networkidle' });
+      const render = page.locator('[aria-labelledby="' + item.title + '"]');
+      await expect(render).toHaveCount(1);
+      await expect(render.locator('img')).toHaveAttribute('src', item.asset);
+      await expect(render.locator('.chapter-render-step')).toHaveCount(4);
+      await expect(render.locator('.chapter-render-source')).toContainText('VISUAL / واقعی');
+      const meta = await render.locator('img').evaluate(img => ({ complete: img.complete, w: img.naturalWidth, h: img.naturalHeight }));
+      expect(meta.complete && meta.w > 0 && meta.h > 0, JSON.stringify(meta)).toBeTruthy();
+      await expect(page.locator('[data-lab-visual], [data-lab-canvas]')).toHaveCount(0);
+    }
   });
 
   test('mobile + reduced motion smoke', async ({ browser }) => {
