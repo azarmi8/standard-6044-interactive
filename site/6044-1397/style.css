@@ -173,7 +173,7 @@ body{
   background:#0f1b21!important;color:#cfe0da!important;border-color:#29424b!important;
 }
 
-/* AZARMI 6044 — engineering visual language */
+/* CRETIQ 6044 — engineering visual language */
 
 
 /* Engineering Hero v1 — material-to-decision visual narrative */
@@ -316,4 +316,4 @@ input,select,textarea{font-family:Vazirmatn,Tahoma,Arial,sans-serif}
 a{transition:color .18s ease,opacity .18s ease}
 @media(prefers-reduced-motion:reduce){a{transition:none}}
 
-.azarmi-capabilities{padding:22px!important}.capabilities-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:16px}.capability-card{padding:16px;border:1px solid #20363f;border-radius:15px;background:linear-gradient(145deg,#0b171d,#0d1d24);min-height:160px}.capability-card span{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:9px;background:#0b3026;color:#72ffd0;font-size:.7rem;font-weight:900}.capability-card strong{display:block;margin-top:12px;color:#eef8f4;font-size:1rem}.capability-card p{margin:7px 0 0;color:#91aaa2;line-height:1.8;font-size:.82rem}@media(max-width:950px){.capabilities-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.capabilities-grid{grid-template-columns:1fr}.capability-card{min-height:auto}}
+.cretiq-capabilities{padding:22px!important}.capabilities-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:16px}.capability-card{padding:16px;border:1px solid #20363f;border-radius:15px;background:linear-gradient(145deg,#0b171d,#0d1d24);min-height:160px}.capability-card span{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:9px;background:#0b3026;color:#72ffd0;font-size:.7rem;font-weight:900}.capability-card strong{display:block;margin-top:12px;color:#eef8f4;font-size:1rem}.capability-card p{margin:7px 0 0;color:#91aaa2;line-height:1.8;font-size:.82rem}@media(max-width:950px){.capabilities-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.capabilities-grid{grid-template-columns:1fr}.capability-card{min-height:auto}}
