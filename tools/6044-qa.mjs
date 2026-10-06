@@ -281,6 +281,8 @@ function checkRepresentativeRenderContract(){
     for(const token of item.forbidden){
       if(html.includes(token)) fail('ch'+item.ch+': decorative visual token remains after authored-render migration: '+token);
     }
+    if(/<svg\b/i.test(html)) fail('ch'+item.ch+': legacy SVG stage remains after render-led migration');
+    if(!html.includes('rendered-reader-stage')) fail('ch'+item.ch+': render-led reader stage missing');
   }
 }
 
