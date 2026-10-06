@@ -34,7 +34,8 @@ jobs:
           import json, subprocess, wave
           from pathlib import Path
           from piper import PiperVoice
-          manifest_doc = json.loads(Path("tools/tts/audio-manifest.json").read_text(encoding="utf-8"))\n          manifest = manifest_doc.get("items", [])
+          manifest_doc = json.loads(Path("tools/tts/audio-manifest.json").read_text(encoding="utf-8"))
+          manifest = manifest_doc.get("items", [])
           voice = PiperVoice.load("/tmp/cretiq-voice/fa_IR-mana-medium.onnx")
           root = Path("site/6044-1397")
           out = root / "audio" / "fa"
