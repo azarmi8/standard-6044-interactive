@@ -4,6 +4,9 @@ All notable changes to this project will be documented here.
 
 ## [Unreleased]
 
+### Verified — 2026-10-06
+- Main `1f281bd...` has green Static QA (#219), green Browser Smoke (#169, 39/39), and green Pages Deploy (#219).
+
 ### Fixed — 2026-10-06
 - Corrected the bibliography surface: Unit 23 now reflects the two references listed on source page 73 and is no longer presented as a nonexistent Appendix H.
 - Repaired a real Chapter 15 JavaScript runtime/syntax failure by moving the conformity interaction into the chapter script with DOM guards.
