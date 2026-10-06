@@ -37,7 +37,13 @@ test.describe('6044 browser smoke', () => {
       }
 
       if (route.match(/^\/ch(?!23)\d{2}\/$/)) {
-        await expect(page.locator('.stage svg')).toHaveAttribute('viewBox', '0 0 1600 900');
+        const renderLed = ['/ch04/','/ch10/','/ch11/'].includes(route);
+        if (renderLed) {
+          await expect(page.locator('.rendered-reader-stage')).toHaveCount(1);
+          await expect(page.locator('.rendered-reader-stage svg')).toHaveCount(0);
+        } else {
+          await expect(page.locator('.stage svg')).toHaveAttribute('viewBox', '0 0 1600 900');
+        }
         await expect(page.locator('script[src="../lib/engine.js"]')).toHaveCount(1);
         await expect(page.locator('.book-controls')).toHaveCount(1);
         await expect(page.locator('[data-narration-panel]')).toHaveCount(1);
