@@ -80,7 +80,7 @@ test.describe('6044 browser smoke', () => {
     page.on('pageerror', err => pageErrors.push(String(err)));
     await page.goto('http://127.0.0.1:8765/', { waitUntil: 'networkidle' });
     await expect(page.locator('.photo-hero')).toHaveCount(1);
-    await expect(page.locator('.photo-hero-visual img[src="assets/visuals/hero.webp"]')).toHaveCount(1);
+    await expect(page.locator('.photo-hero-visual img[src^="data:image/webp;base64,"]')).toHaveCount(1);
     await expect(page.locator('.photo-hero-caption strong')).not.toBeEmpty();
     await expect(page.locator('.photo-hero-caption small')).toContainText('هوش مصنوعی');
     await expect(page.locator('.cinematic-hero canvas')).toHaveCount(0);
