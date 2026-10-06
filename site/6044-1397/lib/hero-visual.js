@@ -27,6 +27,10 @@
   let paused = reduced;
   let pointer = { x: 0.12, y: 0.0, active: false };
   let particles = [];
+  let particleTarget = 7200;
+  let qualityTier = 'high';
+  let frameSamples = [];
+  let adaptiveChecked = false;
 
   const phases = [
     { key:'MATERIAL', title:'ورودی مواد', detail:'سیمان و مواد مکمل • سنگدانه • آب • افزودنی', duration:4.4 },
