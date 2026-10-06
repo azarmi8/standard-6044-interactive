@@ -1,4 +1,4 @@
-/* 6044 Interactive Book Engine — v1.0 audio + engineering core
+/* AZARMI 6044 Reader Engine — v1.0
    Shared reader playback, strict Persian narration, chapter HUD.
 */
 (function(){
@@ -253,7 +253,7 @@
       hud=document.createElement('div');
       hud.className='reader-hud';
       hud.setAttribute('data-reader-hud','true');
-      hud.innerHTML='<div class="reader-hud-head"><div><span class="reader-hud-brand">6044 / ENGINEERING READER</span><span class="reader-hud-source" data-reader-hud-source>استاندارد ملی ایران ۶۰۴۴:۱۳۹۷</span></div><span class="reader-hud-step" data-reader-hud-step></span></div><div class="reader-hud-main"><strong data-reader-hud-title></strong><span data-reader-hud-role>منبع → فهم → کاربرد → تمرین → تصمیم</span></div><div class="reader-hud-rail" data-reader-hud-rail aria-label="مراحل این بخش"></div>';
+      hud.innerHTML='<div class="reader-hud-head"><div><span class="reader-hud-brand">AZARMI / READER</span><span class="reader-hud-source" data-reader-hud-source>استاندارد ملی ایران ۶۰۴۴:۱۳۹۷</span></div><span class="reader-hud-step" data-reader-hud-step></span></div><div class="reader-hud-main"><strong data-reader-hud-title></strong><span data-reader-hud-role>منبع → فهم → کاربرد → تمرین → تصمیم</span></div><div class="reader-hud-rail" data-reader-hud-rail aria-label="مراحل این بخش"></div>';
       stage.appendChild(hud);
       return hud;
     }
@@ -498,7 +498,7 @@
       function drawHud(now){
         const m=Number(host.dataset.phase||0),alpha=.55+.25*Math.sin(now*.0024);
         ctx.save();ctx.fillStyle='#071015aa';ctx.fillRect(18,18,285,64);ctx.strokeStyle='#2bf2ad55';ctx.strokeRect(18,18,285,64);
-        ctx.fillStyle='#2bf2ad';ctx.font='800 11px Tahoma,Arial';ctx.fillText('6044 / PARTICLE MORPH ENGINE',32,38);
+        ctx.fillStyle='#2bf2ad';ctx.font='800 11px Tahoma,Arial';ctx.fillText('AZARMI / MATERIAL VISUAL',32,38);
         ctx.fillStyle='#dbeee8';ctx.font='700 13px Tahoma,Arial';ctx.fillText(phases[m][0],32,61);
         ctx.globalAlpha=alpha;ctx.fillStyle='#27c5de';ctx.fillRect(320,32,Math.max(22,(width-344)*(m/6)),2);ctx.restore();
       }
