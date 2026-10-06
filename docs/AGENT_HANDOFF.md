@@ -1,4 +1,4 @@
-# AGENT HANDOFF — Standard 6044 Interactive
+# AGENT HANDOFF — CRETIQ 6044
 
 ## Read first
 
@@ -141,7 +141,7 @@ Read docs/PRODUCT_SPEC.md before shared UX/animation/simulation work. Prefer reu
 
 ## Current truth
 
-`main` baseline: `966d24f4b1eba12249b315dfb8901c4ff2d23fb7`. All 23 navigation surfaces have HTML entry points; Units 1–22 are the source learning units and Unit 23 is bibliography/reference. The shared reader engine now includes device narration fallback and an in-scene Reader HUD. PR #16 also strengthened the book landing journey and two pedagogical pilot scenes. GitHub Pages is enabled and the deployment workflow has completed successfully. The book is still a release candidate in progress: do not describe it as fully source-final or release-ready until the remaining Phase 10 and release gates pass. The professional cover/contents treatment is complete. The book is still a release candidate in progress: do not describe it as fully source-final or release-ready until Phase 10 QA and the remaining source/narration/browser gates pass.
+`main` baseline: `ecebb1d3e3514366523a599c297d88809674b495`. Product brand: **CRETIQ 6044**. All 23 navigation surfaces have HTML entry points; Units 1–22 are the source learning units and Unit 23 is bibliography/reference. The shared reader engine includes device narration fallback and an in-scene Reader HUD. Engineering Visual Engine v2 and the product-shell work are merged into main. Static QA Run #206 and Pages Deploy Run #214 succeeded; Browser Smoke Run #156 found 2 deterministic title-brand failures on the assessment and search pages. The immediate fix is to align those surfaces with CRETIQ ۶۰۴۴ and keep the browser contract green. The product is still a release candidate: final source audit, human narration approval, fullscreen visual QA and clean browser smoke remain release gates.
 
 
 ## Finite delivery rule
