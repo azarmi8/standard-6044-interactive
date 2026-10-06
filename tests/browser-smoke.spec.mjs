@@ -256,6 +256,27 @@ test.describe('6044 browser smoke', () => {
     }
   });
 
+  test('representative authored render surfaces are mobile-safe', async ({ browser }) => {
+    const context = await browser.newContext({
+      viewport: { width: 390, height: 844 },
+      reducedMotion: 'reduce'
+    });
+    const page = await context.newPage();
+    for (const route of ['/ch04/', '/ch10/', '/ch11/']) {
+      await page.goto('http://127.0.0.1:8765' + route, { waitUntil: 'networkidle' });
+      const render = page.locator('.chapter-render-feature');
+      await expect(render).toBeVisible();
+      await expect(render.locator('img')).toBeVisible();
+      await expect(render.locator('.chapter-render-step')).toHaveCount(4);
+      const layout = await page.evaluate(() => ({
+        overflowX: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+        width: document.documentElement.clientWidth
+      }));
+      expect(layout.overflowX, JSON.stringify(layout)).toBeLessThanOrEqual(1);
+    }
+    await context.close();
+  });
+
   test('mobile + reduced motion smoke', async ({ browser }) => {
     const context = await browser.newContext({
       viewport: { width: 390, height: 844 },
