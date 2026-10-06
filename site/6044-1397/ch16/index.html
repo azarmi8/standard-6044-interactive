@@ -14,28 +14,42 @@
 <label>نمونه ۱<input id="uniformity-a" type="number" step="0.1" value="2400"></label>
 <label>نمونه ۲<input id="uniformity-b" type="number" step="0.1" value="2420"></label>
 </div>
-<button id="run-uniformity">نتیجه مقایسه دو نمونه</button>
+<div class="uniformity-presets" aria-label="نمونه‌های سریع">
+  <button type="button" data-preset="boundary">مرز مجاز چگالی · ۱٪</button>
+  <button type="button" data-preset="pass">درون محدوده · ۰٫۸٪</button>
+  <button type="button" data-preset="fail">خارج از محدوده · ۱٫۰۴٪</button>
+</div>
+<button id="run-uniformity">تحلیل دو نمونه</button>
 <div id="uniformity-output" class="sim-result" aria-live="polite"></div>
-<p class="sim-source"><strong>SOURCE:</strong> پیوست الف، جدول الف-۱، صفحه ۴۸.</p>
+<p class="sim-source"><strong>SOURCE:</strong> استاندارد ملی ایران ۶۰۴۴:۱۳۹۷، پیوست الف، جدول الف-۱، صفحه چاپی ۴۸.</p>
 </section>
 <script src="../lib/appendix-simulations.js"></script>
 <script>
 (function(){
  const btn=document.getElementById('run-uniformity'),out=document.getElementById('uniformity-output');
  if(!btn||!out)return;
- btn.addEventListener('click',function(){
+ function run(){
   const r=window.AppendixSimulations.uniformity.compare(
    document.getElementById('uniformity-feature').value,
    Number(document.getElementById('uniformity-a').value),
    Number(document.getElementById('uniformity-b').value)
   );
   if(!r.valid){out.textContent=r.error;out.className='sim-result bad';return;}
-  out.innerHTML='<strong>'+(r.pass?'اختلاف در محدوده حد جدول است.':'اختلاف از حد جدول بیشتر است.')+'</strong>'+
-   '<br>ویژگی: '+r.label+
-   '<br>میانگین دو مقدار: '+r.mean.toFixed(2)+' '+r.unit+
-   '<br>اختلاف نسبی: '+r.diffPct.toFixed(2)+'٪'+
-   '<br>حد جدول: '+r.limitPct+'٪';
+  const pct=Math.min(100,(r.diffPct/r.limitPct)*100);
+  out.innerHTML='<div class="uniformity-result-head"><div><small>VERDICT</small><strong>'+(r.pass?'در محدوده مجاز':'خارج از محدوده مجاز')+'</strong></div><span class="uniformity-badge">'+(r.pass?'PASS':'REVIEW')+'</span></div>'+
+   '<div class="uniformity-metrics"><div><small>میانگین</small><b>'+r.mean.toFixed(2)+' '+r.unit+'</b></div><div><small>اختلاف نسبی</small><b>'+r.diffPct.toFixed(2)+'٪</b></div><div><small>حد جدول</small><b>'+r.limitPct.toFixed(2)+'٪</b></div></div>'+
+   '<div class="uniformity-scale"><div class="uniformity-scale-track"><i style="width:'+pct.toFixed(1)+'%"></i><b style="right:'+Math.min(100,pct).toFixed(1)+'%"></b></div><div class="uniformity-scale-labels"><span>۰٪</span><span>'+r.limitPct.toFixed(2)+'٪ · حد مجاز</span></div></div>'+
+   '<p class="uniformity-rule">اختلاف نسبی = |نمونه ۱ − نمونه ۲| ÷ میانگین دو مقدار × ۱۰۰</p>'+
+   '<p class="uniformity-decision">'+(r.pass?'این اختلاف طبق حد جدول، قابل قبول است.':'این اختلاف از حد جدول عبور کرده و نیازمند بررسی است.')+'</p>';
   out.className='sim-result '+(r.pass?'good':'bad');
- });
+ }
+ btn.addEventListener('click',run);
+ document.querySelectorAll('[data-preset]').forEach(b=>b.addEventListener('click',()=>{
+  document.getElementById('uniformity-feature').value='densityNoAir';
+  document.getElementById('uniformity-a').value=2400;
+  document.getElementById('uniformity-b').value=b.dataset.preset==='boundary'?2424:b.dataset.preset==='pass'?2419.24:2425;
+  run();
+ }));
+ run();
 })();
 </script></main><script src="./app.js"></script><script src="../lib/engine.js"></script><script src="../lib/navigation.js"></script></body></html>
