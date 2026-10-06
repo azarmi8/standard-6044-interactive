@@ -4,8 +4,8 @@ Last checked: 2026-10-06
 
 ## Current baseline
 
-- Main: `b4b5c6a564a96f830aa70b1ee970f5a856cfefdf`
-- Product: Persian RTL interactive engineering book for Iranian National Standard 6044:1397.
+- Main: `1f281bd511b5f16e11296771d4a08436c5c21a3f`
+- Product: CRETIQ 6044 — Persian RTL interactive engineering book for Iranian National Standard 6044:1397.
 - Source structure: 15 official chapters + Appendices A–G + bibliography.
 - Learning units: 22.
 - Shared engine: all 22 learning units.
@@ -23,10 +23,10 @@ Last checked: 2026-10-06
 | Assessment/search contracts | PASS | existing QA contract + static inspection |
 | Professional cover/contents | PASS | merged and strengthened by PR #16 |
 | Static QA | PASS | Main Run #217 succeeded on `b4b5c6a564a96f830aa70b1ee970f5a856cfefdf` |
-| Browser/mobile/reduced-motion QA | PENDING | Main Browser Smoke Run #167 was still in progress at last check; PR #27 Browser Smoke passed 39/39 after the Chapter 15 + bibliography fixes |
+| Browser/mobile/reduced-motion QA | PASS | Main Browser Smoke Run #169 succeeded; 39 tests passed including all 23 book surfaces, mobile/reduced-motion and interactive pilots |
 | Persian TTS human listening | PENDING | benchmark/contract exists; release audio not approved |
-| GitHub Pages | PASS | Main Deploy Run #218 succeeded for `b4b5c6a564a96f830aa70b1ee970f5a856cfefdf` |
-| Release documentation/handoff | PASS | Core release documentation exists; current-state refresh is required after QA/branding changes |\n| v1.0.0 release | NOT READY | blocked by remaining release gates above |
+| GitHub Pages | PASS | Main Deploy Run #219 succeeded for `1f281bd511b5f16e11296771d4a08436c5c21a3f` |
+| Release documentation/handoff | PASS | Core release documentation exists; current-state refresh recorded here |
 
 ## Merge policy
 
@@ -43,13 +43,10 @@ A change may be merged when:
 RESOLVED. Repository-level Pages is enabled and the workflow deploys `site/6044-1397` with GitHub Actions.
 
 ### B-002 — Hosted CI recovery
-RESOLVED. Main Static QA is green on Run #217.
+RESOLVED. Main Static QA Run #219 is green.
 
 ### B-003 — Browser smoke
-PENDING. PR #27 Browser Smoke passed 39/39; main Run #167 was still running at the last status check.
-
-
-OPEN. Run #156 reports 24/26 passed; two failures are the `/assessment.html` and `/search.html` title assertions caused by the stale AZARMI titles.
+RESOLVED. Main Browser Smoke Run #169 is green with 39/39 tests passed.
 
 ### B-004 — Persian narration review
 Select a voice only after human listening. Check Persian pronunciation, numbers, units, ASTM/ISIRI/SCC/fc and technical pauses before approving release audio.
