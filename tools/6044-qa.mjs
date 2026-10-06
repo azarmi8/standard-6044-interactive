@@ -23,6 +23,8 @@ if(!exists(SITE)) fail('site/6044-1397 is missing');
 checkNarration(SITE);
 checkPersianProductLanguage(SITE);
 checkHtmlIdentityAndIds(SITE);
+checkBibliographySurface(SITE);
+checkHtmlIdentityAndIds(SITE);
 checkAppendixSimulationContract();
 checkAppendixDGContract();
 checkSimulationContract();
