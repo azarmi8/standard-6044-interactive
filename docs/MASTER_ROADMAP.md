@@ -186,7 +186,7 @@ Each simulation must expose source clauses, inputs, outputs, assumptions and val
 - [x] Engineering Hero Visual v1 — material particles → concrete → specimen → test data → decision, with reduced-motion and responsive canvas geometry.
 - [x] Full 22-unit visual/engine consistency audit — Chapters 1–15 + Appendices A–G use the shared book engine; bibliography remains a reference-only surface.
 - [x] Loading/error states.
-- [ ] Representative desktop/mobile/reduced-motion browser smoke — current main needs a clean rerun after the CRETIQ 6044 title-brand fix.
+- [x] Representative desktop/mobile/reduced-motion browser smoke — current PR head verified by Browser Smoke.
 - [ ] Fullscreen visual QA.
 - [ ] No childish gamification or decorative animation.
 **Exit gate:** all chapters look like one product.
@@ -208,8 +208,8 @@ Each simulation must expose source clauses, inputs, outputs, assumptions and val
 - [ ] No console/page errors on the browser-smoke route set — rerun required after the current title-brand failure.
 - [ ] Assets/links/performance/accessibility final sweep.
 - [x] Static QA runner + GitHub Actions contract check on the active development branch.
-- [x] Static QA passed on current main before the current polish patch; post-patch run required.
-- [ ] Browser Smoke currently failing on 2/26 title assertions; fix is in `fix/cretiq-qa-polish`.
+- [x] Static QA passed on current PR head after authored-render hardening.
+- [x] Browser Smoke is green on the current PR head.
 **Exit gate:** clean release candidate.
 
 ### Phase 11 — Documentation & Handoff
