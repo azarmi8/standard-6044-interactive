@@ -245,3 +245,31 @@ A new idea is not a reason to delay v1.0. New ideas go to POST_RELEASE_IDEAS.md.
 ## Agent protocol
 Before: README → MASTER_ROADMAP → AGENT_HANDOFF → SOURCE_VERIFICATION → git/main → first unblocked task.
 After: checks → docs/status → focused commit → report changed/remaining → no silent scope expansion.
+
+
+## V3.1 Release Candidate — current branch truth
+
+**Branch:** `redesign/cretiq-rendered-visuals-v3`  
+**PR:** #34  
+**Current head:** `bd9038d53458260547d0fec7b26a1458c1fe12c4`
+
+### Verified
+- [x] CRETIQ 6044 rendered homepage uses repository-owned `hero.webp`, `slump.webp`, `strength.webp`.
+- [x] Legacy homepage canvas/process choreography is no longer loaded by the homepage.
+- [x] Semantic render sequence: Factory → Fresh Concrete → Strength Evidence.
+- [x] Manual scene selection, playback, keyboard navigation and reduced-motion behavior.
+- [x] Desktop/mobile visual smoke.
+- [x] Static QA.
+- [x] Browser Smoke 40/40.
+- [x] No branch drift: 19 commits ahead of main, 0 behind at this checkpoint.
+- [x] Shared UI design baseline added: Emil Design Engineering, UI/UX Pro Max, Taste.
+
+### Still blocking v1.0
+- [ ] Human visual acceptance of representative pages.
+- [ ] Final clause-level source/publication audit.
+- [ ] Human narration listening approval and release audio package.
+- [ ] Fullscreen/performance/accessibility final sweep.
+- [ ] Owner acceptance.
+- [ ] Merge to main, Pages verification, release tag.
+
+**Scope rule:** no new feature family should be opened unless it closes one of these release gates.
