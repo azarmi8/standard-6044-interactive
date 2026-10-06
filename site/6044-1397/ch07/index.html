@@ -18,7 +18,7 @@
 </head>
 <body>
 <main class="shell">
-<div class="top"><div class="brand">۶۰۴۴ / فصل ۰۷</div><div class="tag">اختلاط و تحویل • شبیه‌سازی مهندسی</div></div>
+<div class="top"><div class="brand">۶۰۴۴ / فصل ۰۷</div><div class="tag">اختلاط و تحویل • شبیه‌ساز مهندسی</div></div>
 <section class="card">
 <div class="scene stage book-stage scene-hero" aria-label="صحنه تعاملی اختلاط و تحویل بتن">
 <svg viewBox="0 0 1600 900" role="img">
@@ -65,7 +65,7 @@
 <g class="scene-object" data-scene-role="qc" data-beat="4">
  <rect x="1070" y="90" width="430" height="175" rx="20" class="data-card"/>
  <text x="1105" y="135" fill="#173c2a" font-size="22" font-weight="800">QC CHECK</text>
- <text x="1105" y="178" fill="#4b5e55" font-size="20">یکنواختی • زمان • دما • سوابق</text>
+ <text x="1105" y="178" fill="#4b5e55" font-size="20">یکنواختی • زمان • دما • ثبت سوابق</text>
  <circle cx="1430" cy="170" r="34" fill="#dce9df" stroke="#173c2a" stroke-width="4"/>
  <path d="M1412 170l12 12 27-31" fill="none" stroke="#173c2a" stroke-width="7"/>
 </g>
@@ -81,7 +81,7 @@
 <g class="scene-object" data-scene-role="record" data-beat="6">
  <rect x="80" y="105" width="410" height="120" rx="20" fill="#f4ecda"/>
  <text x="115" y="150" fill="#173c2a" font-size="22" font-weight="800">DELIVERY RECORD</text>
- <text x="115" y="190" fill="#4b5e55" font-size="19">داده → شاهد → تصمیم</text>
+ <text x="115" y="190" fill="#4b5e55" font-size="19">اطلاعات → مدرک → تصمیم</text>
 </g>
 
 <g transform="translate(80 805)">
@@ -94,14 +94,14 @@
 <div class="controls book-controls"><button id="prev" class="secondary">قبلی</button><button id="play">پخش</button><button id="next">بعدی</button><button id="fullscreen" class="secondary">تمام‌صفحه</button><div class="progress"><i id="bar"></i></div><span id="count"></span></div>
 
 <div class="panel"><h2 id="title"></h2><p id="body"></p><div class="chapter-meta"><span class="source-badge">SOURCE</span><span class="explanation-badge">EXPLANATION</span><span class="practice-badge">PRACTICE</span></div>
-<div class="quiz"><h3>تصمیم سریع</h3><button data-q="good">درست — کل زنجیره تولید تا تحویل را با شواهد بررسی می‌کنم</button><button data-q="bad">فقط یک عدد را می‌بینم و بدون بررسی زنجیره تصمیم می‌گیرم</button><p id="quizResult"></p></div></div>
+<div class="quiz"><h3>تصمیم سریع</h3><button data-q="good">درست — کل زنجیره تولید تا تحویل را با اطلاعات و سوابق بررسی می‌کنم</button><button data-q="bad">فقط یک عدد را می‌بینم و بدون بررسی فرایند تصمیم می‌گیرم</button><p id="quizResult"></p></div></div>
 </section>
 
-<section class="narration-panel" aria-label="روایت فصل"><strong data-narration-status>متن روایت</strong><p data-narration-transcript>برای شروع روایت، پخش را بزنید.</p></section>
+<section class="narration-panel" aria-label="روایت فصل"><strong data-narration-status>روایت صوتی</strong><p data-narration-transcript>برای شنیدن روایت، دکمه پخش را بزنید.</p></section>
 
 <section class="panel simulation-panel" aria-labelledby="temp-sim-title">
-<h2 id="temp-sim-title">شبیه‌ساز دمای بتن در زمان تحویل</h2>
-<p>سناریوی آموزشی بر اساس جدول ۱ فصل ۷ است. حداقل دما از کوچک‌ترین بُعد عضو و حداکثر دمای تحویل برابر ۳۲ درجه سلسیوس در نظر گرفته می‌شود.</p>
+<h2 id="temp-sim-title">بررسی دمای بتن هنگام تحویل</h2>
+<p>این سناریو بر اساس جدول ۱ فصل ۷ تنظیم شده است. حداقل دما از کوچک‌ترین بُعد عضو و حداکثر دمای تحویل برابر ۳۲ درجه سلسیوس در نظر گرفته می‌شود.</p>
 <div class="sim-grid">
 <label>کوچک‌ترین بُعد عضو (میلی‌متر)<input id="member-dimension" type="number" min="1" step="1" value="600"></label>
 <label>دمای بتن هنگام تحویل (°C)<input id="delivery-temp" type="number" step="0.1" value="20"></label>
