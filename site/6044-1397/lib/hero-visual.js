@@ -51,7 +51,15 @@
     red: '#ee6b64'
   };
 
-  const R = (min, max) => min + Math.random() * (max - min);
+  let seed = 60441397;
+  const rand = () => {
+    seed += 0x6D2B79F5;
+    let t = seed;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+  const R = (min, max) => min + rand() * (max - min);
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const lerp = (a, b, t) => a + (b - a) * t;
   const smooth = t => t * t * (3 - 2 * t);
