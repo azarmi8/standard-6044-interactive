@@ -46,8 +46,10 @@
     const currentMeta=curIndex>=0
       ? '<small>اکنون در کتاب</small><strong>فصل / پیوست '+fa(current)+' — '+esc(curTitle)+'</strong>'+(curBeat?'<span>گام '+fa(curBeat)+' از '+fa(p[current].total||curBeat)+'</span>':'')
       : '<small>مسیر مطالعه</small><strong>استاندارد ملی ایران ۶۰۴۴:۱۳۹۷</strong><span>منبع → فهم → کاربرد → تمرین → تصمیم</span>';
+    const existingLauncher=document.querySelector('[data-study-open]');
+    const launcherHtml=existingLauncher?'':'<button class="study-drawer-launch" type="button" data-study-open aria-controls="study-command-drawer" aria-expanded="false"><span class="launch-mark" aria-hidden="true">☰</span><span>مرکز مطالعه</span></button>';
     const html=
-      '<button class="study-drawer-launch" type="button" data-study-open aria-controls="study-command-drawer" aria-expanded="false"><span class="launch-mark" aria-hidden="true">☰</span><span>مرکز مطالعه</span></button>'+
+      launcherHtml+
       '<div class="study-drawer-backdrop" data-study-backdrop hidden></div>'+
       '<aside class="study-drawer" id="study-command-drawer" data-study-drawer aria-label="مرکز مطالعه" hidden>'+
         '<div class="study-drawer-head"><div><div class="study-drawer-eyebrow">6044 / STUDY NAVIGATION</div><div class="study-drawer-title">مرکز مطالعه</div></div><button class="study-drawer-close" type="button" data-study-close aria-label="بستن مرکز مطالعه">×</button></div>'+

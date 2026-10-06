@@ -1,0 +1,72 @@
+name: Generate Persian narration with neural Piper voice
+on:
+  push:
+    branches:
+      - "redesign/**"
+    paths:
+      - "tools/tts/audio-manifest.json"
+      - "tools/tts/audio-manifest.json"
+permissions:
+  contents: write
+jobs:
+  narration:
+    if: ${{ !startsWith(github.event.head_commit.message, 'chore(audio):') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install Piper
+        run: python -m pip install --upgrade pip piper-tts
+      - name: Install audio encoder
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+      - name: Download Persian neural voice
+        run: |
+          mkdir -p /tmp/cretiq-voice
+          curl -L --fail --retry 3 -o /tmp/cretiq-voice/fa_IR-mana-medium.onnx https://huggingface.co/MahtaFetrat/Mana-Persian-Piper/resolve/main/fa_IR-mana-medium.onnx
+          curl -L --fail --retry 3 -o /tmp/cretiq-voice/fa_IR-mana-medium.onnx.json https://huggingface.co/MahtaFetrat/Mana-Persian-Piper/resolve/main/fa_IR-mana-medium.onnx.json
+      - name: Synthesize Persian narration
+        env:
+          PYTHONUTF8: "1"
+        run: |
+          python - <<'PY'
+          import json, subprocess, wave
+          from pathlib import Path
+          from piper import PiperVoice
+          manifest_doc = json.loads(Path("tools/tts/audio-manifest.json").read_text(encoding="utf-8"))
+          manifest = manifest_doc.get("items", [])
+          voice = PiperVoice.load("/tmp/cretiq-voice/fa_IR-mana-medium.onnx")
+          root = Path("site/6044-1397")
+          out = root / "audio" / "fa"
+          out.mkdir(parents=True, exist_ok=True)
+          for item in manifest:
+              rel = Path(item["file"])
+              if rel.suffix.lower() != ".mp3": continue
+              target = root / rel
+              if target.exists():
+                  continue
+              text = item.get("text","").strip()
+              if not text: continue
+              wav_file = Path("/tmp/cretiq-voice") / (target.stem + ".wav")
+              with wave.open(str(wav_file),"wb") as wav:
+                  voice.synthesize_wav(text,wav)
+              subprocess.run(["ffmpeg","-hide_banner","-loglevel","error","-y","-i",str(wav_file),"-ar","22050","-ac","1","-codec:a","libmp3lame","-b:a","96k",str(target)],check=True)
+              wav_file.unlink(missing_ok=True)
+          Path("tools/tts/VOICE_PROVIDER.md").write_text("# Release voice provider\n\nCRETIQ 6044 narration is generated at build time with the Mana Persian Piper voice (fa-IR). The voice model is not loaded by the public runtime.\n",encoding="utf-8")
+          PY
+      - name: Commit generated audio
+        run: |
+          git config user.name "CRETIQ Narration Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add site/6044-1397/audio/fa tools/tts/VOICE_PROVIDER.md
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "chore(audio): regenerate Persian narration with Mana Piper"
+          git push origin "HEAD:${GITHUB_REF_NAME}"

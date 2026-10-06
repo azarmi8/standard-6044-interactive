@@ -605,3 +605,49 @@ button,input,select,textarea{font-variant-numeric:tabular-nums}
 .card > .panel:has(#title) .quiz button:hover{border-color:#2d7e63!important;box-shadow:0 0 0 2px rgba(43,126,99,.08)}
 .card > .panel:has(#title) .sim-result{background:#fffdf8!important;color:#27312c!important;border-color:#c9c0ae!important}
 @media(max-width:700px){.top{padding-inline:0}.card > .panel:has(#title){border-radius:16px!important}}
+
+/* CRETIQ 6044 — reader visual system v2
+   Chapter surfaces inherit the same cinematic language as the new homepage.
+*/
+body:not(.home-page){background:#071015!important;color:#e8f3ef!important}
+body:not(.home-page) .shell{max-width:1480px;padding:92px clamp(16px,4vw,54px) 60px}
+body:not(.home-page) .top{margin-bottom:22px;padding-bottom:14px;border-bottom:1px solid #20363e}
+body:not(.home-page) .brand{color:#edf7f3;font-weight:900}
+body:not(.home-page) .tag{background:#0b3026!important;border:1px solid #1a7659;color:#dff9ef}
+body:not(.home-page) .card{background:transparent!important;border:0!important;box-shadow:none!important;border-radius:0!important}
+body:not(.home-page) .stage{border-radius:26px;background:#071015!important;border:1px solid #21363e;box-shadow:0 30px 90px rgba(0,0,0,.28);overflow:hidden}
+body:not(.home-page) .stage>svg{background:#071015!important;shape-rendering:geometricPrecision;text-rendering:geometricPrecision}
+body:not(.home-page) .stage>svg>rect:first-child{fill:transparent!important}
+body:not(.home-page) .stage svg path,
+body:not(.home-page) .stage svg polyline,
+body:not(.home-page) .stage svg line,
+body:not(.home-page) .stage svg polygon{stroke-linecap:round;stroke-linejoin:round}
+body:not(.home-page) .stage svg circle,
+body:not(.home-page) .stage svg ellipse{vector-effect:non-scaling-stroke}
+body:not(.home-page) .book-controls{margin-top:10px;border:1px solid #20363e!important;border-radius:16px;background:linear-gradient(180deg,#0b171d,#0a141a)!important;box-shadow:0 14px 40px rgba(0,0,0,.22);padding:11px}
+body:not(.home-page) .book-controls button{min-height:40px;border-radius:12px;background:#143127;color:#e4f4ee;border:1px solid #285a49;box-shadow:none}
+body:not(.home-page) .book-controls button.secondary{background:#0f1b21;color:#cfe0da;border-color:#29424b}
+body:not(.home-page) .book-controls .progress{height:4px;background:#17272d}
+body:not(.home-page) .book-controls .progress i{background:linear-gradient(90deg,#27c5de,#2bf2ad);box-shadow:0 0 14px rgba(43,242,173,.35)}
+body:not(.home-page) .panel{border-color:#20363e!important;background:linear-gradient(145deg,#0b151b,#0c1920)!important;color:#e8f3ef}
+body:not(.home-page) .panel h1,
+body:not(.home-page) .panel h2,
+body:not(.home-page) .panel h3{color:#edf7f3}
+body:not(.home-page) .panel p,
+body:not(.home-page) .panel li,
+body:not(.home-page) .panel label{color:#98afa8}
+body:not(.home-page) .narration-panel{border-color:#264c49;background:linear-gradient(145deg,#0c1d20,#0b171d)!important;box-shadow:0 18px 46px rgba(0,0,0,.20)}
+body:not(.home-page) .narration-panel p{color:#b2c4bf;border-top-color:#20363e}
+body:not(.home-page) .narration-actions button{background:#143127;border:1px solid #285a49}
+body:not(.home-page) .narration-actions button.secondary{background:#0f1b21;color:#cfe0da;border-color:#29424b}
+body:not(.home-page) .narration-actions select{background:#0c171d;color:#dcece7;border-color:#29424b}
+body:not(.home-page) .simulation-panel{background:linear-gradient(145deg,#0a151b,#0d1c22)!important;border-color:#20363e!important}
+body:not(.home-page) .sim-result{background:#09161b!important;border-color:#29444c!important;color:#dcebe6!important}
+body:not(.home-page) .sim-source{color:#78938b!important}
+body:not(.home-page) .quiz button{background:#0c171d;color:#dcebe7;border-color:#29424b}
+body:not(.home-page) .quiz button:hover,.quiz button:focus-visible{background:#102329;border-color:#397c70}
+body:not(.home-page) .lab-visual-panel{background:linear-gradient(145deg,#09151b,#0b1c21)!important;border-color:#20363e!important}
+body:not(.home-page) .lab-visual-canvas-wrap{border:1px solid #20363e!important;border-radius:18px;overflow:hidden;background:#071015}
+body:not(.home-page) .lab-visual-status{background:#0b171d!important;border-color:#29424b!important}
+body:not(.home-page) .lab-visual-controls button{background:#143127;border-color:#285a49;color:#e4f4ee}
+@media(max-width:700px){body:not(.home-page) .shell{padding:78px 10px 32px}body:not(.home-page) .stage{border-radius:18px}}
