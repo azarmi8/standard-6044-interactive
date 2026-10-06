@@ -70,7 +70,7 @@ window.SimulationEngine.ch08 = {
     if(!input || !Number.isFinite(input.firstPercent) || !Number.isFinite(input.secondPercent) || !Number.isFinite(input.intervalMinutes))
       return 'درصدهای نمونه‌برداری و فاصله زمانی را کامل وارد کنید.';
     if(input.firstPercent<0 || input.firstPercent>100 || input.secondPercent<0 || input.secondPercent>100 || input.intervalMinutes<0)
-      return 'مقادیر واردشده خارج از دامنه معتبر هستند.';
+      return 'مقادیر واردشده در بازه مجاز نیستند.';
     return null;
   },
   calculate(input) {
@@ -169,13 +169,13 @@ window.SimulationEngine.ch14 = {
   requiredControls: [
     ['materials','انتخاب و کنترل مواد'],
     ['mixDesign','طرح مخلوط و نسبت‌های اختلاط'],
-    ['competence','صلاحیت نیروی انسانی'],
+    ['competence','صلاحیت کارکنان'],
     ['equipment','تجهیزات و فرایندهای تولید و کنترل'],
     ['testing','بازرسی و آزمون بتن تازه و سخت‌شده'],
     ['records','استفاده از نتایج آزمون و سوابق کنترل']
   ],
   calculate(input) {
-    if(!input || typeof input!=='object') return {valid:false,error:'اطلاعات سیستم کنترل تولید وارد نشده است.'};
+    if(!input || typeof input!=='object') return {valid:false,error:'اطلاعات سامانه کنترل تولید وارد نشده است.'};
     const missing=this.requiredControls.filter(([key])=>input[key]!==true).map(([,label])=>label);
     return {valid:true,complete:missing.length===0,missing};
   },
@@ -195,7 +195,7 @@ window.SimulationEngine.orderDelivery = {
     ['concreteSpec','مشخصات بتن'],
     ['strengthClass','رده مقاومت'],
     ['volumeM3','حجم بتن'],
-    ['deliveryMethod','روش انتقال']
+    ['deliveryMethod','روش حمل و تحویل']
   ],
   requiredDelivery: [
     ['truckId','شناسه کامیون'],
@@ -225,4 +225,4 @@ window.SimulationEngine.orderDelivery = {
     {input:{orderId:'O-102',project:'P-03',concreteSpec:'C40',strengthClass:'C40',volumeM3:-5,deliveryMethod:'کامیون',truckId:'T-03',ticketId:'D-03',loadTime:'10:00',arrivalTime:'10:30',dischargeStart:'10:35'},valid:false}
   ]
 };
-window.SimulationEngine.ch15={id:'ch15-conformity-assessment',source:{chapter:15,clauses:['15-1','15-2'],pages:'38-39'},calculate(input){if(!input||typeof input!=='object')return{valid:false,error:'شواهد ارزیابی وارد نشده است.'};const required=[['productionControl','کنترل تولید'],['testEvidence','شواهد آزمون'],['documentation','مستندات و سوابق']];const missing=required.filter(([k])=>input[k]!==true).map(([,label])=>label);const baseReady=missing.length===0;const bodyRequired=input.competentBodyRequired===true;const bodyEvaluated=input.competentBodyEvaluated===true;const externalEvaluationReady=!bodyRequired||bodyEvaluated;return{valid:true,baseReady,externalEvaluationRequired:bodyRequired,externalEvaluationReady,assessmentReady:baseReady&&externalEvaluationReady,missing};},testCases:[{input:{productionControl:true,testEvidence:true,documentation:true,competentBodyRequired:false,competentBodyEvaluated:false},assessmentReady:true},{input:{productionControl:true,testEvidence:false,documentation:true,competentBodyRequired:false,competentBodyEvaluated:false},assessmentReady:false},{input:{productionControl:true,testEvidence:true,documentation:true,competentBodyRequired:true,competentBodyEvaluated:false},assessmentReady:false},{input:{productionControl:true,testEvidence:true,documentation:true,competentBodyRequired:true,competentBodyEvaluated:true},assessmentReady:true}]};
+window.SimulationEngine.ch15={id:'ch15-conformity-assessment',source:{chapter:15,clauses:['15-1','15-2'],pages:'38-39'},calculate(input){if(!input||typeof input!=='object')return{valid:false,error:'اطلاعات ارزیابی وارد نشده است.'};const required=[['productionControl','کنترل تولید'],['testEvidence','مدارک و نتایج آزمون'],['documentation','مستندات و سوابق']];const missing=required.filter(([k])=>input[k]!==true).map(([,label])=>label);const baseReady=missing.length===0;const bodyRequired=input.competentBodyRequired===true;const bodyEvaluated=input.competentBodyEvaluated===true;const externalEvaluationReady=!bodyRequired||bodyEvaluated;return{valid:true,baseReady,externalEvaluationRequired:bodyRequired,externalEvaluationReady,assessmentReady:baseReady&&externalEvaluationReady,missing};},testCases:[{input:{productionControl:true,testEvidence:true,documentation:true,competentBodyRequired:false,competentBodyEvaluated:false},assessmentReady:true},{input:{productionControl:true,testEvidence:false,documentation:true,competentBodyRequired:false,competentBodyEvaluated:false},assessmentReady:false},{input:{productionControl:true,testEvidence:true,documentation:true,competentBodyRequired:true,competentBodyEvaluated:false},assessmentReady:false},{input:{productionControl:true,testEvidence:true,documentation:true,competentBodyRequired:true,competentBodyEvaluated:true},assessmentReady:true}]};
