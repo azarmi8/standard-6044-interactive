@@ -219,12 +219,20 @@ body{
     #071015;
 }
 .engineering-hero-frame canvas{
+  position:absolute;
+  inset:0;
   display:block;
   width:100%;
-  height:auto;
-  min-height:560px;
-  aspect-ratio:900/600;
+  height:100%;
+  aspect-ratio:auto;
+}
+.engineering-hero-frame canvas[data-engineering-hero]{
+  z-index:0;
   cursor:crosshair;
+}
+.engineering-hero-frame canvas[data-engineering-hero-overlay]{
+  z-index:1;
+  pointer-events:none;
 }
 .engineering-hero-vignette{
   position:absolute;
