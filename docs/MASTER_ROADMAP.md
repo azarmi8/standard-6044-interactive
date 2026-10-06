@@ -1,7 +1,7 @@
 # MASTER ROADMAP — Standard 6044 Interactive
 
 ## North Star
-Deliver a finished, independently usable Persian RTL interactive engineering book and training simulator for Iranian National Standard 6044:1397.
+Deliver a finished, independently usable Persian RTL interactive engineering product — CRETIQ 6044 — for Iranian National Standard 6044:1397.
 
 **Owner:** Mohammadreza Azarmi  
 **Repository:** azarmi8/standard-6044-interactive
@@ -114,7 +114,8 @@ Current artifacts:
 - [x] Persian pronunciation dictionary foundation.
 - [x] TTS benchmark pack.
 - [x] Provider-neutral narration manifest/schema.
-- [x] Local Piper generation tool (model weights kept outside repository).
+- [x] Provider-neutral narration tooling scaffold.
+- [ ] Release-valid Piper generation and final voice package (model weights kept outside repository).
 - [x] Audio QA/release gate.
 - [ ] Human listening benchmark and voice selection.
 - [ ] Generate/review release narration for all released units.
@@ -172,7 +173,7 @@ Each simulation must expose source clauses, inputs, outputs, assumptions and val
 - [x] Engineering Hero Visual v1 — material particles → concrete → specimen → test data → decision, with reduced-motion and responsive canvas geometry.
 - [x] Full 22-unit visual/engine consistency audit — Chapters 1–15 + Appendices A–G use the shared book engine; bibliography remains a reference-only surface.
 - [x] Loading/error states.
-- [x] Representative desktop/mobile/reduced-motion browser smoke — Playwright passed on the current release baseline.
+- [ ] Representative desktop/mobile/reduced-motion browser smoke — current main needs a clean rerun after the CRETIQ 6044 title-brand fix.
 - [ ] Fullscreen visual QA.
 - [ ] No childish gamification or decorative animation.
 **Exit gate:** all chapters look like one product.
@@ -191,11 +192,11 @@ Each simulation must expose source clauses, inputs, outputs, assumptions and val
 - [ ] Fullscreen visual QA.
 ### Technical
 - [ ] Clean build.
-- [x] No console/page errors on the browser-smoke route set.
+- [ ] No console/page errors on the browser-smoke route set — rerun required after the current title-brand failure.
 - [ ] Assets/links/performance/accessibility final sweep.
 - [x] Static QA runner + GitHub Actions contract check on the active development branch.
-- [x] Static QA passed on current main (Run #62).
-- [x] Browser Smoke passed on current main (Run #12).
+- [x] Static QA passed on current main before the current polish patch; post-patch run required.
+- [ ] Browser Smoke currently failing on 2/26 title assertions; fix is in `fix/cretiq-qa-polish`.
 **Exit gate:** clean release candidate.
 
 ### Phase 11 — Documentation & Handoff
