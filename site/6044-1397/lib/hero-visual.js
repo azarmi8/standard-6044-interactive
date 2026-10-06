@@ -71,11 +71,10 @@
   function resize() {
     const rect = wrap.getBoundingClientRect();
     width = Math.max(320, Math.floor(rect.width));
-    height = Math.max(260, Math.floor(width * 0.665));
+    height = Math.max(260, Math.floor(rect.height));
     dpr = Math.min(window.devicePixelRatio || 1, DPR_LIMIT);
     canvas.width = Math.floor(width * dpr);
     canvas.height = Math.floor(height * dpr);
-    canvas.style.aspectRatio = '900 / 600';
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
@@ -211,6 +210,26 @@
     aura.addColorStop(1, 'rgba(7,16,21,0)');
     ctx.fillStyle = aura;
     ctx.fillRect(0, 0, width, height);
+  }
+
+  function drawMixingField(phase, now) {
+    if (phase !== 1 && phase !== 2) return;
+    const cx = width * .56;
+    const cy = height * .50;
+    ctx.save();
+    ctx.globalAlpha = phase === 1 ? .34 : .18;
+    ctx.globalCompositeOperation = 'lighter';
+    for (let i = 0; i < 4; i++) {
+      const rx = width * (.17 + i * .035);
+      const ry = height * (.15 + i * .018);
+      const a = now * (.00035 + i * .00006) + i * .8;
+      ctx.beginPath();
+      ctx.ellipse(cx, cy, rx, ry, a, -1.05, 1.85);
+      ctx.strokeStyle = i % 2 ? palette.cyan : palette.green;
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+    }
+    ctx.restore();
   }
 
   function drawMaterialLegend() {
@@ -384,6 +403,7 @@
     const t = elapsed % total;
     const { i, p } = phaseAt(t);
     drawMaterialLegend();
+    drawMixingField(i, now);
     drawCenterGeometry(i, p);
     drawParticles(p, i, now);
     drawTelemetry(i, ease(p));
