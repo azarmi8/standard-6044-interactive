@@ -137,6 +137,9 @@
     overlay.style.width=width+'px';
     overlay.style.height=height+'px';
     ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.direction='ltr';
+    ctx.textAlign='left';
+    ctx.textBaseline='alphabetic';
     if(glReady && gl){
       gl.viewport(0,0,glCanvas.width,glCanvas.height);
       gl.clearColor(0.027,0.063,0.082,1);
@@ -320,9 +323,31 @@
       ctx.restore();
     }
     if(phase===2){
-      ctx.save();ctx.strokeStyle='rgba(243,234,214,.15)';ctx.lineWidth=1;
-      ctx.beginPath();ctx.ellipse(cx,cy,width*.31,height*.23,0,0,Math.PI*2);ctx.stroke();
-      ctx.beginPath();ctx.ellipse(cx,cy,width*.18,height*.14,0,0,Math.PI*2);ctx.stroke();
+      ctx.save();
+      const aura=ctx.createRadialGradient(cx-width*.04,cy-height*.02,8,cx,cy,width*.34);
+      aura.addColorStop(0,'rgba(43,242,173,.105)');
+      aura.addColorStop(.45,'rgba(39,197,222,.045)');
+      aura.addColorStop(1,'rgba(7,16,21,0)');
+      ctx.fillStyle=aura;
+      ctx.beginPath();ctx.ellipse(cx,cy,width*.33,height*.25,0,0,Math.PI*2);ctx.fill();
+
+      ctx.strokeStyle='rgba(243,234,214,.18)';ctx.lineWidth=1;
+      for(let i=0;i<5;i++){
+        const k=1-i*.11;
+        ctx.beginPath();
+        ctx.ellipse(cx-width*.015,cy+height*.008,width*.31*k,height*.235*k,0,0,Math.PI*2);
+        ctx.stroke();
+      }
+      ctx.strokeStyle='rgba(43,242,173,.18)';
+      ctx.beginPath();ctx.moveTo(cx-width*.34,cy);ctx.lineTo(cx+width*.34,cy);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(cx,cy-height*.25);ctx.lineTo(cx,cy+height*.25);ctx.stroke();
+
+      ctx.fillStyle='rgba(233,246,240,.88)';
+      ctx.font='900 13px Tahoma,Arial,sans-serif';
+      ctx.fillText('FRESH CONCRETE / CONCEPTUAL MATRIX',cx-width*.19,cy-height*.28);
+      ctx.fillStyle='rgba(134,162,154,.9)';
+      ctx.font='700 9px Tahoma,Arial,sans-serif';
+      ctx.fillText('aggregate skeleton  •  paste  •  water  •  admixture',cx-width*.19,cy-height*.245);
       ctx.restore();
     }
     if(phase===3){
@@ -447,5 +472,15 @@
   resize();spawnParticles();render(performance.now());
   if(!reduced) requestAnimationFrame(tick);
 
-  window['6044HeroVisual']={pause:()=>paused=true,play:()=>{if(!reduced)paused=false},reset:()=>{elapsed=0;render(performance.now())}};
+  window['6044HeroVisual']={
+    pause:()=>paused=true,
+    play:()=>{if(!reduced)paused=false},
+    reset:()=>{elapsed=0;render(performance.now())},
+    seekPhase:(index,progressValue=.5)=>{
+      const safeIndex=Math.max(0,Math.min(phases.length-1,Number(index)||0));
+      const safeProgress=Math.max(0,Math.min(1,Number(progressValue)||0));
+      elapsed=phases.slice(0,safeIndex).reduce((s,p)=>s+p.duration,0)+phases[safeIndex].duration*safeProgress;
+      render(performance.now());
+    }
+  };
 })();
