@@ -3,8 +3,7 @@
   const root=document.documentElement;
   const script=document.currentScript;
   const scriptUrl=new URL(script?.getAttribute('src')||'lib/navigation.js',location.href);
-  const libBase=new URL('../',scriptUrl).href;
-  const siteBase=new URL('../',libBase).href;
+  const siteBase=new URL('../',scriptUrl).href;
   const units=[
     ['01','هدف و دامنه کاربرد'],['02','مراجع الزامی'],['03','اصطلاحات و تعاریف'],['04','مصالح'],
     ['05','مبنای سفارش و خرید بتن'],['06','اطلاعات سفارش'],['07','اختلاط و تحویل'],
