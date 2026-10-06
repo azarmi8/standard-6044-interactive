@@ -68,6 +68,18 @@ Current artifacts:
 **Exit gate:** a new chapter can be implemented mainly from configuration/content. **PASSED.**
 
 ## Engineering Visual Engine v2 — current branch upgrade
+## Engineering Product Polish — current branch upgrade
+**Status: implemented as a non-Production PR upgrade.**
+- [x] Persian-first typography baseline across the book shell.
+- [x] Premium RTL Study Command Drawer across home, search, assessment and all 23 book surfaces.
+- [x] Context-aware current chapter plus previous/next navigation in the drawer.
+- [x] Local study-state summary in the drawer using existing progress/bookmark storage.
+- [x] Hybrid visual language: Engineering Dark for visual/simulation surfaces + restrained warm reading surface for chapter copy.
+- [x] Homepage narrative ordering: material-intelligence showcase now follows the main entry experience before the architecture showcase.
+- [x] Browser smoke coverage for drawer open/close, current context and 23-unit navigation.
+- [x] CI concurrency guard so only the latest Browser Smoke run remains active for the PR.
+- [ ] Final human visual review on representative desktop/mobile devices.
+
 **Status: implemented as a non-Production PR prototype.**
 
 - [x] Semantic particle states for aggregate, cement/SCM, water and admixture.
