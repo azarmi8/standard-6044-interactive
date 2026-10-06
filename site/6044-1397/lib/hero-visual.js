@@ -159,8 +159,37 @@
     }
   }
 
+  function chooseQuality(){
+    const mobile=width<600;
+    const memory=Number(navigator.deviceMemory||8);
+    const cores=Number(navigator.hardwareConcurrency||4);
+    if(mobile || memory<=3 || cores<=4){
+      qualityTier='low'; particleTarget=2200;
+    }else if(memory<=6 || cores<=6){
+      qualityTier='balanced'; particleTarget=4200;
+    }else{
+      qualityTier='high'; particleTarget=7200;
+    }
+    wrap.dataset.heroQuality=qualityTier;
+  }
+
+  function maybeAdaptQuality(now){
+    if(adaptiveChecked || reduced) return;
+    frameSamples.push(now-last);
+    if(frameSamples.length<90) return;
+    adaptiveChecked=true;
+    const avg=frameSamples.reduce((a,b)=>a+b,0)/frameSamples.length;
+    if(avg>28 && particleTarget>2200){
+      qualityTier='low'; particleTarget=2200; wrap.dataset.heroQuality='adaptive-low';
+      spawnParticles();
+    }else if(avg>22 && particleTarget>4200){
+      qualityTier='balanced'; particleTarget=4200; wrap.dataset.heroQuality='adaptive-balanced';
+      spawnParticles();
+    }
+  }
+
   function spawnParticles(){
-    const count=width<600 ? 2600 : 7200;
+    const count=particleTarget;
     seed=60441397;
     particles=Array.from({length:count},(_,i)=>{
       const mod=i%100;
@@ -480,6 +509,7 @@
   function tick(now){
     const dt=Math.min(.05,(now-last)/1000);last=now;
     if(!paused) elapsed+=dt;
+    maybeAdaptQuality(now);
     render(now);
     if(!reduced) requestAnimationFrame(tick);
   }
@@ -492,16 +522,27 @@
   },{passive:true});
   wrap.addEventListener('pointerleave',()=>{pointer.active=false;});
 
-  window.addEventListener('resize',()=>{resize();spawnParticles();render(performance.now());},{passive:true});
+  window.addEventListener('resize',()=>{
+    resize(); chooseQuality(); adaptiveChecked=false; frameSamples=[]; spawnParticles(); render(performance.now());
+  },{passive:true});
   document.addEventListener('visibilitychange',()=>{ if(document.hidden) paused=true; else if(!reduced) paused=false; });
 
-  resize();spawnParticles();render(performance.now());
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(entries=>{
+      const visible=entries.some(e=>e.isIntersecting);
+      if(document.visibilityState==='visible') paused=!visible;
+      if(visible && !reduced) last=performance.now();
+    },{threshold:.08});
+    io.observe(wrap);
+  }
+  resize(); chooseQuality(); spawnParticles(); render(performance.now());
   if(!reduced) requestAnimationFrame(tick);
 
   window['6044HeroVisual']={
     pause:()=>paused=true,
     play:()=>{if(!reduced)paused=false},
     reset:()=>{elapsed=0;render(performance.now())},
+    getQuality:()=>qualityTier,
     seekPhase:(index,progressValue=.5)=>{
       const safeIndex=Math.max(0,Math.min(phases.length-1,Number(index)||0));
       const safeProgress=Math.max(0,Math.min(1,Number(progressValue)||0));
