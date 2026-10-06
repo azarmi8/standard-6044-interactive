@@ -3,8 +3,8 @@
   window.AppendixSimulations = {
     uniformity: {
       thresholds: {
-        densityNoAir:{label:'چگالی بدون حباب هوا',unit:'kg/m³',limitPct:10,basis:'میانگین دو مقدار'},
-        air:{label:'درصد حباب هوا',unit:'%',limitPct:20,basis:'میانگین دو مقدار'},
+        densityNoAir:{label:'چگالی بدون حباب هوا',unit:'kg/m³',limitPct:1,basis:'میانگین دو مقدار'},
+        air:{label:'درصد حباب هوا',unit:'%',limitPct:2,basis:'میانگین دو مقدار'},
         slump:{label:'اسلامپ',unit:'mm',limitPct:20,basis:'میانگین دو مقدار'},
         coarseAggregate:{label:'درصد سنگدانه درشت',unit:'%',limitPct:6,basis:'اختلاف نسبی آموزشی'},
         compressiveAverage:{label:'مقاومت فشاری متوسط',unit:'MPa',limitPct:7.5,basis:'اختلاف نسبی آموزشی'}
