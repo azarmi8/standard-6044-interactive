@@ -1,13 +1,13 @@
 <!doctype html>
 <html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>آزمون و ارزیابی مهارت — استاندارد ۶۰۴۴</title><link rel="stylesheet" href="style.css"></head>
-<body><main class="shell"><div class="top"><div class="brand">۶۰۴۴ / Assessment Lab</div><div class="tag">آزمون و نقشه ضعف</div></div>
-<section class="card panel"><h1>آزمون مهارت استاندارد ۶۰۴۴:۱۳۹۷</h1><p class="muted">تمرین‌ها آموزشی‌اند؛ نتیجه این صفحه گواهی صلاحیت یا تأیید پروژه نیست.</p>
+<body><main class="shell"><div class="top"><div class="brand">۶۰۴۴ / Assessment Lab</div><div class="tag">ارزیابی یادگیری</div></div>
+<section class="card panel"><h1>ارزیابی یادگیری استاندارد ۶۰۴۴:۱۳۹۷</h1><p class="muted">تمرین‌ها آموزشی‌اند؛ نتیجه این صفحه گواهی صلاحیت یا تأیید پروژه نیست.</p>
 <div id="summary" class="sim-result"></div><div id="question"></div><div id="feedback" class="panel" aria-live="polite"></div>
-<div class="controls"><button id="prev" class="secondary">قبلی</button><button id="next">بعدی</button><button id="finish" class="secondary">نمایش نتیجه</button><button id="reset" class="secondary">شروع دوباره</button></div>
+<div class="controls"><button id="prev" class="secondary">قبلی</button><button id="next">بعدی</button><button id="finish" class="secondary">نمایش نتیجه نهایی</button><button id="reset" class="secondary">شروع دوباره</button></div>
 </section></main><script src="lib/assessment.js"></script><script>
 let i=0,answers=AssessmentEngine.getState().answers,$=x=>document.getElementById(x);
-function renderSummary(){const s=AssessmentEngine.summary();$('summary').innerHTML='<strong>امتیاز: '+s.correct+' / '+s.total+' — '+s.percent+'٪</strong><br>پاسخ‌داده‌شده: '+s.answered+' | واحدهای نیازمند مرور: '+(s.weak.length?s.weak.join('، '):'نداریم');}
+function renderSummary(){const s=AssessmentEngine.summary();$('summary').innerHTML='<strong>امتیاز: '+s.correct+' / '+s.total+' — '+s.percent+'٪</strong><br>پاسخ‌داده‌شده: '+s.answered+' | مباحث نیازمند مرور: '+(s.weak.length?s.weak.join('، '):'نداریم');}
 function render(){const q=AssessmentEngine.questions[i];$('feedback').innerHTML='';let h='<div class="panel"><p><strong>سؤال '+(i+1)+' از '+AssessmentEngine.questions.length+'</strong> — '+q.source+' — '+q.difficulty+'</p><h2>'+q.prompt+'</h2>';
 if(q.type==='mcq'||q.type==='scenario'||q.type==='truefalse'){const opts=q.type==='truefalse'?['درست','نادرست']:q.options;h+=opts.map((o,k)=>'<button class="quiz-opt" data-v="'+k+'">'+o+'</button>').join('');}
 if(q.type==='numeric')h+='<input id="numeric" type="number" step="any" placeholder="عدد را وارد کنید">';
