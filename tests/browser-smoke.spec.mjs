@@ -54,6 +54,18 @@ test.describe('6044 browser smoke', () => {
   }
 
 
+  test('homepage intelligence core + visual showcase boot', async ({ page }) => {
+    await page.goto('http://127.0.0.1:8765/', { waitUntil: 'networkidle' });
+    await expect(page.locator('.engineering-core')).toHaveCount(1);
+    await expect(page.locator('.home-visual-preview')).toHaveCount(1);
+    await expect(page.locator('.home-visual-preview')).toHaveAttribute('data-visual-state','0');
+    await page.locator('.home-visual-preview [data-particle-play]').click();
+    await page.waitForTimeout(250);
+    await expect(page.locator('.home-visual-preview')).toHaveAttribute('data-visual-state','0');
+    await page.locator('.home-visual-preview [data-particle-reset]').click();
+    await expect(page.locator('.home-visual-preview')).toHaveAttribute('data-visual-state','0');
+  });
+
   test('Chapter 4 particle morph + packaged narration wiring', async ({ page }) => {
     await page.goto('http://127.0.0.1:8765/ch04/', { waitUntil: 'networkidle' });
     await expect(page.locator('[data-particle-morph]')).toHaveCount(1);
