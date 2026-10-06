@@ -526,7 +526,7 @@
       resize();setStatus(0);requestAnimationFrame(frame);
       const api={setStep,playSequence,pauseSequence,resetParticles};host.__particleMorph=api;particleMorphs.push(api);return api;
     }
-    function initParticleMorphs(){document.querySelectorAll('[data-particle-morph]').forEach(initParticleMorph)}
+    function initParticleMorphs(){document.querySelectorAll('[data-particle-morph][data-particle-engine-legacy]').forEach(initParticleMorph)}
     function syncParticleMorphs(n){particleMorphs.forEach(pm=>pm.setStep(n))}
 
     function render(){
@@ -538,7 +538,7 @@
       if(bar)bar.style.width=((index+1)/beats.length*100)+'%';
       sceneTargets(index);applyScene(cfg.scene,index);updateReaderHUD(); const stage=document.querySelector('.stage,.book-stage'); enhanceTechStage(stage); updateTechFocus(stage,index);
       document.documentElement.style.setProperty('--beat-index',index);
-      syncParticleMorphs(index);
+      syncParticleMorphs(index); window.dispatchEvent(new CustomEvent('6044:beat',{detail:{index,beat:b}}));
       lifecycle('onRender',index,b);saveProgress();updateBookmarkButton();syncNarration();
     }
     function go(n){
