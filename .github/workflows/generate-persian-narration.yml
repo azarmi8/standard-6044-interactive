@@ -21,6 +21,10 @@ jobs:
           python-version: "3.11"
       - name: Install Piper
         run: python -m pip install --upgrade pip piper-tts
+      - name: Install audio encoder
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
       - name: Download Persian neural voice
         run: |
           mkdir -p /tmp/cretiq-voice
@@ -49,7 +53,7 @@ jobs:
               wav_file = Path("/tmp/cretiq-voice") / (target.stem + ".wav")
               with wave.open(str(wav_file),"wb") as wav:
                   voice.synthesize_wav(text,wav)
-              subprocess.run(["ffmpeg","-hide_banner","-loglevel","error","-y","-i",str(wav_file),"-ar","24000","-codec:a","libmp3lame","-b:a","96k",str(target)],check=True)
+              subprocess.run(["ffmpeg","-hide_banner","-loglevel","error","-y","-i",str(wav_file),"-ar","22050","-ac","1","-codec:a","libmp3lame","-b:a","96k",str(target)],check=True)
               wav_file.unlink(missing_ok=True)
           Path("tools/tts/VOICE_PROVIDER.md").write_text("# Release voice provider\n\nCRETIQ 6044 narration is generated at build time with the Mana Persian Piper voice (fa-IR). The voice model is not loaded by the public runtime.\n",encoding="utf-8")
           PY
