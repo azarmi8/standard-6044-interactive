@@ -1,12 +1,12 @@
-# معماری — Standard 6044 Interactive
+# معماری AZARMI 6044
 
 ## اصل معماری
 
-محصول یک وب‌اپلیکیشن استاتیک و مستقل از Papermorph است. Papermorph فقط مرجع روش طراحی workflow بوده و dependency اجرایی این مخزن نیست.
+AZARMI 6044 یک وب‌اپلیکیشن استاتیک و مستقل با لایه‌های محتوا، موتور مطالعه، صحنه‌های تعاملی، شبیه‌ساز، ارزیابی و کنترل کیفیت است.
 
 جریان اصلی:
 
-**Source PDF → Source Ledger → Learning Map → Book Engine → Scene/Animation → Simulation/Assessment → QA → Static Release**
+**Source Standard → Verified Content → Learning Map → Reader Engine → Visual/Simulation → Assessment → QA → Release**
 
 ## ساختار اصلی
 
@@ -73,6 +73,6 @@ site/6044-1397/
 
 GitHub Pages مسیر انتشار استاتیک را می‌سازد، اما فعال‌سازی Pages در سطح مخزن یک تنظیم مالکیتی است.
 
-## اصل محدودیت وابستگی
+## اصل سادگی و پایداری
 
-هیچ API پولی، backend اجباری یا framework سنگین برای اجرای نسخه پایه لازم نیست. قابلیت‌های post-release مانند AI tutor، IoT زنده و 3D گسترده نباید قبل از تکمیل v1.0 وارد scope شوند.
+نسخه پایه بدون API پولی یا سرویس اجباری بیرونی اجرا می‌شود. قابلیت‌های توسعه‌ای باید بدون لطمه به هسته آموزشی و دقت منبع افزوده شوند.
