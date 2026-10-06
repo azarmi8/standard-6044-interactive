@@ -4,7 +4,7 @@ Last checked: 2026-10-06
 
 ## Current baseline
 
-- Main: `966d24f4b1eba12249b315dfb8901c4ff2d23fb7`
+- Main: `ecebb1d3e3514366523a599c297d88809674b495`
 - Product: Persian RTL interactive engineering book for Iranian National Standard 6044:1397.
 - Source structure: 15 official chapters + Appendices A–G + bibliography.
 - Learning units: 22.
@@ -22,11 +22,11 @@ Last checked: 2026-10-06
 | Simulation contracts | PASS | deterministic simulation tests reviewed; ch11 edge-case corrected |
 | Assessment/search contracts | PASS | existing QA contract + static inspection |
 | Professional cover/contents | PASS | merged and strengthened by PR #16 |
-| Static QA | PASS | PR #16 Static QA passed after reader/runtime + visual pass changes |
-| Browser/mobile/reduced-motion QA | PASS | PR #16 Browser Smoke passed with Chapter 3/8/10/17 and mobile/reduced-motion coverage |
+| Static QA | PASS | Main Run #206 succeeded on `ecebb1d3e3514366523a599c297d88809674b495` |
+| Browser/mobile/reduced-motion QA | FAIL — 2 tests | Main Browser Smoke Run #156: 24 passed, 2 failed; assessment/search document titles still had the old brand |
 | Persian TTS human listening | PENDING | benchmark/contract exists; release audio not approved |
-| GitHub Pages | PASS | repository Pages is enabled; latest deployment reached Configure → Upload → Deploy successfully |
-| Release documentation/handoff | PASS | User guide, architecture map, release checklist and changelog merged in PR #14 |\n| v1.0.0 release | NOT READY | blocked by remaining release gates above |
+| GitHub Pages | PASS | Main Deploy Run #214 succeeded for `ecebb1d3e3514366523a599c297d88809674b495` |
+| Release documentation/handoff | PASS | Core release documentation exists; current-state refresh is required after QA/branding changes |\n| v1.0.0 release | NOT READY | blocked by remaining release gates above |
 
 ## Merge policy
 
@@ -43,10 +43,10 @@ A change may be merged when:
 RESOLVED. Repository-level Pages is enabled and the workflow deploys `site/6044-1397` with GitHub Actions.
 
 ### B-002 — Hosted CI recovery
-RESOLVED. Current main Static QA Run #64 and Browser Smoke Run #14 both succeeded.
+RESOLVED. Main Static QA is succeeding; current Browser Smoke has a deterministic title-brand mismatch.
 
 ### B-003 — Browser smoke
-Core smoke is verified on current main. Remaining release task is fullscreen visual QA; no browser-smoke failure is currently open.
+OPEN. Run #156 reports 24/26 passed; two failures are the `/assessment.html` and `/search.html` title assertions caused by the stale AZARMI titles.
 
 ### B-004 — Persian narration review
 Select a voice only after human listening. Check Persian pronunciation, numbers, units, ASTM/ISIRI/SCC/fc and technical pauses before approving release audio.
