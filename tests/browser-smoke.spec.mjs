@@ -143,6 +143,37 @@ test.describe('6044 browser smoke', () => {
     expect(pageErrors).toEqual([]);
   });
 
+  test('homepage render sequence communicates state and respects reduced motion', async ({ page }) => {
+    await page.goto('http://127.0.0.1:8765/', { waitUntil: 'networkidle' });
+    const sequence = page.locator('[data-render-sequence]');
+    await expect(sequence).toHaveCount(1);
+    await expect(sequence.locator('[data-render-scene]')).toHaveCount(3);
+    await expect(sequence.locator('[data-render-scene]').nth(0)).toHaveAttribute('aria-selected', 'true');
+    await expect(sequence.locator('[data-render-scene]').nth(1)).toHaveAttribute('aria-selected', 'false');
+
+    await sequence.locator('[data-render-scene]').nth(1).click();
+    await expect(sequence.locator('[data-render-scene]').nth(1)).toHaveAttribute('aria-selected', 'true');
+    await expect(sequence.locator('[data-render-kicker]')).toContainText('FRESH CONCRETE');
+    await expect(sequence.locator('.render-sequence-media img.is-active')).toHaveAttribute('src', 'assets/visuals/slump.webp');
+
+    await sequence.locator('[data-render-play]').click();
+    await expect(sequence.locator('[data-render-play]')).toHaveAttribute('aria-pressed', 'true');
+    await sequence.locator('[data-render-play]').click();
+    await expect(sequence.locator('[data-render-play]')).toHaveAttribute('aria-pressed', 'false');
+
+    const reduced = await page.context().browser().newContext({
+      viewport: { width: 390, height: 844 },
+      reducedMotion: 'reduce'
+    });
+    const reducedPage = await reduced.newPage();
+    await reducedPage.goto('http://127.0.0.1:8765/', { waitUntil: 'networkidle' });
+    const reducedSequence = reducedPage.locator('[data-render-sequence]');
+    await reducedSequence.locator('[data-render-scene]').nth(2).click();
+    await expect(reducedSequence.locator('[data-render-scene]').nth(2)).toHaveAttribute('aria-selected', 'true');
+    await expect(reducedSequence.locator('.render-sequence-media img.is-active')).toHaveAttribute('src', 'assets/visuals/strength.webp');
+    await reduced.close();
+  });
+
   test('homepage visual language contract', async ({ page }) => {
     await page.goto('http://127.0.0.1:8765/', { waitUntil: 'networkidle' });
     await expect(page.locator('.cinematic-hero')).toHaveCount(1);
