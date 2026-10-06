@@ -35,6 +35,9 @@ test.describe('6044 browser smoke', () => {
         expect(pageTitle, `chapter/appendix title on ${route}`).toMatch(/(فصل|پیوست)/);
       } else {
         expect(pageTitle, `book title on ${route}`).toContain('۶۰۴۴');
+        if (route === '/assessment.html' || route === '/search.html') {
+          expect(pageTitle, `CRETIQ brand title on ${route}`).toContain('CRETIQ');
+        }
       }
 
       if (route.match(/^\/ch\d{2}\/$/)) {
@@ -111,6 +114,8 @@ test.describe('6044 browser smoke', () => {
     await expect(page.locator('.engineering-core')).toHaveCount(1);
     await expect(page.locator('.home-visual-preview')).toHaveCount(1);
     await expect(page.locator('.home-visual-preview')).toHaveAttribute('data-visual-state','0');
+    await expect(page.locator('#capabilities-title')).toHaveCount(1);
+    await expect(page.locator('.engineering-core')).toHaveCount(1);
     await page.locator('.home-visual-preview [data-particle-play]').click();
     await page.waitForTimeout(250);
     await expect(page.locator('.home-visual-preview')).toHaveAttribute('data-visual-state','0');
