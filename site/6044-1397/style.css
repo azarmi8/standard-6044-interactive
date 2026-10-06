@@ -332,3 +332,11 @@ body{
   .engineering-hero-frame canvas{cursor:default}
   .engineering-hero-progress i{transition:none}
 }
+
+/* v1.0 product polish — Persian typography + calmer reading surface */
+:root{font-family:Vazirmatn,Tahoma,Arial,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+button,input,select,textarea{font:inherit}
+h1,h2,h3,h4,strong,button{font-family:Vazirmatn,Tahoma,Arial,sans-serif}
+input,select,textarea{font-family:Vazirmatn,Tahoma,Arial,sans-serif}
+a{transition:color .18s ease,opacity .18s ease}
+@media(prefers-reduced-motion:reduce){a{transition:none}}
