@@ -29,3 +29,34 @@ window.BOOK_CONFIG = {
     }).join('');
   }
 };
+
+window.addEventListener('DOMContentLoaded', () => {
+  const button = document.getElementById('run-conformity');
+  const output = document.getElementById('conformity-output');
+  if (!button || !output || !window.SimulationEngine?.ch15) return;
+
+  button.addEventListener('click', () => {
+    const r = window.SimulationEngine.ch15.calculate({
+      productionControl: document.getElementById('c-prod')?.checked === true,
+      testEvidence: document.getElementById('c-test')?.checked === true,
+      documentation: document.getElementById('c-doc')?.checked === true,
+      competentBodyRequired: document.getElementById('c-body')?.checked === true,
+      competentBodyEvaluated: document.getElementById('c-eval')?.checked === true
+    });
+
+    if (!r.valid) {
+      output.textContent = r.error;
+      output.className = 'sim-result bad';
+      return;
+    }
+
+    output.innerHTML =
+      '<strong>' + (r.assessmentReady ? 'مدارک و سوابق برای ارزیابی آماده‌اند.' : 'زنجیره هنوز برای ارزیابی آماده نیست.') + '</strong>' +
+      '<br>مدارک پایه: ' + (r.baseReady ? 'کامل' : 'ناقص') +
+      '<br>ارزیابی نهاد ذی‌صلاح: ' + (r.externalEvaluationReady ? 'کافی است / لازم نیست' : 'موردنیاز و انجام‌نشده') +
+      (r.missing.length ? '<br>موارد ناقص: ' + r.missing.join('، ') : '');
+
+    output.className = 'sim-result ' + (r.assessmentReady ? 'good' : 'bad');
+  });
+});
+
