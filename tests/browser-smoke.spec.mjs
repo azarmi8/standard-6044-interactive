@@ -61,8 +61,8 @@ test.describe('6044 browser smoke', () => {
     page.on('pageerror', err => pageErrors.push(String(err)));
     await page.goto('http://127.0.0.1:8765/', { waitUntil: 'networkidle' });
     await expect(page.locator('[data-engineering-hero]')).toHaveCount(1);
-    await expect(page.locator('[data-hero-phase]')).not.toBeEmpty();
-    await expect(page.locator('[data-hero-detail]')).not.toBeEmpty();
+    await expect(page.locator('.engineering-hero-status [data-hero-phase]')).not.toBeEmpty();
+    await expect(page.locator('.engineering-hero-status [data-hero-detail]')).not.toBeEmpty();
     await expect(page.locator('[data-hero-progress]')).toHaveCount(1);
     expect(consoleErrors).toEqual([]);
     expect(pageErrors).toEqual([]);
