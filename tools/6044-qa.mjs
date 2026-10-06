@@ -390,6 +390,8 @@ for(const n of expected){
   if(!exists(htmlPath)) continue;
   const html=read(htmlPath);
   checkVisualContract(htmlPath, html);
+  if(/(?:material-visual\.js|lab-visual\.js)/i.test(html))
+    fail(rel(htmlPath)+': legacy decorative canvas visual runtime remains loaded');
 
   if(!html.includes('../lib/engine.js') && !html.includes('../lib/engine.css')){
     warn(`ch${n}: legacy/non-engine chapter (not yet migrated)`);
