@@ -65,6 +65,15 @@ test.describe('6044 browser smoke', () => {
     await expect(page.locator('.engineering-hero-status [data-hero-detail]')).not.toBeEmpty();
     await expect(page.locator('[data-hero-progress]')).toHaveCount(1);
     await page.screenshot({ path: 'test-results/hero-desktop.png', fullPage: false });
+    const mobileContext = await page.context().browser().newContext({
+      viewport: { width: 390, height: 844 },
+      reducedMotion: 'reduce'
+    });
+    const mobilePage = await mobileContext.newPage();
+    await mobilePage.goto('http://127.0.0.1:8765/', { waitUntil: 'networkidle' });
+    await expect(mobilePage.locator('[data-engineering-hero]')).toHaveCount(1);
+    await mobilePage.screenshot({ path: 'test-results/hero-mobile.png', fullPage: false });
+    await mobileContext.close();
     expect(consoleErrors).toEqual([]);
     expect(pageErrors).toEqual([]);
   });
