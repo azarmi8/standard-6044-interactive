@@ -73,54 +73,63 @@ test.describe('6044 browser smoke', () => {
     await page.keyboard.press('Escape');
   });
 
-  test('homepage engineering hero particle narrative boots cleanly', async ({ page }) => {
+  test('homepage rendered engineering visual boots cleanly', async ({ page }) => {
     const consoleErrors = [];
     const pageErrors = [];
     page.on('console', msg => { if (msg.type() === 'error') consoleErrors.push(msg.text()); });
     page.on('pageerror', err => pageErrors.push(String(err)));
     await page.goto('http://127.0.0.1:8765/', { waitUntil: 'networkidle' });
-    await expect(page.locator('[data-engineering-hero]')).toHaveCount(1);
-    const heroStage = page.locator('.engineering-hero-stage');
-    await expect(heroStage).toHaveAttribute('data-hero-renderer', /^(webgl|canvas)$/);
-    await expect(heroStage).toHaveAttribute('data-hero-quality', /^(high|balanced|low|adaptive-low|adaptive-balanced)$/);
-    await expect(page.locator('.hero-visual-state [data-hero-phase]')).not.toBeEmpty();
-    await expect(page.locator('.hero-visual-state [data-hero-detail]')).not.toBeEmpty();
-    await expect(page.locator('[data-hero-progress]')).toHaveCount(1);
-    await page.screenshot({ path: 'test-results/hero-desktop.png', fullPage: false });
-    for (const phase of [1, 2, 3, 4]) {
-      await page.evaluate((p) => window['6044HeroVisual']?.seekPhase(p, 0.55), phase);
-      await page.waitForTimeout(60);
-      await page.screenshot({ path: `test-results/hero-phase-${phase}.png`, fullPage: false });
-    }
+
+    await expect(page.locator('.rendered-hero-stage')).toHaveCount(1);
+    const hero = page.locator('.rendered-hero-stage img');
+    await expect(hero).toHaveAttribute('src', 'assets/visuals/hero.webp');
+    await expect(hero).toBeVisible();
+
+    await expect(page.locator('[data-engineering-hero]')).toHaveCount(0);
+    await expect(page.locator('.cinematic-process')).toHaveCount(0);
+    await expect(page.locator('.home-visual-preview')).toHaveCount(0);
+    await expect(page.locator('script[src="lib/cinematic-home.js"]')).toHaveCount(0);
+    await expect(page.locator('img[src^="data:"]')).toHaveCount(0);
+
+    const images = page.locator('.rendered-hero-stage img, .render-story img, .render-gallery img');
+    await expect(images).toHaveCount(4);
+    const imageState = await images.evaluateAll(imgs => imgs.map(img => ({
+      src: img.getAttribute('src'),
+      complete: img.complete,
+      naturalWidth: img.naturalWidth,
+      naturalHeight: img.naturalHeight
+    })));
+    expect(imageState.every(x => x.complete && x.naturalWidth > 0 && x.naturalHeight > 0), JSON.stringify(imageState)).toBeTruthy();
+    expect(imageState.some(x => x.src?.includes('slump.webp'))).toBeTruthy();
+    expect(imageState.some(x => x.src?.includes('strength.webp'))).toBeTruthy();
+    expect(imageState.some(x => x.src?.includes('hero.webp'))).toBeTruthy();
+
+    await page.screenshot({ path: 'test-results/home-render-desktop.png', fullPage: false });
     const mobileContext = await page.context().browser().newContext({
       viewport: { width: 390, height: 844 },
       reducedMotion: 'reduce'
     });
     const mobilePage = await mobileContext.newPage();
     await mobilePage.goto('http://127.0.0.1:8765/', { waitUntil: 'networkidle' });
-    await expect(mobilePage.locator('[data-engineering-hero]')).toHaveCount(1);
-    await mobilePage.screenshot({ path: 'test-results/hero-mobile.png', fullPage: false });
+    await expect(mobilePage.locator('.rendered-hero-stage img')).toBeVisible();
+    await mobilePage.screenshot({ path: 'test-results/home-render-mobile.png', fullPage: false });
     await mobileContext.close();
+
     expect(consoleErrors).toEqual([]);
     expect(pageErrors).toEqual([]);
   });
 
-  test('homepage cinematic visual showcase boot', async ({ page }) => {
+  test('homepage visual language contract', async ({ page }) => {
     await page.goto('http://127.0.0.1:8765/', { waitUntil: 'networkidle' });
     await expect(page.locator('.cinematic-hero')).toHaveCount(1);
     await expect(page.locator('.story-intro')).toHaveCount(1);
-    await expect(page.locator('.cinematic-process')).toHaveCount(1);
+    await expect(page.locator('.render-story')).toHaveCount(1);
     await expect(page.locator('.learning-editorial')).toHaveCount(1);
-    await expect(page.locator('.visual-feature')).toHaveCount(1);
+    await expect(page.locator('.render-gallery')).toHaveCount(1);
     await expect(page.locator('.chapter-explorer')).toHaveCount(1);
-    await expect(page.locator('.home-visual-preview')).toHaveAttribute('data-visual-state','0');
-    await page.locator('[data-process-step="2"]').click();
-    await expect(page.locator('[data-process-stage]')).toHaveAttribute('data-process-state','2');
-    await page.locator('.home-visual-preview [data-particle-play]').click();
-    await page.waitForTimeout(250);
-    await expect(page.locator('.home-visual-preview')).toHaveAttribute('data-visual-state','0');
-    await page.locator('.home-visual-preview [data-particle-reset]').click();
-    await expect(page.locator('.home-visual-preview')).toHaveAttribute('data-visual-state','0');
+    await expect(page.locator('.final-cta')).toHaveCount(1);
+    await expect(page.locator('.render-gallery img[src*="strength.webp"]')).toHaveCount(1);
+    await expect(page.locator('.render-gallery img[src*="hero.webp"]')).toHaveCount(1);
   });
 
   test('Chapter 4 particle morph + packaged narration wiring', async ({ page }) => {

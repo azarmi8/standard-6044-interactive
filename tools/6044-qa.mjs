@@ -240,6 +240,27 @@ function checkAssessmentContract(){
 
 
 
+function checkHomepageVisualContract(){
+  const p=path.join(SITE,'index.html');
+  const cssPath=path.join(SITE,'style.css');
+  if(!exists(p)){ fail('homepage missing: site/6044-1397/index.html'); return; }
+  if(!exists(cssPath)){ fail('homepage stylesheet missing: site/6044-1397/style.css'); return; }
+  const src=read(p);
+  const css=read(cssPath);
+  for(const asset of ['assets/visuals/hero.webp','assets/visuals/slump.webp','assets/visuals/strength.webp']){
+    if(!src.includes(asset)) fail('homepage render asset contract missing: '+asset);
+    if(!exists(path.join(SITE,asset))) fail('homepage render asset file missing: '+asset);
+  }
+  for(const legacy of ['data-engineering-hero','cinematic-process','home-visual-preview','cinematic-home.js','data:image/webp;base64','assets/renders/','data-render-src']){
+    if(src.includes(legacy)) fail('homepage legacy/decorative visual token remains: '+legacy);
+  }
+  for(const token of ['--fs-display','--fs-section','.rendered-hero-stage','.render-gallery']){
+    if(!css.includes(token)) fail('homepage visual/typography contract token missing: '+token);
+  }
+  if(!src.includes('rendered-hero-stage') || !src.includes('render-story') || !src.includes('render-gallery'))
+    fail('homepage rendered visual structure is incomplete');
+}
+
 function checkSharedChapterNavigation(){
   for(const n of expected){
     const htmlPath=path.join(SITE,'ch'+n,'index.html');
@@ -300,6 +321,7 @@ function checkSearchContract(){
 checkSharedChapterNavigation();
 checkBookProgressContract();
 checkStudyNavigationContract();
+checkHomepageVisualContract();
 
 function checkVisualContract(htmlPath, html){
   const relPath=rel(htmlPath);
