@@ -93,6 +93,9 @@ test.describe('6044 browser smoke', () => {
 
     const images = page.locator('.rendered-hero-stage img, .render-story img, .render-gallery img');
     await expect(images).toHaveCount(4);
+    for (const image of await images.all()) {
+      await image.scrollIntoViewIfNeeded();
+    }
     const imageState = await images.evaluateAll(imgs => imgs.map(img => ({
       src: img.getAttribute('src'),
       complete: img.complete,
