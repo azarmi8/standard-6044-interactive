@@ -267,7 +267,7 @@ function checkBookProgressContract(){
   if(!engine.includes('saveProgress()')) fail('chapter progress persistence missing from shared engine');
   if(!exists(homePath)) return fail('book home missing for progress dashboard');
   const home=read(homePath);
-  if(!home.includes('progress-dashboard') || !home.includes('chapters-done')) fail('home progress dashboard missing');
+  if(!home.includes('cinematic-hero') || !home.includes('chapter-explorer') || !home.includes('data-study-open')) fail('home cinematic study entry contract missing');
 }
 
 function checkSearchContract(){
