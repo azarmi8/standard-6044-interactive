@@ -456,3 +456,80 @@ a{transition:color .18s ease,opacity .18s ease}
 @media(prefers-reduced-motion:reduce){
   .rendered-hero-stage img{transition:none!important}
 }
+
+
+/* CRETIQ 6044 — Product QA bar: reader surfaces */
+body:not(.home-page){
+  background:
+    radial-gradient(circle at 85% 8%,rgba(43,242,173,.07),transparent 28%),
+    radial-gradient(circle at 12% 90%,rgba(39,197,222,.05),transparent 30%),
+    #071015!important;
+  color:#eaf4f0!important;
+}
+body:not(.home-page) .shell{max-width:1380px;padding:34px clamp(18px,4vw,54px) 70px}
+body:not(.home-page) .top{
+  position:sticky;top:0;z-index:40;margin:-34px calc(-1 * clamp(18px,4vw,54px)) 28px;
+  padding:17px clamp(18px,4vw,54px);
+  background:rgba(5,13,17,.78);border-bottom:1px solid rgba(143,169,161,.13);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+}
+body:not(.home-page) .brand{font-size:15px;color:#edf6f2;letter-spacing:.02em}
+body:not(.home-page) .tag{font-size:12px;background:rgba(43,242,173,.10);color:#a9d7c8;border:1px solid rgba(43,242,173,.22)}
+body:not(.home-page) .card,
+body:not(.home-page) .panel,
+body:not(.home-page) .simulation-panel{
+  background:linear-gradient(145deg,rgba(13,27,34,.96),rgba(8,17,22,.98));
+  color:#eaf4f0;border-color:#20363e;border-radius:22px;
+  box-shadow:0 24px 70px rgba(0,0,0,.24);
+}
+body:not(.home-page) .stage{border-radius:20px;background:#081217;box-shadow:inset 0 0 0 1px rgba(43,242,173,.12),0 24px 70px rgba(0,0,0,.24)}
+body:not(.home-page) h1{font-size:clamp(30px,4vw,54px);line-height:1.08;letter-spacing:-.03em}
+body:not(.home-page) h2{font-size:clamp(24px,2.7vw,38px);line-height:1.15}
+body:not(.home-page) h3{font-size:18px}
+body:not(.home-page) p,body:not(.home-page) label{font-size:15px;line-height:1.9;color:#9bb1aa}
+body:not(.home-page) button,body:not(.home-page) input,body:not(.home-page) select{font-family:Vazirmatn,Tahoma,Arial,sans-serif}
+body:not(.home-page) input,body:not(.home-page) select{
+  min-height:46px;padding:0 12px;border-radius:12px;border:1px solid #29444d;
+  background:#09161c;color:#edf7f3;font-size:14px;outline:none;
+}
+body:not(.home-page) input:focus,body:not(.home-page) select:focus{border-color:rgba(43,242,173,.7);box-shadow:0 0 0 3px rgba(43,242,173,.09)}
+body:not(.home-page) .controls{gap:8px;padding:16px;border-top:1px solid #20363e;background:rgba(6,14,18,.55)}
+body:not(.home-page) .controls button{min-height:42px;padding:10px 15px;border-radius:11px;background:#0d3a2d;color:#dff7ee;border:1px solid rgba(43,242,173,.18)}
+body:not(.home-page) .controls button.secondary{background:#0c1d24;color:#a7bab4;border-color:#28424a}
+body:not(.home-page) .progress{height:5px;background:#172a31}
+body:not(.home-page) .progress i{background:linear-gradient(90deg,#27c5de,#2bf2ad)}
+body:not(.home-page) .sim-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0}
+body:not(.home-page) .sim-grid label{display:flex;flex-direction:column;gap:8px}
+body:not(.home-page) .simulation-panel{margin-top:18px;padding:24px}
+body:not(.home-page) .simulation-panel>p{max-width:900px}
+body:not(.home-page) #run-uniformity{min-height:46px;padding:10px 18px;border:0;border-radius:12px;background:#2bf2ad;color:#062018;font-weight:900;cursor:pointer}
+body:not(.home-page) .uniformity-presets{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
+body:not(.home-page) .uniformity-presets button{min-height:38px;padding:8px 12px;border-radius:999px;border:1px solid #28444b;background:#0a1a20;color:#b9ccc6;font-size:12px;cursor:pointer}
+body:not(.home-page) .uniformity-presets button:hover,body:not(.home-page) .uniformity-presets button:focus-visible{border-color:#2bf2ad;color:#e6f7f2;outline:none}
+body:not(.home-page) #uniformity-output{margin-top:16px;padding:20px;border-radius:18px;background:#09171d!important;border-color:#28434b!important}
+body:not(.home-page) #uniformity-output.good{background:linear-gradient(145deg,#0b221c,#09171d)!important;border-color:rgba(43,242,173,.35)!important}
+body:not(.home-page) #uniformity-output.bad{background:linear-gradient(145deg,#241416,#09171d)!important;border-color:rgba(255,109,115,.32)!important}
+.uniformity-result-head{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.uniformity-result-head small{display:block;font-size:10px;letter-spacing:.11em;color:#75918b;margin-bottom:5px}
+.uniformity-result-head strong{font-size:22px;color:#f3faf7}
+.uniformity-badge{display:inline-flex;align-items:center;justify-content:center;min-width:78px;min-height:34px;padding:7px 11px;border-radius:999px;background:rgba(43,242,173,.10);border:1px solid rgba(43,242,173,.25);color:#78e9c5;font:900 11px/1 Tahoma,Arial,sans-serif;letter-spacing:.08em}
+.bad .uniformity-badge{background:rgba(255,109,115,.08);border-color:rgba(255,109,115,.25);color:#ff9ba0}
+.uniformity-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}
+.uniformity-metrics>div{padding:14px;border:1px solid #203941;border-radius:14px;background:#0b1a20}
+.uniformity-metrics small{display:block;color:#78938d;font-size:11px;margin-bottom:6px}
+.uniformity-metrics b{font-size:18px;color:#eef8f4}
+.uniformity-scale{padding-top:5px}
+.uniformity-scale-track{position:relative;height:10px;border-radius:999px;background:#162830;overflow:visible}
+.uniformity-scale-track i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#27c5de,#2bf2ad);box-shadow:0 0 16px rgba(43,242,173,.22)}
+.uniformity-scale-track b{position:absolute;top:50%;transform:translate(50%,-50%);width:16px;height:16px;border-radius:50%;border:2px solid #061015;background:#eaf8f4;box-shadow:0 0 0 4px rgba(43,242,173,.13)}
+.uniformity-scale-labels{display:flex;justify-content:space-between;margin-top:9px;color:#708a84;font-size:11px}
+.uniformity-rule{margin:16px 0 0!important;padding-top:15px;border-top:1px solid #20383f;color:#b8cbc5!important;font-family:Tahoma,Vazirmatn,Arial,sans-serif}
+.uniformity-decision{margin:7px 0 0!important;color:#dfece8!important}
+@media(max-width:800px){
+  body:not(.home-page) .sim-grid{grid-template-columns:1fr}
+  .uniformity-metrics{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  body:not(.home-page) .shell{padding-inline:12px}
+  body:not(.home-page) .top{margin-inline:-12px;padding-inline:12px}
+}
