@@ -141,8 +141,30 @@ Read docs/PRODUCT_SPEC.md before shared UX/animation/simulation work. Prefer reu
 
 ## Current truth
 
-`main` baseline: `b4b5c6a564a96f830aa70b1ee970f5a856cfefdf`. Product brand: **CRETIQ 6044**. All 23 navigation surfaces have HTML entry points; Units 1–22 are the source learning units and Unit 23 is bibliography/reference. Engineering Visual Engine v2 and the product shell are merged into main. Main Static QA Run #217 and Pages Deploy Run #218 succeeded. PR #27 Browser Smoke passed 39/39 after repairing Chapter 15 and separating the bibliography route; main Browser Smoke Run #167 was still pending at the last check. The product remains a release candidate: final source audit, human narration approval, fullscreen visual QA, performance measurement and clean main browser smoke remain release gates.
+**Active release branch:** `redesign/cretiq-rendered-visuals-v3`  
+**PR:** #34  
+**Head:** `bd9038d53458260547d0fec7b26a1458c1fe12c4`
 
+The current branch contains the CRETIQ 6044 rendered-visual V3.1 upgrade. Homepage now uses repository-owned engineering renders rather than the previous Canvas/particle homepage choreography. The semantic render sequence communicates Factory → Fresh Concrete → Strength Evidence and supports manual selection, playback, keyboard navigation and reduced motion.
+
+Latest CI at this checkpoint:
+- Static QA: PASS
+- Browser Smoke: PASS 40/40
+- PR mergeable: yes
+- PR merged: no
+
+The branch is 19 commits ahead of `main` and 0 behind at this checkpoint.
+
+The three project design skills are now part of the repository baseline:
+- `.agents/skills/ui-ux-pro-max/SKILL.md`
+- `.agents/skills/emil-design-eng/SKILL.md`
+- `.agents/skills/design-taste-frontend/SKILL.md`
+
+Release gates still open: human visual acceptance, final source/publication audit, human narration approval, fullscreen/performance/accessibility sweep, owner acceptance, merge and Pages verification.
+
+`main` remains untouched by PR #34.
+
+`CRETIQ 6044` is the product brand. Repository continuity remains `standard-6044-interactive`.
 
 ## Finite delivery rule
 
