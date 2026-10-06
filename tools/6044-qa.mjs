@@ -219,8 +219,7 @@ function checkStudyNavigationContract(){
     const html=read(htmlPath);
     const expectedSrc=htmlPath===path.join(SITE,'index.html')||htmlPath===path.join(SITE,'search.html')||htmlPath===path.join(SITE,'assessment.html')
       ? 'lib/navigation.js' : '../lib/navigation.js';
-    const escapedSrc=expectedSrc.replaceAll('.','\\\\.');
-    const count=(html.match(new RegExp(`src=["']${escapedSrc}["']`,'g'))||[]).length;
+    const count=html.split(expectedSrc).length-1;
     if(count!==1) fail(rel(htmlPath)+': study navigation script count must be exactly 1');
   }
 }
