@@ -62,13 +62,13 @@ function checkPersianProductLanguage(dir){
 
 function checkHtmlIdentityAndIds(dir){
   const brandForbidden=[
-    /AZARMI\\s+6044/i,
-    /AZARMI\\s+ENGINEERING/i,
-    /AZARMI\\s*\\/\\s*(READER|MATERIAL VISUAL)/i,
+    /AZARMI\s+6044/i,
+    /AZARMI\s+ENGINEERING/i,
+    /AZARMI\s*\/\s*(READER|MATERIAL VISUAL)/i,
     /azarmi-capabilities/i
   ];
   for(const file of walk(dir)){
-    if(!/\\.html$/i.test(file)) continue;
+    if(!/\.html$/i.test(file)) continue;
     const src=read(file);
     const ids=[...src.matchAll(/\\bid\\s*=\\s*[\"']([^\"']+)[\"']/gi)].map(m=>m[1]);
     const seen=new Set();
