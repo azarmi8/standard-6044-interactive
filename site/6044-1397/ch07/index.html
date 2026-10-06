@@ -75,7 +75,7 @@
  <path d="M510 680l90-95h220l105 95" fill="#b8c7bf" class="machine"/>
  <circle cx="530" cy="780" r="43" fill="#0f1d17" stroke="#b7d7c2" stroke-width="7"/>
  <circle cx="900" cy="780" r="43" fill="#0f1d17" stroke="#b7d7c2" stroke-width="7"/>
- <text x="705" y="738" text-anchor="middle" fill="#173c2a" font-size="27" font-weight="800">MIXER TRUCK</text>
+ <text x="705" y="738" text-anchor="middle" fill="#173c2a" font-size="27" font-weight="800">تراک‌میکسر</text>
 </g>
 
 <g class="scene-object" data-scene-role="record" data-beat="6">
@@ -93,8 +93,8 @@
 
 <div class="controls book-controls"><button id="prev" class="secondary">قبلی</button><button id="play">پخش</button><button id="next">بعدی</button><button id="fullscreen" class="secondary">تمام‌صفحه</button><div class="progress"><i id="bar"></i></div><span id="count"></span></div>
 
-<div class="panel"><h2 id="title"></h2><p id="body"></p><div class="chapter-meta"><span class="source-badge">SOURCE</span><span class="explanation-badge">EXPLANATION</span><span class="practice-badge">PRACTICE</span></div>
-<div class="quiz"><h3>تصمیم سریع</h3><button data-q="good">درست — کل زنجیره تولید تا تحویل را با اطلاعات و سوابق بررسی می‌کنم</button><button data-q="bad">فقط یک عدد را می‌بینم و بدون بررسی فرایند تصمیم می‌گیرم</button><p id="quizResult"></p></div></div>
+<div class="panel"><h2 id="title"></h2><p id="body"></p><div class="chapter-meta"><span class="source-badge">منبع استاندارد</span><span class="explanation-badge">توضیح آموزشی</span><span class="practice-badge">تمرین</span></div>
+<div class="quiz"><h3>تصمیم سریع</h3><button data-q="good">درست — کل زنجیره تولید تا تحویل را با اطلاعات ثبت‌شده و سوابق بررسی می‌کنم</button><button data-q="bad">فقط یک عدد را می‌بینم و بدون بررسی فرایند تصمیم می‌گیرم</button><p id="quizResult"></p></div></div>
 </section>
 
 <section class="narration-panel" aria-label="روایت فصل"><strong data-narration-status>روایت صوتی</strong><p data-narration-transcript>برای شنیدن روایت، دکمه پخش را بزنید.</p></section>
@@ -107,11 +107,11 @@
 <label>دمای بتن هنگام تحویل (°C)<input id="delivery-temp" type="number" step="0.1" value="20"></label>
 </div>
 <button id="run-temp-sim">ارزیابی دما</button><div id="temp-output" class="sim-result" aria-live="polite"></div>
-<p class="sim-source"><strong>SOURCE:</strong> فصل ۷، جدول ۱ — حداقل دمای تحویل بر اساس کوچک‌ترین بُعد عضو؛ حداکثر دمای تحویل ۳۲°C.</p>
+<p class="sim-source"><strong>منبع استاندارد:</strong> فصل ۷، جدول ۱ — حداقل دمای تحویل بر اساس کوچک‌ترین بُعد عضو؛ حداکثر دمای تحویل ۳۲°C.</p>
 </section>
 </main>
 <script src="../lib/engine.js"></script><script src="app.js"></script><script src="../lib/simulations.js"></script>
 <script>
-(function(){const btn=document.getElementById('run-temp-sim'),out=document.getElementById('temp-output');if(!btn||!out)return;btn.addEventListener('click',function(){const r=window.SimulationEngine.ch07.calculate({memberDimensionMm:Number(document.getElementById('member-dimension').value),deliveryTemperatureC:Number(document.getElementById('delivery-temp').value)});if(!r.valid){out.textContent=r.error;out.className='sim-result bad';return;}out.innerHTML='<strong>'+(r.pass?'دمای تحویل در محدوده این سناریو قرار دارد.':'دمای تحویل خارج از محدوده این سناریو است.')+'</strong><br>حداقل مجاز بر اساس بُعد عضو: '+r.minimumC+' °C<br>حداکثر دمای تحویل: '+r.maximumC+' °C<br>کنترل حداقل: '+(r.minimumOK?'قبول':'رد')+'<br>کنترل حداکثر: '+(r.maximumOK?'قبول':'رد');out.className='sim-result '+(r.pass?'good':'bad');});})();
+(function(){const btn=document.getElementById('run-temp-sim'),out=document.getElementById('temp-output');if(!btn||!out)return;btn.addEventListener('click',function(){const r=window.SimulationEngine.ch07.calculate({memberDimensionMm:Number(document.getElementById('member-dimension').value),deliveryTemperatureC:Number(document.getElementById('delivery-temp').value)});if(!r.valid){out.textContent=r.error;out.className='sim-result bad';return;}out.innerHTML='<strong>'+(r.pass?'دمای تحویل در محدوده این سناریو قرار دارد.':'دمای تحویل خارج از محدوده این سناریو است.')+'</strong><br>حداقل مجاز بر اساس بُعد عضو: '+r.minimumC+' °C<br>حداکثر دمای تحویل: '+r.maximumC+' °C<br>کنترل حداقل: '+(r.minimumOK?'پذیرش':'رد')+'<br>کنترل حداکثر: '+(r.maximumOK?'پذیرش':'رد');out.className='sim-result '+(r.pass?'good':'bad');});})();
 </script>
 </body></html>
