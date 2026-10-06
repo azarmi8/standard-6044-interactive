@@ -26,3 +26,4 @@ A visual scene is accepted only when:
 4. source context remains available;
 5. reduced-motion and mobile states remain usable;
 6. the scene has a deterministic reset/replay path.
+\n- lab-visual.js — reusable fresh-concrete and compressive-strength hero scenes for Chapters 10 and 11.\n
