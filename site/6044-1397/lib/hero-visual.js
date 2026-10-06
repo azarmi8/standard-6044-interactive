@@ -64,6 +64,7 @@
   let posBuffer = null, colorBuffer = null, sizeBuffer = null;
   let posData, colorData, sizeData;
   let uniforms = null;
+  let attribs = null;
 
   const vertexSource = `
     attribute vec3 a_position;
@@ -113,6 +114,7 @@
     if(!gl.getProgramParameter(program,gl.LINK_STATUS)){ program=null; return; }
     posBuffer=gl.createBuffer(); colorBuffer=gl.createBuffer(); sizeBuffer=gl.createBuffer();
     uniforms={time:gl.getUniformLocation(program,'u_time'), pointScale:gl.getUniformLocation(program,'u_pointScale')};
+    attribs={position:gl.getAttribLocation(program,'a_position'), color:gl.getAttribLocation(program,'a_color'), size:gl.getAttribLocation(program,'a_size')};
     gl.useProgram(program);
     gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
     gl.disable(gl.DEPTH_TEST);
@@ -154,6 +156,8 @@
         tx:0,ty:0,tz:0,
         size:type==='aggregate'?R(2.0,5.4):type==='cement'?R(1.0,2.8):R(.65,2.0),
         seed:R(0,1000),
+        zBias:R(-.72,.72),
+        radiusBias:Math.pow(R(.03,1),.55),
         cluster:i%6,
         phaseBias:R(0,.8),
         vx:Math.cos(a)*R(.00008,.00045),
@@ -216,7 +220,7 @@
       const rr=radial*(p.type==='aggregate'?1:p.type==='cement'?.92:.86);
       return {x:cx+Math.cos(a)*rr,
               y:cy+Math.sin(a)*rr*.77,
-              z:R(-.72,.72)};
+              z:p.zBias};
     }
     if(phase===3){
       const a=p.seed*1.73;
@@ -369,17 +373,17 @@
     gl.uniform1f(uniforms.pointScale, width<600 ? 1.95*dpr : 2.35*dpr);
 
     gl.bindBuffer(gl.ARRAY_BUFFER,posBuffer);
-    const locPos=gl.getAttribLocation(program,'a_position');
+    const locPos=attribs.position;
     gl.enableVertexAttribArray(locPos);gl.vertexAttribPointer(locPos,3,gl.FLOAT,false,0,0);
     gl.bufferSubData(gl.ARRAY_BUFFER,0,posData);
 
     gl.bindBuffer(gl.ARRAY_BUFFER,colorBuffer);
-    const locColor=gl.getAttribLocation(program,'a_color');
+    const locColor=attribs.color;
     gl.enableVertexAttribArray(locColor);gl.vertexAttribPointer(locColor,4,gl.FLOAT,false,0,0);
     gl.bufferSubData(gl.ARRAY_BUFFER,0,colorData);
 
     gl.bindBuffer(gl.ARRAY_BUFFER,sizeBuffer);
-    const locSize=gl.getAttribLocation(program,'a_size');
+    const locSize=attribs.size;
     gl.enableVertexAttribArray(locSize);gl.vertexAttribPointer(locSize,1,gl.FLOAT,false,0,0);
 
     gl.drawArrays(gl.POINTS,0,particles.length);
