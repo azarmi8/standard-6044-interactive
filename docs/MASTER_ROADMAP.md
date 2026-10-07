@@ -286,3 +286,26 @@ After: checks → docs/status → focused commit → report changed/remaining �
 
 **Scope rule:** no new feature family should be opened unless it closes one of these release gates.
 
+
+
+## V3.2 Release Candidate — 2026-10-07
+
+**Branch:** `redesign/cretiq-rendered-visuals-v3`  
+**PR:** #34  
+**Head:** `98e0d38e33f821c749abdfcce3b1a9df78a80a37`
+
+### Verified
+- Static QA: PASS
+- Browser Smoke: PASS — 40/40
+- Repository-owned authored renders are wired into homepage and representative chapter surfaces.
+- Chapter 04/10/11 render-led surfaces are mobile-safe and reduced-motion aware.
+- Visual QA artifacts now capture homepage plus authored render assets for human inspection.
+
+### Remaining release gates
+- Human visual acceptance of the authored render set. Chapter 10 `slump.webp` remains the weak asset and must not be replaced with unrelated branded imagery.
+- Final clause-level publication audit against `6044-1397.pdf`.
+- Human approval of Persian narration.
+- Final accessibility/performance/fullscreen sweep.
+- Owner approval before merge to `main`, then Pages verification and release tag.
+
+**Scope rule:** no new feature family until these release gates are closed.
