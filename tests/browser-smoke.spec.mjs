@@ -114,20 +114,36 @@ test.describe('6044 browser smoke', () => {
     expect(imageState.some(x => x.src?.includes('strength.webp'))).toBeTruthy();
     expect(imageState.some(x => x.src?.includes('hero.webp'))).toBeTruthy();
 
+    await expect(page.locator('link[data-6044-design-v4-css]')).toHaveCount(1);
+
     const layout = await page.evaluate(() => {
       const body = document.body;
       const h1 = document.querySelector('h1');
       const lead = document.querySelector('.hero-lead');
+      const storyHeading = document.querySelector('.story-copy h2');
       const styles = [
         h1 && getComputedStyle(h1).fontSize,
-        lead && getComputedStyle(lead).fontSize
+        lead && getComputedStyle(lead).fontSize,
+        storyHeading && getComputedStyle(storyHeading).fontSize
       ];
       return {
         overflowX: body.scrollWidth - document.documentElement.clientWidth,
+        bodyFontPx: parseFloat(getComputedStyle(body).fontSize || '0'),
+        bodyBackgroundImage: getComputedStyle(body).backgroundImage,
         h1FontPx: parseFloat(styles[0] || '0'),
-        leadFontPx: parseFloat(styles[1] || '0')
+        leadFontPx: parseFloat(styles[1] || '0'),
+        storyHeadingFontPx: parseFloat(styles[2] || '0')
       };
     });
+    expect(layout.overflowX, JSON.stringify(layout)).toBeLessThanOrEqual(1);
+    expect(layout.bodyFontPx, JSON.stringify(layout)).toBeGreaterThanOrEqual(15);
+    expect(layout.bodyFontPx, JSON.stringify(layout)).toBeLessThanOrEqual(17);
+    expect(layout.bodyBackgroundImage, JSON.stringify(layout)).toBe('none');
+    expect(layout.h1FontPx, JSON.stringify(layout)).toBeGreaterThanOrEqual(40);
+    expect(layout.h1FontPx, JSON.stringify(layout)).toBeLessThanOrEqual(76);
+    expect(layout.leadFontPx, JSON.stringify(layout)).toBeGreaterThanOrEqual(16);
+    expect(layout.leadFontPx, JSON.stringify(layout)).toBeLessThanOrEqual(20);
+    expect(layout.storyHeadingFontPx, JSON.stringify(layout)).toBeLessThanOrEqual(64);
     expect(layout.overflowX, JSON.stringify(layout)).toBeLessThanOrEqual(1);
     expect(layout.h1FontPx, JSON.stringify(layout)).toBeGreaterThanOrEqual(40);
     expect(layout.h1FontPx, JSON.stringify(layout)).toBeLessThanOrEqual(76);
