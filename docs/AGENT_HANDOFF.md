@@ -147,3 +147,14 @@ Read docs/PRODUCT_SPEC.md before shared UX/animation/simulation work. Prefer reu
 ## Finite delivery rule
 
 `docs/MASTER_ROADMAP.md` is the completion contract. v1.0 has a fixed Definition of Done and a scope-freeze rule. New ideas after scope freeze belong in `POST_RELEASE_IDEAS.md` and must not block v1.0.
+
+
+## Multi-agent delivery status
+
+The repository-side specialist-team foundation is now active in PR #35.
+
+Mission 001 is intentionally two-stage:
+1. establish the visual contract and implementation packet;
+2. execute the bounded `/workspace` rebuild on a separate implementation branch.
+
+Agency Orchestrator is an external development tool, not a website runtime dependency. Its workflow file is stored in the repository so the mission can be reproduced and reviewed.
