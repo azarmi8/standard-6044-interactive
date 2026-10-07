@@ -88,7 +88,7 @@ test.describe('6044 browser smoke', () => {
 
     await expect(page.locator('.rendered-hero-stage')).toHaveCount(1);
     const hero = page.locator('.rendered-hero-stage img');
-    await expect(hero).toHaveAttribute('src', 'assets/visuals/hero.webp');
+    await expect(hero).toHaveAttribute('src', 'assets/visuals/hero-v4.webp');
     await expect(hero).toBeVisible();
     await page.screenshot({ path: 'test-results/home-render-top-desktop.png', fullPage: false });
 
