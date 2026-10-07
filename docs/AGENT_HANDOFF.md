@@ -174,3 +174,16 @@ CRETIQ 6044 is the product brand. Repository continuity remains standard-6044-in
 ## Finite delivery rule
 
 `docs/MASTER_ROADMAP.md` is the completion contract. v1.0 has a fixed Definition of Done and a scope-freeze rule. New ideas after scope freeze belong in `POST_RELEASE_IDEAS.md` and must not block v1.0.
+
+
+## V3.2 Release-Hardening Truth — 2026-10-07
+
+- Feature branch: `redesign/cretiq-rendered-visuals-v3`
+- PR: #34 (open), mergeable state: clean
+- Current head: `98e0d38e33f821c749abdfcce3b1a9df78a80a37`
+- Hosted Static QA: PASS
+- Hosted Browser Smoke: PASS — 40/40
+- Main remains untouched.
+- Representative render QA now includes Chapter 04, 10, and 11, desktop/mobile/reduced-motion contracts, authored-asset capture, and route-specific render-led assertions.
+- Visual review finding: the current Chapter 10 `slump.webp` repository asset is functional but below the desired premium visual bar. Do not substitute unrelated branded/legacy assets. Do not claim visual acceptance complete until the owner approves the asset or an approved existing render is selected.
+- Release gate: owner visual acceptance + final clause-level publication audit + narration approval + final Pages verification.
