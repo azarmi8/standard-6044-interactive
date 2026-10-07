@@ -257,6 +257,25 @@
       stage.appendChild(hud);
       return hud;
     }
+    function ensureStageControls(){
+      document.querySelectorAll('[data-stage-beat]').forEach(btn=>{
+        if(btn.__6044Bound)return;
+        const n=Number(btn.getAttribute('data-stage-beat'))-1;
+        if(!Number.isInteger(n)||n<0||n>=beats.length)return;
+        btn.type='button';
+        btn.addEventListener('click',()=>go(n));
+        btn.__6044Bound=true;
+      });
+    }
+    function updateStageControls(){
+      document.querySelectorAll('[data-stage-beat]').forEach((btn,i)=>{
+        const n=Number(btn.getAttribute('data-stage-beat'))-1;
+        const active=n===index;
+        btn.classList.toggle('is-active',active);
+        btn.setAttribute('aria-current',active?'step':'false');
+      });
+    }
+
     function updateReaderHUD(){
       const hud=ensureReaderHUD(); if(!hud)return;
       const beat=beats[index]||{},step=hud.querySelector('[data-reader-hud-step]'),t=hud.querySelector('[data-reader-hud-title]'),source=hud.querySelector('[data-reader-hud-source]'),rail=hud.querySelector('[data-reader-hud-rail]');
@@ -536,7 +555,7 @@
       if(body)body.textContent=b.body||b[1]||'';
       if(count)count.textContent=faNum(index+1)+' / '+faNum(beats.length);
       if(bar)bar.style.width=((index+1)/beats.length*100)+'%';
-      sceneTargets(index);applyScene(cfg.scene,index);updateReaderHUD(); const stage=document.querySelector('.stage,.book-stage'); enhanceTechStage(stage); updateTechFocus(stage,index);
+      sceneTargets(index);applyScene(cfg.scene,index);ensureStageControls();updateStageControls();updateReaderHUD(); const stage=document.querySelector('.stage,.book-stage'); enhanceTechStage(stage); updateTechFocus(stage,index);
       document.documentElement.style.setProperty('--beat-index',index);
       syncParticleMorphs(index); window.dispatchEvent(new CustomEvent('6044:beat',{detail:{index,beat:b}}));
       lifecycle('onRender',index,b);saveProgress();updateBookmarkButton();syncNarration();

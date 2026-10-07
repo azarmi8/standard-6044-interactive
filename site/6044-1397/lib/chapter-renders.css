@@ -1,0 +1,341 @@
+/* CRETIQ 6044 — authored render panels for representative chapter surfaces.
+   Purpose: replace decorative canvas motion with real product visuals + evidence-led reading.
+   No infinite motion, no fake telemetry, no new dependency. */
+.chapter-render-feature{
+  margin-top:14px;
+  padding:0;
+  overflow:hidden;
+  border:1px solid #20363f;
+  border-radius:22px;
+  background:linear-gradient(145deg,#0a151b,#0d1b21);
+  box-shadow:0 22px 65px rgba(0,0,0,.25);
+}
+.chapter-render-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.08fr) minmax(320px,.92fr);
+  min-height:420px;
+  min-width:0;
+}
+.chapter-render-media{
+  position:relative;
+  min-width:0;
+  margin:0;
+  min-height:420px;
+  overflow:hidden;
+  background:#071015;
+  border-inline-end:1px solid #20363f;
+}
+.chapter-render-media img{
+  display:block;
+  width:100%;
+  height:100%;
+  min-height:420px;
+  object-fit:cover;
+  object-position:center;
+}
+.chapter-render-media::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(4,10,13,.12),transparent 34%,rgba(4,10,13,.62)),
+    linear-gradient(90deg,transparent 55%,rgba(4,10,13,.34));
+}
+.chapter-render-index{
+  position:absolute;
+  z-index:2;
+  top:16px;
+  left:16px;
+  display:inline-flex;
+  align-items:center;
+  min-height:30px;
+  padding:5px 10px;
+  border:1px solid rgba(43,242,173,.34);
+  border-radius:999px;
+  color:#baf8e2;
+  background:rgba(7,16,21,.72);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  font-size:.68rem;
+  font-weight:900;
+  letter-spacing:.08em;
+}
+.chapter-render-caption{
+  position:absolute;
+  z-index:2;
+  right:18px;
+  left:18px;
+  bottom:16px;
+  color:#eaf7f3;
+  text-shadow:0 6px 18px rgba(0,0,0,.42);
+}
+.chapter-render-caption small{
+  display:block;
+  margin-bottom:5px;
+  color:#79d9bb;
+  font-size:.68rem;
+  font-weight:900;
+  letter-spacing:.08em;
+}
+.chapter-render-caption strong{
+  display:block;
+  max-width:780px;
+  font-size:clamp(1rem,1.8vw,1.45rem);
+  line-height:1.55;
+}
+.chapter-render-copy{
+  display:flex;
+  min-width:0;
+  overflow:hidden;
+  flex-direction:column;
+  justify-content:space-between;
+  gap:22px;
+  padding:28px 28px 26px;
+}
+.chapter-render-kicker{
+  color:#2bf2ad;
+  font-size:.68rem;
+  font-weight:900;
+  letter-spacing:.1em;
+}
+.chapter-render-copy h2{
+  margin:8px 0 10px;
+  color:#f1f8f5;
+  font-size:clamp(1.35rem,2.1vw,2rem);
+  line-height:1.35;
+}
+.chapter-render-copy p{
+  margin:0;
+  color:#9eb4ad;
+  line-height:1.95;
+}
+.chapter-render-steps{
+  display:grid;
+  gap:8px;
+  margin-top:18px;
+}
+.chapter-render-step{
+  display:grid;
+  min-width:0;
+  grid-template-columns:auto 1fr;
+  gap:11px;
+  align-items:start;
+  padding:11px 12px;
+  border:1px solid #20363f;
+  border-radius:13px;
+  background:#0b151b;
+}
+.chapter-render-step-number{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:28px;
+  height:28px;
+  border-radius:9px;
+  background:#092f26;
+  color:#79f2cb;
+  font-size:.66rem;
+  font-weight:900;
+}
+.chapter-render-step strong{
+  display:block;
+  margin-bottom:2px;
+  color:#eaf7f3;
+  font-size:.92rem;
+}
+.chapter-render-step>div{min-width:0;overflow-wrap:anywhere}
+.chapter-render-step span{
+  display:block;
+  color:#8ca59d;
+  font-size:.78rem;
+  line-height:1.7;
+}
+.chapter-render-source{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  align-items:center;
+  margin-top:14px;
+  padding-top:13px;
+  border-top:1px solid #20363f;
+}
+.chapter-render-source span{
+  display:inline-flex;
+  min-width:0;
+  overflow-wrap:anywhere;
+  min-height:27px;
+  align-items:center;
+  padding:4px 8px;
+  border:1px solid #28434a;
+  border-radius:999px;
+  color:#9fc0b5;
+  background:#0a151b;
+  font-size:.66rem;
+  font-weight:800;
+}
+.chapter-render-note{
+  margin-top:8px!important;
+  color:#728d86!important;
+  font-size:.74rem;
+}
+@media(max-width:900px){
+  .chapter-render-grid{grid-template-columns:1fr}
+  .chapter-render-media{min-height:360px;border-inline-end:0;border-bottom:1px solid #20363f}
+  .chapter-render-media img{min-height:360px}
+  .chapter-render-copy{padding:22px 20px 20px}
+}
+@media(max-width:560px){
+  .chapter-render-media{min-height:260px}
+  .chapter-render-media img{min-height:260px}
+  .chapter-render-caption{right:13px;left:13px;bottom:13px}
+  .chapter-render-index{top:12px;left:12px}
+}
+@media(prefers-reduced-motion:reduce){
+  .chapter-render-feature *{scroll-behavior:auto!important}
+}
+
+
+/* Render-led reader stage — shared with representative chapters */
+.rendered-reader-stage{
+  position:relative;
+  min-height:520px;
+  overflow:hidden;
+  border-radius:18px;
+  background:#071015;
+  border:1px solid #20363f;
+  isolation:isolate;
+}
+.rendered-reader-stage>img{
+  display:block;
+  width:100%;
+  height:100%;
+  min-height:520px;
+  object-fit:cover;
+  object-position:center;
+  filter:saturate(.94) contrast(1.04);
+  transition:transform .45s cubic-bezier(.22,.8,.24,1),filter .3s ease;
+}
+.rendered-reader-stage:hover>img{transform:scale(1.012);filter:saturate(1) contrast(1.06)}
+.rendered-reader-overlay{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  padding:18px;
+  background:
+    linear-gradient(180deg,rgba(3,9,12,.62),transparent 24%,transparent 58%,rgba(3,9,12,.82)),
+    linear-gradient(90deg,rgba(3,9,12,.18),transparent 46%,rgba(3,9,12,.42));
+  pointer-events:none;
+}
+.rendered-reader-topline{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  color:#a9c8be;
+  font-size:.66rem;
+  font-weight:900;
+  letter-spacing:.12em;
+}
+.rendered-reader-topline span:last-child{color:#2bf2ad}
+.rendered-reader-copy{
+  max-width:min(760px,82%);
+  margin-top:auto;
+  margin-bottom:12px;
+  text-shadow:0 8px 24px rgba(0,0,0,.52);
+}
+.rendered-reader-kicker{
+  display:block;
+  margin-bottom:7px;
+  color:#8ae7c9;
+  font-size:.66rem;
+  font-weight:900;
+  letter-spacing:.1em;
+}
+.rendered-reader-copy strong{
+  display:block;
+  color:#f2faf7;
+  font-size:clamp(1.4rem,2.8vw,2.35rem);
+  line-height:1.3;
+}
+.rendered-reader-copy p{
+  margin:8px 0 0;
+  color:#c4d6d0;
+  font-size:.9rem;
+  line-height:1.8;
+}
+.rendered-reader-rail{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+  pointer-events:auto;
+  max-width:100%;
+}
+.rendered-reader-rail button{
+  appearance:none;
+  min-height:40px;
+  padding:8px 12px;
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  border:1px solid rgba(183,220,208,.28);
+  border-radius:10px;
+  background:rgba(7,16,21,.76);
+  color:#dbe9e4;
+  cursor:pointer;
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  transition:transform .18s ease,border-color .18s ease,background .18s ease,color .18s ease;
+}
+.rendered-reader-rail button span{
+  color:#7f9f95;
+  font-size:.62rem;
+  font-weight:900;
+}
+.rendered-reader-rail button:hover,
+.rendered-reader-rail button:focus-visible{
+  transform:translateY(-1px);
+  border-color:#62dcb8;
+  background:rgba(9,34,31,.92);
+  outline:2px solid rgba(43,242,173,.32);
+  outline-offset:2px;
+}
+.rendered-reader-rail button.is-active,
+.rendered-reader-rail button[aria-current="step"]{
+  border-color:#2bf2ad;
+  background:rgba(8,52,41,.94);
+  color:#f2fff9;
+  box-shadow:0 8px 22px rgba(43,242,173,.12);
+}
+.rendered-reader-rail button.is-active span,
+.rendered-reader-rail button[aria-current="step"] span{color:#2bf2ad}
+.rendered-reader-roles{display:none}
+.rendered-reader-stage .reader-hud{
+  top:18px;
+  left:18px;
+  right:auto;
+  max-width:min(460px,74%);
+  pointer-events:none;
+}
+.rendered-reader-stage .reader-hud-rail{display:none}
+@media(max-width:900px){
+  .rendered-reader-stage,.rendered-reader-stage>img{min-height:420px}
+  .rendered-reader-copy{max-width:92%}
+}
+@media(max-width:560px){
+  .rendered-reader-stage,.rendered-reader-stage>img{min-height:320px}
+  .rendered-reader-overlay{padding:13px}
+  .rendered-reader-topline{font-size:.58rem}
+  .rendered-reader-copy{max-width:100%;margin-bottom:9px}
+  .rendered-reader-copy strong{font-size:1.28rem}
+  .rendered-reader-copy p{font-size:.78rem;line-height:1.65}
+  .rendered-reader-rail{gap:5px}
+  .rendered-reader-rail button{min-height:38px;padding:7px 9px;font-size:.73rem}
+  .rendered-reader-stage .reader-hud{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .rendered-reader-stage>img,
+  .rendered-reader-rail button{transition:none!important}
+  .rendered-reader-stage:hover>img{transform:none}
+}

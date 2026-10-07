@@ -18,39 +18,14 @@ window.BOOK_CONFIG={
   ]},
   quiz:{correct:'درست — خاصیت، روش آزمون و معیار باید یک زنجیره واحد باشند.',incorrect:'کافی نیست — عدد بدون خاصیت، روش و معیار قابل تفسیر کامل نیست.'},
   onRender:function(index,b){
-    const root=document.getElementById('cards'); if(!root)return;
-    const items=[
-      ['measurement','اسلامپ','S1 → S4','25 / 70 / 125 / 185 mm'],
-      ['scc','SCC / SF','SF0 → SF3','500 / 600 / 700 / 800 mm'],
-      ['air','هوا','روش آزمون + معیار','کنترل درصد هوا'],
-      ['temperature','دما','ASTM C1064/C1064M','زمان + محل + محموله'],
-      ['density','چگالی','ISIRI 3203-6','اختلاف ≤ 25 kg/m³'],
-      ['decision','تصمیم QC','خاصیت → آزمون → معیار','نتیجه + ردیابی']
-    ];
-    const icons=[
-      '<path d="M52 88L82 88 75 158 59 158Z" fill="#93aaa4"/><path d="M49 88H85M55 101H79M57 122H77M59 143H75" stroke="#2bf2ad" stroke-width="5" fill="none"/><line x1="95" y1="88" x2="95" y2="162" stroke="#e8f4f0" stroke-width="6"/><line x1="88" y1="162" x2="102" y2="162" stroke="#2bf2ad" stroke-width="6"/>',
-      '<circle cx="80" cy="125" r="55" fill="none" stroke="#2bf2ad" stroke-width="5"/><circle cx="80" cy="125" r="34" fill="none" stroke="#27c5de" stroke-width="3" stroke-dasharray="8 7"/><path d="M25 125H135M80 70V180" stroke="#6f9188" stroke-width="2"/>',
-      '<circle cx="80" cy="125" r="56" fill="none" stroke="#2bf2ad" stroke-width="6"/><path d="M80 125L115 97" stroke="#27c5de" stroke-width="8" stroke-linecap="round"/><text x="80" y="136" text-anchor="middle" fill="#eaf7f3" font-size="25" font-weight="900">AIR</text>',
-      '<path d="M80 78v86" stroke="#27c5de" stroke-width="12" stroke-linecap="round"/><circle cx="80" cy="172" r="22" fill="#2bf2ad"/><path d="M80 95V58" stroke="#8ea9a1" stroke-width="4"/><path d="M63 58h34" stroke="#8ea9a1" stroke-width="4"/>',
-      '<path d="M43 98Q80 78 117 98V163Q80 184 43 163Z" fill="#647a74" stroke="#2bf2ad" stroke-width="5"/><path d="M50 104Q80 120 110 104" fill="none" stroke="#d9e8e3" stroke-width="4"/><path d="M57 135H103" stroke="#27c5de" stroke-width="4"/>',
-      '<rect x="28" y="83" width="104" height="84" rx="12" fill="#10242b" stroke="#2bf2ad" stroke-width="5"/><path d="M45 105h70M45 125h48M45 145h62" stroke="#7eaaa0" stroke-width="5" stroke-linecap="round"/><circle cx="109" cy="126" r="11" fill="#2bf2ad"/>'
-    ];
-    root.innerHTML=items.map((v,k)=>{
-      const x=45+k*250,active=k===index;
-      return '<g class="scene-object fresh-card" data-scene-role="'+v[0]+'" data-beat="'+(k+1)+'" transform="translate('+x+' 0)">'+
-        '<rect x="0" y="195" width="215" height="330" rx="24" fill="#101f27" stroke="#28505a" stroke-width="2"/>'+
-        '<rect x="0" y="195" width="215" height="6" rx="3" fill="'+(active?'#2bf2ad':'#21424a')+'"/>'+
-        '<circle cx="31" cy="235" r="16" fill="'+(active?'#2bf2ad':'#19373b')+'"/>'+
-        '<text x="31" y="241" text-anchor="middle" fill="'+(active?'#062018':'#9eb7af')+'" font-size="13" font-weight="900">'+(k+1)+'</text>'+
-        '<g transform="translate(67 255)" '+(active?'filter="url(#'+((document.querySelector(".stage svg defs[data-tech-defs]")||{}).dataset?.prefix||"tech")+'-glowfx)"':'')+'>'+icons[k]+'</g>'+
-        '<text x="107" y="430" text-anchor="middle" fill="#edf7f3" font-size="22" font-weight="900">'+v[1]+'</text>'+
-        '<text x="107" y="463" text-anchor="middle" fill="#8fa9a2" font-size="15">'+v[2]+'</text>'+
-        '<text x="107" y="495" text-anchor="middle" fill="'+(active?'#2bf2ad':'#9bb0aa')+'" font-size="14" font-weight="'+(active?'800':'600')+'">'+v[3]+'</text>'+
-      '</g>';
-    }).join('');
     const q=document.getElementById('q'),sub=document.getElementById('sub');
-    if(q)q.textContent=b.title;
+    if(q)q.textContent=b.title||'';
     if(sub)sub.textContent='خاصیت → روش آزمون → معیار → ثبت';
+    document.querySelectorAll('[data-stage-beat]').forEach((el,i)=>{
+      const active=i===index;
+      el.classList.toggle('is-active',active);
+      el.setAttribute('aria-current',active?'step':'false');
+    });
   }
 };
 

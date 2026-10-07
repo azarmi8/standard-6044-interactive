@@ -18,10 +18,18 @@
   const fa=n=>String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
   const current=(location.pathname.match(/\/ch(\d{2})(?:\/|$)/)||[])[1]||'';
   function ensureStyles(){
-    const href=new URL('lib/navigation.css',siteBase).href;
-    if(!document.querySelector('link[data-6044-navigation-css]')){
-      const l=document.createElement('link');l.rel='stylesheet';l.href=href;l.dataset['6044NavigationCss']='true';document.head.appendChild(l);
-    }
+    const sheets=[
+      ['lib/navigation.css','data-6044-navigation-css'],
+      ['lib/design-v4.css','data-6044-design-v4-css']
+    ];
+    sheets.forEach(([file,marker])=>{
+      if(document.querySelector('link['+marker+']')) return;
+      const l=document.createElement('link');
+      l.rel='stylesheet';
+      l.href=new URL(file,siteBase).href;
+      l.setAttribute(marker,'true');
+      document.head.appendChild(l);
+    });
   }
   function readProgress(){
     try{return JSON.parse(localStorage.getItem('standard6044-book-progress-v1')||'{}')}catch(e){return {}}

@@ -37,13 +37,19 @@ test.describe('6044 browser smoke', () => {
       }
 
       if (route.match(/^\/ch(?!23)\d{2}\/$/)) {
-        await expect(page.locator('.stage svg')).toHaveAttribute('viewBox', '0 0 1600 900');
+        const renderLed = ['/ch04/','/ch10/','/ch11/'].includes(route);
+        if (renderLed) {
+          await expect(page.locator('.rendered-reader-stage')).toHaveCount(1);
+          await expect(page.locator('.rendered-reader-stage svg')).toHaveCount(0);
+        } else {
+          await expect(page.locator('.stage svg')).toHaveAttribute('viewBox', '0 0 1600 900');
+        }
         await expect(page.locator('script[src="../lib/engine.js"]')).toHaveCount(1);
         await expect(page.locator('.book-controls')).toHaveCount(1);
         await expect(page.locator('[data-narration-panel]')).toHaveCount(1);
         await expect(page.locator('[data-narration-transcript]')).not.toBeEmpty();
         await expect(page.locator('[data-reader-hud]')).toBeVisible();
-        await expect(page.locator('.stage')).toHaveAttribute('data-tech-composed', 'v09');
+        if (!renderLed) await expect(page.locator('.stage')).toHaveAttribute('data-tech-composed', 'v09');
         await expect(page.locator('[data-narration-status]')).toContainText('فارسی');
       }
 
@@ -73,84 +79,152 @@ test.describe('6044 browser smoke', () => {
     await page.keyboard.press('Escape');
   });
 
-  test('homepage engineering hero particle narrative boots cleanly', async ({ page }) => {
+  test('homepage rendered engineering visual boots cleanly', async ({ page }) => {
     const consoleErrors = [];
     const pageErrors = [];
     page.on('console', msg => { if (msg.type() === 'error') consoleErrors.push(msg.text()); });
     page.on('pageerror', err => pageErrors.push(String(err)));
     await page.goto('http://127.0.0.1:8765/', { waitUntil: 'networkidle' });
-    await expect(page.locator('[data-engineering-hero]')).toHaveCount(1);
-    const heroStage = page.locator('.engineering-hero-stage');
-    await expect(heroStage).toHaveAttribute('data-hero-renderer', /^(webgl|canvas)$/);
-    await expect(heroStage).toHaveAttribute('data-hero-quality', /^(high|balanced|low|adaptive-low|adaptive-balanced)$/);
-    await expect(page.locator('.hero-visual-state [data-hero-phase]')).not.toBeEmpty();
-    await expect(page.locator('.hero-visual-state [data-hero-detail]')).not.toBeEmpty();
-    await expect(page.locator('[data-hero-progress]')).toHaveCount(1);
-    await page.screenshot({ path: 'test-results/hero-desktop.png', fullPage: false });
-    for (const phase of [1, 2, 3, 4]) {
-      await page.evaluate((p) => window['6044HeroVisual']?.seekPhase(p, 0.55), phase);
-      await page.waitForTimeout(60);
-      await page.screenshot({ path: `test-results/hero-phase-${phase}.png`, fullPage: false });
+
+    await expect(page.locator('.rendered-hero-stage')).toHaveCount(1);
+    const hero = page.locator('.rendered-hero-stage img');
+    await expect(hero).toHaveAttribute('src', 'assets/visuals/hero.webp');
+    await expect(hero).toBeVisible();
+    await page.screenshot({ path: 'test-results/home-render-top-desktop.png', fullPage: false });
+
+    await expect(page.locator('[data-engineering-hero]')).toHaveCount(0);
+    await expect(page.locator('.cinematic-process')).toHaveCount(0);
+    await expect(page.locator('.home-visual-preview')).toHaveCount(0);
+    await expect(page.locator('script[src="lib/cinematic-home.js"]')).toHaveCount(0);
+    await expect(page.locator('img[src^="data:"]')).toHaveCount(0);
+
+    const images = page.locator('.rendered-hero-stage img, .render-story img, .render-gallery img');
+    await expect(images).toHaveCount(6);
+    for (const image of await images.all()) {
+      await image.scrollIntoViewIfNeeded();
     }
+    const imageState = await images.evaluateAll(imgs => imgs.map(img => ({
+      src: img.getAttribute('src'),
+      complete: img.complete,
+      naturalWidth: img.naturalWidth,
+      naturalHeight: img.naturalHeight
+    })));
+    expect(imageState.every(x => x.complete && x.naturalWidth > 0 && x.naturalHeight > 0), JSON.stringify(imageState)).toBeTruthy();
+    expect(imageState.some(x => x.src?.includes('slump.webp'))).toBeTruthy();
+    expect(imageState.some(x => x.src?.includes('strength.webp'))).toBeTruthy();
+    expect(imageState.some(x => x.src?.includes('hero.webp'))).toBeTruthy();
+
+    await expect(page.locator('link[data-6044-design-v4-css]')).toHaveCount(1);
+
+    const layout = await page.evaluate(() => {
+      const body = document.body;
+      const h1 = document.querySelector('h1');
+      const lead = document.querySelector('.hero-lead');
+      const storyHeading = document.querySelector('.story-copy h2');
+      const styles = [
+        h1 && getComputedStyle(h1).fontSize,
+        lead && getComputedStyle(lead).fontSize,
+        storyHeading && getComputedStyle(storyHeading).fontSize
+      ];
+      return {
+        overflowX: body.scrollWidth - document.documentElement.clientWidth,
+        bodyFontPx: parseFloat(getComputedStyle(body).fontSize || '0'),
+        bodyBackgroundImage: getComputedStyle(body).backgroundImage,
+        h1FontPx: parseFloat(styles[0] || '0'),
+        leadFontPx: parseFloat(styles[1] || '0'),
+        storyHeadingFontPx: parseFloat(styles[2] || '0')
+      };
+    });
+    expect(layout.overflowX, JSON.stringify(layout)).toBeLessThanOrEqual(1);
+    expect(layout.bodyFontPx, JSON.stringify(layout)).toBeGreaterThanOrEqual(15);
+    expect(layout.bodyFontPx, JSON.stringify(layout)).toBeLessThanOrEqual(17);
+    expect(layout.bodyBackgroundImage, JSON.stringify(layout)).toBe('none');
+    expect(layout.h1FontPx, JSON.stringify(layout)).toBeGreaterThanOrEqual(40);
+    expect(layout.h1FontPx, JSON.stringify(layout)).toBeLessThanOrEqual(76);
+    expect(layout.leadFontPx, JSON.stringify(layout)).toBeGreaterThanOrEqual(16);
+    expect(layout.leadFontPx, JSON.stringify(layout)).toBeLessThanOrEqual(20);
+    expect(layout.storyHeadingFontPx, JSON.stringify(layout)).toBeLessThanOrEqual(64);
+    expect(layout.overflowX, JSON.stringify(layout)).toBeLessThanOrEqual(1);
+    expect(layout.h1FontPx, JSON.stringify(layout)).toBeGreaterThanOrEqual(40);
+    expect(layout.h1FontPx, JSON.stringify(layout)).toBeLessThanOrEqual(76);
+    expect(layout.leadFontPx, JSON.stringify(layout)).toBeGreaterThanOrEqual(16);
+    expect(layout.leadFontPx, JSON.stringify(layout)).toBeLessThanOrEqual(20);
+
+    await page.screenshot({ path: 'test-results/home-render-desktop.png', fullPage: false });
     const mobileContext = await page.context().browser().newContext({
       viewport: { width: 390, height: 844 },
       reducedMotion: 'reduce'
     });
     const mobilePage = await mobileContext.newPage();
     await mobilePage.goto('http://127.0.0.1:8765/', { waitUntil: 'networkidle' });
-    await expect(mobilePage.locator('[data-engineering-hero]')).toHaveCount(1);
-    await mobilePage.screenshot({ path: 'test-results/hero-mobile.png', fullPage: false });
+    await expect(mobilePage.locator('.rendered-hero-stage img')).toBeVisible();
+    await mobilePage.screenshot({ path: 'test-results/home-render-mobile.png', fullPage: false });
     await mobileContext.close();
+
     expect(consoleErrors).toEqual([]);
     expect(pageErrors).toEqual([]);
   });
 
-  test('homepage cinematic visual showcase boot', async ({ page }) => {
+  test('homepage render sequence communicates state and respects reduced motion', async ({ page }) => {
+    await page.goto('http://127.0.0.1:8765/', { waitUntil: 'networkidle' });
+    const sequence = page.locator('[data-render-sequence]');
+    await expect(sequence).toHaveCount(1);
+    await expect(sequence.locator('[data-render-scene]')).toHaveCount(3);
+    await expect(sequence.locator('[data-render-scene]').nth(0)).toHaveAttribute('aria-selected', 'true');
+    await expect(sequence.locator('[data-render-scene]').nth(1)).toHaveAttribute('aria-selected', 'false');
+
+    await sequence.locator('[data-render-scene]').nth(1).click();
+    await expect(sequence.locator('[data-render-scene]').nth(1)).toHaveAttribute('aria-selected', 'true');
+    await expect(sequence.locator('[data-render-kicker]')).toContainText('FRESH CONCRETE');
+    await expect(sequence.locator('.render-sequence-media img.is-active')).toHaveAttribute('src', 'assets/visuals/slump.webp');
+
+    await sequence.locator('[data-render-play]').click();
+    await expect(sequence.locator('[data-render-play]')).toHaveAttribute('aria-pressed', 'true');
+    await sequence.locator('[data-render-play]').click();
+    await expect(sequence.locator('[data-render-play]')).toHaveAttribute('aria-pressed', 'false');
+
+    const reduced = await page.context().browser().newContext({
+      viewport: { width: 390, height: 844 },
+      reducedMotion: 'reduce'
+    });
+    const reducedPage = await reduced.newPage();
+    await reducedPage.goto('http://127.0.0.1:8765/', { waitUntil: 'networkidle' });
+    const reducedSequence = reducedPage.locator('[data-render-sequence]');
+    await reducedSequence.locator('[data-render-scene]').nth(2).click();
+    await expect(reducedSequence.locator('[data-render-scene]').nth(2)).toHaveAttribute('aria-selected', 'true');
+    await expect(reducedSequence.locator('.render-sequence-media img.is-active')).toHaveAttribute('src', 'assets/visuals/strength.webp');
+    await reduced.close();
+  });
+
+  test('authored render assets remain visually inspectable', async ({ page }) => {
+    for (const asset of ['hero.webp','slump.webp','strength.webp']) {
+      await page.goto('http://127.0.0.1:8765/assets/visuals/' + asset, { waitUntil: 'load' });
+      await page.screenshot({ path: 'test-results/asset-' + asset + '.png', fullPage: true });
+    }
+  });
+
+  test('homepage visual language contract', async ({ page }) => {
     await page.goto('http://127.0.0.1:8765/', { waitUntil: 'networkidle' });
     await expect(page.locator('.cinematic-hero')).toHaveCount(1);
     await expect(page.locator('.story-intro')).toHaveCount(1);
-    await expect(page.locator('.cinematic-process')).toHaveCount(1);
+    await expect(page.locator('.render-story')).toHaveCount(1);
     await expect(page.locator('.learning-editorial')).toHaveCount(1);
-    await expect(page.locator('.visual-feature')).toHaveCount(1);
+    await expect(page.locator('.render-gallery')).toHaveCount(1);
     await expect(page.locator('.chapter-explorer')).toHaveCount(1);
-    await expect(page.locator('.home-visual-preview')).toHaveAttribute('data-visual-state','0');
-    await page.locator('[data-process-step="2"]').click();
-    await expect(page.locator('[data-process-stage]')).toHaveAttribute('data-process-state','2');
-    await page.locator('.home-visual-preview [data-particle-play]').click();
-    await page.waitForTimeout(250);
-    await expect(page.locator('.home-visual-preview')).toHaveAttribute('data-visual-state','0');
-    await page.locator('.home-visual-preview [data-particle-reset]').click();
-    await expect(page.locator('.home-visual-preview')).toHaveAttribute('data-visual-state','0');
+    await expect(page.locator('.final-cta')).toHaveCount(1);
+    await expect(page.locator('.render-gallery img[src*="strength.webp"]')).toHaveCount(1);
+    await expect(page.locator('.render-gallery img[src*="hero.webp"]')).toHaveCount(1);
   });
 
-  test('Chapter 4 particle morph + packaged narration wiring', async ({ page }) => {
+  test('Chapter 4 authored render replaces decorative particle scene', async ({ page }) => {
     await page.goto('http://127.0.0.1:8765/ch04/', { waitUntil: 'networkidle' });
-    await expect(page.locator('[data-particle-morph]')).toHaveCount(1);
-    await expect(page.locator('[data-particle-canvas]')).toHaveCount(1);
-    await expect(page.locator('[data-particle-phase]')).toContainText('MATERIAL INPUT');
-    await expect(page.locator('[data-particle-morph]')).toHaveAttribute('data-visual-engine','v2');
-    await expect(page.locator('[data-particle-morph]')).toHaveAttribute('data-visual-state','0');
-    const audioProbe = await page.evaluate(async () => {
-      const r = await fetch('../audio/fa/ch04-01.mp3', { cache: 'no-store' });
-      const b = await r.arrayBuffer();
-      return { ok: r.ok, status: r.status, bytes: b.byteLength };
-    });
-    expect(audioProbe.ok).toBeTruthy();
-    expect(audioProbe.status).toBe(200);
-    expect(audioProbe.bytes).toBeGreaterThan(1000);
-
-    await page.locator('[data-narrate-play]').click();
-    await page.waitForTimeout(250);
-    await expect(page.locator('[data-narration-status]')).toContainText('روایت صوتی فارسی آماده');
-
-    await page.locator('[data-particle-play]').click();
-    await page.waitForTimeout(250);
-    await expect(page.locator('[data-particle-morph]')).toHaveAttribute('data-visual-state','0');
-    await page.evaluate(() => window.BookEngine.go(5));
-    await expect(page.locator('[data-particle-morph]')).toHaveAttribute('data-visual-state','5');
-    await expect(page.locator('[data-particle-phase]')).toContainText('HOMOGENIZATION');
-    await page.locator('[data-particle-reset]').click();
-    await expect(page.locator('[data-particle-morph]')).toHaveAttribute('data-visual-state','0');
+    const render = page.locator('[aria-labelledby="ch04-render-title"]');
+    await expect(render).toHaveCount(1);
+    await expect(render.locator('img')).toHaveAttribute('src', '../assets/visuals/hero.webp');
+    await expect(render.locator('.chapter-render-step')).toHaveCount(4);
+    await expect(page.locator('[data-particle-morph], [data-particle-canvas]')).toHaveCount(0);
+    const meta = await render.locator('img').evaluate(img => ({ complete: img.complete, w: img.naturalWidth, h: img.naturalHeight }));
+    expect(meta.complete && meta.w > 0 && meta.h > 0, JSON.stringify(meta)).toBeTruthy();
   });
 
   test('Chapter 8 shared reader + simulator respond', async ({ page }) => {
@@ -193,22 +267,52 @@ test.describe('6044 browser smoke', () => {
     await expect(page.locator('#f-output')).toContainText('ترتیب مراحل');
   });
 
-  test('Chapter 10 laboratory visual follows shared reader state', async ({ page }) => {
-    await page.goto('http://127.0.0.1:8765/ch10/', { waitUntil: 'networkidle' });
-    await expect(page.locator('[data-lab-visual="fresh"]')).toHaveCount(1);
-    await expect(page.locator('[data-lab-visual="fresh"]')).toHaveAttribute('data-lab-state','0');
-    await page.evaluate(() => window.BookEngine.go(4));
-    await expect(page.locator('[data-lab-visual="fresh"]')).toHaveAttribute('data-lab-state','4');
-    await expect(page.locator('[data-lab-phase]')).toContainText('دما');
+  test('Chapter 10 and 11 authored renders stay evidence-led', async ({ page }) => {
+    const cases = [
+      { route: '/ch10/', title: 'ch10-render-title', asset: '../assets/visuals/slump.webp' },
+      { route: '/ch11/', title: 'ch11-render-title', asset: '../assets/visuals/strength.webp' }
+    ];
+    for (const item of cases) {
+      await page.goto('http://127.0.0.1:8765' + item.route, { waitUntil: 'networkidle' });
+      const render = page.locator('[aria-labelledby="' + item.title + '"]');
+      await expect(render).toHaveCount(1);
+      await expect(render.locator('img')).toHaveAttribute('src', item.asset);
+      await expect(render.locator('.chapter-render-step')).toHaveCount(4);
+      await expect(render.locator('.chapter-render-source')).toContainText('VISUAL / واقعی');
+      await page.screenshot({ path: 'test-results/' + item.route.replaceAll('/','') + 'render-desktop.png', fullPage: false });
+      const meta = await render.locator('img').evaluate(img => ({ complete: img.complete, w: img.naturalWidth, h: img.naturalHeight }));
+      expect(meta.complete && meta.w > 0 && meta.h > 0, JSON.stringify(meta)).toBeTruthy();
+      await expect(page.locator('[data-lab-visual], [data-lab-canvas]')).toHaveCount(0);
+    }
   });
 
-  test('Chapter 11 strength laboratory visual follows shared reader state', async ({ page }) => {
-    await page.goto('http://127.0.0.1:8765/ch11/', { waitUntil: 'networkidle' });
-    await expect(page.locator('[data-lab-visual="strength"]')).toHaveCount(1);
-    await expect(page.locator('[data-lab-visual="strength"]')).toHaveAttribute('data-lab-state','0');
-    await page.evaluate(() => window.BookEngine.go(4));
-    await expect(page.locator('[data-lab-visual="strength"]')).toHaveAttribute('data-lab-state','4');
-    await expect(page.locator('[data-lab-phase]')).toContainText('شکست');
+  test('representative authored render surfaces are mobile-safe', async ({ browser }) => {
+    const context = await browser.newContext({
+      viewport: { width: 390, height: 844 },
+      reducedMotion: 'reduce'
+    });
+    const page = await context.newPage();
+    for (const route of ['/ch04/', '/ch10/', '/ch11/']) {
+      await page.goto('http://127.0.0.1:8765' + route, { waitUntil: 'networkidle' });
+      const render = page.locator('.chapter-render-feature');
+      await expect(render).toBeVisible();
+      await expect(render.locator('img')).toBeVisible();
+      await expect(render.locator('.chapter-render-step')).toHaveCount(4);
+      const layout = await page.evaluate(() => {
+        const width = document.documentElement.clientWidth;
+        const offenders = [...document.querySelectorAll('body *')].map(el => {
+          const r = el.getBoundingClientRect();
+          return {tag:el.tagName, id:el.id||'', cls:typeof el.className==='string'?el.className.slice(0,90):'', left:Math.round(r.left*100)/100, right:Math.round(r.right*100)/100, width:Math.round(r.width*100)/100};
+        }).filter(x => x.right > width + 1 || x.left < -1).sort((a,b) => Math.max(Math.abs(b.right-width),Math.abs(b.left)) - Math.max(Math.abs(a.right-width),Math.abs(a.left))).slice(0,8);
+        return {
+          overflowX: document.documentElement.scrollWidth - width,
+          width,
+          offenders
+        };
+      });
+      expect(layout.overflowX, JSON.stringify(layout)).toBeLessThanOrEqual(1);
+    }
+    await context.close();
   });
 
   test('mobile + reduced motion smoke', async ({ browser }) => {

@@ -95,22 +95,22 @@ Interactive beat work has been applied to:
 
 ## Immediate next work
 
-### Priority 1 — Release QA
-The runtime/visual pass is now merged on main. Static QA and Browser Smoke passed on PR #16, including Chapter 3/8/10/17 plus mobile/reduced-motion and the new Reader HUD. Remaining release QA is fullscreen visual QA plus final source/publication audit.
+### Priority 1 — Release hardening
+PR #34 is the active release-hardening branch. Homepage and representative Chapter 4/10/11 surfaces now use authored engineering renders, with legacy decorative Canvas visual runtimes removed from those migrated chapter surfaces. Static QA and Browser Smoke are green on the current head.
 
-### Priority 2 — Visual consistency
-PR #16 strengthened the shared Reader HUD and upgraded the Chapter 10 measurement scene and Appendix B calculation scene. The remaining task is final fullscreen visual review and extending the pilot visual language where needed.
+### Priority 2 — Final visual acceptance
+Perform human visual review on representative desktop/mobile pages, including fullscreen behavior, image sharpness, spacing, typography, focus states and reduced-motion behavior. The automation proves runtime safety; it does not replace human art-direction acceptance.
 
-### Priority 3 — Narration quality
-The shared engine now provides device-based Persian narration fallback plus play/pause/replay/rate controls. Complete the Persian voice benchmark, select a voice only after human listening, then generate/review release narration. Do not bulk-generate before pronunciation approval.
+### Priority 3 — Source/publication finalization
+Complete the final clause-level publication audit against the authoritative 6044-1397 PDF. Do not infer or normalize ambiguous OCR. Any unresolved claim must be re-read from the source page image before release.
 
-### Priority 4 — Source/content finalization
-Resolve remaining clause-level source-audit items and ensure every released source-derived claim has a traceable source reference.
+### Priority 4 — Narration release
+Human-listen to the Persian narration benchmark, approve pronunciation/voice, then generate/review the final release package. Keep model weights outside the repository.
 
 ### Priority 5 — Release
-Documentation package is complete. GitHub Pages enablement is resolved. Remaining release blockers are human narration approval, final clause-level source audit, fullscreen review, owner acceptance, then v1.0.0.
+After the above gates: verify Pages from main, freeze scope, tag v1.0.0, update release notes, and mark the roadmap complete.
 
-Do not start new feature families unless they are required to close a v1.0 blocker.
+Do not start new feature families unless they close one of these release gates.
 
 ## Git discipline
 
@@ -141,9 +141,49 @@ Read docs/PRODUCT_SPEC.md before shared UX/animation/simulation work. Prefer reu
 
 ## Current truth
 
-`main` baseline: `b4b5c6a564a96f830aa70b1ee970f5a856cfefdf`. Product brand: **CRETIQ 6044**. All 23 navigation surfaces have HTML entry points; Units 1–22 are the source learning units and Unit 23 is bibliography/reference. Engineering Visual Engine v2 and the product shell are merged into main. Main Static QA Run #217 and Pages Deploy Run #218 succeeded. PR #27 Browser Smoke passed 39/39 after repairing Chapter 15 and separating the bibliography route; main Browser Smoke Run #167 was still pending at the last check. The product remains a release candidate: final source audit, human narration approval, fullscreen visual QA, performance measurement and clean main browser smoke remain release gates.
+**Active release branch:** redesign/cretiq-rendered-visuals-v3  
+**PR:** #34  
+**Current head:** 6781ba7826127abdffaed597a5920269ffced378
 
+The current branch contains the CRETIQ 6044 rendered-visual V3.1 upgrade. Homepage uses repository-owned engineering renders rather than the previous decorative Canvas/particle homepage choreography. Representative engineering chapters now follow the same authored-render rule:
+- Chapter 4: factory/material evidence render
+- Chapter 10: fresh-concrete/slump render
+- Chapter 11: strength/conformity render
+
+The representative chapter migration removes the legacy particle/lab Canvas runtimes from those surfaces. Visuals are paired with evidence-led text rails instead of fake telemetry or decorative animation.
+
+Latest CI at this checkpoint:
+- Static QA: PASS
+- Browser Smoke: PASS
+- PR mergeable: yes
+- PR merged: no
+
+The branch remains ahead of main with no behind drift at this checkpoint.
+
+The three project design skills are now part of the repository baseline:
+- .agents/skills/ui-ux-pro-max/SKILL.md
+- .agents/skills/emil-design-eng/SKILL.md
+- .agents/skills/design-taste-frontend/SKILL.md
+
+Release gates still open: human visual acceptance, final source/publication audit, human narration listening approval, fullscreen/performance/accessibility sweep, owner acceptance, merge and Pages verification.
+
+main remains untouched by PR #34.
+
+CRETIQ 6044 is the product brand. Repository continuity remains standard-6044-interactive.
 
 ## Finite delivery rule
 
 `docs/MASTER_ROADMAP.md` is the completion contract. v1.0 has a fixed Definition of Done and a scope-freeze rule. New ideas after scope freeze belong in `POST_RELEASE_IDEAS.md` and must not block v1.0.
+
+
+## V3.2 Release-Hardening Truth — 2026-10-07
+
+- Feature branch: `redesign/cretiq-rendered-visuals-v3`
+- PR: #34 (open), mergeable state: clean
+- Current head: `98e0d38e33f821c749abdfcce3b1a9df78a80a37`
+- Hosted Static QA: PASS
+- Hosted Browser Smoke: PASS — 40/40
+- Main remains untouched.
+- Representative render QA now includes Chapter 04, 10, and 11, desktop/mobile/reduced-motion contracts, authored-asset capture, and route-specific render-led assertions.
+- Visual review finding: the current Chapter 10 `slump.webp` repository asset is functional but below the desired premium visual bar. Do not substitute unrelated branded/legacy assets. Do not claim visual acceptance complete until the owner approves the asset or an approved existing render is selected.
+- Release gate: owner visual acceptance + final clause-level publication audit + narration approval + final Pages verification.

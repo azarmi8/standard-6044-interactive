@@ -240,6 +240,52 @@ function checkAssessmentContract(){
 
 
 
+function checkHomepageVisualContract(){
+  const p=path.join(SITE,'index.html');
+  const cssPath=path.join(SITE,'style.css');
+  if(!exists(p)){ fail('homepage missing: site/6044-1397/index.html'); return; }
+  if(!exists(cssPath)){ fail('homepage stylesheet missing: site/6044-1397/style.css'); return; }
+  const src=read(p);
+  const css=read(cssPath);
+  for(const asset of ['assets/visuals/hero.webp','assets/visuals/slump.webp','assets/visuals/strength.webp']){
+    if(!src.includes(asset)) fail('homepage render asset contract missing: '+asset);
+    if(!exists(path.join(SITE,asset))) fail('homepage render asset file missing: '+asset);
+  }
+  for(const legacy of ['data-engineering-hero','cinematic-process','home-visual-preview','cinematic-home.js','data:image/webp;base64','assets/renders/','data-render-src']){
+    if(src.includes(legacy)) fail('homepage legacy/decorative visual token remains: '+legacy);
+  }
+  for(const token of ['--fs-display','--fs-section','.rendered-hero-stage','.render-gallery']){
+    if(!css.includes(token)) fail('homepage visual/typography contract token missing: '+token);
+  }
+  if(!src.includes('rendered-hero-stage') || !src.includes('render-story') || !src.includes('render-gallery'))
+    fail('homepage rendered visual structure is incomplete');
+}
+
+function checkRepresentativeRenderContract(){
+  const cases = [
+    { ch:'04', asset:'../assets/visuals/hero.webp', title:'ch04-render-title', forbidden:['data-particle-canvas','data-particle-morph','material-visual.js'] },
+    { ch:'10', asset:'../assets/visuals/slump.webp', title:'ch10-render-title', forbidden:['data-lab-canvas','data-lab-visual','lab-visual.js'] },
+    { ch:'11', asset:'../assets/visuals/strength.webp', title:'ch11-render-title', forbidden:['data-lab-canvas','data-lab-visual','lab-visual.js'] }
+  ];
+  const css='site/6044-1397/lib/chapter-renders.css';
+  if(!exists(path.join(SITE,'lib','chapter-renders.css'))) fail('shared authored chapter render CSS missing: '+css);
+  for(const item of cases){
+    const htmlPath=path.join(SITE,'ch'+item.ch,'index.html');
+    if(!exists(htmlPath)){ fail('ch'+item.ch+': representative render surface missing'); continue; }
+    const html=read(htmlPath);
+    if(!html.includes('chapter-renders.css')) fail('ch'+item.ch+': chapter render stylesheet missing');
+    if(!html.includes('class="chapter-render-feature"')) fail('ch'+item.ch+': authored render feature missing');
+    if(!html.includes('aria-labelledby="'+item.title+'"')) fail('ch'+item.ch+': render heading contract missing');
+    if(!html.includes('src="'+item.asset+'"')) fail('ch'+item.ch+': authored render asset missing: '+item.asset);
+    if((html.match(/class="chapter-render-step"/g)||[]).length<4) fail('ch'+item.ch+': render evidence rail must contain at least 4 steps');
+    for(const token of item.forbidden){
+      if(html.includes(token)) fail('ch'+item.ch+': decorative visual token remains after authored-render migration: '+token);
+    }
+    if(/<svg\b/i.test(html)) fail('ch'+item.ch+': legacy SVG stage remains after render-led migration');
+    if(!html.includes('rendered-reader-stage')) fail('ch'+item.ch+': render-led reader stage missing');
+  }
+}
+
 function checkSharedChapterNavigation(){
   for(const n of expected){
     const htmlPath=path.join(SITE,'ch'+n,'index.html');
@@ -300,6 +346,8 @@ function checkSearchContract(){
 checkSharedChapterNavigation();
 checkBookProgressContract();
 checkStudyNavigationContract();
+checkHomepageVisualContract();
+checkRepresentativeRenderContract();
 
 function checkVisualContract(htmlPath, html){
   const relPath=rel(htmlPath);
@@ -344,6 +392,8 @@ for(const n of expected){
   if(!exists(htmlPath)) continue;
   const html=read(htmlPath);
   checkVisualContract(htmlPath, html);
+  if(/(?:material-visual\.js|lab-visual\.js)/i.test(html))
+    fail(rel(htmlPath)+': legacy decorative canvas visual runtime remains loaded');
 
   if(!html.includes('../lib/engine.js') && !html.includes('../lib/engine.css')){
     warn(`ch${n}: legacy/non-engine chapter (not yet migrated)`);

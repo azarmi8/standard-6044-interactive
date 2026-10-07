@@ -68,6 +68,19 @@ Current artifacts:
 **Exit gate:** a new chapter can be implemented mainly from configuration/content. **PASSED.**
 
 ## Engineering Visual Engine v2 — current branch upgrade
+## Authored Render Hardening — current branch upgrade
+**Status: implemented on PR #34 and validated by CI.**
+
+- [x] Repository-owned engineering renders are the canonical homepage visual assets.
+- [x] Homepage semantic render sequence communicates Factory → Fresh Concrete → Strength Evidence.
+- [x] Representative Chapter 4 uses the factory/material render instead of particle-morph Canvas.
+- [x] Representative Chapter 10 uses the fresh-concrete/slump render instead of lab Canvas.
+- [x] Representative Chapter 11 uses the strength render instead of lab Canvas.
+- [x] Shared evidence-led render panel with responsive desktop/mobile treatment.
+- [x] Static QA forbids the migrated decorative visual runtimes from reappearing on chapter surfaces.
+- [x] Browser Smoke covers representative render presence, natural dimensions and legacy-canvas absence.
+- [ ] Human visual acceptance of representative chapter surfaces.
+
 ## Engineering Product Polish — current branch upgrade
 **Status: implemented as a non-Production PR upgrade.**
 - [x] Persian-first typography baseline across the book shell.
@@ -173,7 +186,7 @@ Each simulation must expose source clauses, inputs, outputs, assumptions and val
 - [x] Engineering Hero Visual v1 — material particles → concrete → specimen → test data → decision, with reduced-motion and responsive canvas geometry.
 - [x] Full 22-unit visual/engine consistency audit — Chapters 1–15 + Appendices A–G use the shared book engine; bibliography remains a reference-only surface.
 - [x] Loading/error states.
-- [ ] Representative desktop/mobile/reduced-motion browser smoke — current main needs a clean rerun after the CRETIQ 6044 title-brand fix.
+- [x] Representative desktop/mobile/reduced-motion browser smoke — current PR head verified by Browser Smoke.
 - [ ] Fullscreen visual QA.
 - [ ] No childish gamification or decorative animation.
 **Exit gate:** all chapters look like one product.
@@ -195,8 +208,8 @@ Each simulation must expose source clauses, inputs, outputs, assumptions and val
 - [ ] No console/page errors on the browser-smoke route set — rerun required after the current title-brand failure.
 - [ ] Assets/links/performance/accessibility final sweep.
 - [x] Static QA runner + GitHub Actions contract check on the active development branch.
-- [x] Static QA passed on current main before the current polish patch; post-patch run required.
-- [ ] Browser Smoke currently failing on 2/26 title assertions; fix is in `fix/cretiq-qa-polish`.
+- [x] Static QA passed on current PR head after authored-render hardening.
+- [x] Browser Smoke is green on the current PR head.
 **Exit gate:** clean release candidate.
 
 ### Phase 11 — Documentation & Handoff
@@ -245,3 +258,54 @@ A new idea is not a reason to delay v1.0. New ideas go to POST_RELEASE_IDEAS.md.
 ## Agent protocol
 Before: README → MASTER_ROADMAP → AGENT_HANDOFF → SOURCE_VERIFICATION → git/main → first unblocked task.
 After: checks → docs/status → focused commit → report changed/remaining → no silent scope expansion.
+
+
+## V3.1 Release Candidate — current branch truth
+
+**Branch:** redesign/cretiq-rendered-visuals-v3  
+**PR:** #34  
+**Current head:** 6781ba7826127abdffaed597a5920269ffced378
+
+### Verified
+- [x] CRETIQ 6044 rendered homepage uses repository-owned hero.webp, slump.webp, strength.webp.
+- [x] Legacy homepage canvas/process choreography is no longer loaded by the homepage.
+- [x] Semantic render sequence: Factory → Fresh Concrete → Strength Evidence.
+- [x] Manual scene selection, playback, keyboard navigation and reduced-motion behavior.
+- [x] Representative Chapter 4/10/11 surfaces use authored renders and no longer load the migrated decorative Canvas visual runtimes.
+- [x] Static QA: PASS.
+- [x] Browser Smoke: PASS.
+- [x] PR mergeability verified.
+
+### Still blocking v1.0
+- [ ] Human visual acceptance of representative pages.
+- [ ] Final clause-level source/publication audit.
+- [ ] Human narration listening approval and release audio package.
+- [ ] Fullscreen/performance/accessibility final sweep.
+- [ ] Owner acceptance.
+- [ ] Merge to main, Pages verification, release tag.
+
+**Scope rule:** no new feature family should be opened unless it closes one of these release gates.
+
+
+
+## V3.2 Release Candidate — 2026-10-07
+
+**Branch:** `redesign/cretiq-rendered-visuals-v3`  
+**PR:** #34  
+**Head:** `98e0d38e33f821c749abdfcce3b1a9df78a80a37`
+
+### Verified
+- Static QA: PASS
+- Browser Smoke: PASS — 40/40
+- Repository-owned authored renders are wired into homepage and representative chapter surfaces.
+- Chapter 04/10/11 render-led surfaces are mobile-safe and reduced-motion aware.
+- Visual QA artifacts now capture homepage plus authored render assets for human inspection.
+
+### Remaining release gates
+- Human visual acceptance of the authored render set. Chapter 10 `slump.webp` remains the weak asset and must not be replaced with unrelated branded imagery.
+- Final clause-level publication audit against `6044-1397.pdf`.
+- Human approval of Persian narration.
+- Final accessibility/performance/fullscreen sweep.
+- Owner approval before merge to `main`, then Pages verification and release tag.
+
+**Scope rule:** no new feature family until these release gates are closed.
