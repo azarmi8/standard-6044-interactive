@@ -1,0 +1,213 @@
+# yaml-language-server: $schema=https://ao.aiolaola.com/schemas/workflow.schema.json
+name: "CRETIQ Workspace Specialist Team"
+agents_dir: "agency-agents"
+
+llm:
+  provider: "codex-cli"
+  model: "gpt-5.6"
+  max_tokens: 7000
+  timeout: 900000
+  retry: 2
+
+concurrency: 3
+
+inputs:
+  - name: mission
+    required: true
+  - name: reference_render
+    required: true
+
+steps:
+  - id: product_context
+    role: "product/product-manager"
+    task: |
+      Act as CRETIQ Product Manager.
+      Read the repository mission, product specification, current roadmap/hand-off, and PR #34 context.
+      Define the exact product outcome for Mission 001, identify what must be preserved,
+      and list explicit out-of-scope work.
+
+      Mission:
+      {{mission}}
+
+      Reference render:
+      {{reference_render}}
+    output: product_context
+
+  - id: creative_direction
+    role: "design/design-visual-storyteller"
+    task: |
+      Act as the Creative Director / Visual Storyteller for CRETIQ.
+      Convert the reference render into a practical visual direction for a real engineering web product.
+      Define composition, hierarchy, image treatment, visual rhythm, tone, and the qualities that
+      distinguish premium industrial engineering from a generic admin dashboard.
+      Do not invent new feature requirements.
+
+      Mission:
+      {{mission}}
+
+      Product context:
+      {{product_context}}
+
+      Reference render:
+      {{reference_render}}
+    output: creative_direction
+    depends_on: [product_context]
+
+  - id: ux_direction
+    role: "design/design-ux-architect"
+    task: |
+      Act as CRETIQ UX / Design Systems Architect.
+      Design the reusable page structure, information hierarchy, spacing rhythm, responsive behavior,
+      interaction states, and component boundaries needed to implement the approved visual direction
+      without rewriting the 6044 learning architecture.
+
+      Mission:
+      {{mission}}
+
+      Product context:
+      {{product_context}}
+
+      Creative direction:
+      {{creative_direction}}
+    output: ux_direction
+    depends_on: [product_context, creative_direction]
+
+  - id: engineering_architecture
+    role: "engineering/engineering-software-architect"
+    task: |
+      Act as the senior software architect.
+      Inspect the current static-first architecture and define the minimum safe implementation plan
+      for the workspace redesign. Prefer existing shared engine/CSS/navigation primitives.
+      Flag risky changes, unnecessary dependencies, regressions, and anything that could break
+      source-grounded 6044 behavior.
+
+      Mission:
+      {{mission}}
+
+      Product context:
+      {{product_context}}
+    output: engineering_architecture
+    depends_on: [product_context]
+
+  - id: design_system
+    role: "design/design-ui-designer"
+    task: |
+      Act as the UI Designer.
+      Produce a concrete reusable visual system derived from the creative and UX directions:
+      typography scale, color roles, surfaces, borders, radii, shadows, spacing, responsive breakpoints,
+      component hierarchy, states, and anti-patterns.
+      Explicitly eliminate giant typography, cluttered backgrounds, generic card grids, and decorative
+      motion that has no product purpose.
+
+      Creative direction:
+      {{creative_direction}}
+
+      UX direction:
+      {{ux_direction}}
+    output: design_system
+    depends_on: [creative_direction, ux_direction]
+
+  - id: implementation_plan
+    role: "engineering/engineering-frontend-developer"
+    task: |
+      Act as the Frontend Developer.
+      Turn the approved design system + architecture constraints into a focused implementation plan
+      for /workspace. Name the existing files/components to reuse or edit, the new files only when
+      necessary, the interaction to implement, and the test changes required.
+      Do not write production code in this step; produce an implementation-ready patch plan.
+
+      UX direction:
+      {{ux_direction}}
+
+      Design system:
+      {{design_system}}
+
+      Engineering architecture:
+      {{engineering_architecture}}
+    output: implementation_plan
+    depends_on: [ux_direction, design_system, engineering_architecture]
+
+  - id: risk_review
+    role: "testing/testing-reality-checker"
+    task: |
+      Act as QA / Reality Checker.
+      Review the proposed implementation for product-quality risks.
+      Check desktop/mobile/RTL/reduced-motion/accessibility, visual hierarchy, console/runtime risk,
+      source-integrity risk, and whether the plan actually closes the gap between the reference render
+      and the real UI. Produce blockers and exact acceptance tests.
+
+      Product context:
+      {{product_context}}
+
+      Creative direction:
+      {{creative_direction}}
+
+      Design system:
+      {{design_system}}
+
+      Implementation plan:
+      {{implementation_plan}}
+    output: risk_review
+    depends_on: [implementation_plan]
+
+  - id: code_review_strategy
+    role: "engineering/engineering-code-reviewer"
+    task: |
+      Act as a senior code reviewer preparing the merge gate.
+      Define the focused review checklist for the implementation PR.
+      Concentrate on correctness, maintainability, regression risk, accessibility, performance,
+      and avoiding one-off styling that undermines the reusable design system.
+
+      Engineering architecture:
+      {{engineering_architecture}}
+
+      Implementation plan:
+      {{implementation_plan}}
+
+      QA risk review:
+      {{risk_review}}
+    output: code_review_strategy
+    depends_on: [engineering_architecture, implementation_plan, risk_review]
+
+  - id: lead_synthesis
+    role: "product/product-manager"
+    task: |
+      Act as CRETIQ Lead.
+      Synthesize all specialist outputs into one execution packet for Mission 001.
+      Produce:
+      1. final design direction
+      2. exact implementation sequence
+      3. files likely to change
+      4. acceptance criteria
+      5. blockers / stop conditions
+      6. final Go / No-Go for coding
+
+      Do not expand scope beyond /workspace.
+
+      Product context:
+      {{product_context}}
+
+      Creative direction:
+      {{creative_direction}}
+
+      UX direction:
+      {{ux_direction}}
+
+      Engineering architecture:
+      {{engineering_architecture}}
+
+      Design system:
+      {{design_system}}
+
+      Implementation plan:
+      {{implementation_plan}}
+
+      QA risk review:
+      {{risk_review}}
+
+      Code review strategy:
+      {{code_review_strategy}}
+    output: execution_packet
+    depends_on: [product_context, creative_direction, ux_direction, engineering_architecture, design_system, implementation_plan, risk_review, code_review_strategy]
+    acceptance: "A focused /workspace execution packet exists, scope is bounded, visual acceptance is explicit, and the team gives a clear Go/No-Go."
+
