@@ -83,3 +83,6 @@ PDF اصلی و صفحات خام منبع عمداً در خروجی عمومی
 طراحی و توسعه: **Mohammadreza Azarmi**
 
 <!-- Agent HQ E2E probe marker. -->
+
+
+<!-- E2E sync pulse. -->
