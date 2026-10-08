@@ -51,7 +51,7 @@ jobs:
         run: |
           set -euo pipefail
           test -n "${AGENT_HQ_REPO_TOKEN:-}" || {
-            echo "Missing AGENT_HQ_COPILOT_TOKEN in standard-6044-interactive."
+            echo "Missing AGENT_HQ_REPO_TOKEN in standard-6044-interactive."
             exit 2
           }
           export GH_TOKEN="${AGENT_HQ_REPO_TOKEN}"
@@ -62,7 +62,7 @@ jobs:
         working-directory: ${{ runner.temp }}/agent-hq
         env:
           COPILOT_GITHUB_TOKEN: ${{ secrets.AGENT_HQ_COPILOT_TOKEN }}
-          GH_TOKEN: ${{ secrets.AGENT_HQ_COPILOT_TOKEN }}
+          GH_TOKEN: ${{ secrets.AGENT_HQ_REPO_TOKEN }}
         run: |
           set +e
           issue_json="$(gh issue view 125 --repo azarmi8/agent-hq --json number,title,body,comments)"
