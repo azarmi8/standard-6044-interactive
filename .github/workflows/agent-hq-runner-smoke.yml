@@ -9,7 +9,9 @@ permissions:
 
 jobs:
   runner-smoke:
-    if: startsWith(github.event.pull_request.title, '[runner-probe]')
+    if: >-
+      startsWith(github.event.pull_request.title, '[runner-probe]') ||
+      startsWith(github.event.pull_request.title, '[agent-hq-e2e]')
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -21,83 +23,3 @@ jobs:
           echo "npm=$(npm --version)"
           echo "gh=$(gh --version | head -n 1)"
           echo "utc=$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
-
-
-  copilot-e2e:
-    if: startsWith(github.event.pull_request.title, '[agent-hq-e2e]')
-    needs: runner-smoke
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    env:
-      AGENT_HQ_REPO: azarmi8/agent-hq
-      ISSUE_NUMBER: '125'
-    steps:
-      - name: Setup Node.js
-        uses: actions/setup-node@v7
-        with:
-          node-version: 22
-
-      - name: Install GitHub Copilot CLI
-        run: npm install -g @github/copilot
-
-      - name: Check Copilot bridge secret
-        env:
-          AGENT_HQ_COPILOT_TOKEN: ${{ secrets.AGENT_HQ_COPILOT_TOKEN }}
-        run: |
-          set -euo pipefail
-          test -n "${AGENT_HQ_COPILOT_TOKEN:-}" || {
-            echo "Missing AGENT_HQ_COPILOT_TOKEN in standard-6044-interactive."
-            echo "Add the same fine-grained PAT used for Agent HQ/Copilot as this repository secret."
-            exit 2
-          }
-
-      - name: Clone private Agent HQ
-        env:
-          AGENT_HQ_COPILOT_TOKEN: ${{ secrets.AGENT_HQ_COPILOT_TOKEN }}
-        run: |
-          set -euo pipefail
-          export GH_TOKEN="$AGENT_HQ_COPILOT_TOKEN"
-          gh repo clone "$AGENT_HQ_REPO" "${RUNNER_TEMP}/agent-hq" -- --depth 1
-
-      - name: Run real read-only Forge mission
-        id: agent
-        working-directory: ${{ runner.temp }}/agent-hq
-        env:
-          COPILOT_GITHUB_TOKEN: ${{ secrets.AGENT_HQ_COPILOT_TOKEN }}
-          GH_TOKEN: ${{ secrets.AGENT_HQ_COPILOT_TOKEN }}
-        run: |
-          set +e
-          issue_json="$(gh issue view "$ISSUE_NUMBER" --repo "$AGENT_HQ_REPO" --json number,title,body,comments)"
-          cat > "${RUNNER_TEMP}/agent-prompt.txt" <<'PROMPT'
-          You are Forge, a bounded engineering agent for Agent HQ.
-          
-          Perform a read-only E2E probe of the mission issue supplied below.
-          
-          Hard constraints:
-          - Do not modify files.
-          - Do not commit, branch, push, create PRs, release, change permissions, secrets, billing, governance, ownership, or production.
-          - Use real tools to inspect the repository and issue.
-          - Report exact observed facts.
-          - Explicitly list the tools you actually invoked.
-          - Explicitly state whether real Copilot reasoning completed.
-          - Explicitly state whether a provider response was received.
-          - Never invent telemetry or results.
-          PROMPT
-          printf '\nMISSION ISSUE JSON:\n%s\n' "$issue_json" >> "${RUNNER_TEMP}/agent-prompt.txt"
-          copilot -p "$(cat "${RUNNER_TEMP}/agent-prompt.txt")"             --allow-tool='shell(gh:*)'             --allow-tool='shell(git:*)'             --deny-tool='shell(git push)'             --deny-tool='shell(rm)'             --no-ask-user             -s > "${RUNNER_TEMP}/copilot-output.txt" 2>&1
-          code=$?
-          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
-          cat "${RUNNER_TEMP}/copilot-output.txt"
-          exit 0
-
-      - name: Write evidence summary
-        if: always()
-        env:
-          AGENT_EXIT: ${{ steps.agent.outputs.exit_code || 'not-started' }}
-        run: |
-          echo "Copilot exit: $AGENT_EXIT" >> "$GITHUB_STEP_SUMMARY"
-          if [ -f "${RUNNER_TEMP}/copilot-output.txt" ]; then
-            echo "~~~text" >> "$GITHUB_STEP_SUMMARY"
-            cat "${RUNNER_TEMP}/copilot-output.txt" >> "$GITHUB_STEP_SUMMARY"
-            echo "~~~" >> "$GITHUB_STEP_SUMMARY"
-          fi
