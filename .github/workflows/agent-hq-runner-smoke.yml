@@ -3,6 +3,9 @@ name: Agent HQ Runner Smoke
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+  push:
+    branches:
+      - agent-hq-forge-e2e-20261008
 
 permissions:
   contents: read
