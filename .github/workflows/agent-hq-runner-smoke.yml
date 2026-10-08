@@ -81,10 +81,8 @@ jobs:
             --arg career_mode "supervised-validation" \
             --arg validation_mode "git-diff-check" \
             --arg marker "$marker" \
-            '{agent_id:$agent_id,mission_id:$mission_id,task_title:$task_title,task_instructions:$task_instructions,agent_role:$agent_role,required_capabilities:$required_capabilities,career_mode:$career_mode,validation_mode:$validation_mode} | . as $o | $o')"
-          gh issue comment 125 --repo azarmi8/agent-hq --body "/bridge-mission $payload
-
-$marker"
+            '{agent_id:$agent_id,mission_id:$mission_id,task_title:$task_title,task_instructions:$task_instructions,agent_role:$agent_role,required_capabilities:$required_capabilities,career_mode:$career_mode,validation_mode:$validation_mode,bridge_marker:$marker}')"
+          gh issue comment 125 --repo azarmi8/agent-hq --body "/bridge-mission $payload"
           echo "Agent HQ mission request posted via issue comment."
 
       - name: Run real Forge read-only probe
