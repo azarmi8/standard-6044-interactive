@@ -71,20 +71,20 @@ jobs:
           set +e
           issue_json="$(gh issue view "$ISSUE_NUMBER" --repo "$AGENT_HQ_REPO" --json number,title,body,comments)"
           cat > "${RUNNER_TEMP}/agent-prompt.txt" <<'PROMPT'
-You are Forge, a bounded engineering agent for Agent HQ.
-
-Perform a read-only E2E probe of the mission issue supplied below.
-
-Hard constraints:
-- Do not modify files.
-- Do not commit, branch, push, create PRs, release, change permissions, secrets, billing, governance, ownership, or production.
-- Use real tools to inspect the repository and issue.
-- Report exact observed facts.
-- Explicitly list the tools you actually invoked.
-- Explicitly state whether real Copilot reasoning completed.
-- Explicitly state whether a provider response was received.
-- Never invent telemetry or results.
-PROMPT
+          You are Forge, a bounded engineering agent for Agent HQ.
+          
+          Perform a read-only E2E probe of the mission issue supplied below.
+          
+          Hard constraints:
+          - Do not modify files.
+          - Do not commit, branch, push, create PRs, release, change permissions, secrets, billing, governance, ownership, or production.
+          - Use real tools to inspect the repository and issue.
+          - Report exact observed facts.
+          - Explicitly list the tools you actually invoked.
+          - Explicitly state whether real Copilot reasoning completed.
+          - Explicitly state whether a provider response was received.
+          - Never invent telemetry or results.
+          PROMPT
           printf '\nMISSION ISSUE JSON:\n%s\n' "$issue_json" >> "${RUNNER_TEMP}/agent-prompt.txt"
           copilot -p "$(cat "${RUNNER_TEMP}/agent-prompt.txt")"             --allow-tool='shell(gh:*)'             --allow-tool='shell(git:*)'             --deny-tool='shell(git push)'             --deny-tool='shell(rm)'             --no-ask-user             -s > "${RUNNER_TEMP}/copilot-output.txt" 2>&1
           code=$?
