@@ -37,16 +37,24 @@ jobs:
       - name: Install Copilot CLI
         run: npm install -g @github/copilot
 
-      - name: Clone private Agent HQ
+      - name: Verify private Agent HQ read access
         env:
-          AGENT_HQ_COPILOT_TOKEN: ${{ secrets.AGENT_HQ_COPILOT_TOKEN }}
+          AGENT_HQ_REPO_TOKEN: ${{ secrets.AGENT_HQ_REPO_TOKEN }}
         run: |
           set -euo pipefail
-          test -n "${AGENT_HQ_COPILOT_TOKEN:-}" || {
+          test -n "${AGENT_HQ_REPO_TOKEN:-}" || { echo "Missing AGENT_HQ_REPO_TOKEN in standard-6044-interactive."; exit 2; }
+          GH_TOKEN="$AGENT_HQ_REPO_TOKEN" gh repo view azarmi8/agent-hq --json nameWithOwner --jq .nameWithOwner
+
+      - name: Clone private Agent HQ
+        env:
+          AGENT_HQ_REPO_TOKEN: ${{ secrets.AGENT_HQ_REPO_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "${AGENT_HQ_REPO_TOKEN:-}" || {
             echo "Missing AGENT_HQ_COPILOT_TOKEN in standard-6044-interactive."
             exit 2
           }
-          export GH_TOKEN="$AGENT_HQ_COPILOT_TOKEN"
+          export GH_TOKEN="${AGENT_HQ_REPO_TOKEN}"
           gh repo clone azarmi8/agent-hq "${RUNNER_TEMP}/agent-hq" -- --depth 1
 
       - name: Run real Forge read-only probe
