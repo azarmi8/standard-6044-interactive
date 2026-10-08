@@ -75,7 +75,7 @@ jobs:
           test -s "${RUNNER_TEMP}/issue-125.json"
           echo "Private Agent HQ issue #125 REST read access: OK"
 
-      - name: Run real Forge read-only probe
+      - name: Run real Forge bounded workspace probe
         id: agent
         working-directory: ${{ runner.temp }}/agent-hq
         env:
@@ -84,13 +84,24 @@ jobs:
         run: |
           set +e
           issue_json="$(cat "${RUNNER_TEMP}/issue-125.json")"
-          prompt="You are Forge, a bounded engineering agent for Agent HQ. Perform a read-only E2E probe of issue 125. Inspect the repository and issue using real tools. Do not modify files, commits, branches, PRs, workflows, secrets, permissions, billing, governance, ownership, or production. Report exact observed facts. Explicitly state whether real Copilot reasoning completed, which real tools you invoked, and whether a provider response was received. Never fabricate telemetry."
+          proof_phrase="FORGE_E2E_TOOL_PROOF_20261008"
+          prompt="You are Forge, a bounded engineering agent for Agent HQ. Execute a real, read/write-but-local E2E probe against issue 125. Inspect the repository and issue using real tools. Create a file named FORGE-E2E-PROOF.md in the repository workspace containing exactly the proof phrase '${proof_phrase}', then use git status/diff to verify the file exists and the diff is cleanly formed. Do not commit, push, create branches or PRs, modify workflows, secrets, permissions, billing, governance, ownership, or production. Do not attempt to inspect Actions workflow runs. In your final response report exact observed facts, the tools you actually invoked, and whether the provider responded. Never fabricate telemetry."
           full_prompt="$(printf '%s\n\nMISSION ISSUE JSON:\n%s' "$prompt" "$issue_json")"
-          copilot -p "$full_prompt" --allow-tool="shell(gh:*)" --allow-tool="shell(git:*)" --deny-tool="shell(git push)" --deny-tool="shell(rm)" --no-ask-user -s > "${RUNNER_TEMP}/copilot-output.txt" 2>&1
+          copilot -p "$full_prompt" --allow-tool="shell(gh:*)" --allow-tool="shell(git:*)" --allow-tool="write" --deny-tool="shell(git push)" --deny-tool="shell(rm)" --no-ask-user -s > "${RUNNER_TEMP}/copilot-output.txt" 2>&1
           code=$?
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
           cat "${RUNNER_TEMP}/copilot-output.txt"
           exit 0
+
+      - name: Verify Forge tool-produced artifact
+        if: always()
+        working-directory: ${{ runner.temp }}/agent-hq
+        run: |
+          set -euo pipefail
+          test -f FORGE-E2E-PROOF.md
+          grep -Fxq "FORGE_E2E_TOOL_PROOF_20261008" FORGE-E2E-PROOF.md
+          git diff --check
+          echo "Forge tool-produced workspace artifact: OK" | tee -a "$GITHUB_STEP_SUMMARY"
 
       - name: Write Forge evidence
         if: always()
