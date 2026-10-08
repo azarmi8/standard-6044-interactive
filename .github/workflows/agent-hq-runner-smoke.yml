@@ -77,14 +77,13 @@ jobs:
 
       - name: Run real Forge read-only probe
         id: agent
-        working-directory: ${{ runner.temp }}/agent-hq
         env:
           COPILOT_GITHUB_TOKEN: ${{ secrets.AGENT_HQ_COPILOT_TOKEN }}
           GH_TOKEN: ${{ secrets.AGENT_HQ_REPO_TOKEN }}
         run: |
           set +e
           issue_json="$(gh issue view 125 --repo azarmi8/agent-hq --json number,title,body,comments)"
-          prompt="You are Forge, a bounded engineering agent for Agent HQ. Perform a read-only E2E probe of issue 125. Inspect the repository and issue using real tools. Do not modify files, commits, branches, PRs, workflows, secrets, permissions, billing, governance, ownership, or production. Report exact observed facts. Explicitly state whether real Copilot reasoning completed, which real tools you invoked, and whether a provider response was received. Never fabricate telemetry."
+          prompt="You are Forge, a bounded engineering agent for Agent HQ. Perform a read-only E2E probe of issue 125 using real GitHub tools. Do not modify files, commits, branches, PRs, workflows, secrets, permissions, billing, governance, ownership, or production. Report exact observed facts. Explicitly state whether real Copilot reasoning completed, which real tools you invoked, and whether a provider response was received. Never fabricate telemetry."
           full_prompt="$(printf '%s\n\nMISSION ISSUE JSON:\n%s' "$prompt" "$issue_json")"
           copilot -p "$full_prompt" --allow-tool="shell(gh:*)" --allow-tool="shell(git:*)" --deny-tool="shell(git push)" --deny-tool="shell(rm)" --no-ask-user -s > "${RUNNER_TEMP}/copilot-output.txt" 2>&1
           code=$?
