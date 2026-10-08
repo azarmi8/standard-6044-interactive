@@ -1,0 +1,23 @@
+name: Agent HQ Runner Smoke
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  runner-smoke:
+    if: startsWith(github.event.pull_request.title, '[runner-probe]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Runner identity
+        run: |
+          set -euo pipefail
+          echo "runner=$(uname -a)"
+          echo "node=$(node --version)"
+          echo "npm=$(npm --version)"
+          echo "gh=$(gh --version | head -n 1)"
+          echo "utc=$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
