@@ -25,7 +25,9 @@ jobs:
           echo "utc=$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
 
   forge-e2e:
-    if: startsWith(github.event.pull_request.title, '[agent-hq-e2e]')
+    if: >-
+      startsWith(github.event.pull_request.title, '[agent-hq-e2e]') ||
+      startsWith(github.head_ref, 'fix/agent-hq-issue-comment-bridge-')
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -45,28 +47,43 @@ jobs:
           test -n "${AGENT_HQ_REPO_TOKEN:-}" || { echo "Missing AGENT_HQ_REPO_TOKEN in standard-6044-interactive."; exit 2; }
           GH_TOKEN="$AGENT_HQ_REPO_TOKEN" gh repo view azarmi8/agent-hq --json nameWithOwner --jq .nameWithOwner
 
-      - name: Clone private Agent HQ
+      - name: Request real Agent HQ mission via issue comment
+        id: mission_request
         env:
           AGENT_HQ_REPO_TOKEN: ${{ secrets.AGENT_HQ_REPO_TOKEN }}
         run: |
           set -euo pipefail
-          test -n "${AGENT_HQ_REPO_TOKEN:-}" || {
-            echo "Missing AGENT_HQ_REPO_TOKEN in standard-6044-interactive."
-            exit 2
-          }
+          test -n "${AGENT_HQ_REPO_TOKEN:-}" || { echo "Missing AGENT_HQ_REPO_TOKEN"; exit 2; }
           export GH_TOKEN="${AGENT_HQ_REPO_TOKEN}"
-          gh repo clone azarmi8/agent-hq "${RUNNER_TEMP}/agent-hq" -- --depth 1
+          marker="<!-- agent-hq-bridge-mission:bridge-e2e-${{ github.run_id }} -->"
+          comments="$(gh api --paginate "/repos/azarmi8/agent-hq/issues/125/comments" --jq '.[].body')"
+          if grep -Fq "$marker" <<< "$comments"; then
+            echo "Mission request already exists; idempotent replay skipped."
+            exit 0
+          fi
+          payload="$(jq -nc \
+            --arg agent_id "forge-001" \
+            --arg mission_id "bridge-e2e-${{ github.run_id }}" \
+            --arg task_title "Bridge E2E supervised mission" \
+            --arg task_instructions "Inspect repository and report current state. Make no code changes. This is a bounded supervised validation run." \
+            --arg agent_role "coding" \
+            --arg required_capabilities "repository-inspection,validation" \
+            --arg career_mode "supervised-validation" \
+            --arg validation_mode "git-diff-check" \
+            --arg marker "$marker" \
+            '{agent_id:$agent_id,mission_id:$mission_id,task_title:$task_title,task_instructions:$task_instructions,agent_role:$agent_role,required_capabilities:$required_capabilities,career_mode:$career_mode,validation_mode:$validation_mode,bridge_marker:$marker}')"
+          gh issue comment 125 --repo azarmi8/agent-hq --body "/bridge-mission $payload"
+          echo "Agent HQ mission request posted via issue comment."
 
       - name: Run real Forge read-only probe
         id: agent
-        working-directory: ${{ runner.temp }}/agent-hq
         env:
           COPILOT_GITHUB_TOKEN: ${{ secrets.AGENT_HQ_COPILOT_TOKEN }}
           GH_TOKEN: ${{ secrets.AGENT_HQ_REPO_TOKEN }}
         run: |
           set +e
           issue_json="$(gh issue view 125 --repo azarmi8/agent-hq --json number,title,body,comments)"
-          prompt="You are Forge, a bounded engineering agent for Agent HQ. Perform a read-only E2E probe of issue 125. Inspect the repository and issue using real tools. Do not modify files, commits, branches, PRs, workflows, secrets, permissions, billing, governance, ownership, or production. Report exact observed facts. Explicitly state whether real Copilot reasoning completed, which real tools you invoked, and whether a provider response was received. Never fabricate telemetry."
+          prompt="You are Forge, a bounded engineering agent for Agent HQ. Perform a read-only E2E probe of issue 125 using real GitHub tools. Do not modify files, commits, branches, PRs, workflows, secrets, permissions, billing, governance, ownership, or production. Report exact observed facts. Explicitly state whether real Copilot reasoning completed, which real tools you invoked, and whether a provider response was received. Never fabricate telemetry."
           full_prompt="$(printf '%s\n\nMISSION ISSUE JSON:\n%s' "$prompt" "$issue_json")"
           copilot -p "$full_prompt" --allow-tool="shell(gh:*)" --allow-tool="shell(git:*)" --deny-tool="shell(git push)" --deny-tool="shell(rm)" --no-ask-user -s > "${RUNNER_TEMP}/copilot-output.txt" 2>&1
           code=$?
