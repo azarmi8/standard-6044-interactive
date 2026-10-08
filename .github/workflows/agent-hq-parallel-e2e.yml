@@ -1,0 +1,78 @@
+name: Agent HQ Parallel Model E2E
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  parallel-e2e:
+    if: >-
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      startsWith(github.event.pull_request.title, '[agent-hq-e2e]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout bridge
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Copilot CLI
+        run: npm install -g @github/copilot
+
+      - name: Clone private Agent HQ source of truth
+        env:
+          AGENT_HQ_SOURCE_TOKEN: ${{ secrets.AGENT_HQ_SOURCE_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "${AGENT_HQ_SOURCE_TOKEN:-}" || { echo "Missing AGENT_HQ_SOURCE_TOKEN (private Agent HQ Contents:Read credential)."; exit 2; }
+          GH_TOKEN="${AGENT_HQ_SOURCE_TOKEN}" gh repo clone azarmi8/agent-hq "${RUNNER_TEMP}/agent-hq"
+
+      - name: Install and build Agent HQ
+        working-directory: ${{ runner.temp }}/agent-hq
+        run: |
+          set -euo pipefail
+          npm install --no-audit --no-fund
+          npm run build
+
+      - name: Run three independent model brains
+        working-directory: ${{ runner.temp }}/agent-hq
+        env:
+          COPILOT_GITHUB_TOKEN: ${{ secrets.AGENT_HQ_COPILOT_TOKEN }}
+          PARALLEL_E2E_BRAINS: '3'
+          PARALLEL_E2E_EVIDENCE_FILE: ${{ runner.temp }}/parallel-model-e2e.json
+        run: |
+          set -euo pipefail
+          test -n "${COPILOT_GITHUB_TOKEN:-}" || { echo "Missing AGENT_HQ_COPILOT_TOKEN"; exit 2; }
+          node scripts/parallel-copilot-e2e.mjs
+
+      - name: Publish bounded E2E evidence to Agent HQ
+        if: always()
+        env:
+          AGENT_HQ_REPO_TOKEN: ${{ secrets.AGENT_HQ_REPO_TOKEN }}
+        run: |
+          set -euo pipefail
+          report="${RUNNER_TEMP}/parallel-model-e2e.json"
+          if [ ! -f "$report" ]; then
+            echo "No E2E evidence file exists."
+            exit 0
+          fi
+          summary="$(jq -c '{status,startedAt,finishedAt,brainCount,succeededBrains,failedBrains,winnerAgentId,winnerModelKey,typedToolCallsCompleted,distinctRunsObserved,outcomes: [.outcomes[] | {agentId,modelKey,status,succeeded,durationMs,evidenceRef,error}]}' "$report")"
+          body="## Parallel Model E2E\n\nPublic runner: ${{ github.run_id }}\nBridge PR: #${{ github.event.pull_request.number }}\n\n"
+          body="${body}\n\n${summary}"
+          GH_TOKEN="${AGENT_HQ_REPO_TOKEN}" gh issue comment 132 --repo azarmi8/agent-hq --body "$body"
+
+      - name: Verify typed event evidence
+        if: always()
+        run: |
+          set -euo pipefail
+          report="${RUNNER_TEMP}/parallel-model-e2e.json"
+          test -f "$report"
+          jq -e '.distinctRunsObserved >= 3' "$report"
+          jq -e '.typedToolCallsCompleted >= 3' "$report"
