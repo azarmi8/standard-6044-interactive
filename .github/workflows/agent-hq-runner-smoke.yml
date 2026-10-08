@@ -87,8 +87,7 @@ jobs:
 $marker"
           echo "Agent HQ mission request posted via issue comment."
 
-      - name:       - name: Run real Forge read-only probe
-
+      - name: Run real Forge read-only probe
         id: agent
         working-directory: ${{ runner.temp }}/agent-hq
         env:
