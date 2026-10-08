@@ -80,8 +80,8 @@ jobs:
         env:
           AGENT_HQ_REPO_TOKEN: ${{ secrets.AGENT_HQ_REPO_TOKEN }}
         run: |
-          set +e
-          test -n "${AGENT_HQ_REPO_TOKEN:-}" || { echo "Missing AGENT_HQ_REPO_TOKEN"; exit 0; }
+          set -euo pipefail
+          test -n "${AGENT_HQ_REPO_TOKEN:-}" || { echo "Missing AGENT_HQ_REPO_TOKEN"; exit 2; }
           export GH_TOKEN="${AGENT_HQ_REPO_TOKEN}"
           gh workflow run cloud-agent-mission.yml --repo azarmi8/agent-hq --ref main \
             -f agent_id=forge-001 \
@@ -92,9 +92,7 @@ jobs:
             -f required_capabilities=repository-inspection,validation \
             -f career_mode=supervised-validation \
             -f validation_mode=git-diff-check
-          code=$?
-          echo "dispatch_exit_code=$code" | tee -a "$GITHUB_STEP_SUMMARY"
-          exit 0
+          echo "dispatch_exit_code=0" | tee -a "$GITHUB_STEP_SUMMARY"
       - name: Run real Forge bounded workspace probe
         id: agent
         working-directory: ${{ runner.temp }}/agent-hq
