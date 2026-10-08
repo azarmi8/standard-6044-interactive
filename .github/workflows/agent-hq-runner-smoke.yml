@@ -75,6 +75,26 @@ jobs:
           test -s "${RUNNER_TEMP}/issue-125.json"
           echo "Private Agent HQ issue #125 REST read access: OK"
 
+      - name: Dispatch real Agent HQ supervised mission
+        id: mission_dispatch
+        env:
+          AGENT_HQ_REPO_TOKEN: ${{ secrets.AGENT_HQ_REPO_TOKEN }}
+        run: |
+          set +e
+          test -n "${AGENT_HQ_REPO_TOKEN:-}" || { echo "Missing AGENT_HQ_REPO_TOKEN"; exit 0; }
+          export GH_TOKEN="${AGENT_HQ_REPO_TOKEN}"
+          gh workflow run cloud-agent-mission.yml --repo azarmi8/agent-hq --ref main \
+            -f agent_id=forge-001 \
+            -f mission_id=bridge-e2e-${{ github.run_id }} \
+            -f task_title="Bridge E2E supervised mission" \
+            -f task_instructions="Inspect repository and report current state. Make no code changes. This is a bounded supervised validation run." \
+            -f agent_role=coding \
+            -f required_capabilities=repository-inspection,validation \
+            -f career_mode=supervised-validation \
+            -f validation_mode=git-diff-check
+          code=$?
+          echo "dispatch_exit_code=$code" | tee -a "$GITHUB_STEP_SUMMARY"
+          exit 0
       - name: Run real Forge bounded workspace probe
         id: agent
         working-directory: ${{ runner.temp }}/agent-hq
