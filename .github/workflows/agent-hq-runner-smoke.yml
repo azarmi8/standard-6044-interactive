@@ -47,18 +47,6 @@ jobs:
           test -n "${AGENT_HQ_REPO_TOKEN:-}" || { echo "Missing AGENT_HQ_REPO_TOKEN in standard-6044-interactive."; exit 2; }
           GH_TOKEN="$AGENT_HQ_REPO_TOKEN" gh repo view azarmi8/agent-hq --json nameWithOwner --jq .nameWithOwner
 
-      - name: Clone private Agent HQ
-        env:
-          AGENT_HQ_REPO_TOKEN: ${{ secrets.AGENT_HQ_REPO_TOKEN }}
-        run: |
-          set -euo pipefail
-          test -n "${AGENT_HQ_REPO_TOKEN:-}" || {
-            echo "Missing AGENT_HQ_REPO_TOKEN in standard-6044-interactive."
-            exit 2
-          }
-          export GH_TOKEN="${AGENT_HQ_REPO_TOKEN}"
-          gh repo clone azarmi8/agent-hq "${RUNNER_TEMP}/agent-hq" -- --depth 1
-
       - name: Request real Agent HQ mission via issue comment
         id: mission_request
         env:
