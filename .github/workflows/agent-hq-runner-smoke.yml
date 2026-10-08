@@ -9,6 +9,7 @@ on:
 
 permissions:
   contents: read
+  issues: write
 
 jobs:
   runner-smoke:
@@ -87,3 +88,28 @@ jobs:
           if [ -f "${RUNNER_TEMP}/copilot-output.txt" ]; then
             cat "${RUNNER_TEMP}/copilot-output.txt" >> "$GITHUB_STEP_SUMMARY"
           fi
+
+      - name: Publish Forge evidence to test PR
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          AGENT_EXIT: ${{ steps.agent.outputs.exit_code || 'not-started' }}
+        run: |
+          set -euo pipefail
+          body_file="${RUNNER_TEMP}/forge-pr-comment.md"
+          {
+            echo "## Forge E2E evidence"
+            echo
+            echo "- Workflow ref: `${GITHUB_REF}`"
+            echo "- Commit: `${GITHUB_SHA}`"
+            echo "- Forge exit code: `${AGENT_EXIT}`"
+            echo
+            if [ -f "${RUNNER_TEMP}/copilot-output.txt" ]; then
+              echo '```text'
+              cat "${RUNNER_TEMP}/copilot-output.txt"
+              echo '```'
+            else
+              echo "No Copilot output file was produced."
+            fi
+          } > "$body_file"
+          gh pr comment 39 --repo azarmi8/standard-6044-interactive --body-file "$body_file"
