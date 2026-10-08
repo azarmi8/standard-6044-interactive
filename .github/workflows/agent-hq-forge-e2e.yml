@@ -43,9 +43,8 @@ jobs:
           set +e
           issue_json="$(gh issue view 125 --repo azarmi8/agent-hq --json number,title,body,comments)"
           prompt="You are Forge, a bounded engineering agent for Agent HQ. Perform a read-only E2E probe. Inspect the repository and issue 125 using real tools. Do not modify files, commits, branches, PRs, workflows, secrets, permissions, billing, governance, or production. Report exact observed facts. Explicitly state whether your Copilot reasoning completed, which real tools you invoked, and whether a provider response was received. Never fabricate telemetry."
-          copilot -p "$prompt
-MISSION ISSUE JSON:
-$issue_json" --allow-tool='shell(gh:*)' --allow-tool='shell(git:*)' --deny-tool='shell(git push)' --deny-tool='shell(rm)' --no-ask-user -s > "${RUNNER_TEMP}/copilot-output.txt" 2>&1
+          full_prompt="$(printf "%s\n\nMISSION ISSUE JSON:\n%s" "$prompt" "$issue_json")"
+          copilot -p "$full_prompt" --allow-tool="shell(gh:*)" --allow-tool="shell(git:*)" --deny-tool="shell(git push)" --deny-tool="shell(rm)" --no-ask-user -s > "${RUNNER_TEMP}/copilot-output.txt" 2>&1
           code=$?
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
           cat "${RUNNER_TEMP}/copilot-output.txt"
