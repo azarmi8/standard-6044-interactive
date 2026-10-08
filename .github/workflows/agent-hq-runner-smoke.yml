@@ -67,7 +67,7 @@ jobs:
           export GH_TOKEN="${AGENT_HQ_REPO_TOKEN}"
           marker="<!-- agent-hq-bridge-mission:bridge-e2e-${{ github.run_id }} -->"
           comments="$(gh api --paginate "/repos/azarmi8/agent-hq/issues/125/comments" --jq '.[].body')"
-          if grep -Fqx "$marker" <<< "$comments"; then
+          if grep -Fq "$marker" <<< "$comments"; then
             echo "Mission request already exists; idempotent replay skipped."
             exit 0
           fi
