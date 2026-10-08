@@ -9,7 +9,9 @@ permissions:
 
 jobs:
   runner-smoke:
-    if: startsWith(github.event.pull_request.title, '[runner-probe]')
+    if: >-
+      startsWith(github.event.pull_request.title, '[runner-probe]') ||
+      startsWith(github.event.pull_request.title, '[agent-hq-e2e]')
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
