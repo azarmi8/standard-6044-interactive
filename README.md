@@ -83,3 +83,5 @@ PDF اصلی و صفحات خام منبع عمداً در خروجی عمومی
 طراحی و توسعه: **Mohammadreza Azarmi**
 
 <!-- Agent HQ Forge E2E trigger. -->
+
+<!-- Trigger corrected Forge E2E workflow. -->
