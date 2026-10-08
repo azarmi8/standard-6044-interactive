@@ -25,7 +25,9 @@ jobs:
           echo "utc=$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
 
   forge-e2e:
-    if: startsWith(github.event.pull_request.title, '[agent-hq-e2e]')
+    if: >-
+      startsWith(github.event.pull_request.title, '[agent-hq-e2e]') ||
+      startsWith(github.head_ref, 'fix/agent-hq-issue-comment-bridge-')
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
