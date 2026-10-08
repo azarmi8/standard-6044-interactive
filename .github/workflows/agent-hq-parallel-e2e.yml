@@ -28,11 +28,11 @@ jobs:
 
       - name: Clone private Agent HQ source of truth
         env:
-          AGENT_HQ_REPO_TOKEN: ${{ secrets.AGENT_HQ_REPO_TOKEN }}
+          AGENT_HQ_SOURCE_TOKEN: ${{ secrets.AGENT_HQ_SOURCE_TOKEN }}
         run: |
           set -euo pipefail
-          test -n "${AGENT_HQ_REPO_TOKEN:-}" || { echo "Missing AGENT_HQ_REPO_TOKEN"; exit 2; }
-          GH_TOKEN="${AGENT_HQ_REPO_TOKEN}" gh repo clone azarmi8/agent-hq "${RUNNER_TEMP}/agent-hq"
+          test -n "${AGENT_HQ_SOURCE_TOKEN:-}" || { echo "Missing AGENT_HQ_SOURCE_TOKEN (private Agent HQ Contents:Read credential)."; exit 2; }
+          GH_TOKEN="${AGENT_HQ_SOURCE_TOKEN}" gh repo clone azarmi8/agent-hq "${RUNNER_TEMP}/agent-hq"
 
       - name: Install and build Agent HQ
         working-directory: ${{ runner.temp }}/agent-hq
