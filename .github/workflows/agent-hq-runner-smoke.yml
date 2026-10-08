@@ -44,6 +44,7 @@ jobs:
           set -euo pipefail
           test -n "${AGENT_HQ_REPO_TOKEN:-}" || { echo "Missing AGENT_HQ_REPO_TOKEN in standard-6044-interactive."; exit 2; }
           GH_TOKEN="$AGENT_HQ_REPO_TOKEN" gh repo view azarmi8/agent-hq --json nameWithOwner --jq .nameWithOwner
+          echo "Private Agent HQ read access: OK"
 
       - name: Clone private Agent HQ
         env:
