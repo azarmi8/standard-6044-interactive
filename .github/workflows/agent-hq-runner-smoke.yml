@@ -57,7 +57,38 @@ jobs:
           export GH_TOKEN="${AGENT_HQ_REPO_TOKEN}"
           gh repo clone azarmi8/agent-hq "${RUNNER_TEMP}/agent-hq" -- --depth 1
 
-      - name: Run real Forge read-only probe
+      - name: Request real Agent HQ mission via issue comment
+        id: mission_request
+        env:
+          AGENT_HQ_REPO_TOKEN: ${{ secrets.AGENT_HQ_REPO_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "${AGENT_HQ_REPO_TOKEN:-}" || { echo "Missing AGENT_HQ_REPO_TOKEN"; exit 2; }
+          export GH_TOKEN="${AGENT_HQ_REPO_TOKEN}"
+          marker="<!-- agent-hq-bridge-mission:bridge-e2e-${{ github.run_id }} -->"
+          comments="$(gh api --paginate "/repos/azarmi8/agent-hq/issues/125/comments" --jq '.[].body')"
+          if grep -Fqx "$marker" <<< "$comments"; then
+            echo "Mission request already exists; idempotent replay skipped."
+            exit 0
+          fi
+          payload="$(jq -nc \
+            --arg agent_id "forge-001" \
+            --arg mission_id "bridge-e2e-${{ github.run_id }}" \
+            --arg task_title "Bridge E2E supervised mission" \
+            --arg task_instructions "Inspect repository and report current state. Make no code changes. This is a bounded supervised validation run." \
+            --arg agent_role "coding" \
+            --arg required_capabilities "repository-inspection,validation" \
+            --arg career_mode "supervised-validation" \
+            --arg validation_mode "git-diff-check" \
+            --arg marker "$marker" \
+            '{agent_id:$agent_id,mission_id:$mission_id,task_title:$task_title,task_instructions:$task_instructions,agent_role:$agent_role,required_capabilities:$required_capabilities,career_mode:$career_mode,validation_mode:$validation_mode} | . as $o | $o')"
+          gh issue comment 125 --repo azarmi8/agent-hq --body "/bridge-mission $payload
+
+$marker"
+          echo "Agent HQ mission request posted via issue comment."
+
+      - name:       - name: Run real Forge read-only probe
+
         id: agent
         working-directory: ${{ runner.temp }}/agent-hq
         env:
