@@ -1,0 +1,50 @@
+name: Agent HQ Copilot Parallel Brain Proof
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  brain:
+    if: >-
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      startsWith(github.event.pull_request.title, '[agent-hq-copilot-e2e]')
+    strategy:
+      fail-fast: false
+      matrix:
+        brain: [1, 2, 3]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Copilot CLI
+        run: npm install -g @github/copilot
+
+      - name: Run independent brain
+        env:
+          COPILOT_GITHUB_TOKEN: ${{ secrets.AGENT_HQ_COPILOT_TOKEN }}
+          BRAIN_ID: ${{ matrix.brain }}
+        run: |
+          set -euo pipefail
+          test -n "${COPILOT_GITHUB_TOKEN:-}" || { echo "Missing AGENT_HQ_COPILOT_TOKEN"; exit 2; }
+          case "$BRAIN_ID" in
+            1) prompt="You are Brain 1 in a parallel Agent Society experiment. Return exactly: BRAIN-1-ALIVE plus one sentence explaining why independent validation matters." ;;
+            2) prompt="You are Brain 2 in a parallel Agent Society experiment. Return exactly: BRAIN-2-ALIVE plus one sentence explaining why independent validation matters." ;;
+            3) prompt="You are Brain 3 in a parallel Agent Society experiment. Return exactly: BRAIN-3-ALIVE plus one sentence explaining why independent validation matters." ;;
+          esac
+          copilot -p "$prompt" -s --no-ask-user --secret-env-vars COPILOT_GITHUB_TOKEN | tee "${RUNNER_TEMP}/brain-${BRAIN_ID}.txt"
+          grep -Fq "BRAIN-${BRAIN_ID}-ALIVE" "${RUNNER_TEMP}/brain-${BRAIN_ID}.txt"
+          echo "## Brain ${BRAIN_ID}" >> "$GITHUB_STEP_SUMMARY"
+          cat "${RUNNER_TEMP}/brain-${BRAIN_ID}.txt" >> "$GITHUB_STEP_SUMMARY"
+      - name: Reject secret leakage in output
+        if: always()
+        run: |
+          set -euo pipefail
+          ! grep -RqiE 'ghp_|github_pat_|Bearer |sk-[A-Za-z0-9]' "${RUNNER_TEMP}/brain-${{ matrix.brain }}.txt"
