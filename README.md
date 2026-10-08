@@ -81,3 +81,5 @@ PDF اصلی و صفحات خام منبع عمداً در خروجی عمومی
 **CRETIQ 6044**  
 سامانه آموزش و تمرین مهندسی  
 طراحی و توسعه: **Mohammadreza Azarmi**
+
+<!-- Agent HQ Forge E2E trigger. -->
